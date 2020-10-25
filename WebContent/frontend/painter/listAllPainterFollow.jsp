@@ -83,7 +83,7 @@
 				<div class="col-xs-12 col-sm-12">
 						
 						<!-- 查詢的會員的照片 -->
-						<img class="ycl-sidebar-member-pic pull-left" src="<%=request.getContextPath()%>/members/mem.do?mem_id=${pageScope.sid}">
+						<img class="ycl-sidebar-member-pic pull-left" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${pageScope.sid}">
 						<div>
 							<c:set var="sLv" value="${sMemSvc.findByPrimaryKey(sid).lv}"/>
 							<c:set var="lvVO" value="${lvSvc.findByPrimaryKey(sLv)}"/>
@@ -227,7 +227,7 @@
 									
 									<!-- 作者資訊 -->
 									<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${painterVO.mem_id}">									<!-- 作品作者 -->
-										<img class="ycl-creator-pic" src="<%=request.getContextPath()%>/members/mem.do?mem_id=${painterVO.mem_id}"></img>
+										<img class="ycl-creator-pic" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${painterVO.mem_id}"></img>
 										<span class="ycl-creator-acct">${sMemSvc.findByPrimaryKey(painterVO.mem_id).m_accno}</span>
 									</a>
 									

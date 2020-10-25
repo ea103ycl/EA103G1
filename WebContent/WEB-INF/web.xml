@@ -18,23 +18,48 @@
 	</resource-ref>
 	
   
-<!--   ==YCL TEST=========================================== -->
+<!--== Caroline =========================================== -->
 
-	  <servlet>
+  <servlet>
+    <servlet-name>HeadphotoHandler</servlet-name>
+    <servlet-class>com.mem.controller.HeadphotoHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HeadphotoHandler</servlet-name>
+    <url-pattern>/members/headphotoHandler.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>MemLoginHandler</servlet-name>
+    <servlet-class>com.mem.controller.MemLoginHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemLoginHandler</servlet-name>
+    <url-pattern>/frontend/members/memLoginHandler.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
     <servlet-name>MemServlet</servlet-name>
     <servlet-class>com.mem.controller.MemServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MemServlet</servlet-name>
-    <url-pattern>/members/mem.do</url-pattern>
+    <url-pattern>/frontend/members/mem.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>WelRecordServlet</servlet-name>
+    <servlet-class>com.wel_record.controller.WelRecordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WelRecordServlet</servlet-name>
+    <url-pattern>/welRecord/welRecord.do</url-pattern>
   </servlet-mapping>
   
+
   
-  
-  
-  
-  
-<!--   ==YCL START=========================================== -->
+<!--== YCL START=========================================== -->
   <servlet>
     <servlet-name>LvServlet</servlet-name>
     <servlet-class>com.lv.controller.LvServlet</servlet-class>

@@ -94,7 +94,7 @@
 				<div class="col-xs-12 col-sm-12">
 						
 						<!-- 查詢的會員的照片 -->
-						<img class="ycl-sidebar-member-pic pull-left" src="<%=request.getContextPath()%>/members/mem.do?mem_id=${pageScope.sid}">
+						<img class="ycl-sidebar-member-pic pull-left" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${pageScope.sid}">
 						<div>
 							<c:set var="sLv" value="${sMemSvc.findByPrimaryKey(sid).lv}"/>
 							<c:set var="lvVO" value="${lvSvc.findByPrimaryKey(sLv)}"/>

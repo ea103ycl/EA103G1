@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public interface MemDAO_interface {
-	
-	public byte[] getMemberPhoto(String mem_id);
+public interface MemDAO_interface
+{
 
 	public void insert(MemVO memVO);
+
+	public void insertPhoto(String mem_id, byte[] photo);
 
 	public void updateByUser(MemVO memVO);
 
@@ -18,7 +19,7 @@ public interface MemDAO_interface {
 
 	public MemVO findByPrimaryKey(String mem_id);
 
-	public MemVO findByAccno(String m_accno);
+	public MemVO findByAccnoEmail(String m_accno);
 
 	public List<MemVO> findByPKNameAcc(String str);
 
@@ -28,6 +29,10 @@ public interface MemDAO_interface {
 
 	public List<MemVO> getAll();
 
+	public byte[] getPhoto(String mem_id);
+
 	public MemVO updateBalance(int amount, MemVO memVO, Connection con);
+
+	public void updatePsw(String mem_id, String m_psw);
 
 }

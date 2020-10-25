@@ -93,7 +93,7 @@
 	            			
 	            				<!-- 創作者頭像&會員帳號 -->
 	            				<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${painterVO.mem_id}">
-	            					<img class="ycl-creator-pic" src="<%=request.getContextPath()%>/members/mem.do?mem_id=${painterVO.mem_id}">
+	            					<img class="ycl-creator-pic" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${painterVO.mem_id}">
 	            					${sMembersSvc.findByPrimaryKey(painterVO.mem_id).getM_accno()}
 	            				</a>
 	            				
@@ -132,7 +132,7 @@
 		                            <div class="media-left">
 		                            
 		                                <a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${painterMsgVO.mem_id}">
-		                                    <img class="media-object" alt="" src="<%=request.getContextPath()%>/members/mem.do?mem_id=${painterMsgVO.mem_id}">
+		                                    <img class="media-object" alt="" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${painterMsgVO.mem_id}">
 		                                </a>
 		                            </div>
 		                            

@@ -177,7 +177,7 @@
 		        if(1 == result[0].followdInd){
 		        	var text1, text2, text3;
 		        	text1 = "<tr id='fansTr${loginMemVO.mem_id}'><td><a href='<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${loginMemVO.mem_id}'> ";
-		        	text2 = "<img class='ycl-fans-list-pic' src='<%=request.getContextPath()%>/members/mem.do?mem_id=${loginMemVO.mem_id}'> ";
+		        	text2 = "<img class='ycl-fans-list-pic' src='<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${loginMemVO.mem_id}'> ";
 		        	text3 = "<span>${loginMemVO.m_accno}</span></a></td></tr>";
 		        	console.log("text1", text1);
 		        	console.log("text2", text2);
