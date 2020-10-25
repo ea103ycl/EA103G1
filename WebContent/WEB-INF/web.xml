@@ -58,8 +58,53 @@
   </servlet-mapping>
   
 
+<!--== Jeff =========================================== --> 
+  <servlet>
+    <servlet-name>EmpServlet</servlet-name>
+    <servlet-class>com.emp.controller.EmpServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmpServlet</servlet-name>
+    <url-pattern>/backend/emp/emp.do</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>EmpPhoto</servlet-name>
+    <servlet-class>com.emp.controller.EmpPhoto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmpPhoto</servlet-name>
+    <url-pattern>/backend/emp/emp.pic</url-pattern>
+  </servlet-mapping>
   
-<!--== YCL START=========================================== -->
+  <servlet>
+    <servlet-name>LoginHandler</servlet-name>
+    <servlet-class>com.emp.controller.LoginHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginHandler</servlet-name>
+    <url-pattern>/backend/emp/emp.login</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>MaterialServlet</servlet-name>
+    <servlet-class>com.material.controller.MaterialServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MaterialServlet</servlet-name>
+    <url-pattern>/backend/material/mat.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>MatPhoto</servlet-name>
+    <servlet-class>com.material.controller.MatPhoto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MatPhoto</servlet-name>
+    <url-pattern>/backend/material/mat.pic</url-pattern>
+  </servlet-mapping>
+
+<!--== YCL=========================================== -->
   <servlet>
     <servlet-name>LvServlet</servlet-name>
     <servlet-class>com.lv.controller.LvServlet</servlet-class>
@@ -108,6 +153,43 @@
   </servlet-mapping>
 
 
-<!--   ==YCL=========================================== -->
+<!--   ==backend filter=========================================== -->
+  <filter>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>com.emp.controller.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <url-pattern>/backend/emp/index.jsp</url-pattern>  
+    <url-pattern>/backend/emp/listAllEmp.jsp</url-pattern>  
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+  
+  <filter>
+    <filter-name>AuthorityFilter</filter-name>
+    <filter-class>com.emp.controller.AuthorityFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AuthorityFilter</filter-name>
+    <url-pattern>/backend/emp/test_power.jsp</url-pattern>
+    <url-pattern>/backend/material/addMat.jsp</url-pattern>     
+    <url-pattern>/backend/material/listOneMat.jsp</url-pattern>          
+    <url-pattern>/backend/material/listAllMat.jsp</url-pattern> 
+    <url-pattern>/backend/emp/addEmp.jsp</url-pattern>  
+    <url-pattern>/backend/emp/listOneEmp.jsp</url-pattern>      
+    <url-pattern>/backend/emp/listAllEmp.jsp</url-pattern>  
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+
+
 
 </web-app>

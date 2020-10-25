@@ -1,6 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="java.util.*"%>
+
+<%
+  String funcList = (String)session.getAttribute("funcList");
+%>
 
 
 <!DOCTYPE html>
@@ -36,6 +41,14 @@
         {
         	display: none;
         }
+        
+        
+      .jeff-non-active a,
+	  .jeff-non-active a:hover,
+	  .jeff-non-active i{
+	  	color:#858796 !important;
+	  	cursor:not-allowed;
+	  }
 
 
     </style>
@@ -72,10 +85,18 @@
             
             <!-- Nav Item - Pages Collapse Menu -->
             <!-- 瑞龍:注意collapseOne -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-users"></i>
-                    <span>會員管理</span>
+        <c:choose>
+         <c:when test="${fn:contains(funcList, 'A')}">
+         <li class="nav-item">
+         <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+         </c:when>
+         <c:otherwise>
+         <li class="nav-item jeff-non-active">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+         </c:otherwise>
+        </c:choose>
+          <i class="fas fa-users"></i>
+          <span>會員管理</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -88,10 +109,18 @@
                 </div>
             </li>
             
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fas fa-flag-checkered"></i>
-                    <span>創意主題競賽</span>
+     	<c:choose>
+     	 <c:when test="${fn:contains(funcList, 'I')}">
+     	 <li class="nav-item">
+     	 <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+     	 </c:when>
+     	 <c:otherwise>
+     	 <li class="nav-item jeff-non-active">
+     	 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+     	 </c:otherwise>
+     	</c:choose>    
+          <i class="fas fa-flag-checkered"></i>
+          <span>創意主題競賽</span>
                 </a>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -106,11 +135,21 @@
             <hr class="sidebar-divider">
             
             <!-- Heading -->
+          
             <div class="sidebar-heading"> 商城 Commerce </div>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                    <i class="fas fa-gavel"></i>
-                    <span>限時競標管理</span>
+            
+    	 <c:choose>
+    	  <c:when test="${fn:contains(funcList, 'H')}">
+    	  <li class="nav-item">
+    	  <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+    	  </c:when>
+    	  <c:otherwise>
+    	  <li class="nav-item jeff-non-active">    	  
+    	  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+    	  </c:otherwise>
+   	    </c:choose>  
+          <i class="fas fa-gavel"></i>
+          <span>限時競標管理</span>
                 </a>
                 <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -122,37 +161,93 @@
             </li>
             
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:window.location.href='preproduct.jsp'"><!-- 瑞龍:我的預購JSP頁面跳轉 -->
-                    <i class="fas fa-store"></i>
-                    <span>預購商品管理</span></a>
+        <c:choose>
+     	 <c:when test="${fn:contains(funcList, 'G')}"> 
+     	 <li class="nav-item">
+     	 <a class="nav-link" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp">
+     	 </c:when>
+     	 <c:otherwise>
+     	 <li class="nav-item jeff-non-active">
+     	 <a class="nav-link" href="#">
+     	 </c:otherwise>
+    	</c:choose>
+          <i class="fas fa-store"></i>
+          <span>預購商品管理</span></a>
             </li>
             
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="#"> 
-                    <i class="fas fa-gifts"></i>
-                    <span>商品管理</span></a>
+     	<c:choose>
+      	 <c:when test="${fn:contains(funcList, 'F')}">
+      	 <li class="nav-item">
+      	 <a class="nav-link" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp">
+      	 </c:when>
+      	 <c:otherwise>
+      	 <li class="nav-item jeff-non-active">
+      	 <a class="nav-link" href="#">
+      	 </c:otherwise>
+     	</c:choose>
+          <i class="fas fa-gifts"></i>
+          <span>商品管理</span></a>
             </li>
             
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-tshirt"></i>
-                    <span>素材管理</span></a>
-            </li>
-            
+<%--         <c:choose> --%>
+<%--       	 <c:when test="${fn:contains(funcList, 'D')}"><li class="nav-item"></c:when> --%>
+<%--      	 <c:otherwise><li class="nav-item jeff-non-active"></c:otherwise> --%>
+<%--         </c:choose> --%>
+<%--         <a class="nav-link" href="<%=request.getContextPath()%>/backend/material/listAllMat.jsp"> --%>
+<!--           <i class="fas fa-tshirt"></i> -->
+<!--           <span>素材管理</span></a> -->
+<!--             </li> -->
+          
+        <c:choose>
+      	 <c:when test="${fn:contains(funcList, 'D')}">
+      	 <li class="nav-item">
+      	 <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/material/listAllMat.jsp" data-toggle="collapse" data-target="#collapseXI" aria-expanded="true" aria-controls="collapseXI">
+      	 </c:when>
+     	 <c:otherwise>
+     	 <li class="nav-item jeff-non-active">
+     	 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseXI" aria-expanded="true" aria-controls="collapseXI">
+     	 </c:otherwise>
+        </c:choose>
+          <i class="fas fa-tshirt"></i>
+          <span>素材管理</span></a>     
+                <div id="collapseXI" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">素材系統:</h6>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/backend/material/selectMat.jsp">素材查詢</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/backend/material/addMat.jsp">素材新增</a>
+                    </div>
+                </div>
+            </li>            
+                            
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="far fa-calendar-alt"></i>
-                    <span>見面會管理</span></a>
+        <c:choose>
+         <c:when test="${fn:contains(funcList, 'J')}">
+         <li class="nav-item">
+         <a class="nav-link" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp">
+         </c:when>
+         <c:otherwise>
+         <li class="nav-item jeff-non-active">
+         <a class="nav-link" href="#">
+         </c:otherwise>
+        </c:choose>
+          <i class="far fa-calendar-alt"></i>
+          <span>見面會管理</span></a>
             </li>
             
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                    <i class="fas fa-file-invoice-dollar"></i>
-                    <span>訂單管理</span>
+      	<c:choose>
+     	 <c:when test="${fn:contains(funcList, 'B')}">
+     	 <li class="nav-item">
+     	 <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+     	 </c:when>
+         <c:otherwise>
+         <li class="nav-item jeff-non-active">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+         </c:otherwise>
+     	</c:choose>
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span>訂單管理</span>
                 </a>
                 <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -171,10 +266,18 @@
             
             <!-- Heading -->
             <div class="sidebar-heading"> 系統 System </div>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
-                    <i class="fas fa-ad"></i>
-                    <span>廣告管理</span>
+      	<c:choose>
+      	 <c:when test="${fn:contains(funcList, 'K')}">
+      	 <li class="nav-item">
+      	 <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+      	 </c:when>
+      	 <c:otherwise>
+      	 <li class="nav-item jeff-non-active">
+      	 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+      	 </c:otherwise>
+     	</c:choose>
+          <i class="fas fa-ad"></i>
+          <span>廣告管理</span>
                 </a>
                 <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -186,28 +289,53 @@
             </li>
             
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-poo"></i>
-                    <span>作品檢舉</span></a>
+      	<c:choose>
+      	 <c:when test="${fn:contains(funcList, 'E')}">
+      	 <li class="nav-item">
+      	 <a class="nav-link" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp">
+      	 </c:when>
+      	 <c:otherwise>
+      	 <li class="nav-item jeff-non-active">
+      	 <a class="nav-link" href="#">
+      	 </c:otherwise>
+     	</c:choose>
+          <i class="fas fa-poo"></i>
+          <span>作品檢舉</span></a>
             </li>
             
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-user-shield"></i>
-                    <span>員工管理</span></a>
+      	<c:choose>
+      	 <c:when test="${fn:contains(funcList, 'L')}">
+      	 <li class="nav-item">
+      	  <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/emp/listAllEmp.jsp" data-toggle="collapse" data-target="#collapseX" aria-expanded="true" aria-controls="collapseX">
+      	 </c:when>
+      	 <c:otherwise>
+      	 <li class="nav-item jeff-non-active">
+      	  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseX" aria-expanded="true" aria-controls="collapseX">
+      	 </c:otherwise>
+     	</c:choose>
+          <i class="fas fa-user-shield"></i>
+          <span>員工管理</span></a>     
+                <div id="collapseX" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">員工系統:</h6>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/backend/emp/listAllEmp.jsp">員工查詢</a>
+                        <a class="collapse-item" href="<%=request.getContextPath()%>/backend/emp/addEmp.jsp">員工新增</a>
+                    </div>
+                </div>
             </li>
-            
-            <!-- Divider -->
+                      
+           <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
             
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-       
-        
          </ul>
+         
+         
+           <!-- Scroll to Top Button-->
+
         <!-- =========================================== Sidebar END   ===========================================  -->
         
         <!-- Bootstrap core JavaScript-->
