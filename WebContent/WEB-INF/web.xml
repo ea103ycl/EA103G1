@@ -1,113 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>EA103G1</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>  
-  
-  	<resource-ref>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>EA103G1</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<resource-ref>
 		<description>DB Connection</description>
 		<res-ref-name>jdbc/EA103G1DB</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
-	
-  
-<!--== Caroline =========================================== -->
 
-  <servlet>
-    <servlet-name>HeadphotoHandler</servlet-name>
-    <servlet-class>com.mem.controller.HeadphotoHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>HeadphotoHandler</servlet-name>
-    <url-pattern>/members/headphotoHandler.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>MemLoginHandler</servlet-name>
-    <servlet-class>com.mem.controller.MemLoginHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MemLoginHandler</servlet-name>
-    <url-pattern>/frontend/members/memLoginHandler.do</url-pattern>
-  </servlet-mapping>
-  
-  
-  <servlet>
-    <servlet-name>MemServlet</servlet-name>
-    <servlet-class>com.mem.controller.MemServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MemServlet</servlet-name>
-    <url-pattern>/frontend/members/mem.do</url-pattern>
-  </servlet-mapping>
 
-  <servlet>
-    <servlet-name>WelRecordServlet</servlet-name>
-    <servlet-class>com.wel_record.controller.WelRecordServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>WelRecordServlet</servlet-name>
-    <url-pattern>/welRecord/welRecord.do</url-pattern>
-  </servlet-mapping>
-  
+	<!--== Caroline =========================================== -->
 
-<!--== Jeff =========================================== --> 
-  <servlet>
-    <servlet-name>EmpServlet</servlet-name>
-    <servlet-class>com.emp.controller.EmpServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>EmpServlet</servlet-name>
-    <url-pattern>/backend/emp/emp.do</url-pattern>
-  </servlet-mapping>
-   <servlet>
-    <servlet-name>EmpPhoto</servlet-name>
-    <servlet-class>com.emp.controller.EmpPhoto</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>EmpPhoto</servlet-name>
-    <url-pattern>/backend/emp/emp.pic</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>LoginHandler</servlet-name>
-    <servlet-class>com.emp.controller.LoginHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LoginHandler</servlet-name>
-    <url-pattern>/backend/emp/emp.login</url-pattern>
-  </servlet-mapping>
-  
-  
-   <servlet>
-    <servlet-name>MaterialServlet</servlet-name>
-    <servlet-class>com.material.controller.MaterialServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MaterialServlet</servlet-name>
-    <url-pattern>/backend/material/mat.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>MatPhoto</servlet-name>
-    <servlet-class>com.material.controller.MatPhoto</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MatPhoto</servlet-name>
-    <url-pattern>/backend/material/mat.pic</url-pattern>
-  </servlet-mapping>
-  
-  
-<!--== Tony =========================================== --> 
+	<servlet>
+		<servlet-name>HeadphotoHandler</servlet-name>
+		<servlet-class>com.mem.controller.HeadphotoHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HeadphotoHandler</servlet-name>
+		<url-pattern>/members/headphotoHandler.do</url-pattern>
+	</servlet-mapping>
 
-  <servlet>
+	<servlet>
+		<servlet-name>MemLoginHandler</servlet-name>
+		<servlet-class>com.mem.controller.MemLoginHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemLoginHandler</servlet-name>
+		<url-pattern>/frontend/members/memLoginHandler.do</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>MemServlet</servlet-name>
+		<servlet-class>com.mem.controller.MemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemServlet</servlet-name>
+		<url-pattern>/frontend/members/mem.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>WelRecordServlet</servlet-name>
+		<servlet-class>com.wel_record.controller.WelRecordServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WelRecordServlet</servlet-name>
+		<url-pattern>/welRecord/welRecord.do</url-pattern>
+	</servlet-mapping>
+
+
+	<!--== Jeff =========================================== -->
+	<servlet>
+		<servlet-name>EmpServlet</servlet-name>
+		<servlet-class>com.emp.controller.EmpServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmpServlet</servlet-name>
+		<url-pattern>/backend/emp/emp.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>EmpPhoto</servlet-name>
+		<servlet-class>com.emp.controller.EmpPhoto</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmpPhoto</servlet-name>
+		<url-pattern>/backend/emp/emp.pic</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LoginHandler</servlet-name>
+		<servlet-class>com.emp.controller.LoginHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginHandler</servlet-name>
+		<url-pattern>/backend/emp/emp.login</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>MaterialServlet</servlet-name>
+		<servlet-class>com.material.controller.MaterialServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MaterialServlet</servlet-name>
+		<url-pattern>/backend/material/mat.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MatPhoto</servlet-name>
+		<servlet-class>com.material.controller.MatPhoto</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MatPhoto</servlet-name>
+		<url-pattern>/backend/material/mat.pic</url-pattern>
+	</servlet-mapping>
+
+
+	<!--== Tony =========================================== -->
+
+	<servlet>
 		<servlet-name>ProdServlet</servlet-name>
 		<servlet-class>com.prod.controller.ProdServlet</servlet-class>
 	</servlet>
@@ -115,8 +118,8 @@
 		<servlet-name>ProdServlet</servlet-name>
 		<url-pattern>/backend/prod/prod.do</url-pattern>
 	</servlet-mapping>
-	
-	
+
+
 	<servlet>
 		<servlet-name>ProdPic2</servlet-name>
 		<servlet-class>com.prod.controller.ProdPic2</servlet-class>
@@ -127,7 +130,7 @@
 	</servlet-mapping>
 
 
-	 <servlet>
+	<servlet>
 		<servlet-name>ProdPic</servlet-name>
 		<servlet-class>com.prod.controller.ProdPic</servlet-class>
 	</servlet>
@@ -135,10 +138,10 @@
 		<servlet-name>ProdPic</servlet-name>
 		<url-pattern>/frontend/shop/prod.pic</url-pattern>
 	</servlet-mapping>
-	
-	
-	
-	
+
+
+
+
 	<servlet>
 		<servlet-name>OrderServlet</servlet-name>
 		<servlet-class>com.order.controller.OrderServlet</servlet-class>
@@ -147,8 +150,8 @@
 		<servlet-name>OrderServlet</servlet-name>
 		<url-pattern>/frontend/shop/order</url-pattern>
 	</servlet-mapping>
-	
-	
+
+
 	<servlet>
 		<servlet-name>ShoppingServlet</servlet-name>
 		<servlet-class>com.prod.controller.ShoppingServlet</servlet-class>
@@ -157,7 +160,7 @@
 		<servlet-name>ShoppingServlet</servlet-name>
 		<url-pattern>/frontend/shop/shopping</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>CartServlet</servlet-name>
 		<servlet-class>com.prod.controller.CartServlet</servlet-class>
@@ -167,92 +170,157 @@
 		<url-pattern>/frontend/shop/cart</url-pattern>
 	</servlet-mapping>
 
+	<!--== Neo =========================================== -->
+	<servlet>
+		<servlet-name>Event_pServlet</servlet-name>
+		<servlet-class>com.event_p.controller.Event_pServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Event_pServlet</servlet-name>
+		<url-pattern>/backend/event_p/Event_pServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Event_pServlet</servlet-name>
+		<url-pattern>/frontend/event_p/Event_pServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Event_pServlet</servlet-name>
+		<url-pattern>/Event_pServlet</url-pattern>
+	</servlet-mapping>
 
-<!--== YCL=========================================== -->
-  <servlet>
-    <servlet-name>LvServlet</servlet-name>
-    <servlet-class>com.lv.controller.LvServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LvServlet</servlet-name>
-    <url-pattern>/lv/lv.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>PainterServlet</servlet-name>
-    <servlet-class>com.painter.controller.PainterServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PainterServlet</servlet-name>
-    <url-pattern>/painter/painter.do</url-pattern>
-  </servlet-mapping>
-  
-  
-  <servlet>
-    <servlet-name>PainterActServlet</servlet-name>
-    <servlet-class>com.painter_act.controller.PainterActServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PainterActServlet</servlet-name>
-    <url-pattern>/painter/painter_act.do</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>event_tag</servlet-name>
+		<servlet-class>com.event_tag.controller.Event_TagServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>event_tag</servlet-name>
+		<url-pattern>/backend/event_tag/Event_TagServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>event_tag</servlet-name>
+		<url-pattern>/backend/event/Event_TagServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>event_tag</servlet-name>
+		<url-pattern>/frontend/event_p/Event_TagServlet</url-pattern>
+	</servlet-mapping>
 
-  <servlet>
-    <servlet-name>PainterMsgServlet</servlet-name>
-    <servlet-class>com.painter_msg.controller.PainterMsgServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PainterMsgServlet</servlet-name>
-    <url-pattern>/painter/painter_msg.do</url-pattern>
-  </servlet-mapping>
-  
+	<servlet>
+		<servlet-name>update</servlet-name>
+		<servlet-class>com.event_p_rep.controller.Event_P_RepServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>update</servlet-name>
+		<url-pattern>/backend/event_p_rep/Event_P_RepServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>update</servlet-name>
+		<url-pattern>/frontend/event_p/Event_P_RepServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>update</servlet-name>
+		<url-pattern>/frontend/event_p_rep/Event_P_RepServlet</url-pattern>
+	</servlet-mapping>
 
-  <servlet>
-    <servlet-name>FollowServlet</servlet-name>
-    <servlet-class>com.follow.controller.FollowServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FollowServlet</servlet-name>
-    <url-pattern>/follow/follow.do</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>event</servlet-name>
+		<servlet-class>com.event.controller.EventServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>event</servlet-name>
+		<url-pattern>/backend/event/EventServlet</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>com.event.controller.EventSchedule</listener-class>
+	</listener>
 
 
-<!--   ==backend filter=========================================== -->
-  <filter>
-    <filter-name>loginFilter</filter-name>
-    <filter-class>com.emp.controller.LoginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>loginFilter</filter-name>
-    <url-pattern>/backend/emp/index.jsp</url-pattern>  
-    <url-pattern>/backend/emp/listAllEmp.jsp</url-pattern>  
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>INCLUDE</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-    <dispatcher>ASYNC</dispatcher>
-  </filter-mapping>
-  
-  
-  <filter>
-    <filter-name>AuthorityFilter</filter-name>
-    <filter-class>com.emp.controller.AuthorityFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>AuthorityFilter</filter-name>
-    <url-pattern>/backend/emp/test_power.jsp</url-pattern>
-    <url-pattern>/backend/material/addMat.jsp</url-pattern>     
-    <url-pattern>/backend/material/listOneMat.jsp</url-pattern>          
-    <url-pattern>/backend/material/listAllMat.jsp</url-pattern> 
-    <url-pattern>/backend/emp/addEmp.jsp</url-pattern>  
-    <url-pattern>/backend/emp/listOneEmp.jsp</url-pattern>      
-    <url-pattern>/backend/emp/listAllEmp.jsp</url-pattern>  
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>INCLUDE</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-    <dispatcher>ASYNC</dispatcher>
-  </filter-mapping>
+	<!--== YCL=========================================== -->
+	<servlet>
+		<servlet-name>LvServlet</servlet-name>
+		<servlet-class>com.lv.controller.LvServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LvServlet</servlet-name>
+		<url-pattern>/lv/lv.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PainterServlet</servlet-name>
+		<servlet-class>com.painter.controller.PainterServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PainterServlet</servlet-name>
+		<url-pattern>/painter/painter.do</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>PainterActServlet</servlet-name>
+		<servlet-class>com.painter_act.controller.PainterActServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PainterActServlet</servlet-name>
+		<url-pattern>/painter/painter_act.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PainterMsgServlet</servlet-name>
+		<servlet-class>com.painter_msg.controller.PainterMsgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PainterMsgServlet</servlet-name>
+		<url-pattern>/painter/painter_msg.do</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>FollowServlet</servlet-name>
+		<servlet-class>com.follow.controller.FollowServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FollowServlet</servlet-name>
+		<url-pattern>/follow/follow.do</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- ==backend filter=========================================== -->
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>com.emp.controller.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/backend/emp/index.jsp</url-pattern>
+		<url-pattern>/backend/emp/listAllEmp.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+
+	<filter>
+		<filter-name>AuthorityFilter</filter-name>
+		<filter-class>com.emp.controller.AuthorityFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthorityFilter</filter-name>
+		<url-pattern>/backend/emp/test_power.jsp</url-pattern>
+		<url-pattern>/backend/material/addMat.jsp</url-pattern>
+		<url-pattern>/backend/material/listOneMat.jsp</url-pattern>
+		<url-pattern>/backend/material/listAllMat.jsp</url-pattern>
+		<url-pattern>/backend/emp/addEmp.jsp</url-pattern>
+		<url-pattern>/backend/emp/listOneEmp.jsp</url-pattern>
+		<url-pattern>/backend/emp/listAllEmp.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
 
 
 
