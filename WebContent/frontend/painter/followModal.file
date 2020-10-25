@@ -1,0 +1,96 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+			<!-- Modal 已關注對象清單 -->
+			<div class="modal fade" id="followModal" tabindex="-1" role="dialog" aria-labelledby="followModalLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="followModalLabel">${sMemSvc.findByPrimaryKey(sid).getM_accno()}的關注對象</h4>
+			      </div>
+			      <div class="modal-body">
+			      	<table class="table table-hover">
+					  <tbody id="followTbody">
+					  
+					  	<c:if test="${empty followList}">
+					  		<span id='noFollowText'>沒有關注對象。</span>
+					  	</c:if>
+					  	
+				    	<c:forEach var="followVO" items="${followList}">
+				    		<tr>
+	                    		<td>
+	                    			<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${followVO.f_mem_id}">
+	                    				<img class="ycl-follow-list-pic" src="<%=request.getContextPath()%>/members/mem.do?mem_id=${followVO.f_mem_id}">
+	                    				<span>${sMemSvc.findByPrimaryKey(followVO.f_mem_id).getM_accno()}</span>
+	                    			</a>
+	                    			<c:choose>
+	                    				<c:when test="${1 == followSvc.getCnt(loginMemVO.mem_id, followVO.f_mem_id)}">
+	                    					<button class="btn btn-xs btn-primary-filled pull-right ycl-follow-btn" id="follow${followVO.f_mem_id}" value="${followVO.f_mem_id}">V 關注中</button>
+	                    				</c:when>
+	                    				
+	                    				<c:when test="${loginMemVO.mem_id == followVO.f_mem_id}">
+										</c:when>
+	                    				
+	                    				<c:otherwise>
+	                    					<button class="btn btn-xs btn-primary pull-right ycl-follow-btn" id="follow${followVO.f_mem_id}" value="${followVO.f_mem_id}">　關注　</button>
+	                    				</c:otherwise>
+	                    			</c:choose>
+	                    		</td>
+	                    	</tr>	                		
+               			</c:forEach>
+					  </tbody>
+					</table>
+			      </div>
+				</div>
+			  </div>
+			</div>
+			<!-- Modal 已關注對象清單 END-->
+
+			<!-- Modal 粉絲清單 -->
+			<div class="modal fade" id="fansModal" tabindex="-1" role="dialog" aria-labelledby="fansModalLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="fansModalLabel">${sMemSvc.findByPrimaryKey(sid).getM_accno()}的粉絲</h4>
+			      </div>
+			      <div class="modal-body">
+			      	<table class="table table-hover" id="fansTable">
+					  <tbody id="fansTbody">
+					  	<c:if test="${empty fansList}">
+					  		<span id="noFansText">沒有粉絲。</span>
+					  	</c:if>
+				    	<c:forEach var="fansVO" items="${fansList}">
+				    		<tr id="fansTr${fansVO.mem_id}">
+	                    		<td>
+	                    			<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${fansVO.mem_id}">
+	                    				<img class="ycl-fans-list-pic" src="<%=request.getContextPath()%>/members/mem.do?mem_id=${fansVO.mem_id}">
+	                    				<span>${sMemSvc.findByPrimaryKey(fansVO.mem_id).getM_accno()}</span>
+	                    			</a>
+	                    			<c:choose>
+	                    				<c:when test="${loginMemVO.mem_id == fansVO.mem_id}"></c:when>
+	                    				<c:when test="${loginMemVO.mem_id == pageScope.sid}">
+	                    					<button class="btn btn-xs btn-success pull-right ycl-removeFans-btn" id="removeFans${fansVO.mem_id}" value="${fansVO.mem_id}">　移除　</button>
+	                    				</c:when>
+	                    				<c:otherwise>
+		                    				<c:choose>
+			                    				<c:when test="${1 == followSvc.getCnt(loginMemVO.mem_id, fansVO.mem_id)}">
+			                    					<button class="btn btn-xs btn-primary-filled pull-right ycl-fans-btn" id="fans${fansVO.mem_id}" value="${fansVO.mem_id}">V 關注中</button>
+			                    				</c:when>
+			                    				<c:otherwise>
+			                    					<button class="btn btn-xs btn-primary pull-right ycl-fans-btn" id="fans${fansVO.mem_id}" value="${fansVO.mem_id}">　關注　</button>
+			                    				</c:otherwise>
+		                    				</c:choose>
+	                    				</c:otherwise>
+	                    			</c:choose>
+	                    		</td>
+	                    	</tr>	                		
+               			</c:forEach>
+					  </tbody>
+					</table>
+			      </div>
+				</div>
+			  </div>
+			</div>
+			<!-- Modal 粉絲清單 END-->

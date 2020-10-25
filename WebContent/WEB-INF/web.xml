@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>EA103G1</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>  
+  
+  	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/EA103G1DB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+	
+  
+<!--   ==YCL TEST=========================================== -->
+
+	  <servlet>
+    <servlet-name>MemServlet</servlet-name>
+    <servlet-class>com.mem.controller.MemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemServlet</servlet-name>
+    <url-pattern>/members/mem.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  
+<!--   ==YCL START=========================================== -->
+  <servlet>
+    <servlet-name>LvServlet</servlet-name>
+    <servlet-class>com.lv.controller.LvServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LvServlet</servlet-name>
+    <url-pattern>/lv/lv.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PainterServlet</servlet-name>
+    <servlet-class>com.painter.controller.PainterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PainterServlet</servlet-name>
+    <url-pattern>/painter/painter.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>PainterActServlet</servlet-name>
+    <servlet-class>com.painter_act.controller.PainterActServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PainterActServlet</servlet-name>
+    <url-pattern>/painter/painter_act.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PainterMsgServlet</servlet-name>
+    <servlet-class>com.painter_msg.controller.PainterMsgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PainterMsgServlet</servlet-name>
+    <url-pattern>/painter/painter_msg.do</url-pattern>
+  </servlet-mapping>
+  
+
+  <servlet>
+    <servlet-name>FollowServlet</servlet-name>
+    <servlet-class>com.follow.controller.FollowServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FollowServlet</servlet-name>
+    <url-pattern>/follow/follow.do</url-pattern>
+  </servlet-mapping>
+
+
+<!--   ==YCL=========================================== -->
+
+</web-app>

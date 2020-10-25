@@ -1,0 +1,206 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+	$(function () {
+		  $('[data-toggle="tooltip"]').tooltip();
+	})
+
+	//從使用者自己的OR其他會員的關注對象內，關注 或 取消關注 某位會員
+	$('.ycl-follow-btn').click(function(){
+		let xhr = new XMLHttpRequest();
+		let f_mem_id = $(this).val();
+		
+		//先準備call servlet的function
+		xhr.onload = function (){
+		      if(xhr.status == 200){		    	  
+		        console.log('======= 1 OK =======' + xhr.status);
+		        let result = JSON.parse(xhr.responseText);
+		        let followID = '#follow' + result[0].f_mem_id;
+		        let fansID = '#fans' + result[0].f_mem_id;
+				$(followID).toggleClass('btn-primary btn-primary-filled');
+		  	    $(followID).text(( 0 == result[0].followdInd ? '　關注　': 'V 關注中'));
+				$(fansID).toggleClass('btn-primary btn-primary-filled');
+		  	    $(fansID).text(( 0 == result[0].followdInd ? '　關注　': 'V 關注中'));
+		  	    
+		  	    //如果是在會員自己的主頁面內移除關注名單，必須額外移除該筆資料的td並變更關注對象人數
+		  	    console.log( "updateOwnerDataInd", result[0].updateOwnerDataInd);
+		  	    if( result[0].updateOwnerDataInd ){
+		  	    	if( 0 == result[0].followdInd){
+			  	    	$(followID).parent('td').remove();
+			  	    	$("#cnt-follow").text(result[0].newFollowCnt);
+			  	    	$("#cnt-fans").text(result[0].newFansCnt);
+		  	    	}
+		  	    	
+			        //判斷異動後是否有關注對象
+			        if(0 == result[0].newFollowCnt){
+			        	$('#followTbody').after("<span id='noFollowText'>沒有關注對象。</span>");
+			        }else{
+			        	$('#noFollowText').remove();	
+			        }
+		  	    
+		  	    }
+		  	    
+		      }else{
+		    	console.log('======= 1 ERROR =======' + xhr.status);
+		      }
+		  }
+		
+    	//建立好Post連接
+		xhr.open("post", "<%=request.getContextPath()%>/follow/follow.do", true);
+		xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+		
+		//設定請求
+		let data_info = "action=update" + "&f_mem_id=" + f_mem_id + "&sid=${sid}";
+		
+		//送出請求
+		xhr.send(data_info);
+		
+	});
+	
+	
+	//從其他會員的粉絲名單內，關注 或 取消關注 某位會員
+	$('.ycl-fans-btn').click(function(){
+		let xhr = new XMLHttpRequest();
+		let f_mem_id = $(this).val();
+		
+		//先準備call servlet的function
+		xhr.onload = function (){
+		      if(xhr.status == 200){		    	  
+		        console.log('======= 1 OK =======' + xhr.status);
+		        let result = JSON.parse(xhr.responseText);
+		        let followID = '#follow' + result[0].f_mem_id;
+		        let fansID = '#fans' + result[0].f_mem_id;
+				$(followID).toggleClass('btn-primary btn-primary-filled');
+		  	    $(followID).text(( 0 == result[0].followdInd ? '　關注　': 'V 關注中'));
+				$(fansID).toggleClass('btn-primary btn-primary-filled');
+		  	    $(fansID).text(( 0 == result[0].followdInd ? '　關注　': 'V 關注中'));
+		  	    
+
+		  	    
+		      }else{
+		    	console.log('======= 1 ERROR =======' + xhr.status);
+		      }
+		  }
+		
+    	//建立好Post連接
+		xhr.open("post", "<%=request.getContextPath()%>/follow/follow.do", true);
+		xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+		
+		//設定請求
+		let data_info = "action=update" + "&f_mem_id=" + f_mem_id + "&sid=${sid}";
+		
+		//送出請求
+		xhr.send(data_info);
+		
+	});
+	
+	
+	
+	//使用者自己的粉絲名單內，移除某位會員
+	$('.ycl-removeFans-btn').click(function(){
+		let xhr = new XMLHttpRequest();
+		let fans_mem_id = $(this).val();
+		
+		//先準備call servlet的function
+		xhr.onload = function (){
+		      if(xhr.status == 200){		    	  
+		        console.log('======= 1 OK =======' + xhr.status);
+		        let result = JSON.parse(xhr.responseText);
+			console.log('result', result);
+		        let fansID = '#removeFans' + result[0].fans_mem_id;
+		  	    $("#cnt-fans").text(result[0].newFansCnt);
+		  	    $("#lvPic").attr('src', '<%=request.getContextPath()%>/lv/lv.do?action=showPic&lv=' + result[0].newLv );
+			    $("#lvPic").attr('data-toggle', 'tooltip' );
+			    $("#lvPic").attr('data-placement', 'right' );
+			    $("#lvPic").attr('data-original-title', result[0].newLvNm + '，粉絲人數達' + result[0].newLvFCnt + '人' );
+                            $(fansID).parent('td').remove();
+			    
+		  	    
+		  	    //如果把所有粉絲都移除，需補上說明文字
+		  	    if(result[0].newFansCnt == 0){
+		  	    	$('#fansTbody').append("<span id='noFansText'>沒有粉絲。</span>");
+		  	    }
+		  	    
+		      }else{
+		    	console.log('======= 1 ERROR =======' + xhr.status);
+		      }
+		  }
+		
+    	//建立好Post連接
+		xhr.open("post", "<%=request.getContextPath()%>/follow/follow.do", true);
+		xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+		
+		//設定請求
+		let data_info = "action=removeFans" + "&fans_mem_id=" + fans_mem_id;
+		
+		//送出請求
+		xhr.send(data_info);
+		
+	});
+	
+	
+	//從其他會員的主頁關注/取消關注
+	$('#MainFollowBtn').click(function(){
+		let xhr = new XMLHttpRequest();
+		let f_mem_id = "${sid}";
+		
+		//先準備call servlet的function
+		xhr.onload = function (){
+		      if(xhr.status == 200){		    	  
+		        console.log('======= 1 OK =======' + xhr.status);
+		        let result = JSON.parse(xhr.responseText);
+		        console.log('result', result);
+		        let fansID = '#fans' + result[0].mem_id;
+		        let fansTrID = '#fansTr' + result[0].mem_id;
+		  	$("#cnt-fans").text(result[0].newFansCnt);
+		  	$("#lvPic").attr('src', '<%=request.getContextPath()%>/lv/lv.do?action=showPic&lv=' + result[0].newLv );
+			$("#lvPic").attr('data-toggle', 'tooltip' );
+			$("#lvPic").attr('data-placement', 'right' );
+			$("#lvPic").attr('data-original-title', result[0].newLvNm + '，粉絲人數達' + result[0].newLvFCnt + '人' );
+			
+
+
+		  	    
+		        //取消關注時，需同時刪除粉絲名單內的資料
+		        if(0 == result[0].followdInd){
+			  	    $(fansTrID).remove();
+		        }
+		        
+		        //判斷異動後是否有粉絲
+		        if(0 == result[0].newFansCnt){
+		        	$('#fansTbody').after("<span id='noFansText'>沒有粉絲。</span>");
+		        }else{
+		        	$('#noFansText').remove();	
+		        }
+		        
+		        //關注時，需同時增加粉絲名單內的資料
+		        if(1 == result[0].followdInd){
+		        	var text1, text2, text3;
+		        	text1 = "<tr id='fansTr${loginMemVO.mem_id}'><td><a href='<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${loginMemVO.mem_id}'> ";
+		        	text2 = "<img class='ycl-fans-list-pic' src='<%=request.getContextPath()%>/members/mem.do?mem_id=${loginMemVO.mem_id}'> ";
+		        	text3 = "<span>${loginMemVO.m_accno}</span></a></td></tr>";
+		        	console.log("text1", text1);
+		        	console.log("text2", text2);
+		        	console.log("text3", text3);
+		        	$('#fansTbody').after(text1 + text2 + text3);
+		        }
+		        
+				$('#MainFollowBtn').toggleClass('btn-success btn-success-filled');
+		  	    $('#MainFollowBtn').text(( 0 == result[0].followdInd ? '關注': '關注中'));
+		  	    
+		      }else{
+		    	console.log('======= 1 ERROR =======' + xhr.status);
+		      }
+		  }
+		
+    	//建立好Post連接
+		xhr.open("post", "<%=request.getContextPath()%>/follow/follow.do", true);
+		xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+		
+		//設定請求
+		let data_info = "action=update" + "&f_mem_id=" + f_mem_id + "&sid=${sid}";
+		
+		//送出請求
+		xhr.send(data_info);
+		
+	});

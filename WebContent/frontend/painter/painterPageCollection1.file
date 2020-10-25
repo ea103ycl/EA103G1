@@ -1,0 +1,40 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%  int rowsPerPageCol = 20;  //每頁的筆數    
+    int rowNumberCol=0;      //總筆數
+    int pageNumberCol=0;     //總頁數      
+    int whichPageCol=1;      //第幾頁
+    int pageIndexColArray[]=null;
+    int pageIndexCol=0; 
+%>
+
+<%  
+    rowNumberCol=listCollection.size();
+    if (rowNumberCol%rowsPerPageCol !=0)
+         pageNumberCol=rowNumberCol/rowsPerPageCol + 1;
+    else pageNumberCol=rowNumberCol/rowsPerPageCol;    
+
+    pageIndexColArray=new int[pageNumberCol]; 
+    for (int i=1 ; i<=pageIndexColArray.length ; i++)
+         pageIndexColArray[i-1]=i*rowsPerPageCol-rowsPerPageCol;
+%>
+
+<%  try {
+       whichPageCol = Integer.parseInt(request.getParameter("whichPageCol"));
+       pageIndexCol=pageIndexColArray[whichPageCol-1];
+    } catch (NumberFormatException e) { //第一次執行的時候
+       whichPageCol=1;
+       pageIndexCol=0;
+    } catch (ArrayIndexOutOfBoundsException e) { //總頁數之外的錯誤頁數
+         if (pageNumberCol>0){
+              whichPageCol=pageNumberCol;
+              pageIndexCol=pageIndexColArray[pageNumberCol-1];
+         }
+    } 
+%>
+
+<%if (pageNumberCol>0){%>
+  <font>第<b><%=whichPageCol%>/<%=pageNumberCol%></b>頁，</font>
+<%}%>
+<%if (rowNumberCol > 0){%>
+共收藏<b><font><%=rowNumberCol%></font></b>筆作品
+<%}%>

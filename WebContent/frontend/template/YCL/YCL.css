@@ -1,0 +1,195 @@
+<style>
+
+.ycl-lv_icon{
+	max-width: 26px; max-height: 26px;
+	display:inline-block;
+	vertical-align:text-bottom;
+	margin-left:0.5em;
+}
+
+.ycl-main-follow-btn{
+	font-size:0.1em !important;
+	padding: 0px 9px;
+	vertical-align: middle;
+}
+
+#cnt-follow,
+#cnt-fans{
+	display:inline-block;
+	margin:0em 0.1em;
+	color: #c39d6d;
+}
+
+.nav{
+	margin-top:1em;
+}
+
+.post-block{
+border:0px;}
+
+.ycl-post-block{
+border:1px solid #ebebeb;
+/* border-radius: 2%; */
+overflow:hidden;
+/* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);  */
+margin-bottom:4px;
+}
+
+
+.ycl-account-sidebar{
+height:64px;
+margin-bottom:10px;
+}
+
+.ycl-acct-text{
+font-size:2em;
+display:inline-block;
+margin-top:15px;
+margin-bottom:5px;}
+
+/* .ycl-follow-icon{ */
+/* 	font-size:1.2em; */
+/* 	display:inline-block; */
+/* 	vertical-align:top; */
+/* 	margin-top:15px; */
+/* } */
+
+.ycl-sidebar-member-pic{
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	display:inline-block;
+	margin: 0.7em;
+}
+
+.ycl-small-post-text{
+	background: white;
+}
+
+.ycl-small-post-footer {
+  border-top: 1px solid #ebebeb;
+  color:#333333;
+  padding-top:4px;
+}
+
+.ycl-painter-content i{
+	color: #C9C9C9;
+	font-size:1.5em;
+}
+
+
+.ycl-post-icons,
+.ycl-post-icons a {
+color:#333333;
+font-weight: lighter;
+display:inline-block;
+font-size:0.7em;
+margin-right:0.1em;}
+
+.ycl-painter-content{
+margin-top:0px;
+margin-bottom:4px;
+margin-left: 20px;
+margin-right:20px;}
+
+.ycl-act-btn-follow,
+.ycl-act-btn-fans,
+.ycl-act-btn-msg,
+.ycl-act-btn-like,
+.ycl-act-btn-col{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    padding:0px;
+    margin:0px;
+}
+
+.ycl-act-btn-follow{
+	margin-top:1em;
+	margin-bottom:0.5em;
+}
+
+.ycl-act-active{
+	color: rgba(195, 157, 109, 0.8) !important;
+}
+
+.ycl-act-cnt{
+font-size:0.7em;
+margin-left:0.1em;
+}
+
+.modal-footer button{
+vertical-align:baseline;
+}
+
+#followModal td,
+#fansModal td{
+	border:0px;
+}
+
+.ycl-follow-list-pic,
+.ycl-fans-list-pic{
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	display:inline-block;
+	margin: 0.5em;
+}
+
+
+/*---------------個人收藏頁使用-----------------*/
+.ycl-painter-nm{
+	font-size:1.1em;
+	display:block;
+	font-weight:bold;
+	color:#333333;
+}
+
+.ycl-creator-acct{
+	color:#DBDBDB !important;
+	font-weight:lighter !important;
+	font-size:8px !important;
+}
+
+.ycl-creator-pic{
+	width: 16px;
+	border-radius: 50%;
+	display:inline-block;
+	margin:2px 2px 2px 0px;
+	opacity:0.8;
+}
+
+
+/*---------------單筆作品頁使用-----------------*/
+.ycl-comment-date{
+font-size:0.9em !important;
+color:#B3B3B3;}
+
+.ycl-msg-btn-del{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.ycl-msg-btn-del:hover{
+	color:gray;
+}
+
+.ycl-hashtag{
+	color:black;
+	font-size:0.9em;
+}
+
+
+textarea{
+	resize:none;
+	overflow:auto;
+} 
+		
+</style>
