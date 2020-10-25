@@ -103,6 +103,70 @@
     <servlet-name>MatPhoto</servlet-name>
     <url-pattern>/backend/material/mat.pic</url-pattern>
   </servlet-mapping>
+  
+  
+<!--== Tony =========================================== --> 
+
+  <servlet>
+		<servlet-name>ProdServlet</servlet-name>
+		<servlet-class>com.prod.controller.ProdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProdServlet</servlet-name>
+		<url-pattern>/backend/prod/prod.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>ProdPic2</servlet-name>
+		<servlet-class>com.prod.controller.ProdPic2</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProdPic2</servlet-name>
+		<url-pattern>/backend/prod/prod.pic</url-pattern>
+	</servlet-mapping>
+
+
+	 <servlet>
+		<servlet-name>ProdPic</servlet-name>
+		<servlet-class>com.prod.controller.ProdPic</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProdPic</servlet-name>
+		<url-pattern>/frontend/shop/prod.pic</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
+	<servlet>
+		<servlet-name>OrderServlet</servlet-name>
+		<servlet-class>com.order.controller.OrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderServlet</servlet-name>
+		<url-pattern>/frontend/shop/order</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>ShoppingServlet</servlet-name>
+		<servlet-class>com.prod.controller.ShoppingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShoppingServlet</servlet-name>
+		<url-pattern>/frontend/shop/shopping</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CartServlet</servlet-name>
+		<servlet-class>com.prod.controller.CartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CartServlet</servlet-name>
+		<url-pattern>/frontend/shop/cart</url-pattern>
+	</servlet-mapping>
+
 
 <!--== YCL=========================================== -->
   <servlet>
