@@ -141,9 +141,6 @@ public class BdPageServlet extends HttpServlet {
 						pmtStatus = 0;
 						errorMsgs.add("¥I´Úª¬ºA½Ð¶ñ¼Æ¦r");
 					}
-
-					
-				
 				
 					if (!errorMsgs.isEmpty()) {
 						out.write(errorMsgs.get(0));
@@ -163,7 +160,7 @@ public class BdPageServlet extends HttpServlet {
 		}
 		
 		//=======================================================
-		if("setBidInfo".equals(action)) { //setBidInfo in to reqAttribute=======
+		if("setBidInfo".equals(action)) { //setBidInfo in to reqAttribute=======replaced by EventEndCheckListener
 			try {
 			String memId=req.getParameter("memId");
 			String bdNo=req.getParameter("bdNo");

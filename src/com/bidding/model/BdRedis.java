@@ -19,13 +19,6 @@ public class BdRedis {
 		super();
 	}
 
-//	public Long getCountDown() {
-//		Jedis jedis =new Jedis("localhost",6379);
-//		jedis.auth("123456");
-//		
-//		Long countDown=jedis.ttl("bdNo");
-//		return countDown;
-//	}
 	public BiddingVO getRunningBd() {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
@@ -68,20 +61,18 @@ public class BdRedis {
 		BiddingService bdSvc = new BiddingService();
 		Timestamp startT = new Timestamp(Long.valueOf(startTime));
 		Timestamp endT = new Timestamp(Long.valueOf(endTime));
-		String sqlBdNo=bdSvc.insert("", 3001,0, startT, endT, 0, 0, 0, 0, "", "",
-				"");
-		//3001 bdProdNo
-		
+		String sqlBdNo = bdSvc.insert("", 3001, 0, startT, endT, 0, 0, 0, 0, "", "", "");
+		// 3001 bdProdNo
+
 		// ======save another info to record========
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("startTime", startTime.toString());
 		map.put("endTime", endTime.toString());
-		map.put("sqlBdNo",sqlBdNo);
+		map.put("sqlBdNo", sqlBdNo);
 		jedis.hmset("result:" + bdNo, map);
 
-		
 		// =======start Timer=============
-		BdTimer timer= new BdTimer();
+		BdTimer timer = new BdTimer();
 		timer.startTimer();
 		// =======start Timer=============
 
@@ -91,11 +82,13 @@ public class BdRedis {
 	public boolean isRegistered() {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
-		boolean b = jedis.exists("bdNo");
-
+		
+		if(jedis.exists("bdNo")) {
+			jedis.close();
+			return true;
+		}
 		jedis.close();
-		return b;
-
+		return false;
 	}
 
 	public void newBid(String bdNo, String memId, Integer price) {
@@ -104,7 +97,6 @@ public class BdRedis {
 			jedis.auth("123456");
 
 			jedis.zadd(bdNo, price, memId);
-//		jedis.hmset(memId,"bdNo",bdNo,"bdProdNo",String.valueOf(bdProdNo),"bdPrice",String.valueOf(bdPrice),"bdDateStr",String.valueOf(bdDateStr),"bdDateEnd",String.valueOf(bdDateEnd),"bdStatus",String.valueOf(bdStatus),"bdOrdStatus",String.valueOf(bdOrdStatus),"pmtStatus",String.valueOf(pmtStatus),"bdZip",String.valueOf(bdZip),"bdName",bdName,"bdPhone",String.valueOf(bdPhone),"bdAddr",bdAddr);
 
 			System.out.println("(BdRedis)new bid!");
 
@@ -115,8 +107,6 @@ public class BdRedis {
 		}
 	}
 
-	
-	
 	public String getHighestBidder(String bdNo) {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
@@ -125,7 +115,7 @@ public class BdRedis {
 
 		if (set.isEmpty()) {
 			jedis.close();
-			return null;
+			return "noWinner";
 		}
 		Iterator<String> i = set.iterator();
 
@@ -134,7 +124,7 @@ public class BdRedis {
 		jedis.close();
 		return highestBidder;
 	}
-	
+
 	public Integer getTopBid(String bdNo) {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
@@ -149,8 +139,7 @@ public class BdRedis {
 
 		String highestBidder = i.next();
 		Integer highestBid = jedis.zscore(bdNo, highestBidder).intValue();
-		
-		
+
 		jedis.close();
 		return highestBid;
 	}
@@ -171,7 +160,6 @@ public class BdRedis {
 		jedis.auth("123456");
 
 		Set<String> set = jedis.zrevrange(bdNo, 0, 4);
-//		System.out.println(set);
 		Iterator<String> i = set.iterator();
 		String[] topBidders = new String[set.size()];
 
@@ -203,27 +191,39 @@ public class BdRedis {
 
 		jedis.close();
 		return bdDateEnd;
-	}	
+	}
+
+	public Timestamp getBdStartTime() {
+		Jedis jedis = new Jedis("localhost", 6379);
+		jedis.auth("123456");
+
+		Timestamp bdStartTime = new Timestamp(Long.valueOf(jedis.get("startTime")));
+
+		jedis.close();
+		return bdStartTime;
+	}
 
 	public String getSqlBdNo(String bdNo) {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
-		String sqlBdNo= jedis.hget("result:"+bdNo, "sqlBdNo");
-		
+		String sqlBdNo = jedis.hget("result:" + bdNo, "sqlBdNo");
+
 		jedis.close();
 		return sqlBdNo;
 	}
-	
+
 	public String clearRunningBdNo() {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
-		String bdNo= jedis.get("bdNo");
+		String bdNo = jedis.get("bdNo");
 		jedis.expire("bdNo", 0);
 		jedis.close();
 		return bdNo;
 	}
+
+
 	public static void main(String[] args) {
-//		BdRedis bdr = new BdRedis();
+		BdRedis bdr = new BdRedis();
 //		bdr.newBid("B00001", "M0001", 150);
 //		bdr.newBid("B00001", "M0002", 200);
 //		bdr.getHighestBid("B00001");
@@ -232,6 +232,8 @@ public class BdRedis {
 //		bdr.registerBdNo("B0001");
 //		bdr.storeDB("B00003");
 //		bdr.paid("B0011");
+//		bdr.getRunningBd();
+//		bdr.getLatestBdNo(0);
 	}
 
 }

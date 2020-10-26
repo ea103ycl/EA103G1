@@ -7,10 +7,7 @@
 <html lang="en">
 
 <head>
-<jsp:useBean id="bdr" scope="application"
-	class="com.bidding.model.BdRedis" />
-<jsp:useBean id="bdSvc" scope="page"
-	class="com.bidding.model.BiddingService" />
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -101,10 +98,15 @@ img {
 </head>
 
 <body>
+
+	<jsp:useBean id="bdr" scope="application"
+		class="com.bidding.model.BdRedis" />
+	<jsp:useBean id="bdSvc" scope="page"
+		class="com.bidding.model.BiddingService" />
 	<input id="memId" type="hidden" value="${memId}">
 	<input id="bdNo" type="hidden" value="${bdNo}">
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
-	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}"/>
+	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
 	<c:set var="topBidder" value="${bdr.getHighestBidder(bdNo)}" />
 	<!-- preloader -->
 	<div id="preloader">
@@ -229,20 +231,21 @@ img {
 								<%@include file="/frontend/biddingFront/clock.jsp"%>
 							</div>
 
-							
+
 
 							<!-- ModalWrapper -->
 							<div style="text-align: center;" id="modalWrapper">
-							
+
 								<c:choose>
 									<c:when test="${(bVO.bdStatus==0) and (memId eq topBidder)}">
-									<h2 Style="margin-top:2%">
-										<a>Congratulations!</a>
-									</h2>
-									<!-- Trigger the modal with a button -->
-									<button id="modalButton" type="button" class="btn btn-info btn-lg"
-										data-toggle="modal" data-target="#myModal"
-										onclick="getPrice()">Proceed ></button>
+										<h2 Style="margin-top: 2%">
+											<a>Congratulations!</a>
+										</h2>
+										<!-- Trigger the modal with a button -->
+										<button id="modalButton" type="button"
+											class="btn btn-info btn-lg" data-toggle="modal"
+											data-target="#myModal" onclick="getPrice()">Proceed
+											></button>
 
 										<!-- Modal -->
 										<div class="modal fade" id="myModal" role="dialog">
@@ -357,13 +360,14 @@ img {
 
 									</c:when>
 									<c:when test="${memId eq topBidder}">
-									<h2 Style="margin-top:2%">
-										<a>查看我的訂單!</a>
-									</h2>
-									<!-- Trigger the modal with a button -->
-									<button id="modalButton" type="button" class="btn btn-info btn-lg"
-										data-toggle="modal" data-target="#myModal"
-										onclick="getPrice()">Check Order ></button>
+										<h2 Style="margin-top: 2%">
+											<a>查看我的訂單!</a>
+										</h2>
+										<!-- Trigger the modal with a button -->
+										<button id="modalButton" type="button"
+											class="btn btn-info btn-lg" data-toggle="modal"
+											data-target="#myModal" onclick="getPrice()">Check
+											Order ></button>
 
 										<!-- Modal -->
 										<div class="modal fade" id="myModal" role="dialog">
@@ -392,7 +396,8 @@ img {
 																			INFO</a>
 																	</p>
 																	<p id="pscroll3">
-																		<a href="javascript:void(0)" class="page-scroll">MY ORDERS</a>
+																		<a href="javascript:void(0)" class="page-scroll">MY
+																			ORDERS</a>
 																	</p>
 
 																</div>
@@ -405,7 +410,8 @@ img {
 																		</h4>
 																		<div class="row">
 																			<div class="col-xs-6 col-sm-4 col-md-2">
-																				<img src="/G1/frontend/template/img/ghost.svg" alt="">
+																				<img src="/G1/frontend/template/img/ghost.svg"
+																					alt="">
 																			</div>
 
 																			<div class="col-xs-6 col-sm-8 col-md-10">
@@ -413,16 +419,16 @@ img {
 																					Full Name: <span>${bVO.bdName}</span>
 																				</p>
 																				<p>
-																					Country: <span>USA</span>
+																					Country: <span>台灣</span>
 																				</p>
 																				<p>
-																					Email: <span>me@mysite.com</span>
+																					Email: <span>${memId}</span>
 																				</p>
 																				<p>
 																					Phone: <span>${bVO.bdPhone}</span>
 																				</p>
 																				<p>
-																					Date of Birth: <span>Aug. 13, 1991</span>
+																					Date of Birth: <span>${memId}</span>
 																				</p>
 																			</div>
 
@@ -432,21 +438,17 @@ img {
 																	<!-- / personal-info -->
 
 																	<div id="shipping-info" class="account-info-content">
-																		<h4>
-																			SHIPPING INFO 
-																		</h4>
+																		<h4>SHIPPING INFO</h4>
 																		<p class="space-bottom" id="shippingEdit">
 																			<span><strong>John Doe -
 																					me@mysite.com</strong></span>
 																		</p>
 																		<p>
-																			Country: <span>USA</span>
+																			Country: <span>台灣</span>
 																		</p>
+																		
 																		<p>
-																			State: <span>Florida</span>
-																		</p>
-																		<p>
-																			City: <span>Miami</span>
+																			City: <span>${台北市}</span>
 																		</p>
 																		<p>
 																			Address Line: <span>${bVO.bdAddr}</span>
@@ -455,9 +457,9 @@ img {
 																			ZIP Code: <span>${bVO.bdZip}</span>
 																		</p>
 																		<div id="checkoutEdit" class="account-info-footer">
-																			<a href="javascript:void(0)" 
+																			<a href="javascript:void(0)"
 																				class="btn btn-sm btn-primary btn-rounded no-margin"><i
-																					class="lnr lnr-pencil"></i><span>Edit</span></a>
+																				class="lnr lnr-pencil"></i><span>Edit</span></a>
 																		</div>
 																	</div>
 																	<!-- / shipping-info -->
@@ -467,12 +469,11 @@ img {
 																			MY ORDERS <span class="pull-right">
 																		</h4>
 																		<p>
-																			<a href="#x">Order #${bVO.bdNo}</a>
-																			- Tracking No: <span>#${bVO.bdNo}</span>
+																			<a href="#x">Order #${bVO.bdNo}</a> - Tracking No: <span>#${bVO.bdNo}</span>
 																		</p>
 																		<p>
-																			<a href="#x">Order Date</a> <span>-
-																				Completed on ${bVO.bdDateEnd}</span>
+																			<a href="#x">Order Date</a> <span>- Completed
+																				on ${bVO.bdDateEnd}</span>
 																		</p>
 																		<p>
 																			<a href="#x">Order Status</a>-
@@ -493,12 +494,12 @@ img {
 																					<span>訂單已完成</span>
 																				</c:when>
 																				<c:otherwise>
-																					
+
 																				</c:otherwise>
 																			</c:choose>
-																			 
+
 																		</p>
-																		
+
 																	</div>
 																	<!-- / my-orders -->
 																</div>

@@ -11,7 +11,7 @@ import com.bidding.model.BdRedis;
 import com.bidding.model.BiddingVO;
 
 public class BdTimer extends HttpServlet {
-	
+	private static final long serialVersionUID = 1L;
 	private Timer timer=null;
 	
 	@Override
