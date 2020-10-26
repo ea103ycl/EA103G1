@@ -33,12 +33,13 @@
                 let bid = $('#submitBidPrice').val();
                 let reg = /^\d+$/;
 
+                //=====================================================================================
                 if (!bid.match(reg)) {
                     //========================sweetAlert=================
                     let timerInterval
                     Swal.fire({
                         title: 'Auto close alert!',
-                        html: 'Please enter Bid Number!',
+                        html: 'Please enter correct Bid Number!',
                         timer: 2000,
                         timerProgressBar: true,
                         willOpen: () => {
@@ -62,14 +63,15 @@
                             console.log('I was closed by the timer')
                         }
                     })
-                    return;
                     //========================/sweetAlert=================
+                    return;
                 }
-
+                //=====================================================================================
                 currentPrice = parseInt(currentPrice);
                 bid = parseInt(bid);
 
-                if (bid > currentPrice && bid > 10000) {
+                if (bid > currentPrice && bid > 15000) {
+
                     //========================sweetAlert=================
                     const swalWithBootstrapButtons = Swal.mixin({
                         customClass: {
@@ -80,7 +82,7 @@
                     })
 
                     swalWithBootstrapButtons.fire({
-                        title: 'Are you sure to Submit? Your Price:' + bid,
+                        title: 'Your price is: $ ' + bid,
                         text: "You won't be able to revert this!",
                         icon: 'warning',
                         showCancelButton: true,
@@ -90,47 +92,44 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             swalWithBootstrapButtons.fire(
-                                'Confirmed!',
-                                'Submitted Successfully.',
+                                'Submit!',
                                 'success'
                             )
+                            $.ajax({
+                                method: "post",
+                                url: "/G1/biddingPage/BdPageServlet",
+                                data: { action: "newBid", bid: bid, memId: memId, bdNo, bdNo },
+                                success: function(dataReturn) {
+                                    $('#currentPrice').text(dataReturn);
+                                },
+                                error: function() {
+
+                                    //========================sweetAlert=================
+                                    Swal.fire(
+                                        'The Internet?',
+                                        'Please check your connection',
+                                        'question'
+                                    )
+                                    //========================/sweetAlert=================
+                                }
+                            })
                         } else if (
                             /* Read more about handling dismissals below */
                             result.dismiss === Swal.DismissReason.cancel
                         ) {
-                            let timerInterval
-                            Swal.fire({
-                                title: 'Cancelled!',
-                                html: '',
-                                timer: 300,
-                                timerProgressBar: true,
-                                willOpen: () => {
-                                    Swal.showLoading()
-                                    timerInterval = setInterval(() => {
-                                        const content = Swal.getContent()
-                                        if (content) {
-                                            const b = content.querySelector('b')
-                                            if (b) {
-                                                b.textContent = Swal.getTimerLeft()
-                                            }
-                                        }
-                                    }, 100)
-                                },
-                                onClose: () => {
-                                    clearInterval(timerInterval)
-                                }
-                            }).then((result) => {
-                                /* Read more about handling dismissals below */
-                                if (result.dismiss === Swal.DismissReason.timer) {
-                                    console.log('')
-                                }
-                            })
+                            swalWithBootstrapButtons.fire(
+                                'Cancelled',
+                                'error'
+                            )
+                            return;
                         }
-                    })
-
+                    });
                     //========================/sweetAlert=================
+                    return;
                 }
 
+
+                //=====================================================================================
                 if (bid > currentPrice) {
                     console.log("memId" + memId);
                     $.ajax({
@@ -149,12 +148,11 @@
                         }
                     });
                 } else {
-
                     //========================sweetAlert=================
                     let timerInterval
                     Swal.fire({
                         title: 'Auto close alert!',
-                        html: 'Please enter Bid Number!',
+                        html: 'Please enter higher Bid !',
                         timer: 2000,
                         timerProgressBar: true,
                         willOpen: () => {
@@ -171,6 +169,7 @@
                         },
                         onClose: () => {
                             clearInterval(timerInterval)
+
                         }
                     }).then((result) => {
                         /* Read more about handling dismissals below */
@@ -179,12 +178,11 @@
                         }
                     })
                     return;
-
                     //========================/sweetAlert=================
                 }
             });
 
-            //================================
+            //================================================================
 
             $('#submitBidPrice').keypress(function(e) {
                 if (e.keyCode == 13) {
@@ -205,6 +203,10 @@
                 }
 
                 let currentPrice = parseInt($('#currentPrice').html());
+
+
+
+
                 let bid = currentPrice + 100;
                 if (bid > currentPrice && bid > 15000) {
 
@@ -231,6 +233,24 @@
                                 'Submit!',
                                 'success'
                             )
+                            $.ajax({
+                                method: "post",
+                                url: "/G1/biddingPage/BdPageServlet",
+                                data: { action: "newBid", bid: bid, memId: memId, bdNo, bdNo },
+                                success: function(dataReturn) {
+                                    $('#currentPrice').text(dataReturn);
+                                },
+                                error: function() {
+
+                                    //========================sweetAlert=================
+                                    Swal.fire(
+                                        'The Internet?',
+                                        'Please check your connection',
+                                        'question'
+                                    )
+                                    //========================/sweetAlert=================
+                                }
+                            })
                         } else if (
                             /* Read more about handling dismissals below */
                             result.dismiss === Swal.DismissReason.cancel
@@ -239,29 +259,13 @@
                                 'Cancelled',
                                 'error'
                             )
+                            return;
                         }
                     });
                     //========================/sweetAlert=================
 
                 }
-                $.ajax({
-                    method: "post",
-                    url: "/G1/biddingPage/BdPageServlet",
-                    data: { action: "newBid", bid: bid, memId: memId, bdNo, bdNo },
-                    success: function(dataReturn) {
-                        $('#currentPrice').text(dataReturn);
-                    },
-                    error: function() {
 
-                        //========================sweetAlert=================
-                        Swal.fire(
-                            'The Internet?',
-                            'Please check your connection',
-                            'question'
-                        )
-                        //========================/sweetAlert=================
-                    }
-                })
             });
 
         }());
