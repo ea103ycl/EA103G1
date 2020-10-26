@@ -18,7 +18,7 @@
 	String sid1 = (String)request.getAttribute("sid"); //從controller送來的ID
 	String sid2 = (String)request.getParameter("sid"); //從網址列輸入的ID
 	String sid = null; //本頁要顯示哪位會員ID的資料
-	if(sid1 != null && sid1.length() != 0){
+	if(sid1 != null && sid1.length() != 0 ){
 		sid = sid1;
 		System.out.println("走getAttribute " + sid);		
 	}else if(sid2 != null && sid2.length() != 0){
