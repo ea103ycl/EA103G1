@@ -15,7 +15,7 @@
 
 	<resource-ref>
 		<description>DB Connection</description>
-		<res-ref-name>jdbc/EA103G1DB</res-ref-name>
+		<res-ref-name>jdbc/EA103G1</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
@@ -235,7 +235,61 @@
 		<listener-class>com.event.controller.EventSchedule</listener-class>
 	</listener>
 
+	<!--== Ricky=========================================== -->
+	
+  <servlet>
+    <servlet-name>PreProductServlet</servlet-name>
+    <servlet-class>com.preproduct.model.PreProductServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PreProductServlet</servlet-name>
+    <url-pattern>/backend/preproduct/preproduct.do</url-pattern>
+  </servlet-mapping>
 
+  <servlet>
+    <servlet-name>PreproductShoppingServlet</servlet-name>
+    <servlet-class>com.preorder.Controller.ShoppingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PreproductShoppingServlet</servlet-name>
+    <url-pattern>/frontend/preproduct/Shopping.do</url-pattern>
+  </servlet-mapping>
+
+  
+  <servlet>
+    <servlet-name>DiscountSettingServlet</servlet-name>
+    <servlet-class>com.discount.model.DiscountSettingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DiscountSettingServlet</servlet-name>
+    <url-pattern>/backend/preproduct/discount.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PreOrderServlet</servlet-name>
+    <servlet-class>com.preorder.model.PreOrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PreOrderServlet</servlet-name>
+    <url-pattern>/frontend/preproduct/preorder.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <filter>
+  <filter-name>memLoginFilter</filter-name>
+    <filter-class>com.mem.controller.MemLoginFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+  <filter-name>memLoginFilter</filter-name>
+  <url-pattern>/frontend/members/select_page_frontend.jsp</url-pattern>
+  <url-pattern>/frontend/preproduct/shoppingCart.jsp</url-pattern>
+  <url-pattern>/frontend/preproduct/order_Success_List.jsp</url-pattern>
+   <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  
+
+	
 	<!--== YCL=========================================== -->
 	<servlet>
 		<servlet-name>LvServlet</servlet-name>

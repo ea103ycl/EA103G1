@@ -34,6 +34,12 @@ public class Event_PJDBCDAO implements Event_PDAO_interface {
 			+ "from event_p   where event_no=? and ROWNUM<=?";
 	private static final String BIGRANKUPDATE="UPDATE EVENT_P SET VOTE_RANK=? WHERE EVENT_P_NO=?";
 	private static final String FINDALLEVENTNO = "SELECT DISTINCT EVENT_NO FROM EVENT_P ORDER BY EVENT_NO DESC";
+
+	//by ·çÀs
+	private static final String GET_ALL_STMT = "SELECT * FROM EVENT_P WHERE EVENT_NO = (SELECT LAST_VALUE (EVENT_NO) OVER (ORDER BY EVENT_NO)  as LastValue FROM EVENT WHERE EVENT_STAT = 3 and rownum<2) ";
+
+	
+	
 	public void insert(Event_PVO pVO) {
 		try {
 			Class.forName(DRIVER);
@@ -467,8 +473,12 @@ public class Event_PJDBCDAO implements Event_PDAO_interface {
 		return null;
 	}
 
-
-
+	//==·çÀs=========================================================
+	@Override
+	public List<Event_PVO> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 

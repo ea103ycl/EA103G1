@@ -1,0 +1,114 @@
+        @import "../index_parts/sticky_bar.css";
+        body {
+            background-image: url();
+            margin-top: 80px;
+        }
+
+        .put_here {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background: gray;
+        }
+
+        .products-container,
+
+            {
+
+            max-width: 650px;
+            justify-content: space-around;
+            margin: 0 auto;
+            margin-top: 50px;
+            /*padding-bottom: 100px; */
+
+        }
+        h5 {
+            margin-bottom: 0;
+        }
+        .products-container ion-icon {
+
+            font-size: 25px;
+            color: #3B3B3B;
+            margin-left: 10px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .product-header {
+            margin-top: 80px;
+            width: 100%;
+            max-width: 650px;
+            display: flex;
+            justify-content: flex-start;
+            border-bottom: 4px solid lightgray;
+            margin: 0 auto;
+        }
+        .product-title {
+            width: 45%;
+            border-bottom: 4px solid lightgray;
+        }
+        .cart-price {
+
+            width: 15%;
+            border-bottom: 4px solid lightgray;
+            display: flex;
+            align-items: center;
+        }
+        .cart-quantity {
+
+            width: 30%;
+            border-bottom: 4px solid lightgray;
+            display: flex;
+            align-items: center;
+        }
+        .cart-total {
+
+            width: 10%;
+            border-bottom: 4px solid lightgray;
+            display: flex;
+            align-items: center;
+        }
+        .product, .inner-price, .inner-quantity, .inner-total {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 18px;
+
+        }
+        .products {
+            max-width: 650px;
+            margin: 0 auto;
+            justify-content: flex-start;
+
+            /*align-items: center;*/
+            padding: 10px 0;
+        }
+        .product {
+            margin: 0 auto;
+            width: 45%;
+        }
+        .product ion-icon {
+            position: relative;
+            vertical-align: 110%;
+            /*上兩行就只是橋角度*/
+        }
+        .product span {
+            position: relative;
+            vertical-align: 180%;
+            /*就為了橋名稱的角度*/
+        }
+
+        .inner-price {
+            width: 15%;
+
+        }
+        .inner-quantity {
+            width: 30%;
+
+        }
+        .inner-quantity span {
+            position: relative;
+            bottom: 5px;
+        }
+        .inner-total {
+            width: 8%;
+        }

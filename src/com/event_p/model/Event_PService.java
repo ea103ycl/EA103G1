@@ -2,6 +2,8 @@ package com.event_p.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.event_p.model.*;
+
 public class Event_PService {
 	private Event_PDAO dao;
 	public Event_PService() {
@@ -85,5 +87,10 @@ public class Event_PService {
 	}
 	public List<Event_PVO> find5PicByEventNo(String event_no){
 		return dao.find5PicByEventNo(event_no);
+	}
+	
+	//==By∑Á¿s=============================================================
+	public List<Event_PVO> getAll(){
+		return dao.getAll();
 	}
 }

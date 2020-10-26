@@ -1,0 +1,34 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%  int rowsPerPagee = 10;  //每頁的筆數    
+    int rowNumberr=0;      //總筆數
+    int pageNumberr=0;     //總頁數      
+    int whichPagee=1;      //第幾頁
+    int pageIndexxArray[]=null;
+    int pageIndexx=0; 
+%>
+
+<%  
+    rowNumberr=list01.size();
+    if (rowNumberr%rowsPerPagee !=0)
+         pageNumberr=rowNumberr/rowsPerPagee + 1;
+    else pageNumberr=rowNumberr/rowsPerPagee;    
+
+    pageIndexxArray=new int[pageNumberr]; 
+    for (int i=1 ; i<=pageIndexxArray.length ; i++)
+         pageIndexxArray[i-1]=i*rowsPerPagee-rowsPerPagee;
+%>
+
+<%  try {
+       whichPagee = Integer.parseInt(request.getParameter("whichPagee"));
+       pageIndexx=pageIndexxArray[whichPagee-1];
+    } catch (NumberFormatException e) { //第一次執行的時候
+       whichPagee=1;
+       pageIndexx=0;
+    } catch (ArrayIndexOutOfBoundsException e) { //總頁數之外的錯誤頁數
+         if (pageNumberr>0){
+              whichPagee=pageNumberr;
+              pageIndexx=pageIndexxArray[pageNumberr-1];
+         }
+    } 
+%>
+

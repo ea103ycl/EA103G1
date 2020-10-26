@@ -1,0 +1,11 @@
+@import "./index_parts/3d_coverflow.css";
+@import "./index_parts/countdown.css";
+@import "./index_parts/sticky_bar.css";
+
+body{
+	background-image: url(img/index_css_imgs/index_bg.jpg);
+	background-position:center;
+	background-size: cover;
+	margin-top:80px;
+	min-height: 300vh;
+}

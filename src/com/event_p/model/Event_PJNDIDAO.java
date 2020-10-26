@@ -14,6 +14,11 @@ import javax.sql.DataSource;
 public class Event_PJNDIDAO implements Event_PDAO_interface{
 	private static DataSource ds=null;
 	private static final String INSERT="INSERT INTO EVENT_P VALUES(EVENT_P_SEQ.nextval,?,?,?,?,?,?,?,?)";
+	//by ∑Á¿s
+	private static final String GET_ALL_STMT = "SELECT * FROM EVENT_P WHERE EVENT_NO = (SELECT LAST_VALUE (EVENT_NO) OVER (ORDER BY EVENT_NO)  as LastValue FROM EVENT WHERE EVENT_STAT = 3 and rownum<2) ";
+
+	
+	
 	static{
 		try {
 			Context ctx=new InitialContext();
@@ -137,6 +142,13 @@ public class Event_PJNDIDAO implements Event_PDAO_interface{
 	}
 	@Override
 	public List<Event_PVO> find5PicByEventNo(String event_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	//==∑Á¿s=========================================================
+	@Override
+	public List<Event_PVO> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

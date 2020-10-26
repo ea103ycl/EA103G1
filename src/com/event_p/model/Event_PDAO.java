@@ -2,6 +2,7 @@ package com.event_p.model;
 
 import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.event_p.model.*;
 import com.vote_d.model.*;
 
 public class Event_PDAO implements Event_PDAO_interface {
@@ -54,6 +56,12 @@ public class Event_PDAO implements Event_PDAO_interface {
 			"from event_p p " + 
 			"where p.event_p_stat=1  and p.event_no=?";
 	private static final String FINDFIVEPICBYEVENTNO="select*from event_p where event_no=? and event_p_stat=1 and rownum<=5";
+
+	//by ∑Á¿s
+	private static final String GET_ALL_STMT = "SELECT * FROM EVENT_P WHERE EVENT_NO = (SELECT LAST_VALUE (EVENT_NO) OVER (ORDER BY EVENT_NO)  as LastValue FROM EVENT WHERE EVENT_STAT = 3 and rownum<2) ";
+
+	
+	
 	static {
 		try {
 			Context ctx = new InitialContext();
@@ -108,10 +116,11 @@ public class Event_PDAO implements Event_PDAO_interface {
 		Connection con = null;
 		List<Event_PVO> pVOs = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GETALLEVENTP);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			pVOs = new ArrayList<Event_PVO>(); // store in list
 			while (rs.next()) {
 				Event_PVO pVO = new Event_PVO();
@@ -131,6 +140,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 
 			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -154,11 +170,12 @@ public class Event_PDAO implements Event_PDAO_interface {
 		Connection con = null;
 		Event_PVO event_pVO = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDBYPRIMARYKEY);
 			pstmt.setInt(1, event_p_no);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				event_pVO = new Event_PVO();
 				event_pVO.setEvent_p_no(rs.getInt(1));
@@ -175,6 +192,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -237,16 +261,25 @@ public class Event_PDAO implements Event_PDAO_interface {
 		Connection con = null;
 		List<String> memIds = new ArrayList<String>();
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDALLMEM);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				memIds.add(rs.getString(1));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -271,10 +304,11 @@ public class Event_PDAO implements Event_PDAO_interface {
 		Connection con = null;
 		List<String> eventNos = new ArrayList<String>();
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDALLEVENTNO);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				eventNos.add(rs.getString(1));
 			}
@@ -282,6 +316,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -320,6 +361,7 @@ public class Event_PDAO implements Event_PDAO_interface {
 			vote_d.setEvent_p_no(event_p_no);
 			votedao.insert(vote_d,con);
 			
+			con.setAutoCommit(true);
 			con.commit();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -355,11 +397,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 		Connection con = null;
 		Event_PVO event_pVO = new Event_PVO();
 		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDTOPBYEVENTNOWITHOUTREPORT);
 			pstmt.setString(1, event_no);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				event_pVO.setEvent_p_no(rs.getInt(1));
 				event_pVO.setMem_id(rs.getString(2));
@@ -375,6 +419,14 @@ public class Event_PDAO implements Event_PDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -396,16 +448,19 @@ public class Event_PDAO implements Event_PDAO_interface {
 
 	@Override
 	public List<Event_PVO> findAllByEventNo(String event_no) {
+		
 		// TODO Auto-generated method stub
 		Connection con = null;
 		Event_PVO event_pVO = null;
 		PreparedStatement pstmt=null;
+		ResultSet rs = null;
 		List<Event_PVO> event_pVOs = new ArrayList<Event_PVO>();
+		
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDALLBYEVENTNO);
 			pstmt.setString(1, event_no);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				event_pVO = new Event_PVO();
@@ -424,6 +479,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -447,12 +509,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt=null;
+		ResultSet rs = null;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(CHECKUPLOADBYMEMID);
 			pstmt.setString(1, mem_id);
 			pstmt.setString(2, event_no);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				return true;
 			}
@@ -460,6 +523,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -484,12 +554,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 		Connection con = null;
 		Event_PVO event_pVO = null;
 		PreparedStatement pstmt=null;
+		ResultSet rs = null;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDUPLOADBYMEMID);
 			pstmt.setString(1, mem_id);
 			pstmt.setString(2, event_no);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				event_pVO = new Event_PVO();
 				event_pVO.setEvent_p_no(rs.getInt(1));
@@ -507,6 +578,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -596,12 +674,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		List<Event_PVO> event_pVOs=new ArrayList<Event_PVO>();
+		ResultSet rs = null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(BIGRANKSORT);
 			pstmt.setString(1, event_no);
 			pstmt.setInt(2, rownum);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				System.out.println("event_p_no:"+rs.getInt(1));
 				Event_PVO event_pVO=new Event_PVO();
@@ -614,6 +693,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -672,11 +758,12 @@ public class Event_PDAO implements Event_PDAO_interface {
 		
 		List<Event_PVO> event_pVOs=new ArrayList<Event_PVO>();
 		PreparedStatement pstmt=null;
+		ResultSet rs = null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDALLBYEVENTNORANKDESCWITHOUTREPORT);
 			pstmt.setString(1, event_no);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Event_PVO event_pVO= new Event_PVO();
 				event_pVO.setEvent_p_no(rs.getInt(1));
@@ -694,6 +781,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -718,11 +812,12 @@ public class Event_PDAO implements Event_PDAO_interface {
 		Connection con=null;
 		List<Event_PVO> event_pVOs=new ArrayList<Event_PVO>();
 		PreparedStatement pstmt=null;
+		ResultSet rs = null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDALLNOREPORT);
 			pstmt.setString(1, event_no);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Event_PVO event_pVO=new Event_PVO();
 				event_pVO.setEvent_p_no(rs.getInt(1));
@@ -740,6 +835,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -767,13 +869,14 @@ public class Event_PDAO implements Event_PDAO_interface {
 		String sql=FINDALLNOREPORT+" order by p."+order[0]+" "+order[1];//use findAllNoReport to compose input parameter
 		List<Event_PVO>event_pVOs=new ArrayList<Event_PVO>();
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			//use input parameter to compose sql
 			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, event_no);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Event_PVO event_pVO=new Event_PVO();
 				event_pVO.setEvent_p_no(rs.getInt(1));
@@ -791,6 +894,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -815,11 +925,12 @@ public class Event_PDAO implements Event_PDAO_interface {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		List<Event_PVO> event_pVO5s=new ArrayList<Event_PVO>();
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDFIVEPICBYEVENTNO);
 			pstmt.setString(1, event_no);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Event_PVO pVO=new Event_PVO();
 				pVO.setEvent_p_no(rs.getInt(1));
@@ -837,6 +948,13 @@ public class Event_PDAO implements Event_PDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -856,6 +974,63 @@ public class Event_PDAO implements Event_PDAO_interface {
 		return event_pVO5s;
 	}
 
+	//==∑Á¿s=========================================================
+	@Override
+	public List<Event_PVO> getAll() {
+			
+		List<Event_PVO> list = new ArrayList<Event_PVO>();
+		Event_PVO eventpVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con=ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				eventpVO = new Event_PVO();
+				eventpVO.setEvent_p_no(rs.getInt("event_p_no"));
+				eventpVO.setMem_id(rs.getString("mem_id"));
+				eventpVO.setEvent_no(rs.getString("event_no"));
+				eventpVO.setEvent_p_name(rs.getString("event_p_name"));
+				eventpVO.setEvent_p_date(rs.getTimestamp("event_p_date"));
+				eventpVO.setEvent_vote_num(rs.getInt("event_vote_num"));
+				eventpVO.setVote_rank(rs.getInt("vote_rank"));
+				eventpVO.setEvent_p_stat(rs.getInt("event_p_stat"));
+				eventpVO.setEvent_p_img(rs.getBytes("event_p_img"));
+				
+				list.add(eventpVO);
+			}
 
+		} catch (SQLException e) {
+			throw new RuntimeException("a database error occured.love you!"+e.getMessage());
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 
 }

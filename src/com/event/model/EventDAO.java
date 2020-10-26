@@ -25,7 +25,7 @@ public class EventDAO  implements EventDAO_interface{
 			"SELECT * FROM EVENT";
 	private static final String FINDBYEVENTNO=
 			"SELECT * FROM EVENT WHERE EVENT_NO=?";
-	private static final String FINDWITHOUTEND="SELECT*FROM EVENT WHERE EVENT_STAT!=3";
+	private static final String FINDWITHOUTEND="SELECT * FROM EVENT WHERE EVENT_STAT!=3";
 	private static final String FINDLASTENDEVENT="select event_no from event where event_stat=3 and rownum=1 order by event_no desc";
 	
 	static{
@@ -247,15 +247,20 @@ public class EventDAO  implements EventDAO_interface{
 		}
 		return eventVO;
 	}
+	
 	public List<EventVO> findWithoutEnd(){
 		Connection con=null;
 		EventVO eventVO=null;
 		List<EventVO> eventVOs=new ArrayList<EventVO>();
-		PreparedStatement pstmt=null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+				
 		try {
 			con=ds.getConnection();
-			pstmt=con.prepareStatement(FINDWITHOUTEND);
-			ResultSet rs=pstmt.executeQuery();
+			pstmt = con.prepareStatement(FINDWITHOUTEND);
+			
+			rs = pstmt.executeQuery();
+			
 			while(rs.next()) {
 				eventVO=new EventVO();
 				eventVO.setEvent_no(rs.getString(1));
@@ -274,6 +279,14 @@ public class EventDAO  implements EventDAO_interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -291,6 +304,7 @@ public class EventDAO  implements EventDAO_interface{
 		}
 		return eventVOs;
 	}
+	
 	@Override
 	public String findLastEndEvent() {
 		// TODO Auto-generated method stub

@@ -1,7 +1,8 @@
 package com.event_p.model;
 
-import java.util.HashSet;
 import java.util.*;
+
+import com.event_p.model.Event_PVO;
 
 public interface Event_PDAO_interface {
 	public  void insert(Event_PVO pVO);
@@ -26,4 +27,7 @@ public interface Event_PDAO_interface {
 	public List<Event_PVO> find5PicByEventNo(String event_no);
 	public List<Event_PVO> findAllNoReport(String event_no);
 	public List<Event_PVO> findAllOrderBySelect(String event_no,String colName);
+	
+	//By∑Á¿s
+	public List<Event_PVO> getAll();
 }
