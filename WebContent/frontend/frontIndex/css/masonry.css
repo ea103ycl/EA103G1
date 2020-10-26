@@ -1,0 +1,18 @@
+        .gridWrapper {
+            margin: 3.5em auto;
+            text-align: center;
+        }
+        .grid {
+            margin: auto;
+        }
+        .grid-item {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        /*         .grid-item--width2 {
+            width: 400px;
+        } */
+        img {
+            border-radius: 10px;
+            width: 100%;
+        }

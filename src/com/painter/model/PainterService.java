@@ -10,6 +10,8 @@ public class PainterService {
 		dao = new PainterDAO();
 	}
 	
+	
+	//==YCL===========================================================
 	public void insert(PainterVO painterVO, String tag_desc) {
 		dao.insert(painterVO, tag_desc);
 	}
@@ -41,23 +43,25 @@ public class PainterService {
 		return dao.getOnePainter(ptr_no);
 	}
 	
-	//---------------------------------------
-
-	public List<PainterVO> searchNewPics() {
-		return dao.searchNewPics();
-	}
-
-	public List<PainterVO> searchLikePics() {
-		return dao.searchLikePics();
-	}
-
-	public List<PainterVO> searchPopularPics() {
-		return dao.searchPopularPics();
+	//==Tim============================================================
+	public List<PainterVO> getAll() {
+		return dao.getAll();
 	}
 	
+	public PainterVO getPainterVO(Integer ptr_no) {
+//		return dao.findByPrimaryKey(ptr_no); //mark by YCL
+		return dao.getOnePainter(ptr_no);
+	}
 	
-	//20201117 TEST
-	public List<PainterVO> searchPopularPics2(){
-		return dao.searchPopularPics2();
+	public List<PainterVO> getLatestPics() {
+		return dao.latestPics();
+	}
+	
+	public List<PainterVO> getMostLiked(Integer rankBegin,Integer rankEnd){
+		return dao.getMostLiked(rankBegin, rankEnd);
+	}
+	
+	public Integer getPicCount() {
+		return dao.getPicCount();
 	}
 }

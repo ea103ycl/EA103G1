@@ -236,60 +236,77 @@
 	</listener>
 
 	<!--== Ricky=========================================== -->
+
+	<servlet>
+		<servlet-name>PreProductServlet</servlet-name>
+		<servlet-class>com.preproduct.model.PreProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PreProductServlet</servlet-name>
+		<url-pattern>/backend/preproduct/preproduct.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PreproductShoppingServlet</servlet-name>
+		<servlet-class>com.preorder.Controller.ShoppingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PreproductShoppingServlet</servlet-name>
+		<url-pattern>/frontend/preproduct/Shopping.do</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>DiscountSettingServlet</servlet-name>
+		<servlet-class>com.discount.model.DiscountSettingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DiscountSettingServlet</servlet-name>
+		<url-pattern>/backend/preproduct/discount.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PreOrderServlet</servlet-name>
+		<servlet-class>com.preorder.model.PreOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PreOrderServlet</servlet-name>
+		<url-pattern>/frontend/preproduct/preorder.do</url-pattern>
+	</servlet-mapping>
+
+
+
+	<!--== Tim=========================================== -->
+	<servlet>
+		<servlet-name>BiddingServlet</servlet-name>
+		<servlet-class>com.bidding.controller.BiddingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BiddingServlet</servlet-name>
+		<url-pattern>/bidding/BiddingServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>BdPageServlet</servlet-name>
+		<servlet-class>com.biddingPage.controller.BdPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BdPageServlet</servlet-name>
+		<url-pattern>/biddingPage/BdPageServlet</url-pattern>
+	</servlet-mapping>
 	
-  <servlet>
-    <servlet-name>PreProductServlet</servlet-name>
-    <servlet-class>com.preproduct.model.PreProductServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PreProductServlet</servlet-name>
-    <url-pattern>/backend/preproduct/preproduct.do</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>PreproductShoppingServlet</servlet-name>
-    <servlet-class>com.preorder.Controller.ShoppingServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PreproductShoppingServlet</servlet-name>
-    <url-pattern>/frontend/preproduct/Shopping.do</url-pattern>
-  </servlet-mapping>
-
-  
-  <servlet>
-    <servlet-name>DiscountSettingServlet</servlet-name>
-    <servlet-class>com.discount.model.DiscountSettingServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DiscountSettingServlet</servlet-name>
-    <url-pattern>/backend/preproduct/discount.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>PreOrderServlet</servlet-name>
-    <servlet-class>com.preorder.model.PreOrderServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PreOrderServlet</servlet-name>
-    <url-pattern>/frontend/preproduct/preorder.do</url-pattern>
-  </servlet-mapping>
-  
-  
-  <filter>
-  <filter-name>memLoginFilter</filter-name>
-    <filter-class>com.mem.controller.MemLoginFilter</filter-class>
-  </filter>
-  
-  <filter-mapping>
-  <filter-name>memLoginFilter</filter-name>
-  <url-pattern>/frontend/members/select_page_frontend.jsp</url-pattern>
-  <url-pattern>/frontend/preproduct/shoppingCart.jsp</url-pattern>
-  <url-pattern>/frontend/preproduct/order_Success_List.jsp</url-pattern>
-   <dispatcher>REQUEST</dispatcher>
-  </filter-mapping>
-  
-
 	
+	<servlet>
+		<servlet-name>TagGetPic</servlet-name>
+		<servlet-class>com.painter.controller.TagGetPic</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TagGetPic</servlet-name>
+		<url-pattern>/painter/TagGetPic</url-pattern>
+	</servlet-mapping>
+	
+	
+
 	<!--== YCL=========================================== -->
 	<servlet>
 		<servlet-name>LvServlet</servlet-name>
@@ -339,7 +356,7 @@
 	</servlet-mapping>
 
 
-	<!-- ==backend filter=========================================== -->
+	<!-- ==backend filter by Jeff=========================================== -->
 	<filter>
 		<filter-name>loginFilter</filter-name>
 		<filter-class>com.emp.controller.LoginFilter</filter-class>
@@ -376,6 +393,18 @@
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
 
+	<!-- ==filter by Ricky=========================================== -->
+	<filter>
+		<filter-name>memLoginFilter</filter-name>
+		<filter-class>com.mem.controller.MemLoginFilter</filter-class>
+	</filter>
 
+	<filter-mapping>
+		<filter-name>memLoginFilter</filter-name>
+		<url-pattern>/frontend/members/select_page_frontend.jsp</url-pattern>
+		<url-pattern>/frontend/preproduct/shoppingCart.jsp</url-pattern>
+		<url-pattern>/frontend/preproduct/order_Success_List.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
 
 </web-app>

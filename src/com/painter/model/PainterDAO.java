@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.Context;
@@ -46,9 +48,7 @@ public class PainterDAO implements PainterDAO_interface {
 	 * ;
 	 */
 
-	// ===================================================================================
-	// Author:YCL
-	// ===================================================================================
+	// ==YCL==============================================================================
 	private static final String INSERT_STMT = "INSERT INTO painter( ptr_no, mem_id, ptr_nm, intro, pic, priv_stat, ptr_stat, like_cnt, col_cnt, create_dt) VALUES( PAINTER_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, sysdate) ";
 	private static final String UPDATE_STMT = "UPDATE painter SET ptr_nm = ?, intro = ?, pic= ?, priv_stat = ?, ptr_stat= ? WHERE ptr_no= ? ";
 	private static final String DELETE_STMT = "UPDATE painter SET PTR_STAT = ? WHERE ptr_no =? ";
@@ -83,34 +83,18 @@ public class PainterDAO implements PainterDAO_interface {
 															  "    OR ( P.MEM_ID = ? AND P.PTR_STAT = 1 ) " + 
 															  " ORDER BY P.PTR_NO DESC ";
 
-	// ------------------------------------------------------------------------------------
-	private static final String SEARCH_STMT = "SELECT pic, intro WHERE ptr_no=?";
-	private static final String SEARCH_LIKE_STMT = "SELECT * FROM painter WHERE like_cnt=? ";
 
-	private static final String SEARCH_NEW_STMT = "SELECT * FROM painter ORDER BY create_dt DESC";
-
-	private static final String SEARCH_POPULAR_STMT = "SELECT POPULAR_TAG.RANK_NO, POPULAR_TAG.TAG_DESC, PTR.* "
-			+ "FROM PAINTER PTR, PAINTER_TAG_MAP PTM1, "
-			+ "(SELECT RANK() OVER( ORDER BY COUNT(1) DESC ) AS RANK_NO, PTM2.TAG_NO, PT.TAG_DESC, COUNT(1) AS CNT "
-			+ "FROM PAINTER_TAG_MAP PTM2, PAINTER_TAG PT " + "WHERE PTM2.TAG_NO = PT.TAG_NO "
-			+ "GROUP BY PTM2.TAG_NO, PT.TAG_DESC) POPULAR_TAG " + "WHERE PTR.PTR_NO = PTM1.PTR_NO "
-			+ "AND PTM1.TAG_NO = POPULAR_TAG.TAG_NO " + "AND POPULAR_TAG.RANK_NO <= 100 " + // 取出前2大熱門的tag
-			"ORDER BY POPULAR_TAG.RANK_NO  ";
+	// ==Tim==============================================================================
+	private static final String SEARCH_ALL = "SELECT * FROM painter";
+	private static final String SEARCH_NEW_STMT = "SELECT * FROM painter ORDER BY create_dt ";
 	
-	//20201017 TEST
-	private static final String SEARCH_POPULAR_STMT2 = "WITH TMP AS" + 
-			"(SELECT PTM.TAG_NO," + 
-			"        COUNT(1) AS TIMES," + 
-			"        (RANK() OVER(ORDER BY COUNT(1) DESC )) AS RANK_NO" + 
-			"  FROM PAINTER_TAG_MAP PTM" + 
-			" GROUP BY PTM.TAG_NO)" + 
-			"SELECT * " + 
-			"  FROM PAINTER P" + 
-			"  WHERE P.PTR_NO IN (" + 
-			"        SELECT PTR_NO" + 
-			"          FROM PAINTER_TAG_MAP PTM2" + 
-			"          WHERE TAG_NO IN (SELECT TMP.TAG_NO FROM TMP WHERE TMP.RANK_NO <= 100))";
+	private static final String SEARCH_MOST_LIKED_STMT="SELECT * FROM"
+			+ "(SELECT ROW_NUMBER() OVER (ORDER BY LIKE_CNT desc)"
+			+ "AS RANK,PAINTER.* FROM PAINTER WHERE CREATE_DT BETWEEN ? AND ?)"
+			+ "WHERE RANK BETWEEN ? AND ?";
 
+	private static final String GET_PIC_COUNT="SELECT COUNT(*) FROM PAINTER";
+	
 
 	// ===================================================================================
 	// Author:YCL
@@ -603,10 +587,10 @@ public class PainterDAO implements PainterDAO_interface {
 
 		return painterVO;
 	}
-
-	// ===================================================================================
-
-	public List<PainterVO> searchNewPics() {
+	
+	//==Tim===============================================================
+	
+	public List<PainterVO> latestPics() {
 
 		PainterVO painterVO = null;
 		List<PainterVO> list = new ArrayList<PainterVO>();
@@ -616,10 +600,7 @@ public class PainterDAO implements PainterDAO_interface {
 
 		try {
 
-//			Class.forName(driver);
-//			con = DriverManager.getConnection(url, userid, passwd);
 			con = ds.getConnection();
-
 			pstmt = con.prepareStatement(SEARCH_NEW_STMT);
 
 			rs = pstmt.executeQuery();
@@ -665,28 +646,36 @@ public class PainterDAO implements PainterDAO_interface {
 				}
 			}
 		}
+	
 		return list;
 	}
-
-	public List<PainterVO> searchLikePics() {
-
-		PainterVO painterVO = null;
-		List<PainterVO> list = new ArrayList<PainterVO>();
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
+	public List<PainterVO>getMostLiked(Integer rankBegin, Integer rankEnd){
+		
+		List<PainterVO> list =new ArrayList<PainterVO>();
+		PainterVO painterVO=null;
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		ResultSet rs =null;
+		
 		try {
-//			Class.forName(driver);
-//			con = DriverManager.getConnection(url, userid, passwd);
 			con = ds.getConnection();
+			pstmt=con.prepareStatement(SEARCH_MOST_LIKED_STMT);
 
-			pstmt = con.prepareStatement(SEARCH_LIKE_STMT);
+			Date d = new Date();
+			
+			Timestamp past =new Timestamp(d.getTime()-(2*60*60*24*30*1000L));
+			Timestamp now =new Timestamp(d.getTime());
+			
 
+			pstmt.setTimestamp(1,past);
+			pstmt.setTimestamp(2,now);
+			pstmt.setInt(3, rankBegin);
+			pstmt.setInt(4, rankEnd);
+			
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
-
-				painterVO = new PainterVO();
+			
+			while(rs.next()) {
+				painterVO=new PainterVO();
 				painterVO.setPtr_no(rs.getInt("ptr_no"));
 				painterVO.setMem_id(rs.getString("mem_id"));
 				painterVO.setPtr_nm(rs.getString("ptr_nm"));
@@ -699,10 +688,10 @@ public class PainterDAO implements PainterDAO_interface {
 				painterVO.setCreate_dt(rs.getTimestamp("create_dt"));
 				list.add(painterVO);
 			}
-
+			
 		} catch (SQLException e) {
-			throw new RuntimeException("dataBase error" + e.getMessage());
-		} finally {
+			throw new RuntimeException("Database error:"+e.getMessage());
+		}finally {
 			if (rs != null) {
 				try {
 					rs.close();
@@ -729,8 +718,7 @@ public class PainterDAO implements PainterDAO_interface {
 		return list;
 	}
 
-	// add by YCL
-	public List<PainterVO> searchPopularPics() {
+	public List<PainterVO> getAll() {
 
 		PainterVO painterVO = null;
 		List<PainterVO> list = new ArrayList<PainterVO>();
@@ -739,79 +727,12 @@ public class PainterDAO implements PainterDAO_interface {
 		ResultSet rs = null;
 
 		try {
-//			Class.forName(driver);
-//			con = DriverManager.getConnection(url, userid, passwd);
 			con = ds.getConnection();
-
-			pstmt = con.prepareStatement(SEARCH_POPULAR_STMT);
+			pstmt = con.prepareStatement(SEARCH_ALL);
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-
-				painterVO = new PainterVO();
-				painterVO.setPtr_no(rs.getInt("ptr_no"));
-				painterVO.setMem_id(rs.getString("mem_id"));
-				painterVO.setPtr_nm(rs.getString("ptr_nm"));
-				painterVO.setIntro(rs.getString("intro"));
-				painterVO.setPic(rs.getBytes("pic"));
-				painterVO.setPriv_stat(rs.getInt("priv_stat"));
-				painterVO.setPtr_stat(rs.getInt("ptr_stat"));
-				painterVO.setLike_cnt(rs.getInt("like_cnt"));
-				painterVO.setCol_cnt(rs.getInt("col_cnt"));
-				painterVO.setCreate_dt(rs.getTimestamp("create_dt"));
-				list.add(painterVO);
-			}
-
-		} catch (SQLException e) {
-			throw new RuntimeException("dataBase error" + e.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace(System.err);
-				}
-
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
-
-	
-	
-	
-	public List<PainterVO> searchPopularPics2() {
-
-		PainterVO painterVO = null;
-		List<PainterVO> list = new ArrayList<PainterVO>();
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-//			Class.forName(driver);
-//			con = DriverManager.getConnection(url, userid, passwd);
-			con = ds.getConnection();
-
-			pstmt = con.prepareStatement(SEARCH_POPULAR_STMT2);
-
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-
+				
 				painterVO = new PainterVO();
 				painterVO.setPtr_no(rs.getInt("ptr_no"));
 				painterVO.setMem_id(rs.getString("mem_id"));
@@ -855,4 +776,50 @@ public class PainterDAO implements PainterDAO_interface {
 		return list;
 	}
 	
+	public Integer getPicCount() {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Integer count=0;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_PIC_COUNT);
+
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				count=rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException("dataBase error" + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+//		System.out.println(count);
+		return count;
+	}
 }
