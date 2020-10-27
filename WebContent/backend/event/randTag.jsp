@@ -52,25 +52,27 @@
 		
 	</form>
 </body>
-<script src="<%=request.getContextPath()%>/backend/template/jquery/jquery-3.5.1.js"></script>
+<%-- <script src="<%=request.getContextPath()%>/backend/template/jquery/jquery-3.5.1.js"></script> --%>
+<script src="<%=request.getContextPath()%>/backend/template/vendor/jquery/jquery.min.js"></script>
+<script src="<%=request.getContextPath()%>/backend/template/vendor/jquery/jquery.min.js"></script>
 <script type="text/javascript">
-// 	$("#roll").click(function(){
-// 	$.ajax({
-<%-- 			url:"<%=request.getContextPath()%>/Event_TagServlet", --%>
-// 			type:"post",
-// 			data:{
-// 				action:"roll"
-// 			},
-// 			success:function(e){
+	$("#roll").click(function(){
+	$.ajax({
+			url:"<%=request.getContextPath()%>/Event_TagServlet",
+			type:"post",
+			data:{
+				action:"roll"
+			},
+			success:function(e){
 				
-// 				var txt="";
+				var txt="";
 				
-// 					$("#resTxt").text(e);
-// 					txt+="<input type=\"text\" class=\"form-control\" name=\"event_tag_name\""+"value="+e+" readonly>"
-// 					$("#resTxt").html(txt);
-// 			}
-// 		});
+					$("#resTxt").text(e);
+					txt+="<input type=\"text\" class=\"form-control\" name=\"event_tag_name\""+"value="+e+" readonly>"
+					$("#resTxt").html(txt);
+			}
+		});
 	
-// 	});
+	});
 </script>
 </html>

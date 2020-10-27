@@ -45,7 +45,7 @@ class EventTimer extends TimerTask{
 
 	@Override
 	public void run() {
-		System.out.println("testSchedule");
+		System.out.println("start run schedule");
 		EventService svc = new EventService();
 //		List<EventVO> eventVOs = svc.findAllEvent();
 		List<EventVO> eventVOs=svc.findWithoutEnd();

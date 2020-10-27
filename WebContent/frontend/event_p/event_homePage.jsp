@@ -9,7 +9,8 @@
 	Event_PService pSvc = new Event_PService();
 	List<Event_PVO> event_pVOs = pSvc.finAllPic();
 	pageContext.setAttribute("event_pVOs",event_pVOs);
-	
+	HttpSession sessHomePage=request.getSession();
+	sessHomePage.setAttribute("event_pVOs",null);//當從event_spec跳回主頁時，將設定成null再走回spec可以進入判斷
 	List<Event_PVO> event_p_tops=new ArrayList<Event_PVO>();
 	List<String> event_nos=pSvc.findAllEventNo();
 	

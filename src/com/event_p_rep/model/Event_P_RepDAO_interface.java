@@ -15,4 +15,5 @@ public interface Event_P_RepDAO_interface {
 	public List<Event_P_RepVO> findAllByCompositeQuery(Map<String,String[]> map);
 	public Event_P_RepVO findByMemId(String mem_id);//可能沒用到
 	public Event_P_RepVO findReportByMemAndEventNo(String mem_id,String event_no);
+//	public int getRepStatTwoChangeNumByEventNo(String event_no);
 }

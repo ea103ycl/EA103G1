@@ -50,8 +50,8 @@ public class Event_PViewServlet extends HttpServlet {
 			Event_PVO event_pVO=dao.findByPrimaryKey(new Integer(event_p_no));
 			
 			img=event_pVO.getEvent_p_img(); //¨ú±obyte[]	
-			System.out.println("event_p_no: "+event_p_no);
-			System.out.println("img.length: "+img.length);
+//			System.out.println("event_p_no: "+event_p_no);
+//			System.out.println("img.length: "+img.length);
 		}
 //		read
 //		img.length(null): 8192

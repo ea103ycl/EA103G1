@@ -8,6 +8,7 @@
 <%@page import="com.vote_d.model.*" %>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.*"%>
+<%@page import="com.mem.model.*" %>
 <%
 	HttpSession sess=request.getSession();	
 	String event_no=null;
@@ -27,12 +28,12 @@
 	
 	//當活動結束會依照投票高到低排序顯示
 	Event_PService pSvc=new Event_PService();
-	
+	Event_P_RepService repSvc=new Event_P_RepService();
 	List<Event_PVO> event_pVOs=null;
-	if(isEventNoRefresh){
-		event_pVOs=pSvc.findAllNoReport(event_no);//從A主題跳到B主題的作品刷新
+	if(isEventNoRefresh||sess.getAttribute("event_pVOs")==null){
+		event_pVOs=pSvc.findAllNoReport(event_no);//從A主題跳到B主題的作品刷新或檢舉數目更動
 	}else if(sess.getAttribute("event_pVOs")!=null){
-		event_pVOs=(List<Event_PVO>)sess.getAttribute("event_pVOs");
+		event_pVOs=(List<Event_PVO>)sess.getAttribute("event_pVOs");//
 	}else if(eventVO.getEvent_stat()==3){
 		event_pVOs=pSvc.findAllByEventNoRankDescWithoutReport(event_no);
 		getServletContext().setAttribute("event_no", eventSvc.findLastEndEvent());
@@ -51,15 +52,17 @@
 	
 	
 	HttpSession ses=request.getSession();	
-	if(ses.getAttribute("mem_id")==null){
+	if(ses.getAttribute("memVO")==null){
 		ses.setAttribute("mem_id","M000003");//可以寫不同編號測試
+	}else{
+		ses.setAttribute("mem_id", ((MemVO)ses.getAttribute("memVO")).getMem_id());
 	}	
 	Event_PService eventPSVC=new Event_PService();
 	boolean checkMemPic=eventPSVC.checkUploadByMemid((String)ses.getAttribute("mem_id"),eventVO.getEvent_no());
 	pageContext.setAttribute("checkMemPic", checkMemPic);//確認會員是否投過搞
 	
 	//判斷是否檢舉過
-	Event_P_RepService repSvc=new Event_P_RepService();
+	
 // 	Event_P_RepVO event_p_repVO=repSvc.findByMemId((String)ses.getAttribute("mem_id"));
 	Event_P_RepVO event_p_repVO=repSvc.findReportByMemAndEventNo((String)ses.getAttribute("mem_id"), event_no);//取得會員這次活動是否有檢舉過	
 
@@ -275,7 +278,7 @@
 									<input type="hidden" name="mem_id"value="${sessionScope.mem_id }">
 									<input type="hidden" name="event_p_no" value="${event_pVO.event_p_no}"> 
 									<input type="hidden" name="action" value="report"> 
-										<input	type="submit" class="btn btn-default"  value="檢舉"	<%=event_p_repVO!=null?"disabled":""%>> <!-- eventVO.getEvent_stat()!=2|| -->
+										<input	type="submit" class="btn btn-default"  value="檢舉"	<%=eventVO.getEvent_stat()!=2||event_p_repVO!=null?"disabled":""%>> <!--  -->
 								</form>
 <!-- 							</div> -->
 						</div>
@@ -351,11 +354,12 @@
 </section>
 
 <a href="<%=request.getContextPath() %>/frontend/event_p/event_homePage.jsp">回到瀏覽主題競賽</a>
+<%@include file="/frontend/event_p/frontBarFooter.jsp" %>
 </body>
 
 <%-- <script src="<%=request.getContextPath()%>/frontend/template/jquery/jquery-3.5.1.js"></script> --%>
 <%-- <script src="<%=request.getContextPath()%>/frontend/template/js/bootstrap.min.js"></script> --%>
-    <script src="<%=request.getContextPath() %>/frontend/template/jquery/jquery.min.js" ></script>
+    <script src="<%=request.getContextPath() %>/frontend/template/js/jquery.min.js" ></script>
 
 <!-- mark by YCL 重複引入導致modal跑不出來     -->
 <%-- 	<script src="<%=request.getContextPath() %>/frontend/template/js/bootstrap.min.js" ></script> --%>
