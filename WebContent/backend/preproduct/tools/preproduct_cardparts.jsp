@@ -2,9 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.event_p.model.*"%>
+<%@ page import="com.event.model.*"%>
 <%
+	EventService eventSvc=new EventService();
 	Event_PService eventpSvc = new Event_PService();
-    List<Event_PVO> list01 = eventpSvc.getAll();
+    List<Event_PVO> list01 = eventpSvc.findAllByEventNoRankDescWithoutReport(eventSvc.findLastEndEvent());
     pageContext.setAttribute("list01",list01);
 %>
 <%

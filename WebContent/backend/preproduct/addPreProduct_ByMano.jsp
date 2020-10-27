@@ -14,6 +14,7 @@ PreProductVO preproductVO = (PreProductVO) request.getAttribute("preproductVO");
 Event_PVO eventpVO = (Event_PVO) request.getAttribute("eventpVO");
 String EVENT_NO = request.getParameter("EVENT_NO");
 
+
 %>
 
 
@@ -162,18 +163,16 @@ label{
 <%--                      <option value="${eventVO.event_no}">${eventVO.event_name} --%>
 <%--                 </c:forEach> --%>
 <!--                 </select> -->
-               <%=eventSvc.findByPrimaryKey(eventSvc.findLastEndEvent()).getEvent_name()  %>
-                
-                <br>
+               <h4><%=eventSvc.findByPrimaryKey(eventSvc.findLastEndEvent()).getEvent_name()  %></h4>
 
                 <jsp:useBean id="materialDataSvc" scope="page" class="com.material.model.Material_Data_Service" />
                 <label>選擇素材編號</label>
-<!--                 <select name="ma_no"> -->
-<!--                 	<option selected="selected" disabled="disabled"  style='display: none' value='null'></option> -->
-<%--                     <c:forEach var="materialdataVO" items="${materialDataSvc.all}"> --%>
-<%--                         <option value="${materialdataVO.ma_no}">${materialdataVO.ma_name} --%>
-<%--                     </c:forEach> --%>
-<!--                 </select> -->
+                <select name="ma_no">
+                	<option selected="selected" disabled="disabled"  style='display: none' value='null'></option>
+                    <c:forEach var="material_Data_VO" items="${materialDataSvc.getAll()}">
+                        <option value="${material_Data_VO.getMaNo()}">${material_Data_VO.getMaName()}
+                    </c:forEach>
+                </select>
                 <br>
                 <i class="fa fa-calendar-plus-o"></i>
                 <input type="text" placeholder="預購開始時間" name="po_start" id="po_dateS">
