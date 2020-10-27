@@ -5,6 +5,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.preproduct.model.*"%>
 <%@ page import="com.discount.model.*" %>
+<%@ page import="com.preorderdetail.model.*" %>
 <%
     PreProductService preproductSvc = new PreProductService();
     List<PreProductVO> list = preproductSvc.getAll();
@@ -15,6 +16,7 @@
 	DiscountSettingVO discountsettingVO = (DiscountSettingVO) request.getAttribute("discountsettingVO");
 %>
 <jsp:useBean id="disSvc" scope="page" class="com.discount.model.DiscountSettingService" />
+<jsp:useBean id="preorderdetailSvc" scope="page" class="com.preorderdetail.model.PreOrderDetailService" />
 <!DOCTYPE html>
 <html>
 	<head>
@@ -87,7 +89,7 @@
 							                    <th>預購開始時間</th>
 							                    <th>預購結束時間</th>
 							                    <th>原價</th>
-							                    <th>細節</th>
+							                    <th>到貨銷售數</th>
 							                    <th>狀態</th>
 							                    <th>切換</th>
 							                    <th>修改</th>
@@ -102,7 +104,7 @@
 							                    <th>預購開始時間</th>
 							                    <th>預購結束時間</th>
 							                    <th>原價</th>
-							                    <th>細節</th>
+							                    <th>到貨銷售數</th>
 							                    <th>狀態</th>
 							                    <th>切換</th>
 							                    <th>修改</th>
@@ -119,7 +121,13 @@
 												<td id="po_dateS"><fmt:formatDate value="${preproductVO.po_start}" pattern="yyyy/MM/dd"/></td>
 												<td id="po_dateE"><fmt:formatDate value="${preproductVO.po_end}" pattern="yyyy/MM/dd"/></td>
 												<td>${preproductVO.po_price}</td>
-												<td>${preproductVO.po_detail}</td>
+												<td>
+													<c:forEach var="preorderdetailVO" items="${preorderdetailSvc.all}">
+										                <c:if test="${preproductVO.po_prod_no==preorderdetailVO.po_prod_no}">
+											                銷量：${preorderdetailVO.po_qty}
+										                </c:if>
+										            </c:forEach>
+												</td>
 												
 												<td>
 													<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/preproduct/preproduct.do" style="margin-bottom: 0px;">

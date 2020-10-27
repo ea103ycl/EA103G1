@@ -8,7 +8,7 @@ public class PreOrderDetailService {
 	private PreOrderDetailDAO_interface dao;
 	
 	public PreOrderDetailService() {
-		dao = new PreOrderDetailDAOJDBC();
+		dao = new PreOrderDetailDAO();
 	}
 	
 	public List<PreOrderDetailVO> getAllByPo_no(String po_no) {
@@ -19,5 +19,9 @@ public class PreOrderDetailService {
 	public List<PreOrderDetailVO> getAll(){
 		System.out.println("預購訂單Service - 進入getAll()方法");
 		return dao.getAll();
+	}
+	public List<PreOrderDetailVO> getAll_OrderQty(){
+		System.out.println("預購訂單Service - 進入getAll_OrderQty()方法");
+		return dao.getAll_OrderQty();
 	}
 }
