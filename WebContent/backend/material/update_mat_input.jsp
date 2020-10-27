@@ -129,6 +129,8 @@ Material_Data_VO material_Data_VO = (Material_Data_VO) request.getAttribute("mat
 </div>	
 	
 <label>&nbsp&nbsp</label><br>
+<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> <!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
+<input type="hidden" name="whichPage"  value="<%=request.getParameter("whichPage")%>">  <!--只用於:istAllEmp.jsp-->
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="ma_no" value="<%=material_Data_VO.getMaNo()%>">
 <button class="btn btn-primary" type="submit">送出修改</button></FORM>

@@ -6,7 +6,6 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
-
 import com.emp.model.Emp_Account_VO;
 import com.material.model.*;
 
@@ -80,20 +79,23 @@ public class MaterialServlet extends HttpServlet {
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-
+			String requestURL = req.getParameter("requestURL");
+			
 			try {
 				String ma_no = req.getParameter("ma_no");
 
 				Material_Data_Service matSvc = new Material_Data_Service();
 				Material_Data_VO material_Data_VO = matSvc.getOneMaterialData(ma_no);
-
+				
+				
 				req.setAttribute("material_Data_VO", material_Data_VO);
 				RequestDispatcher successView = req.getRequestDispatcher("/backend/material/update_mat_input.jsp");
 				successView.forward(req, res);
-
+				
+				
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/backend/material/listAllMat.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher(requestURL);
 				failureView.forward(req, res);
 			}
 		}
@@ -102,9 +104,8 @@ public class MaterialServlet extends HttpServlet {
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			String requestURL = req.getParameter("requestURL");
 			
-			
-
 			try {
 				Material_Data_Service matSvc = new Material_Data_Service();
 				List<Material_Data_VO> list = matSvc.getAll();
@@ -188,10 +189,20 @@ public class MaterialServlet extends HttpServlet {
 
 				material_Data_VO = matSvc.updateMaterialData(ma_no, ma_ty_no, ma_name, ma_price, ma_photo, ma_status);
 
+				
+				if(requestURL.equals("/backend/material/listMat_ByCompositeQuery.jsp")){
+					HttpSession session = req.getSession();
+					Map<String, String[]> map = (Map<String, String[]>)session.getAttribute("map");
+					List<Material_Data_VO> list3  = matSvc.getAll(map);
+					req.setAttribute("listMat_ByCompositeQuery",list3); //  複合查詢, 資料庫取出的list物件,存入request
+				}
+				
 				req.setAttribute("mater_Data_VO", material_Data_VO);
-				RequestDispatcher successView = req.getRequestDispatcher("/backend/material/listAllMat.jsp");
+				
+				String url = requestURL;			
+				RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
 				successView.forward(req, res);
-
+				
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/backend/material/update_mat_input.jsp");

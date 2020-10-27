@@ -63,9 +63,9 @@ String pwd = (String)session.getAttribute("emp_pwd");
 
 
 
-<!-- <div class="row" id="preview"> -->
-<!-- 	<img src="./images/reset.jpg" width="300" height="300" id="image">	 -->
-<!-- </div> -->
+<div class="row" id="preview">
+	<img src="./images/reset.jpg" width="300" height="300" id="image">	
+</div>
 
 <div> &nbsp</div>
 

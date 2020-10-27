@@ -608,7 +608,8 @@ public class Material_Data_JDBCDAO implements Material_Data_DAO_interface {
 			map.put("ma_no", new String[] { "L0001" });
 			map.put("ma_ty_no", new String[] { "T0001" });
 			map.put("ma_name", new String[] { "馬克杯" });
-			map.put("ma_price", new String[] { "500" });
+			map.put("ma_price_down", new String[] { "0" });
+			map.put("ma_price_up", new String[] { "500" });
 			map.put("ma_status", new String[] { "0" });
 			map.put("action", new String[] { "getXXX" }); // 注意Map裡面會含有action的key
 

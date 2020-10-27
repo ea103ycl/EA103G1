@@ -263,7 +263,59 @@
                         }
                     });
                     //========================/sweetAlert=================
+                    return;
+                }
 
+                //=====================================================================================
+                if (bid > currentPrice) {
+                    console.log("memId" + memId);
+                    $.ajax({
+                        method: "post",
+                        url: "/G1/biddingPage/BdPageServlet",
+                        data: { action: "newBid", bid: bid, memId: memId, bdNo: bdNo },
+                        success: function(dataReturn) {
+                            $('#currentPrice').text(bid);
+                        },
+                        error: function() {
+                            Swal.fire(
+                                'The Internet?',
+                                'Please check your connection',
+                                'question'
+                            )
+                        }
+                    });
+                } else {
+                    //========================sweetAlert=================
+                    let timerInterval
+                    Swal.fire({
+                        title: 'Auto close alert!',
+                        html: 'Please enter higher Bid !',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        willOpen: () => {
+                            Swal.showLoading()
+                            timerInterval = setInterval(() => {
+                                const content = Swal.getContent()
+                                if (content) {
+                                    const b = content.querySelector('b')
+                                    if (b) {
+                                        b.textContent = Swal.getTimerLeft()
+                                    }
+                                }
+                            }, 100)
+                        },
+                        onClose: () => {
+                            clearInterval(timerInterval)
+
+                        }
+                    }).then((result) => {
+                        /* Read more about handling dismissals below */
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            console.log('I was closed by the timer')
+                        }
+                    })
+                    return;
+                    //========================/sweetAlert=================
                 }
 
             });
@@ -410,10 +462,12 @@
             var personalInfo = document.getElementById("personal-info");
             personalInfo.scrollIntoView({ behavior: 'smooth', block: 'center' });
         })
+
         $("#pscroll2").on("click", function() {
             var shippingInfo = document.getElementById("shipping-info");
             shippingInfo.scrollIntoView({ behavior: 'smooth', block: 'center' });
         })
+
         $("#pscroll3").on("click", function() {
             var myOrders = document.getElementById("my-orders");
             myOrders.scrollIntoView({ behavior: 'smooth', block: 'center' });
