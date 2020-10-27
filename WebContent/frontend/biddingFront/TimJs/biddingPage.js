@@ -1,5 +1,8 @@
         var memId = $("#memId").val();
         var bdNo = $("#bdNo").val();
+		var top1;
+		var top2;
+		var top3;
         var bidOver = true;
 
         function isLogin() {
@@ -97,7 +100,7 @@
                             )
                             $.ajax({
                                 method: "post",
-                                url: "/G1/biddingPage/BdPageServlet",
+                                url: "/EA103G1/biddingPage/BdPageServlet",
                                 data: { action: "newBid", bid: bid, memId: memId, bdNo, bdNo },
                                 success: function(dataReturn) {
                                     $('#currentPrice').text(dataReturn);
@@ -119,7 +122,7 @@
                         ) {
                             swalWithBootstrapButtons.fire(
                                 'Cancelled',
-                                'error'
+                                'rolledBack'
                             )
                             return;
                         }
@@ -134,7 +137,7 @@
                     console.log("memId" + memId);
                     $.ajax({
                         method: "post",
-                        url: "/G1/biddingPage/BdPageServlet",
+                        url: "/EA103G1/biddingPage/BdPageServlet",
                         data: { action: "newBid", bid: bid, memId: memId, bdNo: bdNo },
                         success: function(dataReturn) {
                             $('#currentPrice').text(bid);
@@ -235,7 +238,7 @@
                             )
                             $.ajax({
                                 method: "post",
-                                url: "/G1/biddingPage/BdPageServlet",
+                                url: "/EA103G1/biddingPage/BdPageServlet",
                                 data: { action: "newBid", bid: bid, memId: memId, bdNo, bdNo },
                                 success: function(dataReturn) {
                                     $('#currentPrice').text(dataReturn);
@@ -257,7 +260,7 @@
                         ) {
                             swalWithBootstrapButtons.fire(
                                 'Cancelled',
-                                'error'
+                                'rolledBack'
                             )
                             return;
                         }
@@ -271,7 +274,7 @@
                     console.log("memId" + memId);
                     $.ajax({
                         method: "post",
-                        url: "/G1/biddingPage/BdPageServlet",
+                        url: "/EA103G1/biddingPage/BdPageServlet",
                         data: { action: "newBid", bid: bid, memId: memId, bdNo: bdNo },
                         success: function(dataReturn) {
                             $('#currentPrice').text(bid);
@@ -362,16 +365,19 @@
         function updateBid() {
             $.ajax({
                 method: "post",
-                url: "/G1/biddingPage/BdPageServlet",
+                url: "/EA103G1/biddingPage/BdPageServlet",
                 data: { action: "topBidders", bdNo: bdNo },
                 success: function(dataReturn) {
 
                     var bidData = JSON.parse(dataReturn);
 
-                    if (typeof(bidData.top1) !== "undefined") {
-                        $('#top1 span').html(bidData.top1);
-                        $('#top2 span').html(bidData.top2);
-                        $('#top3 span').html(bidData.top3);
+                    if (typeof(bidData.top1name) !== "undefined") {
+	
+						console.log(bidData.top1name);
+                        $('#top1 span').html(bidData.top1name);
+                        $('#top2 span').html(bidData.top2name);
+                        $('#top3 span').html(bidData.top3name);
+
                         $('#currentPrice').html(bidData.price1);
                         $('#price1').html('$' + bidData.price1);
                         $('#price2').html('$' + bidData.price2);
@@ -410,7 +416,7 @@
                     var data = $('#checkoutForm').serialize();
                     $.ajax({
                         type: "post",
-                        url: "/G1/biddingPage/BdPageServlet",
+                        url: "EA103G1/biddingPage/BdPageServlet",
                         data: data,
                         success: function(d) {
                             if (d === "complete") {
