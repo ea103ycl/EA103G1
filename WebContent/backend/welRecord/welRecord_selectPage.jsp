@@ -18,7 +18,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+	href="<%=request.getContextPath()%>/backend/material-design-iconic-font/css/material-design-iconic-font.min.css">
 <link
 	href="<%=request.getContextPath()%>/backend/template/css/sb-admin-2.min.css"
 	rel="stylesheet">
@@ -305,18 +305,18 @@ tr, td, th {
 
 	<!--JavaScript內容-->
 	<!--chart cdn-->
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<script src="<%=request.getContextPath()%>/backend/template/vendor/chart.js/Chart.js"></script>
 	<!--引用dataTables.js-->
 	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-3.5.1.js"></script>
+		src="<%=request.getContextPath()%>/backend/template/vendor/jquery/jquery.js"></script>
 	<!--引用dataTables.js-->
 	<script type="text/javascript"
-		src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+		src="<%=request.getContextPath()%>/backend/template/vendor/datatables/jquery.dataTables.min.js"></script>
 
 
 	<!--     </script> -->
 
-	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script src="<%=request.getContextPath()%>/backend/template/vendor/jquery/jquery.min.js"></script>
 	<script>
 	
 	function sumTool (recordVO)

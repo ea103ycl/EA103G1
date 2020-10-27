@@ -12,9 +12,6 @@
 <title>RegistrationForm</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- MATERIAL DESIGN ICONIC FONT -->
-<!-- <link rel="stylesheet" -->
-<%-- 	href="<%=request.getContextPath()%>/frontend/members/registerFonts/material-design-iconic-font/css/material-design-iconic-font.min.css"> --%>
-
 <link href="<%=request.getContextPath()%>/frontend/template/Caroline/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet">
 
 <!-- STYLE CSS -->

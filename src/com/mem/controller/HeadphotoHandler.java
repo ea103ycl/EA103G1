@@ -9,7 +9,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -106,9 +105,6 @@ public class HeadphotoHandler extends HttpServlet {
 
 			System.out.println("length:" + photofromDB.length);
 			System.out.println("¤w¸gwrite Pic");
-
-//			RequestDispatcher successView = req.getRequestDispatcher("/NewFile.jsp");
-//			successView.forward(req, res);
 
 		}
 	}
