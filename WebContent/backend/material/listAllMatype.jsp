@@ -83,7 +83,7 @@
                       <th>類別名稱</th>
                       <th>類別素材清單</th>
                       <th>修改</th>
-                      <th>刪除</th>
+<!--                       <th>刪除</th> -->
                     </tr>            
                   </thead>
                   <tfoot>
@@ -92,7 +92,7 @@
                       <th>Name</th>
                       <th>MaterialList</th>
                       <th>Edit</th>
-                      <th>Delete</th>
+<!--                       <th>Delete</th> -->
                     </tr>
                   </tfoot>
                   <tbody>
@@ -116,12 +116,12 @@
                         <input type="hidden" name="action"	value="getOne_For_UpdateType">
                         <button class="btn btn-primary" type="submit">修改</button></FORM>
 					 </td>				 
-					  <td>
-			  		   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/material/mat.do" style="margin-bottom: 0px;">
-			    	   <input type="hidden" name="ma_ty_no"  value="${matypeVO.maTyNo}">
-			     	   <input type="hidden" name="action" value="deleteType">
-                       <button class="btn btn-primary" type="submit">刪除</button></FORM>
-				    </td>
+<!-- 					  <td> -->
+<%-- 			  		   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/material/mat.do" style="margin-bottom: 0px;"> --%>
+<%-- 			    	   <input type="hidden" name="ma_ty_no"  value="${matypeVO.maTyNo}"> --%>
+<!-- 			     	   <input type="hidden" name="action" value="deleteType"> -->
+<!--                        <button class="btn btn-primary" type="submit">刪除</button></FORM> -->
+<!-- 				    </td> -->
                     </tr>
                    </c:forEach> 
                   </tbody>

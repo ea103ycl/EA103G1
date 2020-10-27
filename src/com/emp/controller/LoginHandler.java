@@ -199,7 +199,7 @@ public class LoginHandler extends HttpServlet {
 				String emp_pwd = randomPwd();
 				empSvc.resetPwd(emp_no,emp_pwd);
 
-				String resetUrl = "http://localhost:8081" + req.getContextPath() + "/backend/emp/resetPwd.jsp";
+				String resetUrl = "http://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath() + "/backend/emp/resetPwd.jsp";
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				// 寄送E-Mail
@@ -219,7 +219,7 @@ public class LoginHandler extends HttpServlet {
 				session.setAttribute("emp_no", emp_no);
 				session.setAttribute("emp_pwd", emp_pwd);
 
-				String url = "/backend/emp/forgetPage.jsp";
+				String url = "/backend/emp/moveMail.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 

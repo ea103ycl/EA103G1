@@ -109,7 +109,7 @@
                       <th>照片</th>
                       <th>狀態</th>
                       <th>修改</th>
-                      <th>刪除</th>
+<!--                       <th>刪除</th> -->
                     </tr>            
                   </thead>
                   <tfoot>
@@ -121,7 +121,7 @@
                       <th>Photo</th>
                       <th>Status</th>
                       <th>Edit</th>
-                      <th>Delete</th>
+<!--                       <th>Delete</th> -->
                     </tr>
                   </tfoot>
                   <tbody>
@@ -151,14 +151,14 @@
                         <input type="hidden" name="action"	value="getOne_For_Update">
                         <button class="btn btn-primary" type="submit">修改</button></FORM>
 					 </td>				 
-					  <td>
-			  		   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/material/mat.do" style="margin-bottom: 0px;">
-			    	   <input type="hidden" name="ma_no"  value="${matVO.maNo}">
-			    	   <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
-			           <input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller-->
-			     	   <input type="hidden" name="action" value="delete">
-                       <button class="btn btn-primary" type="submit">刪除</button></FORM>
-				    </td>
+<!-- 					  <td> -->
+<%-- 			  		   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/material/mat.do" style="margin-bottom: 0px;"> --%>
+<%-- 			    	   <input type="hidden" name="ma_no"  value="${matVO.maNo}"> --%>
+<%-- 			    	   <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller--> --%>
+<%-- 			           <input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller--> --%>
+<!-- 			     	   <input type="hidden" name="action" value="delete"> -->
+<!--                        <button class="btn btn-primary" type="submit">刪除</button></FORM> -->
+<!-- 				    </td> -->
                     </tr>
                    </c:forEach> 
                   </tbody>

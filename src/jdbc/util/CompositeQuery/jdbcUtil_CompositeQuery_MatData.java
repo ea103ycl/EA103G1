@@ -85,14 +85,14 @@ public class jdbcUtil_CompositeQuery_MatData {
 //		// 配合 req.getParameterMap()方法 回傳
 //		// java.util.Map<java.lang.String,java.lang.String[]> 之測試
 //		Map<String, String[]> map = new TreeMap<String, String[]>();
-////		map.put("ma_no", new String[] { "L0001" });
-////		map.put("ma_ty_no", new String[] { "T0002" });
-//		map.put("ma_name", new String[] { "墊" });
-//		map.put("ma_price_down", new String[] { "500" });
-//		map.put("ma_price_up", new String[] { "1000" });
+//		map.put("ma_no", new String[] { "L0001" });
+//		map.put("ma_ty_no", new String[] { "T0001" });
+//		map.put("ma_name", new String[] { "馬克杯" });
+//		map.put("ma_price_down", new String[] { "0" });
+//		map.put("ma_price_up", new String[] { "500" });
 //
-////		map.put("ma_status", new String[] { "0" });
-////		map.put("action", new String[] { "getXXX" }); // 注意Map裡面會含有action的key
+//		map.put("ma_status", new String[] { "0" });
+//		map.put("action", new String[] { "getXXX" }); // 注意Map裡面會含有action的key
 //
 //		String finalSQL = "select * from MATERIAL_DATA " + jdbcUtil_CompositeQuery_MatData.get_WhereCondition(map)
 //				+ "order by ma_no";

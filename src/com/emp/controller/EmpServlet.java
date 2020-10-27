@@ -90,6 +90,8 @@ public class EmpServlet extends HttpServlet {
 		if ("logout".equals(action)) {
 			HttpSession session = req.getSession();
 			session.removeAttribute("emp_no");
+			session.removeAttribute("funcList");
+			session.setAttribute("emp_no", "XXX");
 			RequestDispatcher failureView = req.getRequestDispatcher("/backend/emp/login.jsp");
 			failureView.forward(req, res);
 		}
@@ -173,6 +175,83 @@ public class EmpServlet extends HttpServlet {
 		}
 		
 		
+		if("newEmp".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs",errorMsgs);
+			
+			try {
+				String str = req.getParameter("emp_no"); // return String
+				if (str == null || (str.trim()).length() == 0) {
+					errorMsgs.add("請輸入帳號。");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/emp/newEmp.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				String emp_no = str.trim();
+				String emp_no_Reg = "^E[0-9]{3}[0-9]{1}$";
+
+				if (!emp_no.matches(emp_no_Reg)) {
+					errorMsgs.add("請輸入正確格式，帳號為E開頭接4位數字。");
+				}
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/emp/newEmp.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+				
+				Emp_Account_Service empSvc = new Emp_Account_Service();
+				
+				Emp_Account_VO emp_Account_VO = empSvc.getOneEmp(emp_no);
+				String dbpwd = emp_Account_VO.getEmpPwd();
+				
+				String old_pwd = req.getParameter("old_pwd");
+				if(old_pwd == null || old_pwd.length() == 0) {
+					errorMsgs.add("請輸入密碼。");
+				}else if(!dbpwd.equals(old_pwd)) {
+					errorMsgs.add("密碼錯誤。");
+				}	
+				
+				if(!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/emp/newEmp.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				String emp_pwd = req.getParameter("emp_pwd");
+				String emp_pwdc = req.getParameter("emp_pwdc");
+				String emp_pwd_Reg = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{4,8}$";
+				
+			if (emp_pwd == null || emp_pwd.trim().length() == 0) {
+				errorMsgs.add("新密碼請勿空白。");
+			} else if (!emp_pwd.trim().matches(emp_pwd_Reg)) {
+				errorMsgs.add("新密碼只能是由數字和字母組成，並且要同時含有數字和字母，且長度要在4-8位之間。");
+			} else if(!emp_pwd.equals(emp_pwdc)) {	
+				errorMsgs.add("請檢查新密碼與重複輸入欄位是否相符。");
+			}
+			
+			if(!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/backend/emp/newEmp.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+		
+			empSvc.resetPwd(emp_no, emp_pwd);
+			
+			RequestDispatcher successView = req.getRequestDispatcher("/backend/emp/login.jsp");
+			successView.forward(req, res);
+										
+			} catch(Exception e) {
+				errorMsgs.add("無法更新資料"+e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/backend/emp/newEmp.jsp");
+				failureView.forward(req,res);
+			}
+		}	
 	
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
@@ -197,11 +276,18 @@ public class EmpServlet extends HttpServlet {
 				} else if((str2 == null||str2.length()==0) && (str3 == null||str3.length()==0)) {
 					emp_no = str1;
 				}
-							
-				if(emp_no == null || emp_no.length()==0) {
-					errorMsgs.add("請輸入員工資料。");					
+				
+				if(((str1 != null && str1.length()!=0) && (str2 != null && str2.length()!=0)) ||
+				   ((str1 != null && str1.length()!=0) && (str3 != null && str3.length()!=0)) ||
+				   ((str2 != null && str2.length()!=0) && (str3 != null && str3.length()!=0)) ||
+				   ((str1 != null && str1.length()!=0) && (str2 != null && str2.length()!=0) && (str3 != null && str3.length()!=0))) {
+					errorMsgs.add("請輸入單一查詢資料");
+				}else {					
+					if(emp_no == null || emp_no.length()==0) {
+						errorMsgs.add("請輸入員工資料。");					
+					}
 				}
-											
+																
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/backend/emp/listAllEmp.jsp");
@@ -485,8 +571,8 @@ public class EmpServlet extends HttpServlet {
 				}
 				
 				
-				String resetUrl = "http://localhost:8081" + req.getContextPath() + "/backend/emp/resetPwd.jsp";
-
+				String resetUrl = "http://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath() + "/backend/emp/newEmp.jsp";
+				
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			    //寄送E-Mail
 			    String to = emp_mail;			      
@@ -504,8 +590,8 @@ public class EmpServlet extends HttpServlet {
 			    mailService.sendMail(to, subject, messageText);
 			    
 			    HttpSession session = req.getSession();
-			    session.setAttribute("emp_no",emp_no);
-			    session.setAttribute("emp_pwd",emp_pwd);
+			    session.setAttribute("emp_no1",emp_no);
+			    session.setAttribute("emp_pwd1",emp_pwd);
 			    
 
 			    

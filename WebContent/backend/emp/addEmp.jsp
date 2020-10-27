@@ -108,21 +108,21 @@
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">姓名:</span>
   </div>
-  <input type="text" class="form-control"  name="emp_name" value="<%= (emp_Account_VO==null)? "吳永志" : emp_Account_VO.getEmpName()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="emp_name" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpName()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
 <div class="input-group mb-3" style="max-width:300px">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">職位:</span>
   </div>
-  <input type="text" class="form-control"  name="emp_pos" value="<%= (emp_Account_VO==null)? "MANAGER" : emp_Account_VO.getEmpPos()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="emp_pos" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpPos()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
 <div class="input-group mb-3" style="max-width:300px">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">信箱:</span>
   </div>
-  <input type="text" class="form-control"  name="emp_mail" value="<%= (emp_Account_VO==null)? "abc@gmail.com" : emp_Account_VO.getEmpMail()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="emp_mail" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpMail()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 	
 <div>
