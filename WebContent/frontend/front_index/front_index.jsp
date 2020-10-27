@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Index_front</title>
+<title>front_index</title>
 
 <!-- Google Fonts -->
 <link
@@ -145,12 +145,11 @@
 					<div id="searchBlock">
 						<div id="searchBlockMid">
 							<form id="searchForm1" method="post"
-								action="/G1/painter/TagGetPic" name="searchForm">
+								action="<%=request.getContextPath()%>/painter/TagGetPic" name="searchForm">
 								<div>
-									<input type="hidden" name="action" value="tagGetPic"> <input
-										id="searchBar1" type="text" name="searchBar1"
-										placeholder="Search"> <input type="hidden"
-										name="requestUrl" value="<%=request.getServletPath()%>">
+									<input type="hidden" name="action" value="tagGetPic"> 
+									<input id="searchBar1" type="text" name="searchBar1"
+										placeholder="Search">
 								</div>
 							</form>
 							<ul id="searchlistBox">

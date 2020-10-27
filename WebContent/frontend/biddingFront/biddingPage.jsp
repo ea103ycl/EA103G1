@@ -601,7 +601,7 @@ img {
 						<div class="side-box mb-4">
 							<p>
 								Price: $<strong id="currentPrice" class="text-black">0</strong><br>
-								Number of Bids: <strong id="numberOfBids" class="text-black">0</strong>
+								Number of Bidders: <strong id="numberOfBids" class="text-black">0</strong>
 							</p>
 							<form
 								action="<%=request.getContextPath()%>/bidding/BiddingServlet">

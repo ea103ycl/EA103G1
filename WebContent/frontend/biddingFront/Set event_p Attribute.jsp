@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<c:set var="event_no" value="E00014" scope="application"/>
+	<c:set var="event_no" value="E00019" scope="application"/>
 	${event_no}
 	${latestBd1}
 	${latestBd2}

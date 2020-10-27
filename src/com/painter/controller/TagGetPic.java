@@ -40,7 +40,6 @@ public class TagGetPic extends HttpServlet {
 		if ("tagGetPic".equals(action)) { // 要找出最熱門tag 最新tag
 			
 			String tag_desc = req.getParameter("searchBar1");
-			String url = req.getParameter("requestUrl");
 			PainterTagService ptSvc = new PainterTagService();
 			List<Integer> list = ptSvc.getPicbyTag(tag_desc);
 			 
@@ -51,8 +50,8 @@ public class TagGetPic extends HttpServlet {
 			}else {
 				req.setAttribute("ptrnoList", list);
 			}
-
-			RequestDispatcher view = req.getRequestDispatcher(url);
+			
+			RequestDispatcher view = req.getRequestDispatcher("/frontend/front_index/front_index.jsp");
 			view.forward(req, res);
 			return;
 		}
