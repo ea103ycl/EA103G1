@@ -14,42 +14,36 @@ import javax.servlet.http.HttpSession;
 
 import com.mem.model.MemVO;
 
-public class MemLoginFilter implements Filter
-{
+public class MemLoginFilter implements Filter {
 
 	private FilterConfig fConfig;
 
-	public void destroy()
-	{
-		fConfig = null;// ????
+	public void destroy() {
+		fConfig = null;
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException
-	{
+			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		HttpSession session = req.getSession();
 		MemVO memVO = (MemVO) session.getAttribute("memVO");
 
-		if (memVO == null)
-			{
-				System.out.println("ㄓ方location:" + req.getRequestURI());
-				session.setAttribute("location", req.getRequestURI());// ぐ或琌URIτ獶URL
-				res.sendRedirect(req.getContextPath() + "/frontend/members/memLogin.jsp");
+		if (memVO == null) {
+			System.out.println("ㄓ方location:" + req.getRequestURI());
+			session.setAttribute("location", req.getRequestURI());// ぐ或琌URIτ獶URL
+			res.sendRedirect(req.getContextPath() + "/frontend/members/memLogin.jsp");
 
-				return;
+			return;
 
-			} else
-			{
-				chain.doFilter(request, response);
-			}
+		} else {
+			chain.doFilter(request, response);
+		}
 
 	}
 
-	public void init(FilterConfig fConfig)
-	{
+	public void init(FilterConfig fConfig) {
 
 		this.fConfig = fConfig;
 

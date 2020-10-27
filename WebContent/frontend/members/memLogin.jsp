@@ -12,9 +12,7 @@
 
 <head>
 <title>LoginPage</title>
-<!-- <link rel="stylesheet" -->
-<!-- 	href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css"> -->
-<link href="<%=request.getContextPath()%>/frontend/template/Caroline/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet">
+
 <style type="text/css" media="screen">
 *, *:before, *:after {
 	box-sizing: border-box;
