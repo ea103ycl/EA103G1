@@ -229,7 +229,11 @@ img {
 					<div class="blog block post-content-area">
 						<div class="post-info-box">
 							<img
+<<<<<<< HEAD
 								src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}"
+=======
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}"
+>>>>>>> refs/heads/Tim
 								style="max-height: auto; width: 100%" alt="">
 							<div class="space-50">&nbsp;</div>
 							<p class="lead clockLead">Time remaining:</p>
