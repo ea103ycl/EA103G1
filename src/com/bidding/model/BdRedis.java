@@ -10,6 +10,9 @@ import java.util.Map;
 import java.util.Set;
 
 import com.biddingPage.controller.BdTimer;
+import com.event.model.EventService;
+import com.event_p.model.Event_PService;
+import com.event_p.model.Event_PVO;
 
 import redis.clients.jedis.Jedis;
 
@@ -36,19 +39,26 @@ public class BdRedis {
 		return bVO;
 	}
 
-	public void registerBdNo(String bdNo) {
+	public void registerBdNo(String eventNo) {
 		if (isRegistered()) {
 			return;
 		}
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
 
-		if (jedis.exists(bdNo)) {
+		if (jedis.exists(eventNo)) {
 			jedis.close();
 			return;
 		}
 
-		jedis.set("bdNo", bdNo);
+		Event_PService epSvc= new Event_PService();
+		Event_PVO epVO=epSvc.findTopByEventNoWithoutReport(eventNo);
+		
+		Integer eventpno=epVO.getEvent_p_no();
+		
+		
+		
+		jedis.set("bdNo", eventNo);
 //		jedis.expire("bdNo", (60 * 60 * 24 * 30));// sec
 
 		Long startTime = System.currentTimeMillis();
@@ -61,15 +71,15 @@ public class BdRedis {
 		BiddingService bdSvc = new BiddingService();
 		Timestamp startT = new Timestamp(Long.valueOf(startTime));
 		Timestamp endT = new Timestamp(Long.valueOf(endTime));
-		String sqlBdNo = bdSvc.insert("", 3001, 0, startT, endT, 0, 0, 0, 0, "", "", "");
-		// 3001 bdProdNo
+		String sqlBdNo = bdSvc.insert("", 3001,eventpno, startT, endT, 0, 0, 0, 0, "", "", "");
+		// 3001 bdProdNo, 1 競標作品編號
 
 		// ======save another info to record========
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("startTime", startTime.toString());
 		map.put("endTime", endTime.toString());
 		map.put("sqlBdNo", sqlBdNo);
-		jedis.hmset("result:" + bdNo, map);
+		jedis.hmset("result:" + eventNo, map);
 
 		// =======start Timer=============
 		BdTimer timer = new BdTimer();

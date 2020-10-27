@@ -16,18 +16,18 @@
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet">
 <!-- Vendor CSS Files -->
-<link href="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/bootstrap/css/bootstrap.min.css"
+<link href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/boxicons/css/boxicons.min.css"
+<link href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/boxicons/css/boxicons.min.css"
 	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/venobox/venobox.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/owl.carousel/assets/owl.carousel.min.css"
+<link href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/venobox/venobox.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/owl.carousel/assets/owl.carousel.min.css"
 	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/aos/aos.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/aos/aos.css" rel="stylesheet">
 <!-- Template Main CSS File -->
-<link href="<%=request.getContextPath()%>/frontend/frontIndex/assets/css/style.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/frontIndex/css/masonry.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/frontIndex/css/index_front_css.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/frontend/front_index/assets/css/style.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/frontend/front_index/css/masonry.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/frontend/front_index/css/index_front_css.css" rel="stylesheet">
 <!-- =======================================================
   * Template Name: iPortfolio - v1.4.0
   * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
@@ -51,7 +51,7 @@
 	<header id="header">
 		<div class="d-flex flex-column">
 			<div class="profile">
-				<img src="<%=request.getContextPath()%>/frontend/frontIndex/imgData/img (12).jpg" alt=""
+				<img src="<%=request.getContextPath()%>/frontend/front_index/imgData/img (12).jpg" alt=""
 					class="img-fluid rounded-circle">
 				<h1 class="text-light">
 					<a href="index.html">Alex Smith</a>
@@ -263,21 +263,21 @@
 	<!-- End #main -->
 	<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 	<!-- Vendor JS Files -->
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/php-email-form/validate.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/counterup/counterup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/venobox/venobox.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/typed.js/typed.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/vendor/aos/aos.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/js/masonry.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/php-email-form/validate.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/counterup/counterup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/venobox/venobox.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/typed.js/typed.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/aos/aos.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/js/masonry.js"></script>
 	<!-- Template Main JS File -->
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/assets/js/main.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/frontIndex/js/index_front_js.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/js/index_front_js.js"></script>
 </body>
 
 </html>

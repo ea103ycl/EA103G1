@@ -33,11 +33,13 @@ public class BdPageServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
 		res.setCharacterEncoding("UTF-8");
 		PrintWriter out = res.getWriter();
+
 		// =====================front page action ===================
 		if("checkout".equals(action)){
+			
+			
 				List<String> errorMsgs = new LinkedList<String>();
 				BdRedis bdr= new BdRedis();
 				req.setAttribute("errorMsgs", errorMsgs);
@@ -278,5 +280,6 @@ public class BdPageServlet extends HttpServlet {
 			}
 		}
 	//=============bidOver======================
+	
 	}
 }
