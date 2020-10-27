@@ -170,7 +170,7 @@ public class BiddingServlet extends HttpServlet {
 					errorMsgs.add("編號錯誤");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/backend/bidding/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/bidding/select_page.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -182,21 +182,21 @@ public class BiddingServlet extends HttpServlet {
 					errorMsgs.add("查無此資料");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/backend/bidding/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/bidding/select_page.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				/*************************** 查詢完成,準備轉交 *************************/
 
 				req.setAttribute("bVO", bVO);
-				String url = req.getContextPath()+"/backend/bidding/listOne.jsp";
+				String url ="/backend/bidding/listOne.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 ************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/backend/bidding/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/backend/bidding/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -212,13 +212,13 @@ public class BiddingServlet extends HttpServlet {
 				BiddingVO bVO = bdSvc.getOne(bdNo);
 
 				req.setAttribute("bVO", bVO);
-				String url = req.getContextPath()+"backend/update_bidding_input.jsp";
+				String url ="/backend/bidding/update_bidding_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料: " + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/backend/bidding/listAll.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/backend/bidding/listAll.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -346,7 +346,7 @@ public class BiddingServlet extends HttpServlet {
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("bVO", bVO);
-					RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/backend/bidding/update_bidding_input.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/bidding/update_bidding_input.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -355,13 +355,13 @@ public class BiddingServlet extends HttpServlet {
 						pmtStatus, bdZip, bdName, bdPhone, bdAddr);
 
 				req.setAttribute("bVO", bVO);
-				String url = req.getContextPath()+"/backend/bidding/listOne.jsp";
+				String url ="/backend/bidding/listOne.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.add("新增資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(req.getContextPath()+"/backend/bidding/update_bidding_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/backend/bidding/update_bidding_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
