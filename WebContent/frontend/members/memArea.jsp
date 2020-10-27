@@ -8,7 +8,7 @@
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
 
 	WelRecordService welRecordSvc = new WelRecordService();
-	List <WelRecordVO> list = welRecordSvc.getWelRecordByMemID(memVO.getMem_id());
+	List<WelRecordVO> list = welRecordSvc.getWelRecordByMemID(memVO.getMem_id());
 	pageContext.setAttribute("list", list);
 %>
 
@@ -19,7 +19,9 @@
 <!-- icon -->
 <!-- <link rel="stylesheet" -->
 <!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"> -->
-<link href="<%=request.getContextPath()%>/frontend/template/Caroline/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/frontend/template/Caroline/material-design-iconic-font/css/material-design-iconic-font.min.css"
+	rel="stylesheet">
 
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,7 +42,7 @@
 	<!-- header -->
 
 	<header>
-	
+
 		<%@include file="/frontend/bar/frontBarTop.jsp"%>
 
 		<!-- header-banner -->
@@ -95,11 +97,11 @@
 
 								<div></div>
 
-								
-									<img id="headphoto"
-										src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=<%=memVO.getMem_id()%>"
-										alt="" style="width: 500px;">
-						
+
+								<img id="headphoto"
+									src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=<%=memVO.getMem_id()%>"
+									alt="" style="width: 500px;">
+
 								<button id="headphotoBtn"
 									class="btn btn-primary btn-xs btn-rounded no-margin"
 									type="button" style="font-weight: bold;" data-toggle="modal"
@@ -109,28 +111,28 @@
 
 
 
-<!-- 								<div>&emsp;</div> -->
+								<!-- 								<div>&emsp;</div> -->
 
-<!-- 								<button class="btn btn-primary btn-xs btn-rounded no-margin" -->
-<!-- 									type="button" style="font-weight: bold;" data-toggle="collapse" -->
-<!-- 									data-target="#personalIntro" aria-expanded="false" -->
-<!-- 									aria-controls="personalIntro"> -->
-<!-- 									<i class="lnr lnr-pencil"></i>修改簡介 -->
-<!-- 								</button> -->
-<!-- 								<div>&emsp;</div> -->
-<!-- 								<div class="collapse" id="personalIntro"> -->
+								<!-- 								<button class="btn btn-primary btn-xs btn-rounded no-margin" -->
+								<!-- 									type="button" style="font-weight: bold;" data-toggle="collapse" -->
+								<!-- 									data-target="#personalIntro" aria-expanded="false" -->
+								<!-- 									aria-controls="personalIntro"> -->
+								<!-- 									<i class="lnr lnr-pencil"></i>修改簡介 -->
+								<!-- 								</button> -->
+								<!-- 								<div>&emsp;</div> -->
+								<!-- 								<div class="collapse" id="personalIntro"> -->
 
-<!-- 									<div class="form-group"> -->
-<!-- 										<textarea class="form-control" -->
-<!-- 											id="exampleFormControlTextarea1" rows="8" -->
-<!-- 											style="margin: 0px; width: 100%; background-color: white"> 不要先入為主覺得coding很複雜，實際上，coding可能比你想的還要更複雜。coding絕對是史無前例的。本人也是經過了深思熟慮，在每個日日夜夜思考這個問題。老舊的想法已經過時了。這種事實對本人來說意義重大，相信對這個世界也是有一定意義的。</textarea> -->
-<!-- 									</div> -->
+								<!-- 									<div class="form-group"> -->
+								<!-- 										<textarea class="form-control" -->
+								<!-- 											id="exampleFormControlTextarea1" rows="8" -->
+								<!-- 											style="margin: 0px; width: 100%; background-color: white"> 不要先入為主覺得coding很複雜，實際上，coding可能比你想的還要更複雜。coding絕對是史無前例的。本人也是經過了深思熟慮，在每個日日夜夜思考這個問題。老舊的想法已經過時了。這種事實對本人來說意義重大，相信對這個世界也是有一定意義的。</textarea> -->
+								<!-- 									</div> -->
 
-<!-- 									<div style="text-align: center"> -->
-<!-- 										<button type="submit" class="btn btn-primary-filled btn-pill">提交</button> -->
-<!-- 									</div> -->
+								<!-- 									<div style="text-align: center"> -->
+								<!-- 										<button type="submit" class="btn btn-primary-filled btn-pill">提交</button> -->
+								<!-- 									</div> -->
 
-<!-- 								</div> -->
+								<!-- 								</div> -->
 
 
 
@@ -138,178 +140,175 @@
 							</div>
 							<div class="col-md-10">
 								<!-- 							第一行姓名開始 -->
-								<FORM METHOD="POST"
-									ACTION="<%=request.getContextPath()%>/frontend/members/mem.do">
-									<div class="row">
-										<div class="col-md-2"
-											style="text-align: right; margin-top: 13px;">姓名:</div>
-										<div class="col-md-9">
-											<input type="text" class="form-control rounded" id="name"
-												value="<%=memVO.getM_name()%>"
-												style="margin-bottom: 10px; background-color: white"
-												name="name">
-										</div>
 
-
-
-									</div>
-									<!-- 							第一行姓名結束-->
-									<div class="row">
-										<div class="col-md-2"
-											style="text-align: right; margin-top: 13px;">性別:</div>
-										<div class="col-md-9">
-											<select name="gender" id="gender" class="form-control"
-												style="margin-bottom: 10px; background-color: white">
-												<option value="" disabled>性別</option>
-												<option value="M"
-													<c:if test="${memVO.m_gender=='M'}">selected</c:if>>男性</option>
-												<option value="F"
-													<c:if test="${memVO.m_gender=='F'}">selected</c:if>>女性</option>
-											</select>
-										</div>
-
-
-
-									</div>
-									<!-- 							第二行性別結束-->
-									<div class="row">
-										<div class="col-md-2"
-											style="text-align: right; margin-top: 13px;">生日:</div>
-										<div class="col-md-9">
-											<input type="text" class="form-control rounded" id="birthday"
-												value="<%=memVO.getM_bday()%>" name="birthday"
-												style="margin-bottom: 10px; background-color: white">
-										</div>
-
-
-
-									</div>
-									<!-- 							第三行生日結束-->
-									<div class="row">
-										<div class="col-md-2"
-											style="text-align: right; margin-top: 13px;">電話:</div>
-										<div class="col-md-9">
-											<input type="text" class="form-control rounded" id="phone"
-												name="phone"
-												value="<%=(memVO.getM_phone() == null) ? "" : memVO.getM_phone()%>"
-												style="margin-bottom: 10px; background-color: white">
-										</div>
+								<div class="row">
+									<div class="col-md-2"
+										style="text-align: right; margin-top: 13px;">姓名:</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control rounded" id="name"
+											value="<%=memVO.getM_name()%>"
+											style="margin-bottom: 10px; background-color: white"
+											name="name">
 									</div>
 
 
-									<!-- 							第四行電話結束-->
-									<div class="row">
-										<div class="col-md-2"
-											style="text-align: right; margin-top: 13px;">手機:</div>
-										<div class="col-md-9">
-											<input type="text" class="form-control rounded" id="mobile"
-												value="<%=memVO.getM_mobile()%>" name="mobile"
-												style="margin-bottom: 10px; background-color: white">
-										</div>
-									</div>
-									<!-- 							第五行手機結束-->
-									<div class="row">
-										<div class="col-md-2"
-											style="text-align: right; margin-top: 13px;">電子信箱:</div>
-										<div class="col-md-9">
-											<input type="email" class="form-control rounded" id="email"
-												value="<%=memVO.getM_email()%>" name="email"
-												style="margin-bottom: 10px; background-color: white">
-										</div>
-									</div>
-									<!-- 							第六行電子郵箱結束-->
-									<div class="row">
-										<div class="col-md-2"
-											style="text-align: right; margin-top: 13px;">聯絡地址:</div>
-										<div class="col-md-4">
 
-
-											<select name="contactZip" id="contactZip"
-												class="form-control"
-												style="background-color: white; margin-bottom: 10px">
-												<option value="" disabled selected>郵遞區號</option>
-												<option value="100 台北市 中正區">100 台北市 中正區</option>
-												<option value="103 台北市 大同區">103 台北市 大同區</option>
-												<option value="104 台北市 中山區">104 台北市 中山區</option>
-												<option value="105 台北市 松山區">105 台北市 松山區</option>
-												<option value="106 台北市 大安區">106 台北市 大安區</option>
-												<option value="234 新北市 永和區">234 新北市 永和區</option>
-												<option value="235 新北市 中和區">235 新北市 中和區</option>
-												<option value="236 新北市 土城區">236 新北市 土城區</option>
-												<option value="237 新北市 三峽區">237 新北市 三峽區</option>
-												<option value="238 新北市 樹林區">238 新北市 樹林區</option>
-												<option value="239 新北市 鶯歌區">239 新北市 鶯歌區</option>
-												<option value="241 新北市 三重區">241 新北市 三重區</option>
-												<option value="242 新北市 新莊區">242 新北市 新莊區</option>
-												<option value="243 新北市 泰山區">243 新北市 泰山區</option>
-												<option value="244 新北市 林口區">244 新北市 林口區</option>
-												<option value="247 新北市 蘆洲區">247 新北市 蘆洲區</option>
-												<option value="248 新北市 五股區">248 新北市 五股區</option>
-												<option value="249 新北市 八里區">249 新北市 八里區</option>
-												<option value="251 新北市 淡水區">251 新北市 淡水區</option>
-												<option value="252 新北市 三芝區">252 新北市 三芝區</option>
-												<option value="253 新北市 石門區">253 新北市 石門區</option>
-												<option value="260 宜蘭縣 宜蘭市">260 宜蘭縣 宜蘭市</option>
-												<option value="261 宜蘭縣 頭城鎮">261 宜蘭縣 頭城鎮</option>
-												<option value="262 宜蘭縣 礁溪鄉">262 宜蘭縣 礁溪鄉</option>
-												<option value="263 宜蘭縣 壯圍鄉">263 宜蘭縣 壯圍鄉</option>
-												<option value="264 宜蘭縣 員山鄉">264 宜蘭縣 員山鄉</option>
-												<option value="265 宜蘭縣 羅東鎮">265 宜蘭縣 羅東鎮</option>
-												<option value="266 宜蘭縣 三星鄉">266 宜蘭縣 三星鄉</option>
-												<option value="267 宜蘭縣 大同鄉">267 宜蘭縣 大同鄉</option>
-												<option value="268 宜蘭縣 五結鄉">268 宜蘭縣 五結鄉</option>
-												<option value="269 宜蘭縣 冬山鄉">269 宜蘭縣 冬山鄉</option>
-												<option value="270 宜蘭縣 蘇澳鎮">270 宜蘭縣 蘇澳鎮</option>
-												<option value="272 宜蘭縣 南澳鄉">272 宜蘭縣 南澳鄉</option>
-												<option value="300 新竹市 北區">300 新竹市 北區</option>
-												<option value="300 新竹市 東區">300 新竹市 東區</option>
-												<option value="300 新竹市 香山區">300 新竹市 香山區</option>
-												<option value="300 新竹市 ">300 新竹市</option>
-												<option value="302 新竹縣 竹北市">302 新竹縣 竹北市</option>
-												<option value="303 新竹縣 湖口鄉">303 新竹縣 湖口鄉</option>
-												<option value="304 新竹縣 新豐鄉">304 新竹縣 新豐鄉</option>
-												<option value="305 新竹縣 新埔鎮">305 新竹縣 新埔鎮</option>
-												<option value="306 新竹縣 關西鎮">306 新竹縣 關西鎮</option>
-												<option value="307 新竹縣 芎林鄉">307 新竹縣 芎林鄉</option>
-												<option value="308 新竹縣 寶山鄉">308 新竹縣 寶山鄉</option>
-												<option value="310 新竹縣 竹東鎮">310 新竹縣 竹東鎮</option>
-												<option value="311 新竹縣 五峰鄉">311 新竹縣 五峰鄉</option>
-												<option value="312 新竹縣 橫山鄉">312 新竹縣 橫山鄉</option>
-												<option value="313 新竹縣 尖石鄉">313 新竹縣 尖石鄉</option>
-												<option value="314 新竹縣 北埔鄉">314 新竹縣 北埔鄉</option>
-												<option value="315 新竹縣 峨眉鄉">315 新竹縣 峨眉鄉</option>
-												<option value="320 桃園市 中壢區">320 桃園市 中壢區</option>
-												<option value="324 桃園市 平鎮區">324 桃園市 平鎮區</option>
-												<option value="325 桃園市 龍潭區">325 桃園市 龍潭區</option>
-												<option value="326 桃園市 楊梅區">326 桃園市 楊梅區</option>
-												<option value="327 桃園市 新屋區">327 桃園市 新屋區</option>
-												<option value="328 桃園市 觀音區">328 桃園市 觀音區</option>
-												<option value="330 桃園市 桃園區">330 桃園市 桃園區</option>
-												<option value="333 桃園市 龜山區">333 桃園市 龜山區</option>
-												<option value="334 桃園市 八德區">334 桃園市 八德區</option>
-												<option value="335 桃園市 大溪區">335 桃園市 大溪區</option>
-												<option value="336 桃園市 復興區">336 桃園市 復興區</option>
-												<option value="337 桃園市 大園區">337 桃園市 大園區</option>
-												<option value="338 桃園市 蘆竹區">338 桃園市 蘆竹區</option>
-											</select>
-										</div>
-										<div class="col-md-5">
-
-											<input type="text" class="form-control rounded"
-												id="contactAddr" value="<%=memVO.getM_addr()%>"
-												name="contactAddr"
-												style="margin-bottom: 10px; background-color: white;">
-										</div>
+								</div>
+								<!-- 							第一行姓名結束-->
+								<div class="row">
+									<div class="col-md-2"
+										style="text-align: right; margin-top: 13px;">性別:</div>
+									<div class="col-md-9">
+										<select name="gender" id="gender" class="form-control"
+											style="margin-bottom: 10px; background-color: white">
+											<option value="" disabled>性別</option>
+											<option value="M"
+												<c:if test="${memVO.m_gender=='M'}">selected</c:if>>男性</option>
+											<option value="F"
+												<c:if test="${memVO.m_gender=='F'}">selected</c:if>>女性</option>
+										</select>
 									</div>
 
-									<!-- 							第七行居住地址結束-->
 
 
-									<div style="text-align: center; margin-top: 25px;">
-										<button type="submit" class="btn btn-primary-filled btn-pill">提交</button>
+								</div>
+								<!-- 							第二行性別結束-->
+								<div class="row">
+									<div class="col-md-2"
+										style="text-align: right; margin-top: 13px;">生日:</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control rounded" id="birthday"
+											value="<%=memVO.getM_bday()%>" name="birthday"
+											style="margin-bottom: 10px; background-color: white">
 									</div>
-									<input type="hidden" name="action" value="UpdateMem">
-								</FORM>
+
+
+
+								</div>
+								<!-- 							第三行生日結束-->
+								<div class="row">
+									<div class="col-md-2"
+										style="text-align: right; margin-top: 13px;">電話:</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control rounded" id="phone"
+											name="phone"
+											value="<%=(memVO.getM_phone() == null) ? "" : memVO.getM_phone()%>"
+											style="margin-bottom: 10px; background-color: white">
+									</div>
+								</div>
+
+
+								<!-- 							第四行電話結束-->
+								<div class="row">
+									<div class="col-md-2"
+										style="text-align: right; margin-top: 13px;">手機:</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control rounded" id="mobile"
+											value="<%=memVO.getM_mobile()%>" name="mobile"
+											style="margin-bottom: 10px; background-color: white">
+									</div>
+								</div>
+								<!-- 							第五行手機結束-->
+								<div class="row">
+									<div class="col-md-2"
+										style="text-align: right; margin-top: 13px;">電子信箱:</div>
+									<div class="col-md-9">
+										<input type="email" class="form-control rounded" id="email"
+											value="<%=memVO.getM_email()%>" name="email"
+											style="margin-bottom: 10px; background-color: white">
+									</div>
+								</div>
+								<!-- 							第六行電子郵箱結束-->
+								<div class="row">
+									<div class="col-md-2"
+										style="text-align: right; margin-top: 13px;">聯絡地址:</div>
+									<div class="col-md-4">
+
+
+										<select name="contactZip" id="contactZip" class="form-control"
+											style="background-color: white; margin-bottom: 10px">
+											<option value="" disabled selected>郵遞區號</option>
+											<option value="100 台北市 中正區">100 台北市 中正區</option>
+											<option value="103 台北市 大同區">103 台北市 大同區</option>
+											<option value="104 台北市 中山區">104 台北市 中山區</option>
+											<option value="105 台北市 松山區">105 台北市 松山區</option>
+											<option value="106 台北市 大安區">106 台北市 大安區</option>
+											<option value="234 新北市 永和區">234 新北市 永和區</option>
+											<option value="235 新北市 中和區">235 新北市 中和區</option>
+											<option value="236 新北市 土城區">236 新北市 土城區</option>
+											<option value="237 新北市 三峽區">237 新北市 三峽區</option>
+											<option value="238 新北市 樹林區">238 新北市 樹林區</option>
+											<option value="239 新北市 鶯歌區">239 新北市 鶯歌區</option>
+											<option value="241 新北市 三重區">241 新北市 三重區</option>
+											<option value="242 新北市 新莊區">242 新北市 新莊區</option>
+											<option value="243 新北市 泰山區">243 新北市 泰山區</option>
+											<option value="244 新北市 林口區">244 新北市 林口區</option>
+											<option value="247 新北市 蘆洲區">247 新北市 蘆洲區</option>
+											<option value="248 新北市 五股區">248 新北市 五股區</option>
+											<option value="249 新北市 八里區">249 新北市 八里區</option>
+											<option value="251 新北市 淡水區">251 新北市 淡水區</option>
+											<option value="252 新北市 三芝區">252 新北市 三芝區</option>
+											<option value="253 新北市 石門區">253 新北市 石門區</option>
+											<option value="260 宜蘭縣 宜蘭市">260 宜蘭縣 宜蘭市</option>
+											<option value="261 宜蘭縣 頭城鎮">261 宜蘭縣 頭城鎮</option>
+											<option value="262 宜蘭縣 礁溪鄉">262 宜蘭縣 礁溪鄉</option>
+											<option value="263 宜蘭縣 壯圍鄉">263 宜蘭縣 壯圍鄉</option>
+											<option value="264 宜蘭縣 員山鄉">264 宜蘭縣 員山鄉</option>
+											<option value="265 宜蘭縣 羅東鎮">265 宜蘭縣 羅東鎮</option>
+											<option value="266 宜蘭縣 三星鄉">266 宜蘭縣 三星鄉</option>
+											<option value="267 宜蘭縣 大同鄉">267 宜蘭縣 大同鄉</option>
+											<option value="268 宜蘭縣 五結鄉">268 宜蘭縣 五結鄉</option>
+											<option value="269 宜蘭縣 冬山鄉">269 宜蘭縣 冬山鄉</option>
+											<option value="270 宜蘭縣 蘇澳鎮">270 宜蘭縣 蘇澳鎮</option>
+											<option value="272 宜蘭縣 南澳鄉">272 宜蘭縣 南澳鄉</option>
+											<option value="300 新竹市 北區">300 新竹市 北區</option>
+											<option value="300 新竹市 東區">300 新竹市 東區</option>
+											<option value="300 新竹市 香山區">300 新竹市 香山區</option>
+											<option value="300 新竹市 ">300 新竹市</option>
+											<option value="302 新竹縣 竹北市">302 新竹縣 竹北市</option>
+											<option value="303 新竹縣 湖口鄉">303 新竹縣 湖口鄉</option>
+											<option value="304 新竹縣 新豐鄉">304 新竹縣 新豐鄉</option>
+											<option value="305 新竹縣 新埔鎮">305 新竹縣 新埔鎮</option>
+											<option value="306 新竹縣 關西鎮">306 新竹縣 關西鎮</option>
+											<option value="307 新竹縣 芎林鄉">307 新竹縣 芎林鄉</option>
+											<option value="308 新竹縣 寶山鄉">308 新竹縣 寶山鄉</option>
+											<option value="310 新竹縣 竹東鎮">310 新竹縣 竹東鎮</option>
+											<option value="311 新竹縣 五峰鄉">311 新竹縣 五峰鄉</option>
+											<option value="312 新竹縣 橫山鄉">312 新竹縣 橫山鄉</option>
+											<option value="313 新竹縣 尖石鄉">313 新竹縣 尖石鄉</option>
+											<option value="314 新竹縣 北埔鄉">314 新竹縣 北埔鄉</option>
+											<option value="315 新竹縣 峨眉鄉">315 新竹縣 峨眉鄉</option>
+											<option value="320 桃園市 中壢區">320 桃園市 中壢區</option>
+											<option value="324 桃園市 平鎮區">324 桃園市 平鎮區</option>
+											<option value="325 桃園市 龍潭區">325 桃園市 龍潭區</option>
+											<option value="326 桃園市 楊梅區">326 桃園市 楊梅區</option>
+											<option value="327 桃園市 新屋區">327 桃園市 新屋區</option>
+											<option value="328 桃園市 觀音區">328 桃園市 觀音區</option>
+											<option value="330 桃園市 桃園區">330 桃園市 桃園區</option>
+											<option value="333 桃園市 龜山區">333 桃園市 龜山區</option>
+											<option value="334 桃園市 八德區">334 桃園市 八德區</option>
+											<option value="335 桃園市 大溪區">335 桃園市 大溪區</option>
+											<option value="336 桃園市 復興區">336 桃園市 復興區</option>
+											<option value="337 桃園市 大園區">337 桃園市 大園區</option>
+											<option value="338 桃園市 蘆竹區">338 桃園市 蘆竹區</option>
+										</select>
+									</div>
+									<div class="col-md-5">
+
+										<input type="text" class="form-control rounded"
+											id="contactAddr" value="<%=memVO.getM_addr()%>"
+											name="contactAddr"
+											style="margin-bottom: 10px; background-color: white;">
+									</div>
+								</div>
+
+								<!-- 							第七行居住地址結束-->
+
+
+								<div style="text-align: center; margin-top: 25px;">
+									<button type="button" id="memInfoBtn"
+										class="btn btn-primary-filled btn-pill">提交</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -329,9 +328,9 @@
 						</h4>
 						<p class="space-bottom">
 
-							收件人姓名:<br><br>
-							 收件人電話:<br><br>
-                                                                               收件人地址:
+							收件人姓名:<br>
+							<br> 收件人電話:<br>
+							<br> 收件人地址:
 						</p>
 
 
@@ -346,8 +345,7 @@
 										<div class="col-md-9">
 											<input type="text" class="form-control rounded" id="shipName"
 												value=""
-												style="margin-bottom: 10px; background-color: white"
-												>
+												style="margin-bottom: 10px; background-color: white">
 										</div>
 									</div>
 
@@ -471,7 +469,8 @@
 					<div id="accountArea" class="account-info-content">
 						<h4>
 							帳號管理<span class="pull-right">
-								<button id="changePwdBtn" class="btn btn-sm btn-primary btn-rounded no-margin"
+								<button id="changePwdBtn"
+									class="btn btn-sm btn-primary btn-rounded no-margin"
 									type="button" data-toggle="collapse"
 									data-target="#collapseExample" aria-expanded="false"
 									aria-controls="collapseExample" style="font-weight: bold">
@@ -568,7 +567,7 @@
 
 					</div>
 					<!-- / welRecordArea -->
-	
+
 					<div id="welRecordArea" class="account-info-content">
 						<h4>
 							錢包管理 &emsp;<strong>目前餘額：NT$${sessionScope.memVO.balance}</strong>
@@ -621,16 +620,11 @@
 													test="${welRecordVO.tns_src==31}">平台撥款-預購分潤</c:if> <c:if
 													test="${welRecordVO.tns_src==32}">平台撥款-競標分潤</c:if> <c:if
 													test="${welRecordVO.tns_src==33}">平台撥款-見面會分潤</c:if> <c:if
-													test="${welRecordVO.tns_src==34}">平台撥款-預購折扣金</c:if> 
-													<c:if
-													test="${welRecordVO.tns_src==35}">平台退款-一般購買</c:if>
-													<c:if
-													test="${welRecordVO.tns_src==36}">平台退款-預購</c:if>
-													<c:if
-													test="${welRecordVO.tns_src==37}">平台退款-競標</c:if>
-													<c:if
-													test="${welRecordVO.tns_src==38}">平台退款-見面會</c:if>
-													<c:if
+													test="${welRecordVO.tns_src==34}">平台撥款-預購折扣金</c:if> <c:if
+													test="${welRecordVO.tns_src==35}">平台退款-一般購買</c:if> <c:if
+													test="${welRecordVO.tns_src==36}">平台退款-預購</c:if> <c:if
+													test="${welRecordVO.tns_src==37}">平台退款-競標</c:if> <c:if
+													test="${welRecordVO.tns_src==38}">平台退款-見面會</c:if> <c:if
 													test="${welRecordVO.tns_src==40}">平台扣款-一般購買訂單</c:if> <c:if
 													test="${welRecordVO.tns_src==41}">平台扣款-預購訂單</c:if> <c:if
 													test="${welRecordVO.tns_src==42}">平台扣款-競標訂單</c:if> <c:if
@@ -772,16 +766,17 @@
 			<!-- / row -->
 		</div>
 		<!-- / container -->
-		
+
 		<div class="alert alert-warning alert-dismissible" role="alert"
-			id="alertWarn" style="display: none; position: fixed; bottom: 0;width:100%">
+			id="alertWarn"
+			style="display: none; position: fixed; bottom: 0; width: 100%">
 			<button type="button" class="close" data-dismiss="alert"
 				aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
 			<strong>密碼設定失敗</strong> 請檢查密碼格式是否正確或密碼是否一致
 		</div>
-		
+
 	</section>
 	<!-- / my-account -->
 	<!-- / content -->
@@ -924,7 +919,8 @@
 						</button>
 						<h4 class="modal-title" id="myModalLabel">編輯個人頭像</h4>
 					</div>
-					<FORM action="<%=request.getContextPath()%>/members/headphotoHandler.do"
+					<FORM
+						action="<%=request.getContextPath()%>/members/headphotoHandler.do"
 						method=post enctype="multipart/form-data">
 						<div class="modal-body" style="text-align: center">
 
@@ -951,7 +947,7 @@
 			</div>
 		</div>
 		<!--  alert-area -->
-	
+
 
 
 		<!-- / widget-area -->
@@ -1068,6 +1064,35 @@
 		$("#shipAddr").value($("#contactAddr").value());	
 		
 		});
+	$("#memInfoBtn").click(function() {
+		
+		console.log($("#contactZip option").attr("value"));
+		
+		$.ajax({
+    		url: "<%=request.getContextPath()%>/frontend/members/mem.do",
+									type : "POST",
+									data : {
+										action : "UpdateMem",
+										name : $("#name").val(),
+										gender : $("#gender").val(),
+										birthday :  $("#birthday").val(),
+										mobile :  $("#mobile").val(),
+										phone :  $("#phone").val(),
+										email :  $("#email").val(),
+										contactZip :  $("#contactZip option").attr("value"),
+										contactAddr :   $("#contactAddr").val(),
+										
+									},
+									success : function(data) {
+										
+									console.log(data);
+									}
+		
+		
+	});
+		
+	});
+	
 	
 	$("#submitPsw").click(function() {
 		$.ajax({

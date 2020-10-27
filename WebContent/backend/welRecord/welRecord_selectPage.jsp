@@ -430,7 +430,7 @@ tr, td, th {
 			}
 		}
 		
-		var arrayCard = [amount10Monthly, amount10Season, amount20Monthly, amount20Season];
+		var arrayCard = [amount10Monthly, amount10Season, -amount20Monthly, -amount20Season];//提領轉正值
 		return arrayCard;	
 	}
 	
