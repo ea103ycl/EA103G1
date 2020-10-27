@@ -417,11 +417,11 @@ public class PreProductJDBCDAO implements PreProductDAO_interface{
 				
 				while(rs.next()) {/*«ÝJeff°Q½× set°ÝÃD*/
 					materialdataVO = new Material_Data_VO();
-					materialdataVO.setMa_no(rs.getString("ma_no"));
-					materialdataVO.setMa_ty_no(rs.getString("ma_ty_no"));
-					materialdataVO.setMa_name(rs.getString("ma_name"));
-					materialdataVO.setMa_price(rs.getInt("ma_price"));
-					materialdataVO.setMa_status(rs.getInt("event_vote_num"));
+					materialdataVO.setMaNo(rs.getString("ma_no"));
+					materialdataVO.setMaTyNo(rs.getString("ma_ty_no"));
+					materialdataVO.setMaName(rs.getString("ma_name"));
+					materialdataVO.setMaPrice(rs.getInt("ma_price"));
+					materialdataVO.setMaStatus(rs.getInt("event_vote_num"));
 					set.add(materialdataVO);	
 				}
 			}catch(ClassNotFoundException e) {

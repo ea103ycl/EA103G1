@@ -12,7 +12,7 @@ import com.preorder.model.PreOrderService;
 import com.preorder.model.PreOrderVO;
 import com.preorderdetail.model.PreOrderDetailService;
 import com.preorderdetail.model.PreOrderDetailVO;
-import com.preproduct.model.model.model.PreProductVO;
+import com.preproduct.model.PreProductVO;
 
 import tools.MoneyTool;
 

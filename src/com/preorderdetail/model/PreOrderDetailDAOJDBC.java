@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.preorder.model.PreOrderVO;
-import com.preproduct.model.model.model.PreProductVO;
+import com.preproduct.model.PreProductVO;
 
 public class PreOrderDetailDAOJDBC implements PreOrderDetailDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";

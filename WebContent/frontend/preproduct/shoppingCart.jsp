@@ -3,7 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.wel_record.model.*"%>
 <%@ page import="com.mem.model.*"%>
-
+<%@ page import="com.preproduct.model.*"%>
 
 <%
 	WelRecordVO welRecordVO = (WelRecordVO) request.getAttribute("welRecordVO");
