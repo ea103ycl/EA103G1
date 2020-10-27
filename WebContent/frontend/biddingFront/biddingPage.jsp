@@ -231,7 +231,7 @@ img {
 					<div class="blog block post-content-area">
 						<div class="post-info-box">
 							<img
-								src="<%=request.getContextPath()%>/frontend/imgData/img (17).jpg"
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}"
 								style="max-height: auto; width: 100%" alt="">
 							<div class="space-50">&nbsp;</div>
 							<p class="lead clockLead">Time remaining:</p>
