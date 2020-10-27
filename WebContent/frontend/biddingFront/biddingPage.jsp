@@ -102,20 +102,20 @@ img {
 	<jsp:useBean id="bdr" scope="application"
 		class="com.bidding.model.BdRedis" />
 	<jsp:useBean id="bdSvc" scope="page"
-		class="com.bidding.model.BiddingService" />	
-		
-		
+		class="com.bidding.model.BiddingService" />
+
+
 
 
 	<input id="bdNo" type="hidden" value="${bdNo}">
 	<input id="memId" type="hidden" value="${memVO.mem_id}">
-	
+
 	<c:set var="memId" value="${memVO.mem_id}" />
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
 	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
 	<c:set var="topBidder" value="${bdr.getHighestBidder(bdNo)}" />
-	
-	
+
+
 	<!-- preloader -->
 	<div id="preloader">
 		<div class="spinner spinner-round"></div>
@@ -284,19 +284,21 @@ img {
 																		</p>
 																		<div class="row">
 																			<div class="col-sm-6">
-																				<input type="text"
-																					class="form-control" name="bdName"
-																					placeholder="*NAME"  value="${memVO.m_name}" required=""> <input
+																				<input type="text" class="form-control"
+																					name="bdName" placeholder="*NAME"
+																					value="${memVO.m_name}" required=""> <input
 																					type="email" class="form-control" name="bdEmail"
-																					placeholder="*EMAIL"  value="${memVO.m_email}" required="">
+																					placeholder="*EMAIL" value="${memVO.m_email}"
+																					required="">
 
 																			</div>
 																			<div class="col-sm-6">
 																				<input type="tel" class="form-control"
-																					name="bdPhone" placeholder="*PHONE" value="${memVO.m_phone}"  required="">
-																				 <input
+																					name="bdPhone" placeholder="*PHONE"
+																					value="${memVO.m_phone}" required=""> <input
 																					type="text" class="form-control" name="bdAddr"
-																					placeholder="*ADDRESS" value="${memVO.m_addr}"  required="">
+																					placeholder="*ADDRESS" value="${memVO.m_addr}"
+																					required="">
 																			</div>
 																		</div>
 																		<!-- / row -->
@@ -333,14 +335,17 @@ img {
 																</form>
 																<div class="space-50">&nbsp;</div>
 																<div class="col-sm-4 checkout-total">
-																	<h4>
-																		My Wallet: <span id="checkoutPrice">${memVO.balance}</span>
-																	</h4>
+
 																	<h4>
 																		CART TOTAL: <span id="checkoutPrice">$0</span>
 																	</h4>
 																	<p>*The price includes shipping and taxes.</p>
 
+																	<h4>
+																		My Wallet: <span id="checkoutPrice">${memVO.balance}</span>
+																	</h4>
+																	<p class="blog-post-footer"></p>
+																	
 																	<div class="cart-total-footer">
 																		<a href="" class="btn btn-default-filled btn-rounded"><i
 																			class="lnr lnr-arrow-left"></i><span>Back to
@@ -440,6 +445,10 @@ img {
 																				<p>
 																					Date of Birth: <span>${memVO.m_bday}</span>
 																				</p>
+																				<p>
+																					Balance: <span>${memVO.balance}</span>
+																				</p>
+														
 																			</div>
 
 																		</div>
@@ -455,7 +464,7 @@ img {
 																		<p>
 																			Country: <span>台灣</span>
 																		</p>
-																	
+
 																		<p>
 																			Address Line: <span>${bVO.bdAddr}</span>
 																		</p>
@@ -538,16 +547,16 @@ img {
 
 							<h2 class="my-4">Bidders</h2>
 							<div class="post-category" id="top1">
-								<a href="#"><h4>Top1</h4> <img
-									src="<%=request.getContextPath()%>/frontend/template/img/alien.svg"
+								<a href="#"><h4>Top1</h4> <img id="top1pic"
+									src="<%=request.getContextPath()%>/frontend/biddingFront/img/trophy.svg"
 									alt="Image" class="mr-2 memAvatar" style="margin-right: 1.5%;">
 									<span>Jean Smith</span> <span class="pull-right price"
 									id="price1">$0</span> </a>
 							</div>
 							<!-- / post-category -->
 							<div class="post-category" id="top2">
-								<a href="#"><h4>Top2</h4> <img
-									src="<%=request.getContextPath()%>/frontend/template/img/ghost.svg"
+								<a href="#"><h4>Top2</h4> <img id="top2pic"
+									src="<%=request.getContextPath()%>/frontend/biddingFront/img/second.svg"
 									alt="Image" class="mr-2 memAvatar" style="margin-right: 1.5%;">
 									<span class="mr-2">Chris Wilson</span> <span
 									class="pull-right price" id="price2">$0</span> </a>
@@ -555,8 +564,8 @@ img {
 							<!-- / post-category -->
 							<div class="post-category" id="top3">
 								<a href="#">
-									<h4>Top3</h4> <img
-									src="<%=request.getContextPath()%>/frontend/template/img/knight.svg"
+									<h4>Top3</h4> <img id="top3pic"
+									src="<%=request.getContextPath()%>/frontend/biddingFront/img/third.svg"
 									alt="Image" class="mr-12 memAvatar" style="margin-right: 1.5%;">
 									<span>Kyle Anderson</span> <span class="pull-right price"
 									id="price3">$0</span>
