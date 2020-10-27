@@ -17,9 +17,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"> -->
-<link href="<%=request.getContextPath()%>/frontend/template/Caroline/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 <link
 	href="<%=request.getContextPath()%>/backend/template/css/sb-admin-2.min.css"
 	rel="stylesheet">
@@ -58,7 +57,13 @@ tr, td, th {
 					<!--=====自定義內容start ================================================== -->
 
 					<%-- 頁面標題 --%>
+
+
+
+
 					<h1 class="h3 mb-2 text-gray-800">錢包查詢及管理</h1>
+
+
 
 					<%-- 錯誤表列 --%>
 					<c:if test="${not empty errorMsgs}">
@@ -97,7 +102,7 @@ tr, td, th {
 										data-toggle="collapse" data-target="#collapseOne1"
 										aria-expanded="true" aria-controls="collapseOne"
 										id="simpleSearch">
-										<i class="zmdi zmdi-search"></i>&ensp;簡易查詢(單一交易編號、或交易來源)
+										<i class="zmdi zmdi-search"></i>&ensp;簡易查詢(單一會員編號、或交易流水號)
 									</button>
 								</h2>
 
@@ -137,21 +142,114 @@ tr, td, th {
 
 
 					<!-- -----------------------查詢結果開始-------------------------- -->
-					<div class="chart-container" id="chart"
-						style=" display: none;">
-						<div class="row" style="margin-top:20px;">
-							<div class="col-md-6" >
-								<canvas id="myChart1"></canvas>
-							</div>
-							<div class="col-md-6">
-								<canvas id="myChart2" style="position: relative; height: 40%; width: 40%;"></canvas>
+					<div class="chart-container" id="chart" style="display: none;">
+
+						<!-- Collapsable Card Example -->
+						<div class="card shadow mb-4" style="margin-top: 10px">
+							<!-- Card Header - Accordion -->
+							<a href="#collapseCardExample" class="d-block card-header py-3"
+								data-toggle="collapse" role="button" aria-expanded="true"
+								aria-controls="collapseCardExample">
+								<h6 class="font-weight-bold text-primary">平台金流分析</h6>
+							</a>
+							<!-- Card Content - Collapse -->
+							<div class="collapse show" id="collapseCardExample">
+								<div class="card-body">
+
+									<div class="row" style="margin-bottom: 20px">
+										<div class="col-md-3">
+											<div class="card border-left-danger shadow h-100 py-2">
+												<div class="card-body">
+													<div class="row no-gutters align-items-center">
+														<div class="col mr-2">
+															<div
+																class="text-xs font-weight-bold text-primary text-uppercase mb-1">會員儲值
+																(本月)</div>
+															<div class="h5 mb-0 font-weight-bold text-gray-800" id="depositMonthly"></div>
+														</div>
+														<div class="col-auto">
+															<i class="fas fa-calendar fa-2x text-gray-300"></i>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="card border-left-danger shadow h-100 py-2">
+												<div class="card-body">
+													<div class="row no-gutters align-items-center">
+														<div class="col mr-2">
+															<div
+																class="text-xs font-weight-bold text-primary text-uppercase mb-1">會員儲值
+																(本季)</div>
+															<div class="h5 mb-0 font-weight-bold text-gray-800" id="depositSeasonal"></div>
+														</div>
+														<div class="col-auto">
+															<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+
+											<div class="card border-left-success shadow h-100 py-2">
+												<div class="card-body">
+													<div class="row no-gutters align-items-center">
+														<div class="col mr-2">
+															<div
+																class="text-xs font-weight-bold text-primary text-uppercase mb-1">會員提領
+																(本月)</div>
+															<div class="h5 mb-0 font-weight-bold text-gray-800" id="withdrawMonthly"></div>
+														</div>
+														<div class="col-auto">
+															<i class="fas fa-calendar fa-2x text-gray-300"></i>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+
+											<div class="card border-left-success shadow h-100 py-2">
+												<div class="card-body">
+													<div class="row no-gutters align-items-center">
+														<div class="col mr-2">
+															<div
+																class="text-xs font-weight-bold text-primary text-uppercase mb-1">會員提領
+																(本季)</div>
+															<div class="h5 mb-0 font-weight-bold text-gray-800" id="withdrawSeasonal"></div>
+														</div>
+														<div class="col-auto">
+															<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row" style="margin-bottom: 20px">
+										<div class="col-md-6">
+											<canvas id="myChart1"></canvas>
+										</div>
+										<div class="col-md-6">
+											<canvas id="myChart2"
+												style="position: relative; width: 180px"></canvas>
+										</div>
+									</div>
+
+
+								</div>
 							</div>
 						</div>
+
+
 					</div>
 
 					<div class="row" id="resultHeader"
 						style="visibility: hidden; margin-top: 20px">
-						<div class="col-md-4">
+						<div class="col-md-4" id="queryResult">
 							<h3 class="h3 mb-2 text-gray-800" style="margin-left: 20px">查詢結果</h3>
 						</div>
 						<div class="col-md-6" style="text-align: right;">
@@ -256,15 +354,99 @@ tr, td, th {
 		//負值轉正
 		var array = [ amount10 , -amount20 , -amount77 , amount88 , amount99 ]
 		
-		console.log(array);
 		return array;
 		
 	}
 	
+
+	  function getSeason(month){ 
+	  
+	        if(month<3){ 
+	            return 'spring'; 
+	        } 
+	         
+	        if(month<6){ 
+	            return 'summer'; 
+	        } 
+	         
+	        if(month<9){ 
+	            return 'fall'; 
+	        } 
+	         
+	        return 'winter'; 
+
+	    }
+	
+	  
+    
+	function sumToolForCard (recordVO)
+	{
+		
+		var amount10Monthly = 0;//會員儲值(正值)
+		var amount20Monthly = 0; //會員提款(負值)
+		var amount10Season = 0;//會員儲值(正值)
+		var amount20Season = 0; //會員提款(負值)
+		
+		for(i=0;i<recordVO.length;i++){
+
+		    var now = new Date(); //當前時間
+			
+			var strDate = recordVO[i].tns_time; 
+			
+			var newDate = new Date(Date.parse(strDate.replace(/-/g,'/')));
+			
+			console.log(newDate);
+			
+			if(newDate.getFullYear() === now.getFullYear() &&  newDate.getMonth() === now.getMonth()){ //是否為今年度本月
+				
+				console.log('newDate.getMonth()'+now.getMonth());
+				console.log('now.getMonth()'+ now.getMonth());
+				console.log('recordVO[i].tns_src'+ recordVO[i].tns_src);
+				
+			if (recordVO[i].tns_src === 10) {  //儲值
+				
+				amount10Monthly += recordVO[i].tns_amount;
+				
+			}else if(recordVO[i].tns_src === 20)  //提領
+			{
+				amount20Monthly += recordVO[i].tns_amount;
+				
+			}
+			
+		}
+			console.log('getSeason(newDate.getMonth())'+getSeason(newDate.getMonth()));
+			console.log('getSeason(now.getMonth())'+ getSeason(now.getMonth()));
+			
+			if(newDate.getFullYear() === now.getFullYear() &&  getSeason(newDate.getMonth()) === getSeason(now.getMonth())) //是否為今年度本季
+			{
+				if (recordVO[i].tns_src === 10) {  //儲值
+					
+					amount10Season += recordVO[i].tns_amount;
+					
+				}else if(recordVO[i].tns_src === 20)  //提領
+				{
+					amount20Season += recordVO[i].tns_amount;
+				}
+			}
+		}
+		
+		var arrayCard = [amount10Monthly, amount10Season, amount20Monthly, amount20Season];
+		return arrayCard;	
+	}
+	
+	
+	$("#simpleSearch").click(function(){
+		
+		 $("#result").empty();
+		 $("#chart").css("display","none");
+		 $("#resultHeader").css("visibility","hidden");
+	});
+
+	//全部交易紀錄查詢
 	$("#getAllRecords").click(function(){
 		 $("#result").empty();
 		 $("#resultHeader").css("visibility","visible");
-		 $("#chart").css("display","block");
+		 $("#chart").css("display","inline");
 		 $("#myChart1").css("display","inline-block");
 		 $("#myChart2").css("display","inline-block");
 		 
@@ -288,8 +470,14 @@ tr, td, th {
 		            
 		            
 		            arrayChart = sumTool(recordVO);
-					 console.log(arrayChart);
-				
+		            
+		            arrayCard = sumToolForCard(recordVO);
+					
+		            $("#depositMonthly").text("$"+arrayCard[0]);
+		            $("#depositSeasonal").text("$"+arrayCard[1]);
+		            $("#withdrawMonthly").text("$"+arrayCard[2]);
+		            $("#withdrawSeasonal").text("$"+arrayCard[3]);
+		            console.log(arrayCard);	
 				
 						//圓餅圖
 				    	var ctx1 = document.getElementById('myChart1').getContext('2d');
@@ -302,7 +490,7 @@ tr, td, th {
 				    	    	
 				    		    datasets: [{
 				    		        data: arrayChart ,
-			    		    backgroundColor: ['#6666E2', '#364A19', '#D174A0', '#B2385D', '#F29C1B']
+			    		    backgroundColor: ['#6666E2', '#00A600', '#D174A0', '#B2385D', '#F29C1B']
 				    	
 				    		    }],
 
@@ -320,11 +508,12 @@ tr, td, th {
 				    		}
 				    	    	
 				    	});
+				    	
+				    	//長條圖
 				    	var ctx2 = document.getElementById('myChart2').getContext('2d');
 				    	var myBarChart = new Chart(ctx2, {
 				    	    type: "bar",
-				    	    data: 	    {
-				    	    	
+				    	    data: 	    {			    	    	
 				    	    	
 				    		    datasets: [{
 				    		    	  label: "平台金流總覽",
@@ -332,25 +521,20 @@ tr, td, th {
 			    		    backgroundColor: ['#6666E2', '#364A19', '#D174A0', '#B2385D', '#F29C1B']
 				    	
 				    		    }],
-
-				    		   
+	    		   
 				    		    labels: [
 				    		        '會員儲值',
 				    		        '會員提領',
 				    		        '平台扣款-訂單',
 				    		        '平台撥款-分潤/折扣金',
-				    		        '平台退款-訂單',
-				    		     
+				    		        '平台退款-訂單',    		     
 				    		    ]
-
-				    	       
+     
 
 				    		}
 				    	    	
 				    	});
-				
 
-				
 				}
 			});
 		
@@ -360,11 +544,9 @@ tr, td, th {
 	
 	});
 	
+	//篩選交易來源
 	$("#tnsSrcSelect").change(function(){
 
-		
-
-		
 		$.ajax({
     		url: "<%=request.getContextPath()%>/welRecord/welRecord.do",
 				type : "POST",
@@ -391,11 +573,10 @@ tr, td, th {
 	});
 
 	
+//單一會員/交易紀錄查詢
 	
 $("#getOneById_Acc").click(function(){
 	
-	
-	 
     	$.ajax({
     		url: "<%=request.getContextPath()%>/welRecord/welRecord.do",
 				type : "POST",
@@ -406,14 +587,7 @@ $("#getOneById_Acc").click(function(){
 
 				success : function(data) {
 
-					//#("queryResult").html(data);
-
 					var welRecordVO = JSON.parse(data);
-
-					console.log(data);
-					console.log(typeof (data));
-					console.log(welRecordVO);
-					console.log(typeof (welRecordVO));
 
 					if (welRecordVO.length > 1) {
 
@@ -424,12 +598,14 @@ $("#getOneById_Acc").click(function(){
 					}
 
 					$("#result").html(str);
+					$("#queryResult").css("visibility", "visible");
 
 				}
 
 			});
 		});
 
+		//單一會員或全部交易紀錄(輸入參數為Array)
 		function getStr(recordVO) {
 
 			var str = '<div class=\"card shadow mb-4\">'
@@ -456,6 +632,7 @@ $("#getOneById_Acc").click(function(){
 
 		}
 
+		//單一交易紀錄(輸入參數為Object)
 		function getVOStr(recordVO) {
 
 			var str = '<div class=\"card shadow mb-4\">'
@@ -485,6 +662,7 @@ $("#getOneById_Acc").click(function(){
 
 		}
 
+		//交易來源碼轉字串
 		function srcToStr(input) {
 			switch (input) {
 			case 10:
@@ -520,34 +698,8 @@ $("#getOneById_Acc").click(function(){
 
 			}
 		}
+		
 	</script>
-
-	<script>
-		// Chart Examples
-
-		// var chart = new Chart(ctx, {
-
-		//     type: 'line',
-		//     data: data,
-
-		//     data: {
-		//         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-		//         datasets: [{
-		//             label: 'My First dataset',
-		//             backgroundColor: 'rgb(255, 99, 132)',
-		//             borderColor: 'rgb(255, 99, 132)',
-		//             data: [0, 10, 5, 2, 20, 30, 45]
-		//         }]
-		//     },
-
-		//     options: {}
-		//   });  
-		// Pie Chart Example
-
-		//  for a doughnut chart
-	</script>
-
-
 
 </body>
 
