@@ -156,24 +156,24 @@ label{
             <table>
             <jsp:useBean id="eventSvc" scope="page" class="com.event.model.EventService" />
             	<label>當前預購活動</label>
-            	<select name="event_no">
-            	<option selected="selected" disabled="disabled"  style='display: none' value='null'></option>
-            	<c:forEach var="eventVO" items="${eventSvc.all}">
-                     <option value="${eventVO.event_no}">${eventVO.event_name}
-                </c:forEach>
-                </select>
-                
+<!--             	<select name="event_no"> -->
+<!--             	<option selected="selected" disabled="disabled"  style='display: none' value='null'></option> -->
+<%--             	<c:forEach var="eventVO" items="${eventSvc.findLastEndEvent()}"> --%>
+<%--                      <option value="${eventVO.event_no}">${eventVO.event_name} --%>
+<%--                 </c:forEach> --%>
+<!--                 </select> -->
+               <%=eventSvc.findByPrimaryKey(eventSvc.findLastEndEvent()).getEvent_name()  %>
                 
                 <br>
 
                 <jsp:useBean id="materialDataSvc" scope="page" class="com.material.model.Material_Data_Service" />
                 <label>選擇素材編號</label>
-                <select name="ma_no">
-                	<option selected="selected" disabled="disabled"  style='display: none' value='null'></option>
-                    <c:forEach var="materialdataVO" items="${materialDataSvc.all}">
-                        <option value="${materialdataVO.ma_no}">${materialdataVO.ma_name}
-                    </c:forEach>
-                </select>
+<!--                 <select name="ma_no"> -->
+<!--                 	<option selected="selected" disabled="disabled"  style='display: none' value='null'></option> -->
+<%--                     <c:forEach var="materialdataVO" items="${materialDataSvc.all}"> --%>
+<%--                         <option value="${materialdataVO.ma_no}">${materialdataVO.ma_name} --%>
+<%--                     </c:forEach> --%>
+<!--                 </select> -->
                 <br>
                 <i class="fa fa-calendar-plus-o"></i>
                 <input type="text" placeholder="預購開始時間" name="po_start" id="po_dateS">

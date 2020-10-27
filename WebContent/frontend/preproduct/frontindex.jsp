@@ -5,7 +5,7 @@
 <%@ page import="com.preproduct.model.*"%>
 <%
     PreProductService preproductSvc = new PreProductService();
-    List<PreProductVO> list = preproductSvc.getAll();
+    List<PreProductVO> list = preproductSvc.getALLPreproductInTime();
     pageContext.setAttribute("list",list);
 %>
 <%
@@ -13,11 +13,15 @@
 %>
 <%/*----------顯示作品排名3D排列----------*/%>
 <%@ page import="com.event_p.model.*"%>
+<%@ page import="com.event.model.*"%>
 <%
+	EventService eventSvc=new EventService();
 	Event_PService eventpSvc = new Event_PService();
-    List<Event_PVO> list01 = eventpSvc.getAll();
+    List<Event_PVO> list01 = eventpSvc.findAllByEventNoRankDescWithoutReport(eventSvc.findLastEndEvent());
     pageContext.setAttribute("list01",list01);
 %>
+
+
 <%
 	Event_PVO eventpVO = (Event_PVO) request.getAttribute("eventpVO");
 %>
@@ -219,12 +223,14 @@ header #header-banner{
   
 <hr>
 <h1>本期得獎作品</h1>
+<%=list01.size() %>
 	<div class="row">
 	    <div class="col-12">
 			<%@include file="/backend/preproduct/pages/page3.file" %>
 	    <div class="mdb-lightbox no-margin">
 			<c:forEach var="eventpVO" items="${list01}" begin="<%=pageIndexx%>" end="<%=pageIndexx+rowsPerPagee-2%>">
 		      <figure class="col-md-4">
+		      <p>編號${eventpVO.event_p_no+1}</p>
 		        <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg" data-size="1600x1067"><div class="divcss5 "> 
 		          <img alt="picture" src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${eventpVO.event_p_no+1}"
 		            class="img-fluid">
@@ -260,7 +266,7 @@ header #header-banner{
 		            <!-- product -->
 		            
 		            <li class="col-xs-6 col-md-4 product m-product" data-groups='["mens"]'>
-		            <form name="shoppingForm" action="Shopping.do" method="POST">
+		            <form id="shoppingForm" name="shoppingForm" action="Shopping.do" method="POST">
 		                <div class="img-bg-color primary">
 		                    <h5 class="product-price"><input type="hidden" name="po_price" value="${preproductVO.po_price}">$ ${preproductVO.po_price}</h5>
 		                    <a href="#" class="product-link"></a>
@@ -273,8 +279,8 @@ header #header-banner{
 		                        <a href="#" class="view-btn" data-toggle="tooltip" title="View Product">
 		                            <i class="lnr lnr-eye"></i>
 		                        </a>
-		                        <a class="cart-btn" data-toggle="tooltip" title="Add to Cart">
-		                            <i class="lnr lnr-cart"><input type="submit" class="add-cart cart1" value=""></i>
+		                        <a href="javascript:;" onclick="document.getElementById('shoppingForm').submit();">
+		                            <i class="lnr lnr-cart"><input type="hidden" class="add-cart cart1" value=""></i>
 		                        </a>
 		                    </div><!-- / product-hover-tools -->
 		
