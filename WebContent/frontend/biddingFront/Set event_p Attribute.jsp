@@ -9,8 +9,13 @@
 </head>
 <body>
 
-	<c:set var="event_no" value="E00019" scope="application"/>
-	${event_no}
+	<jsp:useBean id="memSvc" scope="application"
+		class="com.mem.model.MemService" />	
+	<c:set var="memVO" value='${memSvc.findByPrimaryKey("M000002")}' scope="application"/>
+
+	<c:set var="event_no" value="E00020" scope="application"/>
+	<span>memId=${memVO.mem_id}</span><br>
+	event_no=${event_no}
 	${latestBd1}
 	${latestBd2}
 	${latestBd3}

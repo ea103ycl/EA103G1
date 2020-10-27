@@ -433,6 +433,8 @@
                                         }
                                     })
                                 }, 4000);
+                            } else {
+                                console.log('failed to complete');
                             }
                             //==================sweetAlert==============
                         },

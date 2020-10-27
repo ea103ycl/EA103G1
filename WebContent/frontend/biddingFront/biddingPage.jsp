@@ -102,12 +102,20 @@ img {
 	<jsp:useBean id="bdr" scope="application"
 		class="com.bidding.model.BdRedis" />
 	<jsp:useBean id="bdSvc" scope="page"
-		class="com.bidding.model.BiddingService" />
-	<input id="memId" type="hidden" value="${memId}">
+		class="com.bidding.model.BiddingService" />	
+		
+		
+
+
 	<input id="bdNo" type="hidden" value="${bdNo}">
+	<input id="memId" type="hidden" value="${memVO.mem_id}">
+	
+	<c:set var="memId" value="${memVO.mem_id}" />
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
 	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
 	<c:set var="topBidder" value="${bdr.getHighestBidder(bdNo)}" />
+	
+	
 	<!-- preloader -->
 	<div id="preloader">
 		<div class="spinner spinner-round"></div>
@@ -276,22 +284,19 @@ img {
 																		</p>
 																		<div class="row">
 																			<div class="col-sm-6">
-																				<input type="text" class="form-control"
-																					name="bdFirstName" placeholder="*FIRST NAME"
-																					required=""> <input type="text"
-																					class="form-control" name="bdLastName"
-																					placeholder="*LAST NAME" required=""> <input
+																				<input type="text"
+																					class="form-control" name="bdName"
+																					placeholder="*NAME"  value="${memVO.m_name}" required=""> <input
 																					type="email" class="form-control" name="bdEmail"
-																					placeholder="*EMAIL" required="">
+																					placeholder="*EMAIL"  value="${memVO.m_email}" required="">
 
 																			</div>
 																			<div class="col-sm-6">
 																				<input type="tel" class="form-control"
-																					name="bdPhone" placeholder="*PHONE" required="">
-																				<input type="text" class="form-control"
-																					name="company" placeholder="COMPANY"> <input
+																					name="bdPhone" placeholder="*PHONE" value="${memVO.m_phone}"  required="">
+																				 <input
 																					type="text" class="form-control" name="bdAddr"
-																					placeholder="*ADDRESS" required="">
+																					placeholder="*ADDRESS" value="${memVO.m_addr}"  required="">
 																			</div>
 																		</div>
 																		<!-- / row -->
@@ -326,11 +331,16 @@ img {
 																</div>
 																<!-- / checkout-form -->
 																</form>
+																<div class="space-50">&nbsp;</div>
 																<div class="col-sm-4 checkout-total">
+																	<h4>
+																		My Wallet: <span id="checkoutPrice">${memVO.balance}</span>
+																	</h4>
 																	<h4>
 																		CART TOTAL: <span id="checkoutPrice">$0</span>
 																	</h4>
 																	<p>*The price includes shipping and taxes.</p>
+
 																	<div class="cart-total-footer">
 																		<a href="" class="btn btn-default-filled btn-rounded"><i
 																			class="lnr lnr-arrow-left"></i><span>Back to
@@ -422,13 +432,13 @@ img {
 																					Country: <span>台灣</span>
 																				</p>
 																				<p>
-																					Email: <span>${memId}</span>
+																					Email: <span>${memVO.m_email}</span>
 																				</p>
 																				<p>
 																					Phone: <span>${bVO.bdPhone}</span>
 																				</p>
 																				<p>
-																					Date of Birth: <span>${memId}</span>
+																					Date of Birth: <span>${memVO.m_bday}</span>
 																				</p>
 																			</div>
 
@@ -440,16 +450,12 @@ img {
 																	<div id="shipping-info" class="account-info-content">
 																		<h4>SHIPPING INFO</h4>
 																		<p class="space-bottom" id="shippingEdit">
-																			<span><strong>John Doe -
-																					me@mysite.com</strong></span>
+																			<span><strong>${memVO.m_email}</strong></span>
 																		</p>
 																		<p>
 																			Country: <span>台灣</span>
 																		</p>
-																		
-																		<p>
-																			City: <span>${台北市}</span>
-																		</p>
+																	
 																		<p>
 																			Address Line: <span>${bVO.bdAddr}</span>
 																		</p>

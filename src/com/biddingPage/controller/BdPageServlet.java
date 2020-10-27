@@ -51,18 +51,11 @@ public class BdPageServlet extends HttpServlet {
 						errorMsgs.add("會員id:不能為空白");
 					} 
 					
-					String bdFirstName=req.getParameter("bdFirstName");
-					String bdLastName=req.getParameter("bdLastName");
+					String bdName=req.getParameter("bdName");
 					
-					if (bdFirstName == null || (bdFirstName.trim()).length() == 0) {
+					if (bdName == null || (bdName.trim()).length() == 0) {
 						errorMsgs.add("請輸入收件人姓名");
 					}
-					if (bdLastName == null || (bdLastName.trim()).length() == 0) {
-						errorMsgs.add("請輸入收件人姓名");
-					}
-
-					String bdName =bdFirstName+ bdLastName;
-					
 
 					String bdPhone = req.getParameter("bdPhone");
 					String bdPhoneReg = "^[(0-9)]{10}$";
