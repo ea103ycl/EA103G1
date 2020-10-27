@@ -24,8 +24,6 @@
 		<title>ArtsBlock預購商品首頁</title>
 		<style>
 
-
-
 		</style>
 	</head>
 	<body id="page-top">
