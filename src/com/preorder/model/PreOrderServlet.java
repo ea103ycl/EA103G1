@@ -65,6 +65,45 @@ public class PreOrderServlet extends HttpServlet{
 				failureView.forward(req,res);
 			}
 		}
+		
+		if("getOne_For_Display2".equals(action)) {
+			System.out.println("PreOrder - getOne_For_Display被觸發!");
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				String po_no = req.getParameter("po_no");
+				System.out.println("po_no = "+po_no);
+
+				/*****************開始查詢*********************/
+				PreOrderDetailService preorderdetailSvc = new PreOrderDetailService();
+				List<PreOrderDetailVO> preorderdetaillist = preorderdetailSvc.getAllByPo_no(po_no);
+				System.out.println("preorderdetailVO = "+preorderdetaillist);
+				
+				
+				if(preorderdetaillist == null) {
+					errorMsgs.add("查沒有這筆資料阿...");
+				}
+				if(!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/preproduct/preOrder.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				/*****************查詢成功準備轉交*********************/
+				req.setAttribute("preorderdetailVO",preorderdetaillist);
+				req.setAttribute("po_no",po_no);
+				String url = "/backend/preproduct/preOrder.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料，愛你唷"+e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/backend/preproduct/preOrder.jsp");
+				failureView.forward(req,res);
+			}
+		}
+		
 		if("cancel_order".equals(action)) {
 			System.out.println("PreOrder - Servlet(取消訂單)被觸發!");
 			List<String> errorMsgs = new LinkedList<String>();

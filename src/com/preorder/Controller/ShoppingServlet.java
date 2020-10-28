@@ -72,7 +72,7 @@ public class ShoppingServlet extends HttpServlet {
 					}
 				}
 			}
-			session.setAttribute("shoppingcart", buylist);
+			session.setAttribute("preshoppingcart", buylist);
 			String url ="/frontend/preproduct/frontindex.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
@@ -124,9 +124,8 @@ public class ShoppingServlet extends HttpServlet {
 				
 
 				
-				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("preorderVO", preorderVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					req.setAttribute("preorderVO", preorderVO);
 					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/preproduct/shoppingCart.jsp");
 					failureView.forward(req, res);
 					return;

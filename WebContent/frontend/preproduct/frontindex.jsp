@@ -9,7 +9,7 @@
     pageContext.setAttribute("list",list);
 %>
 <%
-	PreProductVO preproductVO = (PreProductVO) request.getAttribute("preproductVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+	PreProductVO preproductVO = (PreProductVO) request.getAttribute("preproductVO");
 %>
 <%/*----------顯示作品排名3D排列----------*/%>
 <%@ page import="com.event_p.model.*"%>
@@ -20,7 +20,6 @@
     List<Event_PVO> list01 = eventpSvc.findAllByEventNoRankDescWithoutReport(eventSvc.findLastEndEvent());
     pageContext.setAttribute("list01",list01);
 %>
-
 
 <%
 	Event_PVO eventpVO = (Event_PVO) request.getAttribute("eventpVO");
@@ -47,19 +46,19 @@
   <script type="text/javascript" src="<%=request.getContextPath()%>/frontend/preproduct/css/index_parts/jquery-3.5.1.js"></script>
   
   <style type="text/css" media="screen">
-		#disappear,
-		#disappear01,
-		#disappear02,
-		#addcartbtn{
-		display: none;
-		}
-		.img01{
-		width:100%px; height:auto;
-		}
-		.count_contentBx .count_conutdown{
-		display: flex;
-		line-height: 30px !important;
-		}
+#disappear,
+#disappear01,
+#disappear02,
+#addcartbtn{
+	display: none;
+	}
+	.img01{
+	width:100%px; height:auto;
+	}
+	.count_contentBx .count_conutdown{
+	display: flex;
+	line-height: 30px !important;
+	}
 .count_contentBx .count_conutdown .count_time{
 	display: flex;
 	justify-content: center;
@@ -155,7 +154,7 @@ header #header-banner{
             </div><!-- / navbar-header -->
             <div class="secondary-nav">
                 <a href="login-register.html" class="my-account space-right"><i class="fa fa-user"></i></a>
-                <a href="shoppingCart.jsp" class="shopping-cart"><i class="fa fa-shopping-cart"></i> <span id="countcart" class="cart-badge">0</span></a>
+                <a href="shoppingcart.jsp" class="shopping-cart"><i class="fa fa-shopping-cart"></i> <span id="countcart" class="cart-badge">0</span></a>
             </div>
             <div class="navbar-collapse collapse text-center">
                 <ul class="nav navbar-nav">
@@ -227,7 +226,7 @@ header #header-banner{
 <div class="container">
   <div id="disappear02">
 	<% @SuppressWarnings("unchecked")
-		List<PreProductVO> buylist = (Vector<PreProductVO>) session.getAttribute("shoppingcart"); %>
+		List<PreProductVO> buylist = (Vector<PreProductVO>) session.getAttribute("preshoppingcart"); %>
 	<%if (buylist != null && (buylist.size() > 0)) {%>
 	<p>這裡!!</p>
 		<span id="cartNumbers" name="123" value="<%=buylist.size()%>"><%=buylist.size()%></span>
@@ -280,7 +279,7 @@ header #header-banner{
 		            <!-- product -->
 		            
 		            <li class="col-xs-6 col-md-4 product m-product" data-groups='["mens"]'>
-		            <form id="shoppingForm" name="shoppingForm" action="Shopping.do" method="POST">
+		            <form id="shoppingForm${preproductVO.event_p_no}" name="shoppingForm" action="Shopping.do" method="POST">
 		                <div class="img-bg-color primary">
 		                    <h5 class="product-price"><input type="hidden" name="po_price" value="${preproductVO.po_price}">$ ${preproductVO.po_price}</h5>
 		                    <a href="#" class="product-link"></a>
@@ -296,7 +295,7 @@ header #header-banner{
 		                        <a href="#" class="view-btn" data-toggle="tooltip" title="View Product">
 		                            <i class="lnr lnr-eye"></i>
 		                        </a>
-		                        <a href="javascript:;" class="view-btn" onclick="document.getElementById('shoppingForm').submit();">
+		                        <a href="javascript:" class="view-btn" onclick="document.getElementById('shoppingForm${preproductVO.event_p_no}').submit();">
 		                            <i class="lnr lnr-cart"><input type="hidden" class="add-cart cart1" value=""></i>
 		                        </a>
 		                        
@@ -380,24 +379,22 @@ $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
 
 
 function onLoadCartNumbers() {
-            //就算重新整理，cart的數字不會變。
-            var  productNumbers = document.getElementById('cartNumbers');
-            console.log(productNumbers);
-            var  productNumbers2 = document.getElementById('cartNumbers1').value;
-            console.log(productNumbers2);
-            var cart = document.getElementsByClassName('cart');
-            console.log(cart);
-            var countcart = document.getElementById('countcart');
-            console.log(countcart);
+       //就算重新整理，cart的數字不會變。
+       var  productNumbers = document.getElementById('cartNumbers');
+       console.log(productNumbers);
+       var  productNumbers2 = document.getElementById('cartNumbers1').value;
+       console.log(productNumbers2);
+       var cart = document.getElementsByClassName('cart');
+       console.log(cart);
+       var countcart = document.getElementById('countcart');
+       console.log(countcart);
 
-            if (productNumbers) {
-                cart.innerHTML = parseInt(productNumbers);
-                countcart.innerHTML = productNumbers2;
-            }
-        }
-onLoadCartNumbers();
-
-
+       if (productNumbers) {
+           cart.innerHTML = parseInt(productNumbers);
+           countcart.innerHTML = productNumbers2;
+         	}
+     	}
+	onLoadCartNumbers();
 
   </script>
     
