@@ -142,7 +142,7 @@
 						</div>
 					</div>
 					<!-- ====searchBlcok================== -->
-					<div id="searchBlock" ondrop="drop();">
+					<div id="searchBlock" ondrop="drop(event)" ondragover="allowDrop(event)">
 						<div id="searchBlockMid">
 							<form id="searchForm1" method="post"
 								action="<%=request.getContextPath()%>/painter/TagGetPic" name="searchForm">
@@ -229,9 +229,9 @@
 						<div class="gridWrapper">
 							<div class="grid" id="grid">
 								<c:forEach var="ptrno" items="${ptrnoList}">
-									<div class="grid-item draggableImg" draggable='true'>
+									<div class="grid-item draggableImg" '>
 <%-- 										<img src="<%=request.getContextPath()%>/painter/ShowImage?ptr_no=${ptrno}"> --%>
-										<img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${ptrno}">
+										<img draggable='true' ondrag="drag();" id='${ptrno}' src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${ptrno}">
 									</div>
 								</c:forEach>
 							</div>

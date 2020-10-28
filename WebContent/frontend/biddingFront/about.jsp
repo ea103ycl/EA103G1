@@ -60,7 +60,8 @@
 		class="com.bidding.model.BdRedis" />
 	<jsp:useBean id="bdSvc" scope="page"
 		class="com.bidding.model.BiddingService" />
-
+	<jsp:useBean id="epSvc" scope="page" class="com.event_p.model.Event_PService"/>	
+		
 	<c:set var="bdNo" value="${event_no}" />
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
 	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
@@ -174,7 +175,7 @@
 					<span>${event_no}</span>
 					<div class="col-sm-7 ">
 						<img
-							src="<%=request.getContextPath()%>/frontend/imgData/img (17).jpg">
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}">
 					</div>
 					<div class="col-sm-5 text-center space-top-2x" style="">
 						<span><h2>Up-running Event!</h2>
@@ -198,8 +199,7 @@
 							<span>${latestBd1}</span>
 							<div class="team block text-center">
 								<img
-									src="<%=request.getContextPath()%>/frontend/imgData/img (14).jpg"
-									alt="">
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd1).event_p_no}">
 								<div class="team-info-box">
 									<h6>JOHN DOE</h6>
 									<p class="team-role">CEO</p>
@@ -222,8 +222,7 @@
 						<span>${latestBd2}</span>
 							<div class="team block text-center">
 								<img
-									src="<%=request.getContextPath()%>/frontend/imgData/img (12).jpg"
-									alt="">
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd2).event_p_no}">
 								<div class="team-info-box">
 									<h6>JASMINE DOE</h6>
 									<p class="team-role">Shop Manager</p>
@@ -246,8 +245,7 @@
 							<span>${latestBd3}</span>
 							<div class="team block text-center">
 								<img
-									src="<%=request.getContextPath()%>/frontend/imgData/img (18).jpg"
-									alt="">
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd3).event_p_no}">
 								<div class="team-info-box">
 									<h6>JAMES DOE</h6>
 									<p class="team-role">Webshop Admin</p>
