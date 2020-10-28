@@ -6,7 +6,7 @@
 
 <html>
 	<head>
-	
+
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +29,18 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/frontend/template/css/linear-icons.css">
 		
 		<!-- other css -->
+		<style>
+			.ycl-topBar-second{
+				display:inline-block;
+			}
+			
+			.ycl-topBar-cartCntText{
+				margin-left:1em !important;
+				font-size:10px !important;
+			}
+		</style>
 		
+				
 		<!-- page title -->
 </head>
 	<body>
@@ -37,6 +48,7 @@
     <!-- nav -->
     <nav class="navbar navbar-default nav-sec navbar-fixed-top">
         <div class="container">
+            
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -46,35 +58,31 @@
                 </button>
                 <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
             </div><!-- / navbar-header -->
-            <div class="secondary-nav">
+            
+            <div class="secondary-nav" style="display:inline-block;">
 
-            	<!-- 會員 -->
-            	<li class="dropdown">
-                    <a href="#" class="my-account space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
-                    <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="blog.html"><span>設定</span></a></li>
-                        <li><a href="single-post.html"><span>登出</span></a></li>
-                    </ul>
-                </li>
-                    
             	<!-- 購物車 -->
-            	<li class="dropdown">
+            	<li class="dropdown ycl-topBar-second">
                     <a href="#" class="shopping-cart space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart"></i><span class="cart-badge">5</span></a>
                     <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="blog.html"><span>一般商品</span><span id="cart1">3</span></a></li>
-                        <li><a href="single-post.html"><span>預購商品</span><span id="cart2">2</span></a></li>
+                        <li><a href="<%=request.getContextPath()%>/frontend/shop/Cart.jsp"><span>一般商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt1">30</span></a></li>
+                        <li><a href="<%=request.getContextPath()%>/frontend/preproduct/shoppingCart.jsp"><span>預購商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt2">2</span></a></li>
+                    </ul>
+                </li>
+
+            	<!-- 會員 -->
+            	<li class="dropdown ycl-topBar-second">
+                    <a href="#" class="my-account space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                    <ul class="dropdown-menu animated zoomIn fast">
+                        <li><a href="<%=request.getContextPath()%>/frontend/members/memArea.jsp"><span>設定</span></a></li>
+                        <li><a href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout"><span>登出</span></a></li>
                     </ul>
                 </li>
                 
-                
-                <!-- 會員 -->
-<!--                 <a href="login-register.html" class="my-account space-right"><i class="fa fa-user"></i></a> -->
-                <!-- 購物車 -->
-<!--                 <a href="shopping-cart.html" class="shopping-cart"><i class="fa fa-shopping-cart"></i> <span class="cart-badge">2</span></a> -->
             </div>
+            
             <div class="navbar-collapse collapse text-center">
                 <ul class="nav navbar-nav">
-                
                 	
                     <li class=""><a href="index.html"><span>首頁</span></a></li>
                     
