@@ -3,12 +3,12 @@ package com.preproduct.model;
 import java.util.List;
 
 public class PreProductService {
-	private PreProductDAO_interface dao;
+	private PreProductDAO dao;
 	public PreProductService() {
 		System.out.println("--------------------------------------");
 		System.out.println("進入Service的建構子");
-		dao = new PreProductJDBCDAO();
-		System.out.println("Service使用PreProductJDBCDAO的DAO");
+		dao = new PreProductDAO();
+		System.out.println("Service使用PreProductDAO");
 		System.out.println("--------------------------------------");
 	}
 	
@@ -95,9 +95,9 @@ public class PreProductService {
 		dao.delete(po_prod_no);
 	}
 
-	public List<PreProductVO> getAll(){
+	public List<PreProductVO> getALLPreproductInTime(){
 		System.out.println("-------Service - form 觸發 getAll()--------");
-		return dao.getALL();
+		return dao.getALLPreproductInTime();
 		
 	}
 	
@@ -106,5 +106,10 @@ public class PreProductService {
 		return dao.GET_ALLOF_PREPRODUCT();
 	}
 	
+	public List<PreProductVO> getAll(){
+		System.out.println("-------Service - form 觸發 getAll()--------");
+		return dao.getALL();
+		
+	}
 	
 }

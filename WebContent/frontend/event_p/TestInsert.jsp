@@ -132,9 +132,9 @@ ${event_pVO==null }
                 <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品狀態</label>
                 <div class="col-sm-3">
                 	<select class="form-control" name="event_p_stat">
-                		<option value="1" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==1?"selected":"" %>>待審核</option>
-                		<option value="2" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==2?"selected":"" %>>通過</option>
-                		<option value="3" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==3?"selected":"" %> >不通過</option>
+                		<option value="1" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==1?"selected":"" %>>可投票</option>
+                		<option value="2" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==2?"selected":"" %>>已被檢舉</option>
+<%--                 		<option value="3" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==3?"selected":"" %> >不通過</option> --%>
                 	</select>
 <%--                     <input type="text" class="form-control " name="event_p_stat" value=<%=(event_pVO==null)?"":event_pVO.getEvent_p_stat().toString() %> > --%>
                 </div>

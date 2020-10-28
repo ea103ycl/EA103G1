@@ -22,7 +22,7 @@ public class EventDAO  implements EventDAO_interface{
 			"UPDATE EVENT SET event_name=?,event_start=?,event_end=?,event_ul_start=?,event_ul_end=?,event_vote_start=?,event_vote_end=?,event_stat=?"
 			+ "WHERE event_no=?";
 	private static final String FINDALLEVENT=
-			"SELECT * FROM EVENT";
+			"SELECT * FROM EVENT ORDER BY EVENT_NO";
 	private static final String FINDBYEVENTNO=
 			"SELECT * FROM EVENT WHERE EVENT_NO=?";
 	private static final String FINDWITHOUTEND="SELECT * FROM EVENT WHERE EVENT_STAT!=3";
@@ -44,6 +44,7 @@ public class EventDAO  implements EventDAO_interface{
 		PreparedStatement pstmt=null;
 		String event_no="";
 		String[] colname= {"event_no"};//auto generate key
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(INSERT, colname);
@@ -57,7 +58,7 @@ public class EventDAO  implements EventDAO_interface{
 			pstmt.setInt(8,eventVO.getEvent_stat());
 			pstmt.executeUpdate();
 			
-			ResultSet rs= pstmt.getGeneratedKeys();
+			rs= pstmt.getGeneratedKeys();
 			
 			while(rs.next()) {
 				event_no=rs.getString(1);
@@ -67,6 +68,13 @@ public class EventDAO  implements EventDAO_interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -162,10 +170,11 @@ public class EventDAO  implements EventDAO_interface{
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		List<EventVO> eventVOs=new ArrayList<EventVO>();
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDALLEVENT);
-			ResultSet rs =pstmt.executeQuery();
+			rs =pstmt.executeQuery();
 			
 			while(rs.next()) {
 				EventVO eventVO=new EventVO();
@@ -185,6 +194,13 @@ public class EventDAO  implements EventDAO_interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -208,11 +224,12 @@ public class EventDAO  implements EventDAO_interface{
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		EventVO eventVO=null;
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDBYEVENTNO);
 			pstmt.setString(1, event_no);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				eventVO= new EventVO();
 				eventVO.setEvent_no(rs.getString(1));
@@ -230,6 +247,13 @@ public class EventDAO  implements EventDAO_interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -277,7 +301,9 @@ public class EventDAO  implements EventDAO_interface{
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.getMessage();
+			
+			
 		}finally {
 			if (rs != null) {
 				try {
@@ -311,16 +337,39 @@ public class EventDAO  implements EventDAO_interface{
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		String lastEndEventNo="";
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDLASTENDEVENT);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				lastEndEventNo=rs.getString(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
 		return lastEndEventNo;
 	}

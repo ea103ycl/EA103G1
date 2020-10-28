@@ -36,6 +36,10 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 			"inner join(select*from event_p where event_no=?) p \r\n" + 
 			"on r.event_p_no=p.event_p_no \r\n" + 
 			"where r.mem_id=?";
+	private static final String GETREPSTAT2NUMBER="select count( DISTINCT rep.event_p_no) from event_p_rep  rep " + 
+			"inner join(select *from event_p) p" + 
+			"on rep.event_p_no=p.event_p_no " + 
+			"where rep.rep_stat=2  and p.event_no=?";
 	static {
 		try {
 			Context ctx=new InitialContext();
@@ -152,10 +156,11 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 		List<Event_P_RepVO> event_p_repVOs=new ArrayList<Event_P_RepVO>();
 		PreparedStatement pstmt=null;
 		Connection con=null;
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDALLREP);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Event_P_RepVO event_p_repVO=new Event_P_RepVO();
 				event_p_repVO.setEvent_p_no(rs.getInt(1));
@@ -169,6 +174,15 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (SQLException e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+				}
+			}
+			
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -194,11 +208,12 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		List<Event_P_RepVO> event_p_repVOs=new ArrayList<Event_P_RepVO>();
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDREPBYEVENTPNO);
 			pstmt.setInt(1, event_p_no);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Event_P_RepVO event_p_repVO=new Event_P_RepVO();
 				event_p_repVO.setEvent_p_no(rs.getInt(1));
@@ -212,6 +227,13 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -235,12 +257,13 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 		// TODO Auto-generated method stub
 		Connection con=null;
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(CHECKMEMREPORT);
 			pstmt.setString(1, mem_id);
 			pstmt.setString(2, event_no);
-			ResultSet rs =pstmt.executeQuery();
+			rs =pstmt.executeQuery();
 			while(rs.next()) {
 				return true;
 			}
@@ -248,6 +271,13 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -273,12 +303,13 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		List<Event_P_RepVO> event_p_repVOs=new ArrayList<Event_P_RepVO>();
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDREPBYEVENTNO);
 			pstmt.setString(1, event_no);
 			System.out.println(event_no);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Event_P_RepVO event_p_repVO=new Event_P_RepVO();
 				event_p_repVO.setEvent_p_no(rs.getInt(1));
@@ -292,6 +323,13 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -319,11 +357,12 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 		Event_P_RepVO repVO=null;
 		PreparedStatement pstmt=null;
 		List<Event_P_RepVO> repVOs=new ArrayList<Event_P_RepVO>();
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDALLBYREPSTAT);
 			pstmt.setInt(1, rep_stat);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				repVO=new Event_P_RepVO();
 				repVO.setEvent_p_no(rs.getInt(1));
@@ -337,6 +376,13 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -365,10 +411,11 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 		String whereCondiction=compQRep.get_WhereCondition(map);
 		String sql="select*from event_p_rep"+whereCondiction+"order by event_p_no";
 		System.out.println("compositeQuery SQL:"+sql);
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(sql);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Event_P_RepVO repVO=new Event_P_RepVO();
 				repVO.setEvent_p_no(rs.getInt(1));
@@ -382,6 +429,13 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -408,11 +462,12 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 		Connection con=null;
 		Event_P_RepVO repVO=null;
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDBYMEMID);
 			pstmt.setString(1, mem_id);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				repVO=new Event_P_RepVO();
 				repVO.setEvent_p_no(rs.getInt(1));
@@ -425,6 +480,13 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -447,19 +509,21 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 	@Override
 	public Event_P_RepVO findReportByMemAndEventNo(String mem_id, String event_no) {
 		// TODO Auto-generated method stub
-		System.out.println("in findReportByMemAndEventNo");
-		System.out.println("mem_id :"+mem_id);
-		System.out.println("event_no :"+event_no);
+System.out.println("in findReportByMemAndEventNo:--------------------------");
+System.out.println("mem_id :"+mem_id);
+System.out.println("event_no :"+event_no);
+System.out.println("----------------------------------");
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		Event_P_RepVO event_p_repVO=new Event_P_RepVO(); 
+		Event_P_RepVO event_p_repVO=new Event_P_RepVO();
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDREPORTBYMEMANDEVENTNO);
 			pstmt.setString(1, event_no);
 			pstmt.setString(2, mem_id);
 			
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				event_p_repVO.setEvent_p_no(rs.getInt(1));
 				event_p_repVO.setMem_id(rs.getString(2));
@@ -472,15 +536,59 @@ public class Event_P_RepDAO implements Event_P_RepDAO_interface{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
 		if(event_p_repVO.getEvent_p_no()==null) {
-			System.out.println("event_p_repVO nothing in");
+System.out.println("nothing in event_p_repVO ");
 			return null;
 		}else {
 			return event_p_repVO;
 		}
 		
 	}
+
+//	@Override
+//	public int getRepStatTwoChangeNumByEventNo(String event_no) {
+//		// TODO Auto-generated method stub
+//		Connection con=null;
+//		PreparedStatement pstmt=null;
+//		int repStat2Num=0;
+//		try {
+//			con=ds.getConnection();
+//			pstmt=con.prepareStatement(GETREPSTAT2NUMBER);
+//			ResultSet rs=pstmt.executeQuery();
+//			while(rs.next()) {
+//				repStat2Num=rs.getInt(1);
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		return repStat2Num;
+//	}
 	
 
 }

@@ -11,6 +11,7 @@
 <%
 /*有空再解決這白癡的問題...*/
 String MA_NO = request.getParameter("MA_NO");
+
 switch (MA_NO){
 case "L0001" :
 	MA_NO="'L' || '0001'";
@@ -44,7 +45,7 @@ case "L0010" :
 	break;
 }
 
-//mysql連線
+
 Class.forName("oracle.jdbc.driver.OracleDriver");
 String URL="jdbc:oracle:thin:@localhost:1521:XE";
 String userid = "G1";

@@ -111,11 +111,12 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 		Connection con=null;
 		Event_TagVO event_tagVO = new Event_TagVO();
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDONEBYPRIMARYKEY);
 			pstmt.setInt(1, event_tag_no);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				event_tagVO.setEvent_tag_no(rs.getInt(1));
 				event_tagVO.setMem_id(rs.getString(2));
@@ -127,6 +128,13 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -152,10 +160,11 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 		Connection con=null;
 		List<Event_TagVO> event_tagVOs = new ArrayList<Event_TagVO>();
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDALLTAG);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Event_TagVO event_tagVO = new Event_TagVO();
 				event_tagVO.setEvent_tag_no(rs.getInt(1));
@@ -169,6 +178,13 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -195,10 +211,11 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 		Connection con=null;
 		List<String> memIds = new ArrayList<String>();
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDALLMEM);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				memIds.add(rs.getString(1));
 			}
@@ -206,6 +223,13 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -231,10 +255,11 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 		Connection con=null;
 		List<String> eventNos = new ArrayList<String>();
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDALLEVENTNO);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				if (rs.getString(1) != null) {
 					eventNos.add(rs.getString(1));
@@ -244,6 +269,13 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -269,10 +301,11 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 		Connection con=null;
 		List<Event_TagVO> event_tagVOs=new ArrayList<Event_TagVO>();
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(RANDTAGBYNOEVENTNO);//取出尚未被選的Tag
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Event_TagVO event_tagVO=new Event_TagVO();
 				event_tagVO.setEvent_tag_no(rs.getInt(1));
@@ -287,6 +320,13 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -312,11 +352,12 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 		Connection con=null;
 		Event_TagVO tagVO=null;
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDALLBYTAGNAME);
 			pstmt.setString(1,event_tag_name);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				tagVO=new Event_TagVO();
 				tagVO.setEvent_tag_no(rs.getInt(1));
@@ -330,6 +371,13 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();

@@ -9,6 +9,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 
 <%
+// String EVENT_P_NO = request.getParameter("EVENT_P_NO");
 String EVENT_P_NO = request.getParameter("EVENT_P_NO");
 //mysql連線
 Class.forName("oracle.jdbc.driver.OracleDriver");

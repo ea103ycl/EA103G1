@@ -12,4 +12,5 @@ public interface PreOrderDetailDAO_interface {
     public PreOrderDetailVO getAllByPo_no(String po_no);
     public List<PreOrderDetailVO> getAll();
     public void insert2 (PreOrderDetailVO preorderdetailVO , java.sql.Connection con);
+	public List<PreOrderDetailVO> getAll_OrderQty();
 }

@@ -3,14 +3,14 @@ package com.preorder.model;
 import java.util.List;
 
 import com.preorder.model.PreOrderVO;
-import com.preorderdetail.model.PreOrderDetailDAOJDBC;
+
 import com.preorderdetail.model.PreOrderDetailDAO_interface;
 import com.preorderdetail.model.PreOrderDetailVO;
 
 public class PreOrderService {
 	private PreOrderDAO_interface dao;
 	public PreOrderService() {
-		dao = new PreOrderDAOJDBC();
+		dao = new PreOrderDAO();
 	}
 	public PreOrderVO addPreOrderWithDetail(String mem_id,Integer po_zip,String po_name,
 			String po_phone,String po_addr,Integer po_status,Integer po_total,String po_note,List<PreOrderDetailVO>list) {

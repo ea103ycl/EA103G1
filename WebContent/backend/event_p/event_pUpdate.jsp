@@ -14,26 +14,52 @@
 	  request.setAttribute("data", data);
 	%>	
 </c:if>
-	<c:if test="${not empty errMsgs }">
-	<c:forEach var="err" items="${errMsgs}">
-		<ul>
-			<li>${err}</li>
-		</ul>		
-		
-	</c:forEach>
-	</c:if>
+
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backend/template/css/bootstrap.min.css">
-<title>event_p update</title>
-</head>
-<body>
+	
+	<head>
+	
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+	
+		<title>我是標題</title>
+	</head>
 
-<a href="select_page.jsp">回首頁</a><br>
+	<body id="page-top">
+	
+		<div id="wrapper">
+	
+			<%@include file="/backend/bar/backBarSide.jsp"%>
+	
+			<div id="content-wrapper" class="d-flex flex-column">		
+	
+				<div id="content">
+	
+					<!-- Topbar -->
+					<%@include file="/backend/bar/backBarTop.jsp"%>
+	
+					<div class="container-fluid">				
+						<!--=====自定義內容start ================================================== -->
+						
+						<%-- 頁面標題 --%>
+						<h1 class="h3 mb-2 text-gray-800">頁面標題</h1>
+						
+						<%-- 錯誤表列 --%>
+						<c:if test="${not empty errMsgs}">
+							<font style="color: red">請修正以下錯誤:</font>
+							<ul>
+								<c:forEach var="message" items="${errMsgs}">
+									<li style="color: red">${message}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
+	
+						<%-- 資料內容 --%>
+						<a href="<%=request.getContextPath() %>/backend/event_p/listAllPic.jsp">回主頁</a><br>
 <div class="container">
 	<form action="<%=request.getContextPath() %>/backend/event_p/Event_pServlet" method="post" enctype="multipart/form-data">
 			<div class="form-group row">
@@ -58,7 +84,7 @@
              <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品名稱</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control " name="event_p_name" value=<%=(event_pVO==null)?"":event_pVO.getEvent_p_name().toString() %> >
+                    <input type="text" class="form-control " name="event_p_name" value=<%=(event_pVO==null)?"":event_pVO.getEvent_p_name().toString() %> readonly="readonly">
                 </div>
             </div>
             
@@ -71,26 +97,33 @@
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品排行</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control " name="vote_rank" value=<%=(event_pVO==null)?"":event_pVO.getVote_rank().toString() %> >
+                    <input type="text" class="form-control " name="vote_rank" value=<%=(event_pVO==null)?"":event_pVO.getVote_rank().toString() %> readonly="readonly">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品狀態</label>
                 <div class="col-sm-3">
-                	<select class="form-control" name="event_p_stat">
-                		<option value="0" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==0?"selected":"" %>>未被檢舉</option>
-                		<option value="1" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==1?"selected":"" %>>待審核</option>
-                		<option value="2" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==2?"selected":"" %>>通過</option>
-                		<option value="3" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==3?"selected":"" %> >不通過</option>
-                	</select>
-<%--                     <input type="text" class="form-control " name="event_p_stat" value=<%=(event_pVO==null)?"":event_pVO.getEvent_p_stat().toString() %> > --%>
+                	<input type="hidden" class="form-control" name="event_p_stat" value="${event_pVO.event_p_stat}">
+                	<c:choose>
+                		<c:when test="${event_pVO.event_p_stat==1}">
+                			<input type="text" class="form-control" name="event_p_stat" value="可投票" readonly="readonly">
+                		</c:when>
+                		<c:otherwise>
+                			<input type="text" class="form-control" name="event_p_stat" value="已檢舉" readonly="readonly">
+                		</c:otherwise>
+                	</c:choose>
+<!--                 	<select class="form-control" name="event_p_stat"> -->
+<%--                 		<option value="0" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==1?"selected":"" %>>可投票</option> --%>
+<%--                 		<option value="1" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==2?"selected":"" %>>已檢舉</option> --%>
+<!--                 	</select> -->
+<%--                     <input type="text" class="form-control" name="event_p_stat" value=<%=(event_pVO==null)?"":event_pVO.getEvent_p_stat().toString() %> > --%>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">上傳圖片(待修)</label>
                 <div class="col-sm-3">
 <%--                    <input type="text" class="form-control " name="event_vote_end" value=<%=(event_pVO==null)?"":event_pVO.getEvent_vote_end().toString() %> > --%>
-						<input type="file" name="pic01" id="myFile" onchange="upload()">
+<!-- 						<input type="file" name="pic01" id="myFile" onchange="upload()"> -->
 						<img id="demo" <%=event_pVO==null?"":"src=data:image/jepg;base64,"+request.getAttribute("data") %>>
 						
                 </div>
@@ -103,25 +136,39 @@
 	</form>
 	
 	</div>
-	<script	type="text/javascript">
-	var img2=document.getElementById("demo2");
-	var myFile;
+						
+						<!--===== 自定義內容end ================================================== -->
+					</div> <!--END OF container-fluid-->
+					
+				</div> <!--END OF content-->
+				
+				<%@include file="/backend/bar/footer.jsp"%>
+				
+			</div><!--END OF content-wrapper -->
+		</div><!--END OF wrapper -->
+	
+		<script>
+		<!--JavaScript內容-->
+		var img2=document.getElementById("demo2");
+		var myFile;
 
-	function upload(){		
-		myFile=document.getElementById("myFile");
-		var img=document.getElementById("demo");
-		var files =myFile.files;//找出上傳檔案
-		var file=files[0];//取第一個來源
-		var reader =new FileReader;
-		reader.addEventListener('load',function(){			
-			img.setAttribute('src',reader.result);			
-		})
+		function upload(){		
+			myFile=document.getElementById("myFile");
+			var img=document.getElementById("demo");
+			var files =myFile.files;//找出上傳檔案
+			var file=files[0];//取第一個來源
+			var reader =new FileReader;
+			reader.addEventListener('load',function(){			
+				img.setAttribute('src',reader.result);			
+			})
 
-		reader.readAsDataURL(file);
+			reader.readAsDataURL(file);
 
-		
-		
-	}
-	</script>	
-</body>
+			
+			
+		}
+		</script>
+						
+	</body>
+	
 </html>

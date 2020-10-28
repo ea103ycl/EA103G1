@@ -980,7 +980,6 @@ public class Event_PDAO implements Event_PDAO_interface {
 			
 		List<Event_PVO> list = new ArrayList<Event_PVO>();
 		Event_PVO eventpVO = null;
-		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -1003,6 +1002,7 @@ public class Event_PDAO implements Event_PDAO_interface {
 				eventpVO.setEvent_p_img(rs.getBytes("event_p_img"));
 				
 				list.add(eventpVO);
+				
 			}
 
 		} catch (SQLException e) {
@@ -1030,6 +1030,7 @@ public class Event_PDAO implements Event_PDAO_interface {
 				}
 			}
 		}
+		System.out.println(list.size());
 		return list;
 	}
 

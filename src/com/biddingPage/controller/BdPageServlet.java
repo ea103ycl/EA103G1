@@ -18,6 +18,8 @@ import org.json.JSONObject;
 import com.bidding.model.BdRedis;
 import com.bidding.model.BiddingService;
 import com.bidding.model.BiddingVO;
+import com.mem.model.MemService;
+import com.mem.model.MemVO;
 
 //@WebServlet("/biddingPage/BdPageServlet") //mark By YCL
 public class BdPageServlet extends HttpServlet {
@@ -31,11 +33,13 @@ public class BdPageServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
 		res.setCharacterEncoding("UTF-8");
 		PrintWriter out = res.getWriter();
+
 		// =====================front page action ===================
 		if("checkout".equals(action)){
+			
+			
 				List<String> errorMsgs = new LinkedList<String>();
 				BdRedis bdr= new BdRedis();
 				req.setAttribute("errorMsgs", errorMsgs);
@@ -226,14 +230,17 @@ public class BdPageServlet extends HttpServlet {
 				try {
 					
 					bdNo = req.getParameter("bdNo");
-//					System.out.println("bdNo:"+bdNo);
+					MemService memSvc= new MemService();
+					
 					// ================getting Top bidders============
 					if (bdr.getBidsCount(bdNo) > 0) {
 						
 						String top1 = bdr.getTopBidders(bdNo)[0];
 						Integer price1 = bdr.getBid(bdNo, top1);
-					
-						jsonObj.put("top1", top1);
+						
+						MemVO mVO1=memSvc.findByPrimaryKey(top1);
+						jsonObj.put("top1name",mVO1.getM_name());
+						jsonObj.put("top1memId",mVO1.getMem_id());
 						jsonObj.put("price1", price1);
 					}
 					if (bdr.getBidsCount(bdNo) > 1) {
@@ -241,7 +248,9 @@ public class BdPageServlet extends HttpServlet {
 						String top2 = bdr.getTopBidders(bdNo)[1];
 						Integer price2 = bdr.getBid(bdNo, top2);
 						
-						jsonObj.put("top2", top2);
+						MemVO mVO2=memSvc.findByPrimaryKey(top2);
+						jsonObj.put("top2name",mVO2.getM_name());
+						jsonObj.put("top2memId",mVO2.getMem_id());
 						jsonObj.put("price2", price2);
 					}
 					if (bdr.getBidsCount(bdNo) > 2) {
@@ -249,7 +258,9 @@ public class BdPageServlet extends HttpServlet {
 						String top3 = bdr.getTopBidders(bdNo)[2];
 						Integer price3 = bdr.getBid(bdNo, top3);
 					
-						jsonObj.put("top3", top3);
+						MemVO mVO3=memSvc.findByPrimaryKey(top3);
+						jsonObj.put("top3name",mVO3.getM_name());
+						jsonObj.put("top3memId",mVO3.getMem_id());
 						jsonObj.put("price3", price3);
 					}
 					Integer numberOfBids=bdr.getBidsCount(bdNo);
@@ -269,5 +280,6 @@ public class BdPageServlet extends HttpServlet {
 			}
 		}
 	//=============bidOver======================
+	
 	}
 }

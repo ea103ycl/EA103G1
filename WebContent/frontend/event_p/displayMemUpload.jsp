@@ -43,6 +43,7 @@
 <!-- 			<link rel="stylesheet" type="text/css" -->
 <%-- 	href="<%=request.getContextPath()%>/frontend/template/css/bootstrap.min.css"> --%>
 <title>投稿作品頁面</title>
+
 </head>
 <body>
 
@@ -57,7 +58,7 @@
 <a href="event_spec.jsp">回到主題競賽</a>
 
 
-	<div class="container ">
+	<div class="container " id="displayMemUploadMain">
 	
 	<form action="<%=request.getContextPath()%>/frontend/event_p/Event_pServlet" method="post" enctype="multipart/form-data">
 		

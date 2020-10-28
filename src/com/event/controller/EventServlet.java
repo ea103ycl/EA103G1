@@ -163,7 +163,7 @@ public class EventServlet extends HttpServlet {
 				//改被選過的HashTag狀態,由自增主鍵值取出活動編號
 				
 				String[] Tags=event_name.split(",");//分離HahsTag
-				System.out.println(Tags[0]+","+Tags[1]+","+Tags[2]);
+//				System.out.println(Tags[0]+","+Tags[1]+","+Tags[2]);
 				Event_TagService tagSvc=new Event_TagService();
 				for(int i=0;i<Tags.length;i++) {					
 					Event_TagVO tagVO= tagSvc.findAllByTagName(Tags[i]);

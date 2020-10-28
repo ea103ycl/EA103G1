@@ -66,4 +66,17 @@ public class Event_P_RepService {
 	public Event_P_RepVO findReportByMemAndEventNo(String mem_id, String event_no) {
 		return dao.findReportByMemAndEventNo(mem_id, event_no);
 	}
+//	public int getRepStatTwoChangeNum(String event_no) {
+//		return dao.getRepStatTwoChangeNumByEventNo(event_no);
+//	}
+//	public boolean isRepStatTwoNumChange(String event_no) {
+//		if(pSvc.findAllNoReport(event_no).size()!=dao.getRepStatTwoChangeNumByEventNo(event_no)) {
+//			System.out.println("");
+//			System.out.println("檢舉數量更動");
+//			return true;
+//		}else {
+//			return false;
+//		}
+//		
+//	}
 }

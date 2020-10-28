@@ -100,10 +100,15 @@ public class Event_TagServlet extends HttpServlet {
 			System.out.println(event_tagVOs.size());
 			Iterator iter=event_tagVOs.iterator();
 			String str="";//以字串傳給前端
-			while(iter.hasNext()) {
-				Event_TagVO event_tagVO=(Event_TagVO)iter.next();
-				str+=(str=="")?event_tagVO.getEvent_tag_name():","+event_tagVO.getEvent_tag_name();
-				
+			if(event_tagVOs.size()==0) {
+				str+="沒有HashTag可以抽選";
+				System.out.println(str);
+			}else {
+				while(iter.hasNext()) {
+					Event_TagVO event_tagVO=(Event_TagVO)iter.next();
+					str+=(str=="")?event_tagVO.getEvent_tag_name():","+event_tagVO.getEvent_tag_name();
+					
+				}	
 			}
 			req.getSession().setAttribute("str", str);
 			out.write(str);

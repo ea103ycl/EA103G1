@@ -203,5 +203,11 @@ public class Event_P_RepJDBCDAO implements Event_P_RepDAO_interface{
 		return null;
 	}
 
+//	@Override
+//	public int getRepStatTwoChange() {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+
 
 }

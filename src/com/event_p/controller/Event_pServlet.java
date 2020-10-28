@@ -222,25 +222,27 @@ public class Event_pServlet extends HttpServlet {
 			
 			String event_p_stat=req.getParameter("event_p_stat");
 //			System.out.println("event_p_stat:" +event_p_stat);
-			
-			Part part=req.getPart("pic01");
-			InputStream is=part.getInputStream();
-			ByteArrayOutputStream baos=new ByteArrayOutputStream();
-			byte[] buf=new byte[1024];
-			byte[] event_p_img=null;
-			int i=0;
-			while((i=is.read(buf))!=-1) {
-				baos.write(buf);
-			}
 			Timestamp event_p_date=new Timestamp(System.currentTimeMillis());
+			byte[] event_p_img=event_pVOPass.getEvent_p_img();//設定成原本圖片
+//			Part part=req.getPart("pic01");
+//
+//			InputStream is=part.getInputStream();
+//			ByteArrayOutputStream baos=new ByteArrayOutputStream();
+//			byte[] buf=new byte[1024];
+//			byte[] event_p_img=null;
+//			int i=0;
+//			while((i=is.read(buf))!=-1) {
+//				baos.write(buf);
+//			}
 			
-			event_p_img=baos.toByteArray();
-			System.out.println("event_p_img.length: "+event_p_img.length);
-			if(event_p_img.length==0) {
-				System.out.println("img is null");
-				System.out.println(event_pVOPass.getEvent_p_img().length==0);
-				event_p_img=event_pVOPass.getEvent_p_img();//設定成原本圖片
-			}
+//			
+//			event_p_img=baos.toByteArray();
+//			System.out.println("event_p_img.length: "+event_p_img.length);
+//			if(event_p_img.length==0) {
+//				System.out.println("img is null");
+//				System.out.println(event_pVOPass.getEvent_p_img().length==0);
+//				event_p_img=event_pVOPass.getEvent_p_img();//設定成原本圖片
+//			}
 			
 			event_pVO=new Event_PVO();
 			event_pVO.setEvent_p_no(new Integer( event_p_no));
@@ -363,7 +365,7 @@ public class Event_pServlet extends HttpServlet {
 
 		}
 		if("to_event_sepc".equals(action)) {
-			System.out.println("準備轉送至event_spec");
+			System.out.println("準備轉送至event_spec:-----------------------");
 			String event_no=req.getParameter("event_no");
 			req.setAttribute("event_no", event_no);
 			String path="/frontend/event_p/event_spec.jsp";

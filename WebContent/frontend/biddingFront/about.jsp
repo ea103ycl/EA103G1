@@ -445,7 +445,7 @@
 		}
 		$('#enterBidPage').children('#bdNo').val(bdNo);
 		$('#enterBidPage').submit();
-		console.log('11111');
+
 	})
 </script>
 </html>

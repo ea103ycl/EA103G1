@@ -97,8 +97,8 @@
             if ($('#lastDiv')) {
                 var grid = document.getElementById("grid");
                 for (var i = 1; i < 12; i++) {
-//                    var div = '<div class="grid-item"><img src="/G1/painter/ShowImage?ptr_no=' + random() + '></div>';
-                	var div = '<div class="grid-item"><img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=' + random() + '></div>';
+                    //                    var div = '<div class="grid-item"><img src="/G1/painter/ShowImage?ptr_no=' + random() + '></div>';
+                    var div = '<div class="grid-item"><img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=' + random() + '></div>';
                     grid.append(div);
                 }
             }
@@ -111,7 +111,7 @@
 
             $.ajax({
 
-                url: "/G1/painter/TagGetPic",
+                url: "/EA103G1/painter/TagGetPic",
                 method: "post",
                 data: { action: "getMostLiked", rank: rank },
                 success: function(data) {
@@ -171,7 +171,7 @@
             // var url ="/controller/Search";
             $.ajax({
                 method: "post",
-                url: "/G1/painter/TagGetPic",
+                url: "/EA103G1/painter/TagGetPic",
                 data: { srtag: srtag, action: "searchByTag" },
                 success: function(dataReceived) { //dataReceived=> out.println("<li> #"+result+"</li>")
                     // alert(dataReceived);
@@ -198,3 +198,9 @@
             $('#searchBar1').val($(this).children().html());
             $('#searchForm1').submit();
         });
+
+
+
+        $('.draggableImg').on('dragStart', function() {
+
+        })
