@@ -1,8 +1,6 @@
         var memId = $("#memId").val();
         var bdNo = $("#bdNo").val();
-		var top1;
-		var top2;
-		var top3;
+
         var bidOver = true;
 
         function isLogin() {
@@ -271,7 +269,7 @@
 
                 //=====================================================================================
                 if (bid > currentPrice) {
-                    console.log("memId" + memId);
+//                    console.log("memId" + memId);
                     $.ajax({
                         method: "post",
                         url: "/EA103G1/biddingPage/BdPageServlet",
@@ -372,8 +370,7 @@
                     var bidData = JSON.parse(dataReturn);
 
                     if (typeof(bidData.top1name) !== "undefined") {
-	
-						console.log(bidData.top1name);
+
                         $('#top1 span').html(bidData.top1name);
                         $('#top2 span').html(bidData.top2name);
                         $('#top3 span').html(bidData.top3name);

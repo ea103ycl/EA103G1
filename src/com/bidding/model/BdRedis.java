@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,6 +57,9 @@ public class BdRedis {
 		
 		Integer eventpno=epVO.getEvent_p_no();
 		
+		if(eventpno==null) {
+			eventpno=3001;
+		}
 		
 		
 		jedis.set("bdNo", eventNo);
@@ -71,7 +75,7 @@ public class BdRedis {
 		BiddingService bdSvc = new BiddingService();
 		Timestamp startT = new Timestamp(Long.valueOf(startTime));
 		Timestamp endT = new Timestamp(Long.valueOf(endTime));
-		String sqlBdNo = bdSvc.insert("", 3001,eventpno, startT, endT, 0, 0, 0, 0, "", "", "");
+		String sqlBdNo = bdSvc.insert("",eventpno, 0, startT, endT, 0, 0, 0, 0, "", "", "");
 		// 3001 bdProdNo, 1 競標作品編號
 
 		// ======save another info to record========
@@ -121,7 +125,7 @@ public class BdRedis {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
 
-		Set<String> set = jedis.zrevrange(bdNo, 0, 0);
+		LinkedHashSet<String> set = (LinkedHashSet<String>) jedis.zrevrange(bdNo, 0, 0);
 
 		if (set.isEmpty()) {
 			jedis.close();
@@ -139,7 +143,7 @@ public class BdRedis {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
 
-		Set<String> set = jedis.zrevrange(bdNo, 0, 0);
+		LinkedHashSet<String> set = (LinkedHashSet<String>) jedis.zrevrange(bdNo, 0, 0);
 
 		if (set.isEmpty()) {
 			jedis.close();

@@ -229,7 +229,7 @@
 						<div class="gridWrapper">
 							<div class="grid" id="grid">
 								<c:forEach var="ptrno" items="${ptrnoList}">
-									<div class="grid-item">
+									<div class="grid-item draggableImg">
 <%-- 										<img src="<%=request.getContextPath()%>/painter/ShowImage?ptr_no=${ptrno}"> --%>
 										<img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${ptrno}">
 									</div>
@@ -275,8 +275,10 @@
 	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/typed.js/typed.min.js"></script>
 	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/aos/aos.js"></script>
 	<script src="<%=request.getContextPath()%>/frontend/front_index/js/masonry.js"></script>
+
 	<!-- Template Main JS File -->
 	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/front_index/js/jquery-ui.js"></script>
 	<script src="<%=request.getContextPath()%>/frontend/front_index/js/index_front_js.js"></script>
 </body>
 
