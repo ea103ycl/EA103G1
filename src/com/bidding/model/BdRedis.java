@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -124,7 +125,7 @@ public class BdRedis {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
 
-		Set<String> set = jedis.zrevrange(bdNo, 0, 0);
+		LinkedHashSet<String> set = (LinkedHashSet<String>) jedis.zrevrange(bdNo, 0, 0);
 
 		if (set.isEmpty()) {
 			jedis.close();
@@ -142,7 +143,7 @@ public class BdRedis {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
 
-		Set<String> set = jedis.zrevrange(bdNo, 0, 0);
+		LinkedHashSet<String> set = (LinkedHashSet<String>) jedis.zrevrange(bdNo, 0, 0);
 
 		if (set.isEmpty()) {
 			jedis.close();
