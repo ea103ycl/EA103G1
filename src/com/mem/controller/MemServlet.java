@@ -293,7 +293,9 @@ public class MemServlet extends HttpServlet {
 					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
 					System.out.println(errorMsgs);
 					failureView.forward(req, res);
+					out.print(new JSONObject(memVO));
 					return;
+
 				}
 
 				/*************************** 2.開始新增資料 ***************************************/
@@ -306,6 +308,7 @@ public class MemServlet extends HttpServlet {
 				session.setAttribute("memVO", UpdatedmemVO);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+				out.print(new JSONObject(UpdatedmemVO));
 				String url = "/frontend/members/memArea.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -313,6 +316,10 @@ public class MemServlet extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
+
+				JSONArray array = new JSONArray(errorMsgs);
+				out.print(array);
+
 				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memRegister.jsp");
 				failureView.forward(req, res);
 			}

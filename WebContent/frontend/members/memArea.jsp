@@ -1066,7 +1066,7 @@
 		});
 	$("#memInfoBtn").click(function() {
 		
-		console.log($("#contactZip option").attr("value"));
+		console.log( $("#contactZip").val());
 		
 		$.ajax({
     		url: "<%=request.getContextPath()%>/frontend/members/mem.do",
@@ -1079,7 +1079,7 @@
 										mobile :  $("#mobile").val(),
 										phone :  $("#phone").val(),
 										email :  $("#email").val(),
-										contactZip :  $("#contactZip option").attr("value"),
+										contactZip :  $("#contactZip").val(),
 										contactAddr :   $("#contactAddr").val(),
 										
 									},
