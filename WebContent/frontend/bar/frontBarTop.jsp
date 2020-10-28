@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-
-
 
 <html>
 	<head>
@@ -58,7 +57,7 @@
                 </button>
                 <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
             </div><!-- / navbar-header -->
-            
+            	
             <div class="secondary-nav" style="display:inline-block;">
 
             	<!-- 購物車 -->
@@ -74,8 +73,16 @@
             	<li class="dropdown ycl-topBar-second">
                     <a href="#" class="my-account space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
                     <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="<%=request.getContextPath()%>/frontend/members/memArea.jsp"><span>設定</span></a></li>
-                        <li><a href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout"><span>登出</span></a></li>
+                    	<c:choose>
+                    		<c:when test="${empty sessionScope.memVO}">
+                    			<li><a href="<%=request.getContextPath()%>/frontend/members/memLogin.jsp"><span>登入</span></a></li>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<li><a href="<%=request.getContextPath()%>/frontend/members/memArea.jsp"><span>設定</span></a></li>
+                        		<li><a href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout"><span>登出</span></a></li>
+                        	</c:otherwise>
+                    	</c:choose>
+
                     </ul>
                 </li>
                 
