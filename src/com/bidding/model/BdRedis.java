@@ -125,7 +125,7 @@ public class BdRedis {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
 
-		LinkedHashSet<String> set = (LinkedHashSet<String>) jedis.zrevrange(bdNo, 0, 0);
+		Set<String> set = jedis.zrevrange(bdNo, 0, 0);
 
 		if (set.isEmpty()) {
 			jedis.close();
@@ -143,7 +143,7 @@ public class BdRedis {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
 
-		LinkedHashSet<String> set = (LinkedHashSet<String>) jedis.zrevrange(bdNo, 0, 0);
+		Set<String> set =  jedis.zrevrange(bdNo, 0, 0);
 
 		if (set.isEmpty()) {
 			jedis.close();
