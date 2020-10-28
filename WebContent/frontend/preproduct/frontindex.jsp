@@ -112,6 +112,20 @@ header #header-banner{
  border:1px groove #000; width:300px; height:300px; 
  } 
 .divcss5 img{width:100%px; height:auto;} 
+
+.productshow {
+		position:absolute;
+		opacity: 1;
+		z-index: -100;
+		top: -170%;
+		left: -110%;
+		width: 270px;
+		max-width: 270px;
+		height: 200px;
+
+}
+
+
 	</style>
 </head>
 
@@ -276,12 +290,16 @@ header #header-banner{
 		
 		                    <!-- product-hover-tools -->
 		                    <div class="product-hover-tools">
+			                    <div class="boxxx">
+			                    	<img class="productshow" alt="picture" src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${preproductVO.event_p_no}">
+		                        </div>
 		                        <a href="#" class="view-btn" data-toggle="tooltip" title="View Product">
 		                            <i class="lnr lnr-eye"></i>
 		                        </a>
-		                        <a href="javascript:;" onclick="document.getElementById('shoppingForm').submit();">
+		                        <a href="javascript:;" class="view-btn" onclick="document.getElementById('shoppingForm').submit();">
 		                            <i class="lnr lnr-cart"><input type="hidden" class="add-cart cart1" value=""></i>
 		                        </a>
+		                        
 		                    </div><!-- / product-hover-tools -->
 		
 		                    <!-- product-details -->
