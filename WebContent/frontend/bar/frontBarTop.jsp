@@ -47,48 +47,68 @@
                 <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
             </div><!-- / navbar-header -->
             <div class="secondary-nav">
-                <a href="login-register.html" class="my-account space-right"><i class="fa fa-user"></i></a>
-                <a href="shopping-cart.html" class="shopping-cart"><i class="fa fa-shopping-cart"></i> <span class="cart-badge">2</span></a>
+
+            	<!-- 會員 -->
+            	<li class="dropdown">
+                    <a href="#" class="my-account space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                    <ul class="dropdown-menu animated zoomIn fast">
+                        <li><a href="blog.html"><span>設定</span></a></li>
+                        <li><a href="single-post.html"><span>登出</span></a></li>
+                    </ul>
+                </li>
+                    
+            	<!-- 購物車 -->
+            	<li class="dropdown">
+                    <a href="#" class="shopping-cart space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart"></i><span class="cart-badge">5</span></a>
+                    <ul class="dropdown-menu animated zoomIn fast">
+                        <li><a href="blog.html"><span>一般商品</span><span id="cart1">3</span></a></li>
+                        <li><a href="single-post.html"><span>預購商品</span><span id="cart2">2</span></a></li>
+                    </ul>
+                </li>
+                
+                
+                <!-- 會員 -->
+<!--                 <a href="login-register.html" class="my-account space-right"><i class="fa fa-user"></i></a> -->
+                <!-- 購物車 -->
+<!--                 <a href="shopping-cart.html" class="shopping-cart"><i class="fa fa-shopping-cart"></i> <span class="cart-badge">2</span></a> -->
             </div>
             <div class="navbar-collapse collapse text-center">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html"><span>HOME</span></a></li>
-                    <li><a href="about.html"><span>ABOUT</span></a></li>
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>BLOG</span> <span class="dropdown-icon"></span></a>
-                    <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="blog.html"><span>BLOG FULLWIDTH</span></a></li>
-                        <li><a href="blog-masonry.html"><span>BLOG MASONRY</span></a></li>
-                        <li><a href="blog-sidebar.html"><span>BLOG SIDEBAR</span></a></li>
-                        <li><a href="single-post-full.html"><span>POST FULLWIDTH</span></a></li>
-                        <li><a href="single-post.html"><span>POST SIDEBAR</span></a></li>
-                    </ul>
-                    </li>
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>SHOP</span> <span class="dropdown-icon"></span></a>
-                    <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="shop.html"><span>FULL WIDTH</span></a></li>
-                        <li><a href="shop-right.html"><span>RIGHT SIDEBAR</span></a></li>
-                        <li><a href="shop-left.html"><span>LEFT SIDEBAR</span></a></li>
-                        <li><a href="shop-masonry.html"><span>MASONRY</span></a></li>
-                        <li><a href="single-product.html"><span>SINGLE PRODUCT</span></a></li>
-                        <li><a href="single-product2.html"><span>SINGLE PRODUCT 2</span></a></li>
-                        <li><a href="single-product3.html"><span>SINGLE PRODUCT 3</span></a></li>
-                    </ul>
-                    </li>
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>PAGES</span> <span class="dropdown-icon"></span></a>
-                    <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="faq.html"><span>FAQ</span></a></li>
-                        <li><a href="shopping-cart.html"><span>SHOPPING CART</span></a></li>
-                        <li><a href="login-register.html"><span>LOGIN / REGISTER</span></a></li>
-                        <li><a href="my-account.html"><span>MY ACCOUNT</span></a></li>
-                        <li><a href="checkout.html"><span>CHECKOUT</span></a></li>
-                        <li><a href="404.html"><span>404 PAGE</span></a></li>
-                        <li><a href="components.html"><span>COMPONENTS</span></a></li>
-                    </ul>
-                    </li>
-                    <li><a href="contact.html"><span>CONTACT</span></a></li>
+                
+                	
+                    <li class=""><a href="index.html"><span>首頁</span></a></li>
+                    
+                    <!-- 社群 -->
+                    <li><a href="<%=request.getContextPath()%>/frontend/painter/listAllPainterFollow.jsp"><span>社群</span></a></li>
+                    
+                    <!-- 一般購買 -->
+                    <li><a href="<%=request.getContextPath()%>/frontend/shop/EShop.jsp"><span>商城</span></a></li>
+                    
+                    <!-- 創意主題競賽 -->
+                    <li><a href="<%=request.getContextPath()%>/frontend/event_p/event_homePage.jsp"><span>主題競賽</span></a></li>
+
+                    <!-- 預購 -->
+                    <li><a href="<%=request.getContextPath()%>/frontend/preproduct/frontindex.jsp"><span>預購</span></a></li>
+
+                    <!-- 競標 -->
+                    <li><a href="<%=request.getContextPath()%>/frontend/biddingFront/biddingPage.jsp"><span>競標</span></a></li>
+
+                    <!-- 見面會 -->
+                    <li><a href="<%=request.getContextPath()%>/frontend/biddingFront/biddingPage.jsp"><span>見面會</span></a></li>
+
+
+                    <!-- ------------------------------------------------------------------ -->
+
+<!--                     備用 -->
+<!--                     <li class="dropdown"> -->
+<!-- 	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>預購</span> <span class="dropdown-icon"></span></a> -->
+<!-- 	                    <ul class="dropdown-menu animated zoomIn fast"> -->
+<!-- 	                        <li><a href="blog.html"><span>備用</span></a></li> -->
+<!-- 	                        <li><a href="single-post.html"><span>備用</span></a></li> -->
+<!-- 	                    </ul> -->
+<!--                     </li> -->
+                    
+                    
                 </ul>
             </div><!--/ nav-collapse -->
         </div><!-- / container -->
