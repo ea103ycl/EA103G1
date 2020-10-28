@@ -199,7 +199,8 @@ public class LoginHandler extends HttpServlet {
 				String emp_pwd = randomPwd();
 				empSvc.resetPwd(emp_no,emp_pwd);
 
-				String resetUrl = "http://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath() + "/backend/emp/resetPwd.jsp";
+				String resetUrl = "http://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath() + "/backend/emp/resetPwd.jsp"
+						+ "?emp_no="+emp_no+"&emp_pwd="+emp_pwd;
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				// 寄送E-Mail

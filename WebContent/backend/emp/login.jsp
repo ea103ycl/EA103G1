@@ -82,13 +82,16 @@
                       </div>
                     </div>
                     
-					<button class="btn btn-primary btn-icon-split mt-1 ml-3 float-right"  type="submit" name="action" value="login">  
+                    <div style = "margin-left:25px">
+  					<button  class="btn btn-secondary"  type="submit" name="action" value="forget">                                 
+					<span class="text">Forgot Password?</span>                             
+					</button>                  
+                          &nbsp
+					<button class="btn btn-primary"  type="submit" name="action" value="login">  
 					<span class="text">Login Account</span>                             
 					</button>                             
 
-					<button  class="btn btn-secondary btn-icon-split mt-1 ml-3 float-right"  type="submit" name="action" value="forget">                                 
-					<span class="text">Forgot Password?</span>                             
-					</button>
+					</div>
                                                                          
                     </FORM>    
                     

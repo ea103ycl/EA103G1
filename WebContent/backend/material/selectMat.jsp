@@ -108,6 +108,8 @@
   <input type="text" class="form-control"  name="ma_price_down" value=""  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
+
+<div style = "margin-left:20px">
 <button  class="btn btn-secondary btn-icon-split mt-1 ml-3 float-left"  type="submit" name="action" value="listAllMatype">                                
 <span class="text">素材類別列表</span>                             
 </button>
@@ -115,18 +117,15 @@
 <button class="btn btn-primary btn-icon-split mt-1 ml-3 float-left"  type="submit" name="action" value="listMat_ByCompositeQuery" >  
 <span class="text">送出查詢</span>                             
 </button>  
+</div>
 </FORM>
 
 
 
 
 
-</body>	
 
-    </div>
-    <!-- End of Content Wrapper -->
 
-  </div>	
 	
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
