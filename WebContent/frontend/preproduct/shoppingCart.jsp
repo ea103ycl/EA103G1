@@ -44,7 +44,7 @@
 
 <body class="bg-light">
 		<% @SuppressWarnings("unchecked")
-		List<PreProductVO> buylist = (Vector<PreProductVO>) session.getAttribute("shoppingcart"); %>
+		List<PreProductVO> buylist = (Vector<PreProductVO>) session.getAttribute("preshoppingcart"); %>
 		<%if (buylist != null && (buylist.size() > 0)) {%>
                             
     <div class="container-fluid">

@@ -9,6 +9,7 @@ import com.preorderdetail.model.PreOrderDetailVO;
 	public interface PreOrderDAO_interface {
         public void insert(PreOrderVO preorderVO);
         public void update(PreOrderVO preorderVO);
+        public void updateStatus(PreOrderVO preorderVO);
         public void delete(String po_no);
         public PreOrderVO findByPrimaryKey(String po_no);
         public List<PreOrderVO> getAllByMemid(String mem_id);

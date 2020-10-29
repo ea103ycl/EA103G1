@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 
 <%@ page import="com.wel_record.model.*"%>
@@ -17,8 +18,11 @@
     PreOrderService preorderSvc = new PreOrderService();
     List<PreOrderVO> list = preorderSvc.getAllByMemid(memVO.getMem_id());
     pageContext.setAttribute("list",list);
-    
-
+    /*----------顯示訂單明細內容----------*/
+//     PreOrderDetailService detailSvc = new PreOrderDetailService();
+//     List<PreOrderDetailVO>detaillist =  detailSvc.getAll();
+//     pageContext.setAttribute("detaillist",detaillist);
+    /*----------顯示錢包??內容----------*/
     WelRecordService welRecordSvc = new WelRecordService();
     List<WelRecordVO> set = welRecordSvc.getWelRecordByMemID(memVO.getMem_id());
     pageContext.setAttribute("set",set);
@@ -236,126 +240,72 @@
 </header>
 
 <!--=====自定義內容start ================================================== -->
+
         
-        
-       <div id="personal-info" class="account-info-content">
-                        <h4>PERSONAL INFO <span class="pull-right"><a href="#x" class="btn btn-sm btn-primary btn-rounded no-margin"><i class="lnr lnr-pencil"></i><span>Edit</span></a></span></h4>
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-4 col-md-2">
-                                <img src="images/account-img.jpg" alt="">
-                                <a href="#x" class="btn btn-primary btn-xs btn-rounded no-margin">Change Image</a>
-                            </div>
-                            <div class="col-xs-6 col-sm-8 col-md-10">
-                                <p>Full Name: <span>John Doe</span></p>
-                                <p>Country: <span>USA</span></p>
-                                <p>Email: <span>me@mysite.com</span></p>
-                                <p>Phone: <span>+0123 456 789</span></p>
-                                <p>Date of Birth: <span>Aug. 13, 1991</span></p>
-                            </div>
-                        </div><!-- / row -->
-                    </div><!-- / personal-info -->
-                    <div id="shipping-info" class="account-info-content">
-                        <h4>SHIPPING INFO <span class="pull-right"><a href="#x" class="btn btn-sm btn-primary btn-rounded no-margin"><i class="lnr lnr-pencil"></i><span>Edit</span></a></span></h4>
-                        <p class="space-bottom"><span><strong>John Doe - me@mysite.com</strong></span></p>
-                        <p>Country: <span>USA</span></p>
-                        <p>State: <span>Florida</span></p>
-                        <p>City: <span>Miami</span></p>
-                        <p>Address Line: <span>S Miami Ave, SW 20th, Suite 3864</span></p>
-                        <p>ZIP Code: <span>33222</span></p>
-                        <div class="account-info-footer"><a href="#x" class="btn btn-sm btn-primary btn-rounded no-margin"><i class="fa fa-plus"></i><span>Add New Address</span></a></div>
-                    </div><!-- / shipping-info -->
-                    <div id="my-orders" class="account-info-content">
-                        <h4>MY ORDERS <span class="pull-right"><a href="#x" class="btn btn-sm btn-primary btn-rounded no-margin"><i class="lnr lnr-pencil"></i><span>Edit</span></a></span></h4>
-                        <p><a href="#x">Order #38726</a> <span>- Paid & Shipped</span> - Tracking No: <span>#TRCK182736</span></p>
-                        <p><a href="#x">Order #34823</a> <span>- Completed on 25.10.2016</span></p>
-                        <p><a href="#x">Order #23463</a> <span>- Completed on 16.08.2016</span></p>
-                    </div><!-- / my-orders -->
-        
-        
-        
-        <h3>訂購成功</h3>
-        <div>
-          <p>顯示session客戶編號</p>
-          <span><strong><br>
-            <c:if
-        test="${not empty sessionScope.memVO.m_accno}">
-        會員帳號:${sessionScope.memVO.m_accno}
-        錢包餘額:${sessionScope.memVO.balance}
-      </c:if></strong></span>
-      <c:if test="${not empty errorMsgs}">
-                      <font style="color:red">請修正以下錯誤:</font>
-                      <ul>
-                        <c:forEach var="message" items="${errorMsgs}">
-                          <li style="color:red">${message}</li>
-                        </c:forEach>
-                        </ul></c:if>
-      
-        </div>
-        <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">您的訂單</h6>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                      <thead>
-                        <tr>
-                          <th>訂單編號</th>
-                          <th>客戶編號</th>
-                          <th>訂單成立時間</th>
-                          <th>收件人</th>
-                          <th>連絡電話</th>
-                          <th>收件地址</th>
-                          <th>訂單狀態</th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                        <tr>
-                          <th>訂單編號</th>
-                          <th>客戶編號</th>
-                          <th>訂單成立時間</th>
-                          <th>收件人</th>
-                          <th>連絡電話</th>
-                          <th>收件地址</th>
-                          <th>訂單狀態</th>
-                        </tr>
-                      </tfoot>
-                      <%@ include file="/backend/preproduct/pages/page1.file" %> 
-                      <tbody>
-                        <c:forEach var="preorderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-    
-                          <tr>
-                              <td>${preorderVO.po_no}</td>
-                                <td>${preorderVO.mem_id}</td>
-                                <td>${preorderVO.po_time}</td>
-                                <td>${preorderVO.po_name}</td>
-                                <td>${preorderVO.po_phone}</td>
-                                <td>${preorderVO.po_addr}</td>
-                                <td>${preorderVO.po_status}</td>
-                            <td>
-                              <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/preproduct/preorder.do" style="margin-bottom: 0px;">
-                                 <input type="submit" value="查明細">
-                                 <input type="hidden" name="po_no"  value="${preorderVO.po_no}">
-                                 <input type="hidden" name="action" value="getOne_For_Display"></FORM>
-                            </td>
-                            <td>
-                              <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/preproduct/preorder.do" style="margin-bottom: 0px;">
-                                 <input type="submit" value="取消訂單">
-                                 <input type="hidden" name="po_no"  value="${preorderVO.po_no}">
-                                 <input type="hidden" name="po_total"  value="${preorderVO.po_total}">
-                                 
-                                 <input type="text" name="formhash"  value="<%=formhash %>">
-                                 
-                                 <input type="hidden" name="action" value="cancel_order"></FORM>
-                            </td>
-                          </tr>
-                        </c:forEach>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                
-              </div>
+       					<%@ include file="/backend/preproduct/pages/page1.file" %>
+       					<jsp:useBean id="detailSvc" scope="page" class="com.preorderdetail.model.PreOrderDetailService" /> 
+       					<div class="container">
+                    	<div id="shipping-info" class="account-info-content">
+                    	<div>
+					        <p>顯示session客戶編號</p>
+					        <span><strong>
+					        <c:if
+						        test="${not empty sessionScope.memVO.m_accno}">
+						        會員帳號:${sessionScope.memVO.m_accno}
+						        錢包餘額:${sessionScope.memVO.balance}
+					      	</c:if></strong></span>
+					      	<c:if test="${not empty errorMsgs}">
+						        <font style="color:red">請修正以下錯誤:</font>
+						        <ul>
+							        <c:forEach var="message" items="${errorMsgs}">
+							        	<li style="color:red">${message}</li>
+							        </c:forEach>
+						        </ul>
+					        </c:if>
+					        <hr>
+				        </div>
+                        <h4>我的預購訂單 <span class="pull-right"><a href="#x" class="btn btn-sm btn-primary btn-rounded no-margin"><i class="lnr lnr-pencil"></i><span>Edit</span></a></span></h4>
+                         <c:forEach var="preorderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+                         <div class="row justify-content-around">
+                        <div class="col-md-4">
+                        <p class="space-bottom"><span><strong>訂單編號：${preorderVO.po_no}</strong></span></p>
+                        <p>會員編號: <span>${preorderVO.mem_id}</span></p>
+                        <p>訂單成立: <span><fmt:formatDate value="${preorderVO.po_time}" pattern="yyyy/MM/dd"/></span></p>
+                        <p>收件人: <span>${preorderVO.po_name}</span></p>
+                        <p>聯絡電話: <span>${preorderVO.po_phone}</span></p>
+                        <p>收件地址: <span>${preorderVO.po_addr}</span></p>
+                        <p>訂單狀態:<span>
+                        <c:if test="${preorderVO.po_status == 1}">處理中</c:if>
+						<c:if test="${preorderVO.po_status == 2}">出貨中</c:if>
+						<c:if test="${preorderVO.po_status == 3}">已到貨</c:if>
+						<c:if test="${preorderVO.po_status == 4}">已結案</c:if>
+                        </span></p>
+                        </div>
+                        
+                        <div class="col-md-8">
+                        <p class="space-bottom"><span><strong>訂單明細</strong></span></p>
+                        <c:forEach var="detailVO" items="${detailSvc.getAll()}">
+		                    <c:if test="${preorderVO.po_no==detailVO.po_no}">
+			                    <p>商品編號: <span>${detailVO.po_prod_no}</span></p>
+			                    <p><span>數量: ${detailVO.po_qty}</span>
+			                    <br>
+		                    </c:if>
+		                </c:forEach>
+                        </div>
+                        </div>
+                        <br>
+                        <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/preproduct/preorder.do" style="margin-bottom: 0px;">
+                        <input type="submit" class="btn btn-sm btn-primary btn-rounded no-margin" value="取消訂單">
+                        <input type="hidden" name="po_no"  value="${preorderVO.po_no}">
+                        <input type="hidden" name="po_total"  value="${preorderVO.po_total}">
+                        <input type="hidden" name="formhash"  value="<%=formhash %>">
+                        <input type="hidden" name="action" value="cancel_order">
+                        </FORM>
+                        <div class="account-info-footer"></div>
+                    	</c:forEach>
+                    </div>
+                    </div>
+                    	<!-- / shipping-info -->
 
           <!--===== 自定義內容end ================================================== -->
           
@@ -363,7 +313,7 @@
 <%@include file="/frontend/bar/frontBarFooter.jsp" %>
 <script src="<%=request.getContextPath()%>/frontend/preproduct/css/index_parts/jquery-3.5.1.js"></script>
 <script type="text/javascript">
-// MDB Lightbox Init
+
 $(function () {
 $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
 });

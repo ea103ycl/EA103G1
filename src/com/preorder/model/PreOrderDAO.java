@@ -45,6 +45,7 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 			"DELETE FROM PRE_ORDER where po_no = ?";
 		private static final String UPDATE = 
 			"UPDATE PRE_ORDER set mem_id=?, po_time=?, po_zip=?, po_name=?, po_phone=?, po_addr=?,po_status=?,po_total=?,po_note=? where po_no = ?";
+		private static final String UPDATE_STATUS = "UPDATE PRE_ORDER set po_status=? where po_no = ?";
 		private static final String GET_Detail_ByOrder_STMT = "SELECT PO_NO,PO_PROD_NO,PO_QTY,PO_PRICE FROM PRE_ORDER_DETAIL WHERE PO_NO = ? ORDER BY PO_PROD_NO";
 		
 		private static final String GET_ALL_ByMemid_STMT = "SELECT * FROM PRE_ORDER WHERE mem_id = ? ORDER BY PO_NO";
@@ -600,6 +601,41 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 		
 		System.out.println("¦^¶Çlist µ²§ôPreOrderDAO");
 		return list;
+	}
+	@Override
+	public void updateStatus(PreOrderVO preorderVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+			pstmt.setInt(1, preorderVO.getPo_status());
+			pstmt.setString(2, preorderVO.getPo_no());
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
 	}
 	
 	

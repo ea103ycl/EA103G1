@@ -26,7 +26,7 @@ public class ShoppingServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		@SuppressWarnings("unchecked")
-		List<PreProductVO> buylist = (Vector<PreProductVO>) session.getAttribute("shoppingcart");
+		List<PreProductVO> buylist = (Vector<PreProductVO>) session.getAttribute("preshoppingcart");
 		String action = req.getParameter("action");
 		System.out.println("------------------進入CHECKOUT - Servlet-----------------------");
 		System.out.println("Shopping - Servlet的action被觸發!");

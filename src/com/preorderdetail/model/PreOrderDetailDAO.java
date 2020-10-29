@@ -389,14 +389,14 @@ public class PreOrderDetailDAO implements PreOrderDetailDAO_interface{
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(SUM_QTY_ByOrderAndStat_3);
 				rs = pstmt.executeQuery();
-				System.out.println("執行executeQuery()方法");
+				System.out.println("POD-DAO執行executeQuery()方法");
 
 				while (rs.next()) {
 					// empVO 也稱為 Domain objects
 					preorderdetailVO = new PreOrderDetailVO();
-					System.out.println("test1" + rs.getString("po_prod_no"));
+					System.out.println("取得po_prod_no = " + rs.getString("po_prod_no"));
 					preorderdetailVO.setPo_prod_no(rs.getString("po_prod_no"));
-					System.out.println("test2"+rs.getInt("po_qty"));
+					System.out.println("取得po_qty = "+rs.getInt("po_qty"));
 					preorderdetailVO.setPo_qty(rs.getInt("po_qty"));
 
 					System.out.println("count++");

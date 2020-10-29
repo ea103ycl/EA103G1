@@ -69,6 +69,15 @@ public class PreOrderService {
 		
 		return dao.findByPrimaryKey(po_no);
 	}
+	public PreOrderVO updateStatus(Integer po_status,String po_no) {
+		PreOrderVO preorderVO = new PreOrderVO();
+		System.out.println("進入Servic - updateStatus");
+		preorderVO.setPo_status(po_status);
+		preorderVO.setPo_no(po_no);
+		dao.updateStatus(preorderVO);
+		System.out.println("進入Servic - findByPrimaryKey準備執行");
+		return dao.findByPrimaryKey(po_no);
+	}
 	
 	public void updatePreOrder(PreOrderVO preorderVO) {
 		dao.update(preorderVO);
