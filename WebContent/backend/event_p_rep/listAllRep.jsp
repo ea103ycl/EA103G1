@@ -135,7 +135,7 @@ table.table {
 						<div class="container"><%@ include file="page1.file"%></div>
 						<c:forEach var="event_p_repVO" items="${event_p_repVOs}"
 							begin="<%=pageIndex %>" end="<%=pageIndex+rowsPerPage-1 %>">
-							<tr>
+							<tr ${param.event_p_no==event_p_repVO.event_p_no?"bgcolor=#CCCCFF":""}>
 								<td>${event_p_repVO.event_p_no}</td>
 								<td>${event_p_repVO.mem_id}</td>
 								<td><fmt:parseDate value="${event_p_repVO.rep_time}"
@@ -164,6 +164,8 @@ table.table {
 										<input type="hidden" name="event_p_no" value="${event_p_repVO.event_p_no}"> 
 										<input	type="hidden" name="action" value="updateFromlistAllRep">
 <%-- 										<input type="hidden" name="selectedStatRange" value="${event_p_repVO.rep_stat }"> --%>
+										<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+										<input type="hidden" name="whichPage" value="<%=whichPage%>">
 										<input type="submit" value="送出">
 									</form>
 								</td>

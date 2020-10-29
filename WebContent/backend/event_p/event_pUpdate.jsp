@@ -130,7 +130,8 @@
             </div>
      
             
-			
+			<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>">
+			<input type="hidden" name="whichPage" value="<%=request.getParameter("whichPage")%>">
 			<input type="hidden" name="action" value="update">
 			<input type="submit" value="送出" >
 	</form>

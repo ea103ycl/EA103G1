@@ -128,7 +128,7 @@ table.table {
 						<div class="container"><%@ include file="page1.file"%></div>
 						<c:forEach var="event_pVO" items="${event_pVOs}"
 							begin="<%=pageIndex %>" end="<%=pageIndex+rowsPerPage-1 %>">
-							<tr>
+							<tr ${param.event_p_no==event_pVO.event_p_no?"bgcolor=#CCCCFF":""}>
 								<td>${event_pVO.event_p_no}</td>
 								<td>${event_pVO.mem_id}</td>
 								<td>${event_pVO.event_no}</td>
@@ -151,10 +151,11 @@ table.table {
 									width="300" height="300"></td>
 								<td>
 									<form action="<%=request.getContextPath() %>/backend/event_p/Event_pServlet" method="post">
-										<input type="hidden" name="event_p_no"
-											value="${event_pVO.event_p_no}"> <input type="hidden"
-											name="action" value="updateFromListAll"> <input
-											type="submit" value="修改">
+										<input type="hidden" name="event_p_no"value="${event_pVO.event_p_no}"> 
+										<input type="hidden" name="action" value="updateFromListAll"> 
+										<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+										<input type="hidden" name="whichPage" value="<%=whichPage%>">
+										<input type="submit" value="修改">
 									</form>
 								</td>
 							</tr>

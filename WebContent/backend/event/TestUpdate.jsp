@@ -48,7 +48,7 @@
 					<!--=====自定義內容start ================================================== -->
 
 					<%-- 頁面標題 --%>
-					<h1 class="h3 mb-2 text-gray-800">頁面標題</h1>
+					<h1 class="h3 mb-2 text-gray-800">主題活動</h1>
 
 					<%-- 錯誤表列 --%>
 					<c:if test="${not empty errMsgs}">
@@ -143,7 +143,8 @@
 								</div>
 							</div>
 
-
+							<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>">
+							<input type="hidden" name="whichPage" value="<%=request.getParameter("whichPage")%>">
 							<input type="hidden" name="action" value="update"> <input
 								type="submit" value="送出">
 						</form>
