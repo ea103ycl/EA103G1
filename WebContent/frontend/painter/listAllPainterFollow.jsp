@@ -6,8 +6,9 @@
 <%@ page import="com.painter_msg.model.*"%>
 <%@ page import="com.follow.model.*"%>
 <%@ page import="com.painter_act.model.*"%>
+<%@ page import="com.mem.model.*"%>
 
-<%@include file="/frontend/bar/testLogin.jsp"%>
+<%-- <%@include file="/frontend/bar/testLogin.jsp"%> --%>
 
 
 <%
@@ -62,20 +63,20 @@
  }
 </style>
 
+<!-- top bar -->
+<%@include file="/frontend/bar/frontBarTop.jsp"%>
+<%@include file="/frontend/template/YCL/YCL.css"%>
+
 </head>
 <body>
 
 
-<section id="shop" class="space-top-30">
+<section id="shop" class="space-top-30 ycl-mt">
     <div class="container">
         <div class="row">
-        
-        	<!-- top bar -->
-			<%@include file="/frontend/bar/frontBarTop.jsp"%>
-			<%@include file="/frontend/template/YCL/YCL.css"%>
 			
 			<!-- =================================== -->
-            <h4>現在登入的會員是：${loginMemVO.mem_id} - ${loginMemVO.m_accno}、查詢的是 ${pageScope.sid} - ${sMemSvc.findByPrimaryKey(sid).getM_accno()}<br></h4>
+			<%--<h4>現在登入的會員是：${loginMemVO.mem_id} - ${loginMemVO.m_accno}、查詢的是 ${pageScope.sid} - ${sMemSvc.findByPrimaryKey(sid).getM_accno()}<br></h4> --%>
             
 			<!-- account-sidebar -->
 			<div class="col-xs-12 col-sm-12 ycl-account-sidebar">
@@ -83,7 +84,8 @@
 				<div class="col-xs-12 col-sm-12">
 						
 						<!-- 查詢的會員的照片 -->
-						<img class="ycl-sidebar-member-pic pull-left" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${pageScope.sid}">
+						<%--<img class="ycl-sidebar-member-pic pull-left" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${pageScope.sid}"> --%>
+						<img class="ycl-sidebar-member-pic pull-left" src="<%=request.getContextPath()%>/painter/painter.do?action=showCreatorPhoto&sid=${pageScope.sid}">
 						<div>
 							<c:set var="sLv" value="${sMemSvc.findByPrimaryKey(sid).lv}"/>
 							<c:set var="lvVO" value="${lvSvc.findByPrimaryKey(sLv)}"/>
@@ -161,7 +163,7 @@
 									<!-- 作品內容 -->
 									<div class="post-block ycl-post-block">
 										<!-- 作品圖片 -->				
-										<a href="<%=request.getContextPath()%>/frontend/painter/onePainter.jsp?ptr_no=${painterVO.ptr_no}&src=3&spg=<%=whichPage%>">
+										<a href="<%=request.getContextPath()%>/frontend/painter/onePainter.jsp?ptr_no=${painterVO.ptr_no}&sid=${sid}&src=3&spg=<%=whichPage%>">
 											<img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${painterVO.ptr_no}">
 										</a>
 										
@@ -174,7 +176,7 @@
 											
 												<!-- 留言 -->
 												<span class="post-icons ycl-post-icons">
-													<button class="ycl-act-btn-msg" value="${painterVO.ptr_no}" onclick="location.href='<%=request.getContextPath()%>/frontend/painter/onePainter.jsp?ptr_no=${painterVO.ptr_no}&src=3&spg=<%=whichPage%>'">
+													<button class="ycl-act-btn-msg" value="${painterVO.ptr_no}" onclick="location.href='<%=request.getContextPath()%>/frontend/painter/onePainter.jsp?ptr_no=${painterVO.ptr_no}&sid=${sid}&src=3&spg=<%=whichPage%>'">
 														<i class="lnr lnr-bubble">
 															<span class="ycl-act-cnt">${painterMsgSvc.getPainterMsgCnt(painterVO.ptr_no)}</span>
 														</i>
@@ -226,8 +228,9 @@
 									</div> <!-- post-block ycl-post-block 作品內容-->
 									
 									<!-- 作者資訊 -->
-									<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${painterVO.mem_id}">									<!-- 作品作者 -->
-										<img class="ycl-creator-pic" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${painterVO.mem_id}"></img>
+									<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${painterVO.mem_id}">
+										<%--<img class="ycl-creator-pic" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${painterVO.mem_id}"></img> --%>
+										<img class="ycl-creator-pic" src="<%=request.getContextPath()%>/painter/painter.do?action=showCreatorPhoto&sid=${painterVO.mem_id}"></img>
 										<span class="ycl-creator-acct">${sMemSvc.findByPrimaryKey(painterVO.mem_id).m_accno}</span>
 									</a>
 									

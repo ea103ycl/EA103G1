@@ -23,6 +23,7 @@ import com.painter_tag.model.PainterTagService;
 import com.painter_tag_map.model.PainterTagMapService;
 import com.painter_tag_map.model.PainterTagMapVO;
 
+import tools.HeadphotoTool;
 import tools.YclTools;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -32,7 +33,8 @@ public class PainterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		String action = req.getParameter("action");
-		if ("showPic".equals(action)) {
+		
+		if ("showPic".contentEquals(action)) {
 
 			res.setContentType("image/gif");
 			ServletOutputStream out = res.getOutputStream();
@@ -48,7 +50,11 @@ public class PainterServlet extends HttpServlet {
 				in.close();
 			}
 
-		} else {
+		} else if("showCreatorPhoto".contentEquals(action)){
+			String sid = ((String)req.getParameter("sid")).trim();
+			HeadphotoTool.printHeadphotoByMemId(req, res, sid);
+			
+		}else {
 			doPost(req, res);
 		}
 
