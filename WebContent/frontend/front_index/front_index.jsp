@@ -241,26 +241,28 @@
 
 				<div id="myModal" class="modal">
 					<span class="close">&times;</span>
-					<div class="row" id="modal-content">
+					<div class="myContainer container">
+						<div class="row" id="modal-content">
 
-						<div class="col-md-8" style="padding:0">
-							<img class="modal-content" id="img01"
-								style="border: 0; border-radius: 25px 0 0 25px">
-						</div>
-						<div class="col-md-4">
-							<div id="msg-content"></div>
-							<div class="comment-container">
-								<hr>
-								<h5 class="comment-title">Add a new comment</h5>
-								<div class="comment-body">
-									<img src="" class="comment-avatar" alt="avatar">
-									<div>
-										<textarea class="comment-textarea"
-											placeholder="Type your message ..." rows="8"></textarea>
-										<div class="comment-post">
-											<div class="comment-info">Some HTML is OK.</div>
-											<div style="text-align:right;">
-												<button class="comment-send">Post Comment</button>
+							<div class="modal-left col-md-8" style="padding: 0">
+								<img class="modal-content" id="img01"
+									style="border: 0; border-radius: 25px 0 0 25px">
+							</div>
+							<div class=" modal-right col-md-4">
+								<div id="msg-content"></div>
+								<div class="comment-container">
+									<hr>
+									<h5 class="comment-title">Add a new comment</h5>
+									<div class="comment-body">
+										<img src="" class="comment-avatar" alt="avatar">
+										<div>
+											<textarea class="comment-textarea"
+												placeholder="Type your message ..." rows="8"></textarea>
+											<div class="comment-post">
+												<div class="comment-info">Write something</div>
+												<div style="text-align: right;">
+													<button class="comment-send">Post Comment</button>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -269,6 +271,7 @@
 						</div>
 					</div>
 				</div>
+				<!-- The Modal -->
 
 
 				<%-- ============================================= --%>

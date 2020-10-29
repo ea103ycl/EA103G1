@@ -230,11 +230,8 @@
         // Get the image and insert it inside the modal - use its "alt" text as a caption
 
         $('.grid-item').on('click', function(e) {
-            $("#myModal").css('display', 'block');
-            $("#img01").attr('src', e.target.src);
-
+  
             let ptrno = e.target.id;
-            console.log('ptrno' + ptrno);
             $.ajax({
                 method: "post",
                 url: "/EA103G1/painter/TagGetPic",
@@ -249,20 +246,9 @@
             });
         });
 
-        // $('#myModal').on('click', function(e) {
-
-        //     if (e.target !== $('#modal-content')[0]) {
-        //         $('#myModal').css('display', 'none');
-        //     }
-        // });
-
         $('#myModal').on('click', function(e) {
-            let isContent = false;
-            if ($('#modal-content').has(e.target)) {
-                console.log('true');
+            var target = $(e.target);
+            if (!target.parents('.myContainer').length) {
+                $('#myModal').css('display', 'none');
             }
-
-            //         if (e.target !== $('#modal-content')[0]) {
-            //     $('#myModal').css('display', 'none');
-            // }
         });
