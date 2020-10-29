@@ -89,6 +89,10 @@ public class PreOrderService {
 		System.out.println("預購訂單Service - 進入getAll()方法");
 		return dao.getAll();
 	}
+	public List<PreOrderVO> look_discount_pono(Integer reach_number,String po_prod_no){
+		System.out.println("預購訂單Service - 進入look_discount_pono方法");
+		return dao.look_discount_pono(reach_number,po_prod_no);
+	}
 	
 	
 	

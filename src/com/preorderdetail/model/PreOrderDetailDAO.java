@@ -41,7 +41,7 @@ public class PreOrderDetailDAO implements PreOrderDetailDAO_interface{
 			"UPDATE PRE_ORDER_DETAIL set po_prod_no=?, po_qty=?, po_price=? where po_no = ?";
 		private static final String GET_DetailByPo_no_STMT = 
 				"SELECT * FROM PRE_ORDER_DETAIL where po_no = ?";
-		private static final String SUM_QTY_ByOrderAndStat_3 = "SELECT p.po_prod_no,sum(PO_QTY) FROM PRE_ORDER_DETAIL P WHERE P.PO_PROD_NO IN((SELECT PO_PROD_NO FROM PRE_ORDER  WHERE po_status = 3)) GROUP BY PO_PROD_NO";
+		private static final String SUM_QTY_ByOrderAndStat_3 = "SELECT p.po_prod_no,sum(PO_QTY) as po_qty FROM PRE_ORDER_DETAIL P WHERE P.PO_PROD_NO IN((SELECT PO_PROD_NO FROM PRE_ORDER  WHERE po_status = 3)) GROUP BY PO_PROD_NO";
 		
 		@Override
 		public void insert(PreOrderDetailVO preorderdetailVO) {
@@ -394,9 +394,9 @@ public class PreOrderDetailDAO implements PreOrderDetailDAO_interface{
 				while (rs.next()) {
 					// empVO ¤]ºÙ¬° Domain objects
 					preorderdetailVO = new PreOrderDetailVO();
-					System.out.println("test1");
+					System.out.println("test1" + rs.getString("po_prod_no"));
 					preorderdetailVO.setPo_prod_no(rs.getString("po_prod_no"));
-					System.out.println("test2");
+					System.out.println("test2"+rs.getInt("po_qty"));
 					preorderdetailVO.setPo_qty(rs.getInt("po_qty"));
 
 					System.out.println("count++");

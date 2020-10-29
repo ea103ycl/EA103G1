@@ -13,6 +13,10 @@
 	List<DiscountSettingVO> list_dis = discountSvc.getAll();
 	pageContext.setAttribute("list_dis",list_dis);
 	
+	List<PreOrderVO> preorderlist = (List<PreOrderVO>) session.getAttribute("preorderlist");
+	
+	
+	
 %>
     
 
@@ -55,11 +59,11 @@
 								<h6 class="m-0 font-weight-bold text-primary">預購商品清單</h6>
 								<div class="card-body  mw-100">
 									<div class="float-right ">
-										<a href="<%=request.getContextPath()%>/backend/preproduct/addPreProduct.jsp" id="add_bottom" class="btn btn-primary btn-lg active ml-2" role="button" aria-pressed="true">折讓金發放</a>
+<%-- 										<a href="<%=request.getContextPath()%>/backend/preproduct/addPreProduct.jsp" id="add_bottom" class="btn btn-primary btn-lg active ml-2" role="button" aria-pressed="true">折讓金發放</a> --%>
 										
-										<a href="<%=request.getContextPath()%>/backend/preproduct/addPreProduct_ByMano.jsp?EVENT_NO=${list01[0].event_no}" id="add_bottom" class="btn btn-primary btn-lg active ml-2" role="button" aria-pressed="true">新增系列商品</a>
+<%-- 										<a href="<%=request.getContextPath()%>/backend/preproduct/addPreProduct_ByMano.jsp?EVENT_NO=${list01[0].event_no}" id="add_bottom" class="btn btn-primary btn-lg active ml-2" role="button" aria-pressed="true">新增系列商品</a> --%>
 										
-										<a href="<%=request.getContextPath()%>/backend/preproduct/addDiscount.jsp" id="add_bottom" class="btn btn-primary btn-lg active ml-2" role="button" aria-pressed="true">新增折扣</a>
+<%-- 										<a href="<%=request.getContextPath()%>/backend/preproduct/addDiscount.jsp" id="add_bottom" class="btn btn-primary btn-lg active ml-2" role="button" aria-pressed="true">新增折扣</a> --%>
 									</div>
 									<div class="float-left align-bottom">
 										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/preproduct/preproduct.do" >
@@ -76,45 +80,53 @@
 									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 										<thead>
 											<tr>
+												<th>訂單編號</th>
 												<th>預購商品編號</th>
+												<th>會員編號</th>
 							                    <th>銷售量</th>
 							                    <th>折扣標準</th>
+							                    <th>折讓金</th>
 							                    <th>查詢訂單</th>                
 											</tr>                    
 										</thead>
 										<tfoot>
 						                    <tr>
-							                    <th>預購商品編號</th>
+						                    	<th>訂單編號</th>
+												<th>預購商品編號</th>
+												<th>會員編號</th>
 							                    <th>銷售量</th>
 							                    <th>折扣標準</th>
+							                    <th>折讓金</th>
 							                    <th>查詢訂單</th>          
 						                    </tr>
 										</tfoot>
 										<tbody>
 										<%@ include file="pages/page1.file" %>
-					                    <c:forEach var="preorderdetailVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+					                    <c:forEach var="preorderVO" items="${preorderlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 					                   
 											<tr>
-												<td>${preorderdetailVO.po_prod_no}</td>
-												
-												<td>${preorderdetailVO.po_qty}</td>
-												
+												<td>${preorderVO.mem_id}</td>
+												<td></td>
+												<td></td>
+												<td></td>
 												<td>
-													<c:forEach var="disVO" items="${list_dis}">
-														<c:if test="${preorderdetailVO.po_prod_no==disVO.po_prod_no}">
-															${disVO.reach_discount}%/${disVO.reach_number}人<br>
-														</c:if>
-													</c:forEach>
+<%-- 													<c:forEach var="disVO" items="${list_dis}"> --%>
+<%-- 														<c:if test="${preorderdetailVO.po_prod_no==disVO.po_prod_no}"> --%>
+<%-- 															${disVO.reach_discount}%/${disVO.reach_number}人<br> --%>
+<%-- 														</c:if> --%>
+<%-- 													</c:forEach> --%>
 												</td>
+												<td></td>
 												<td>
-													<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/preproduct/preorder.do" style="margin-bottom: 0px;">
+													<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/preproduct/preproduct.do" style="margin-bottom: 0px;">
 														<input type="submit" value="查看">
-														<input type="hidden" name="po_prod_no"  value="${preorderdetailVO.po_prod_no}">
-															<c:forEach var="disVO" items="${list_dis}">
-																<c:if test="${preorderdetailVO.po_prod_no==disVO.po_prod_no}">
-																	<input type="hidden" name="reach_number"  value="${disVO.reach_number}">
-																</c:if>
-															</c:forEach>
+														<input type="hidden" name="po_prod_no"  value="">
+<%-- 															<c:forEach var="disVO" items="${list_dis}"> --%>
+<%-- 																<c:if test="${preorderVO.po_prod_no==disVO.po_prod_no}"> --%>
+<%-- 																	<input type="hidden" name="reach_number"  value="${disVO.reach_number}"> --%>
+																	
+<%-- 																</c:if> --%>
+<%-- 															</c:forEach> --%>
 														<input type="hidden" name="action" value="look_discount_pono">
 													</FORM>
 												</td>

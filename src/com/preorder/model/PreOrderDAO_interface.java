@@ -15,4 +15,6 @@ import com.preorderdetail.model.PreOrderDetailVO;
         public List<PreOrderVO> getAll();
         public Set<PreOrderDetailVO> getDetailByOrderno(String po_no);
         public void inserWithDetail(PreOrderVO preorderVO , List<PreOrderDetailVO> list);
+        
+        public List<PreOrderVO> look_discount_pono(Integer reach_number,String po_prod_no);
 }

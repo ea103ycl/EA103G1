@@ -53,7 +53,7 @@ public class PreOrderServlet extends HttpServlet{
 				}
 				
 				/*****************查詢成功準備轉交*********************/
-				req.setAttribute("preorderdetailVO",preorderdetaillist);
+				req.setAttribute("preorderVO",preorderdetaillist);
 				req.setAttribute("po_no",po_no);
 				String url = "/frontend/preproduct/order_Detail_Page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -169,6 +169,45 @@ public class PreOrderServlet extends HttpServlet{
 			}
 			
 			
+		}
+		if("look_discount_pono".equals(action)) {
+			System.out.println("PreOrder - Servlet(look_discount_pono)被觸發!");
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				String po_prod_no = req.getParameter("po_prod_no");
+				System.out.println("取得po_prod_no = "+po_prod_no);
+				Integer reach_number = new Integer(req.getParameter("reach_number"));
+				System.out.println("取得reach_number = "+reach_number);
+				
+				/*****************開始查詢*********************/
+				
+				PreOrderService preorderSvc = new PreOrderService();
+				List<PreOrderVO> preorderlist = preorderSvc.look_discount_pono(reach_number,po_prod_no);
+				System.out.println("preorderdetailVO = "+preorderlist);
+				System.out.println("從DAO離開 回到Servlet，準備成功轉交");
+				
+				if(!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/preproduct/PonoByReachDiscount.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				/*****************查詢成功準備轉交*********************/
+				HttpSession ordersession = req.getSession();
+				ordersession.setAttribute("preorderlist",preorderlist);
+				System.out.println("ordersession = "+ordersession);
+//				req.setAttribute("preorderlist",preorderlist);
+//				req.setAttribute("po_prod_no",po_prod_no);
+//				String url = "/backend/preproduct/PonoByReachDiscount.jsp";
+				String url = "/backend/preproduct/PonoByReachDiscount.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				System.out.println("大結局");
+				successView.forward(req, res);
+				
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料，愛你唷"+e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/preproduct/quantityOfSale.jsp");
+				failureView.forward(req,res);}
 		}
 	}
 }

@@ -5,7 +5,7 @@ import java.util.List;
 public class DiscountSettingService {
 	private DiscountSettingDAO_interface dao;
 	public DiscountSettingService() {
-		dao = new DiscountSettingJDBCDAO();
+		dao = new DiscountSettingDAO();
 	}
 	
 	public DiscountSettingVO addDiscountSetting(String dis_no,String po_prod_no,Integer reach_number,Integer reach_discount) {
