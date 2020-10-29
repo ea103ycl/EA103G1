@@ -50,6 +50,7 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 		
 		private static final String GET_ALL_ByMemid_STMT = "SELECT * FROM PRE_ORDER WHERE mem_id = ? ORDER BY PO_NO";
 		
+		
 	
 	
 	@Override

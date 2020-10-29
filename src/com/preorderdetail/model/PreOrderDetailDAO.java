@@ -378,6 +378,7 @@ public class PreOrderDetailDAO implements PreOrderDetailDAO_interface{
 		}
 		@Override
 		public List<PreOrderDetailVO> getAll_OrderQty() {
+			System.out.println("預購訂單Detail的DAO - 進入getAll_OrderQty()方法");
 			List<PreOrderDetailVO> list = new ArrayList<PreOrderDetailVO>();
 			PreOrderDetailVO preorderdetailVO = null;
 			Connection con = null;
@@ -388,14 +389,17 @@ public class PreOrderDetailDAO implements PreOrderDetailDAO_interface{
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(SUM_QTY_ByOrderAndStat_3);
 				rs = pstmt.executeQuery();
+				System.out.println("執行executeQuery()方法");
 
 				while (rs.next()) {
 					// empVO 也稱為 Domain objects
 					preorderdetailVO = new PreOrderDetailVO();
+					System.out.println("test1");
 					preorderdetailVO.setPo_prod_no(rs.getString("po_prod_no"));
+					System.out.println("test2");
 					preorderdetailVO.setPo_qty(rs.getInt("po_qty"));
 
-					
+					System.out.println("count++");
 					list.add(preorderdetailVO); 
 				}
 
