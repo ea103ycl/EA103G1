@@ -141,6 +141,7 @@ public class BdPageServlet extends HttpServlet {
 				
 					if (!errorMsgs.isEmpty()) {
 						out.write(errorMsgs.get(0));
+						System.out.println("(BdPageServlet)has errorMsgs");
 						return;
 					}
 					BiddingService bdSvc = new BiddingService();

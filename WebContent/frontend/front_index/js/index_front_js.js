@@ -230,8 +230,18 @@
         // Get the image and insert it inside the modal - use its "alt" text as a caption
 
         $('.grid-item').on('click', function(e) {
-  
+            console.log('heher');
+            $("#myModal").css('display', 'block');
+            $("#img01").attr('src', e.target.src);
+
+            if ($("#img01").width() > $("#img").height()) {
+                $("#img01").addClass("horizontal");
+            } else {
+                $("#img01").addClass("vertical");
+            }
+
             let ptrno = e.target.id;
+            console.log('ptrno' + ptrno);
             $.ajax({
                 method: "post",
                 url: "/EA103G1/painter/TagGetPic",

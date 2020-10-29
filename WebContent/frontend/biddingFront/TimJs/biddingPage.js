@@ -413,7 +413,7 @@
                     var data = $('#checkoutForm').serialize();
                     $.ajax({
                         type: "post",
-                        url: "EA103G1/biddingPage/BdPageServlet",
+                        url: "/EA103G1/biddingPage/BdPageServlet",
                         data: data,
                         success: function(d) {
                             if (d === "complete") {
@@ -437,6 +437,7 @@
                                     })
                                 }, 4000);
                             } else {
+								$('#errorMsgs').html(d);
                                 console.log('failed to complete');
                             }
                             //==================sweetAlert==============
