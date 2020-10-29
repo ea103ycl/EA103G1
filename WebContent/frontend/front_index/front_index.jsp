@@ -16,18 +16,31 @@
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet">
 <!-- Vendor CSS Files -->
-<link href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/bootstrap/css/bootstrap.min.css"
+<link
+	href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/boxicons/css/boxicons.min.css"
+<link
+	href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/boxicons/css/boxicons.min.css"
 	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/venobox/venobox.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/owl.carousel/assets/owl.carousel.min.css"
+<link
+	href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/venobox/venobox.css"
 	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/aos/aos.css" rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/owl.carousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/aos/aos.css"
+	rel="stylesheet">
 <!-- Template Main CSS File -->
-<link href="<%=request.getContextPath()%>/frontend/front_index/assets/css/style.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/front_index/css/masonry.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/frontend/front_index/css/index_front_css.css" rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/frontend/front_index/assets/css/style.css"
+	rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/frontend/front_index/css/masonry.css"
+	rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/frontend/front_index/css/index_front_css.css"
+	rel="stylesheet">
 <!-- =======================================================
   * Template Name: iPortfolio - v1.4.0
   * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
@@ -43,6 +56,10 @@
 		class="com.painter_tag.model.PainterTagService" />
 	<jsp:useBean id="ptmSvc" scope="page"
 		class="com.painter_tag_map.model.PainterTagMapService" />
+	<jsp:useBean id="ptmsgSvc" scope="page"
+		class="com.painter_msg.model.PainterMsgService" />
+
+
 	<!-- ======= Mobile nav toggle button ======= -->
 	<button type="button" class="mobile-nav-toggle d-xl-none">
 		<i class="icofont-navigation-menu"></i>
@@ -51,8 +68,9 @@
 	<header id="header">
 		<div class="d-flex flex-column">
 			<div class="profile">
-				<img src="<%=request.getContextPath()%>/frontend/front_index/imgData/img (12).jpg" alt=""
-					class="img-fluid rounded-circle">
+				<img
+					src="<%=request.getContextPath()%>/frontend/front_index/imgData/img (12).jpg"
+					alt="" class="img-fluid rounded-circle">
 				<h1 class="text-light">
 					<a href="index.html">Alex Smith</a>
 				</h1>
@@ -85,6 +103,7 @@
 	</header>
 	<!-- End Header -->
 	<main id="main">
+
 		<!-- ======= Breadcrumbs ======= -->
 		<section class="breadcrumbs">
 			<div class="container">
@@ -142,13 +161,15 @@
 						</div>
 					</div>
 					<!-- ====searchBlcok================== -->
-					<div id="searchBlock" ondrop="drop(event)" ondragover="allowDrop(event)">
+					<div id="searchBlock" ondrop="drop(event)"
+						ondragover="allowDrop(event)">
 						<div id="searchBlockMid">
 							<form id="searchForm1" method="post"
-								action="<%=request.getContextPath()%>/painter/TagGetPic" name="searchForm">
+								action="<%=request.getContextPath()%>/painter/TagGetPic"
+								name="searchForm">
 								<div>
-									<input type="hidden" name="action" value="tagGetPic"> 
-									<input id="searchBar1" type="text" name="searchBar1"
+									<input type="hidden" name="action" value="tagGetPic"> <input
+										id="searchBar1" type="text" name="searchBar1"
 										placeholder="Search">
 								</div>
 							</form>
@@ -216,22 +237,58 @@
 					<div id="BigWhiteDot"></div>
 				</div>
 
+				<!-- The Modal -->
+
+				<div id="myModal" class="modal">
+					<span class="close">&times;</span>
+					<div class="row" id="modal-content">
+
+						<div class="col-md-8" style="padding:0">
+							<img class="modal-content" id="img01"
+								style="border: 0; border-radius: 25px 0 0 25px">
+						</div>
+						<div class="col-md-4">
+							<div id="msg-content"></div>
+							<div class="comment-container">
+								<hr>
+								<h5 class="comment-title">Add a new comment</h5>
+								<div class="comment-body">
+									<img src="" class="comment-avatar" alt="avatar">
+									<div>
+										<textarea class="comment-textarea"
+											placeholder="Type your message ..." rows="8"></textarea>
+										<div class="comment-post">
+											<div class="comment-info">Some HTML is OK.</div>
+											<div style="text-align:right;">
+												<button class="comment-send">Post Comment</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 
 				<%-- ============================================= --%>
 				<c:if test="${not empty errorMsgs}">
 					<br>
-					<div class="errorMsgs" id="errorMsgs"><h2>${errorMsgs}</h2></div>
+					<div class="errorMsgs" id="errorMsgs">
+						<h2>${errorMsgs}</h2>
+					</div>
 					<hr>
 				</c:if>
 				<c:choose>
 					<c:when test="${not empty ptrnoList}">
-					<div style="display:hidden" id="getPicResult"></div>
+						<div style="display: hidden" id="getPicResult"></div>
 						<div class="gridWrapper">
 							<div class="grid" id="grid">
 								<c:forEach var="ptrno" items="${ptrnoList}">
-									<div class="grid-item draggableImg" '>
-<%-- 										<img src="<%=request.getContextPath()%>/painter/ShowImage?ptr_no=${ptrno}"> --%>
-										<img draggable='true' ondrag="drag();" id='${ptrno}' src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${ptrno}">
+									<div class="grid-item draggableImg">
+										<%-- 										<img src="<%=request.getContextPath()%>/painter/ShowImage?ptr_no=${ptrno}"> --%>
+										<img draggable='true' ondragstart="drag();" id='${ptrno}'
+											src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${ptrno}">
 									</div>
 								</c:forEach>
 							</div>
@@ -243,8 +300,9 @@
 							<div class="grid" id="grid">
 								<c:forEach var="pVO" items="${pSvc.getMostLiked(1,7)}">
 									<div class="grid-item">
-<%-- 										<img src="<%=request.getContextPath()%>/painter/ShowImage?ptr_no=${pVO.ptr_no}"> --%>
-										<img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${pVO.ptr_no}">
+										<%-- 										<img src="<%=request.getContextPath()%>/painter/ShowImage?ptr_no=${pVO.ptr_no}"> --%>
+										<img draggable='true' ondragstart="drag();" id='${pVO.ptr_no}'
+											src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${pVO.ptr_no}">
 									</div>
 								</c:forEach>
 							</div>
@@ -263,24 +321,38 @@
 	<!-- End #main -->
 	<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 	<!-- Vendor JS Files -->
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/php-email-form/validate.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/counterup/counterup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/venobox/venobox.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/typed.js/typed.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/aos/aos.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/js/masonry.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/php-email-form/validate.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/counterup/counterup.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/venobox/venobox.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/typed.js/typed.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/aos/aos.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/js/masonry.js"></script>
 
 	<!-- Template Main JS File -->
-	<script src="<%=request.getContextPath()%>/frontend/front_index/assets/js/main.js"></script>
-	<script src="<%=request.getContextPath()%>/frontend/front_index/js/index_front_js.js"></script>
-	
-	
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/js/main.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/front_index/js/index_front_js.js"></script>
+
+
 </body>
 
 </html>
