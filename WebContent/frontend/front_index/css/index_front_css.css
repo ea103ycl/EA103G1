@@ -599,7 +599,7 @@
 
         /*   @media screen and (min-width: 1200px) {
 
-        	} */
+            } */
 
         /* customized scrollbar */
         ::-webkit-scrollbar {
@@ -668,6 +668,12 @@
             border: 0;
 
         }
+        #img01 .vertical {
+            max-width: 100%;
+        }
+        #img01 .horizontal {
+            max-height: 100%;
+        }
 
         #caption {
             text-align: center;
@@ -719,7 +725,9 @@
         /* !modal */
 
         /* Comment */
-
+        .myContainer {
+            margin-bottom: 10%;
+        }
 
         #msg-content {
             padding-top: 10%;
@@ -733,7 +741,7 @@
             width: 100%;
             padding: 1.5rem;
             background: white;
-            border-radius: 0.5rem;
+            border-radius: 25px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         .comment-title {
@@ -777,6 +785,7 @@
         }
 
         .msgImg img {
-            max-width: 15%;
+            max-width: 13%;
+            border-radius: 50%;
         }
         /* !comment */
