@@ -97,17 +97,12 @@
   <input type="password" class="form-control"  name="emp_pwdc" value="">
 </div>
 
-<label>&nbsp&nbsp</label><br>
+<div style = "margin-left:108px">
 <input type="hidden" name="action" value="updatePwd">
-<button class="btn btn-primary" type="submit">送出修改</button></FORM>
+<button class="btn btn-primary" type="submit">送出修改</button>
+</div>
+</FORM>	
 
-</body>	
-	
-	
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>	
 	
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>

@@ -146,7 +146,7 @@
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">員工編號<%=(String)session.getAttribute("emp_no")%></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">員工編號<%=(String)session.getAttribute("emp_no") == null? "XXX": (String)session.getAttribute("emp_no")%></span>
                                 <img class="img-profile rounded-circle" src="<%=request.getContextPath()%>/backend/emp/emp.pic?emp_no=<%=(String)session.getAttribute("emp_no")%>">
                             </a>
                            

@@ -71,7 +71,7 @@
   </span>
   </div>
 <div>
-   <select class="form-control " id="exampleFormControlSelect1"  style="width:208px" name="ma_ty_no">
+   <select class="form-control " id="exampleFormControlSelect1"  style="width:208px" name="ma_ty_no" id="ma_ty_no">
       <option value="">
      <c:forEach var="matypeVO" items="${matypeSvc.all}">
       <option value="${matypeVO.maTyNo}" >${matypeVO.maTyNam}
@@ -84,48 +84,49 @@
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">素材編號:</span>
   </div>
-  <input type="text" class="form-control"  name="ma_no" value=""  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="ma_no" id="ma_no" value=""  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
 <div class="input-group mb-3" style="max-width:300px">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">素材名稱:</span>
   </div>
-  <input type="text" class="form-control"  name="ma_name" value=""  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="ma_name" id="ma_name" value=""  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
 <div class="input-group mb-3" style="max-width:300px">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">金額上限:</span>
   </div>
-  <input type="text" class="form-control"  name="ma_price_up" value=""  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="ma_price_up" id="ma_price_up" value=""  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
 <div class="input-group mb-3" style="max-width:300px">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">金額下限:</span>
   </div>
-  <input type="text" class="form-control"  name="ma_price_down" value=""  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="ma_price_down" id="ma_price_down" value=""  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+</div>
+
+<div style = "margin-left:70px">
+<button class="btn btn-primary" type="button" id="click2">Clean</button> 
+&nbsp
+<button class="btn btn-primary" type="button" id="click1">Click Me</button> 
 </div>
 
 
-<div style = "margin-left:20px">
-<button  class="btn btn-secondary btn-icon-split mt-1 ml-3 float-left"  type="submit" name="action" value="listAllMatype">                                
+<div class="mt-2" style = "margin-left:40px" >
+<button  class="btn btn-secondary"  type="submit" name="action" value="listAllMatype">                                
 <span class="text">素材類別列表</span>                             
 </button>
-
-<button class="btn btn-primary btn-icon-split mt-1 ml-3 float-left"  type="submit" name="action" value="listMat_ByCompositeQuery" >  
+&nbsp  
+<button class="btn btn-primary"  type="submit" name="action" value="listMat_ByCompositeQuery" >  
 <span class="text">送出查詢</span>                             
 </button>  
 </div>
+
+
 </FORM>
-
-
-
-
-
-
-
 	
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
@@ -144,7 +145,21 @@
 
 	
      <script type="text/javascript">
-
+     
+     $("#click1").click(function(){
+     	  $("#ma_no").val("L0002");
+     	  $("#ma_name").val("墊");
+     	  $("#ma_price_up").val("1000");
+     	  $("#ma_price_down").val("100");     	  
+       });
+     
+     $("#click2").click(function(){
+    	  $("#ma_no").val("");
+    	  $("#ma_name").val("");
+    	  $("#ma_price_up").val("");
+    	  $("#ma_price_down").val("");     	  
+      });
+     
     </script>   
 				
 	</body>

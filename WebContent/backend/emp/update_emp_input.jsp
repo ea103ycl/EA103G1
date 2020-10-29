@@ -98,21 +98,21 @@
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">姓名:</span>
   </div>
-  <input type="text" class="form-control"  name="emp_name" value="<%=emp_Account_VO.getEmpName()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="emp_name" id="emp_name" value="<%=emp_Account_VO.getEmpName()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
 <div class="input-group mb-3" style="max-width:430px">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">職位:</span>
   </div>
-  <input type="text" class="form-control"  name="emp_pos" value="<%=emp_Account_VO.getEmpPos()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="emp_pos" id="emp_pos" value="<%=emp_Account_VO.getEmpPos()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
 <div class="input-group mb-3" style="max-width:430px">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">信箱:</span>
   </div>
-  <input type="text" class="form-control"  name="emp_mail" value="<%=emp_Account_VO.getEmpMail()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="emp_mail" id="emp_mail" value="<%=emp_Account_VO.getEmpMail()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
 	
@@ -169,22 +169,27 @@
 <input type="hidden" value="${funcVO.funcId}" class="g">
 </c:forEach>
 
-	 <div class="container">
-	  <div class="row">
-	    <div class="col text-center">
+<!-- 	 <div class="container"> -->
+<!-- 	  <div class="row"> -->
+<!-- 	    <div class="col text-center"> -->
+
+<div style = "margin-left:70px">
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="emp_no" value="<%=emp_Account_VO.getEmpNo()%>">
+<button class="btn btn-primary" type="button" onclick="selAll();">全選</button>  
+<button class="btn btn-primary" type="button" onclick="unselAll();">全取消</button>  
+<button class="btn btn-primary" type="button" id="click">Click Me</button>  
 <button class="btn btn-primary" type="submit">送出修改</button>
+
+<!-- </div> -->
+<!-- 	  </div> -->
+<!-- 	</div> -->
 </div>
-	  </div>
-	</div>
 </div>
 </div>
 
 <div class="col col-xs-12 col-sm-12 col-md-2">
 </div>
-
-
 
 </div>
 </div>
@@ -226,6 +231,33 @@
     	  }    	      	      	      	  
       }
       window.onload = init;
+      
+      
+      
+      $("#click").click(function(){
+      	  $("#emp_name").val("李嘉誠");
+      	  $("#emp_pos").val("董事長");
+      	  $("#emp_mail").val("farmer7382@gmail.com");
+        });
+      
+      
+      function selAll(){
+          var checkItem = document.getElementsByName("func_id");
+          for(var i=0;i<checkItem.length;i++){
+              checkItem[i].checked=true; 
+          }
+      }
+      
+      function unselAll(){
+          //變數checkItem為checkbox的集合
+          var checkItem = document.getElementsByName("func_id");
+          for(var i=0;i<checkItem.length;i++){
+              checkItem[i].checked=false;
+          }
+      }  
+      
+      
+      
       
   </script> 
 						

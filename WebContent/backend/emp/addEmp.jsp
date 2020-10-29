@@ -97,21 +97,21 @@
 	  <div class="input-group-prepend">
 	    <span class="input-group-text" id="inputGroup-sizing-default">姓名:</span>
 	  </div>
-	  <input type="text" class="form-control"  name="emp_name" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpName()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+	  <input type="text" class="form-control"  name="emp_name" id="emp_name" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpName()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 	 </div>
 
 	<div class="input-group mb-3" style="max-width:430px">
 	  <div class="input-group-prepend">
 	    <span class="input-group-text" id="inputGroup-sizing-default">職位:</span>
 	  </div>
-	  <input type="text" class="form-control"  name="emp_pos" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpPos()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+	  <input type="text" class="form-control"  name="emp_pos" id="emp_pos" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpPos()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 	</div>
 
 	<div class="input-group mb-3" style="max-width:430px">
 	  <div class="input-group-prepend">
 	    <span class="input-group-text" id="inputGroup-sizing-default">信箱:</span>
 	  </div>
-	  <input type="text" class="form-control"  name="emp_mail" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpMail()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+	  <input type="text" class="form-control"  name="emp_mail" id="emp_mail" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpMail()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 	</div>
 	
 	<div>
@@ -131,23 +131,30 @@
     		</tr>
   		</tbody>
 	</table>
+<div style = "margin-left:70px">
+<!-- 	 <div class="container"> -->
+<!-- 	  <div class="row"> -->
+<!-- 	    <div class="col text-center"> -->
+	      <button class="btn btn-primary" type="button" onclick="selAll();">全選</button>  
+	      <button class="btn btn-primary" type="button" onclick="unselAll();">全取消</button>  
+		  <button class="btn btn-primary" type="button" id="click">Click Me</button>        
+	      <button class="btn btn-primary" type="submit" name="action" value="insert">送出新增</button> 
 
-	 <div class="container">
-	  <div class="row">
-	    <div class="col text-center">
-	      <input type="hidden" name="action" value="insert"> 
-	      <button class="btn btn-primary" type="submit">送出新增</button>
-	    </div>
-	  </div>
-	</div>
+<!-- 	    </div> -->
+<!-- 	  </div> -->
+<!-- 	</div> -->
+</div>
+
+
 </div>
 
 
 
-
-
 </div>
 </div>
+
+
+	  
 
 </FORM>
 
@@ -158,10 +165,6 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-	
-	
-	
-	
 	
 						<%-- 資料內容 --%>
 	
@@ -233,6 +236,27 @@
         }
 
         window.onload = init;
+
+        $("#click").click(function(){
+      	  $("#emp_name").val("李嘉誠");
+      	  $("#emp_pos").val("打掃阿伯");
+      	  $("#emp_mail").val("farmer7382@gmail.com");
+        });
+             
+        function selAll(){
+            var checkItem = document.getElementsByName("func_id");
+            for(var i=0;i<checkItem.length;i++){
+                checkItem[i].checked=true; 
+            }
+        }
+        
+        function unselAll(){
+            var checkItem = document.getElementsByName("func_id");
+            for(var i=0;i<checkItem.length;i++){
+                checkItem[i].checked=false;
+            }
+        }
+                    
     </script>   
 						
 	</body>

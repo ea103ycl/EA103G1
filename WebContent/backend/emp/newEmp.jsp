@@ -3,11 +3,6 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.emp.model.*"%>
 
-<%-- <%-- <% --%> --%>
-<!-- // String no1 = (String)session.getAttribute("emp_no1"); -->
-<!-- // String pwd1 = (String)session.getAttribute("emp_pwd1"); -->
-<%-- <%-- %> --%> --%>
-
 <!DOCTYPE html>
 <html>
 	
@@ -91,11 +86,11 @@
   <input type="password" class="form-control"  name="emp_pwdc" value="">
 </div>
 
-<label>&nbsp&nbsp</label><br>
+<div style = "margin-left:108px">
 <input type="hidden" name="action" value="newEmp">
-<button class="btn btn-primary" type="submit">送出修改</button></FORM>
-
-
+<button class="btn btn-primary" type="submit">送出修改</button>
+</div>
+</FORM>
 	
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>

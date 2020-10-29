@@ -124,33 +124,37 @@
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">新增素材種類:</span>
   </div>
-  <input type="text" class="form-control"  name="ma_ty_nam" value="<%= (material_Type_VO==null)? "" : material_Type_VO.getMaTyNam()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="ma_ty_nam" id="ma_ty_nam" value="<%= (material_Type_VO==null)? "" : material_Type_VO.getMaTyNam()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
 <div class="input-group mb-3" style="max-width:430px">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">素材名稱:</span>
   </div>
-  <input type="text" class="form-control"  name="ma_name" value="<%= (material_Data_VO==null)? "" : material_Data_VO.getMaName()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="ma_name" id="ma_name" value="<%= (material_Data_VO==null)? "" : material_Data_VO.getMaName()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
 <div class="input-group mb-3" style="max-width:430px">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">素材金額:</span>
   </div>
-  <input type="text" class="form-control"  name="ma_price" value="<%= (material_Data_VO==null)? "" : material_Data_VO.getMaPrice()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+  <input type="text" class="form-control"  name="ma_price" id="ma_price" value="<%= (material_Data_VO==null)? "" : material_Data_VO.getMaPrice()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
-<br>
+<div style = "margin-left:135px">
+<button class="btn btn-primary" type="button" id="click2">Clean</button> 
+&nbsp
+<button class="btn btn-primary" type="button" id="click1">Click Me</button> 
+</div>
 
-<div style = "margin-left:90px">
+<div class="mt-2" style = "margin-left:88px">
 <!-- 	 <div class="container"> -->
 <!-- 	  <div class="row"> -->
 <!-- 	    <div class="col text-center"> -->
 <button  class="btn btn-secondary"  type="submit" name="action" value="insertMatype">                                 
 <span class="text">單獨新增素材種類</span>                             
 </button>
-&nbsp&nbsp
+&nbsp
 <button class="btn btn-primary"  type="submit" name="action" value="insert" >  
 <span class="text">送出新增</span>                             
 </button>    
@@ -165,9 +169,6 @@
 </div>
                          
 </FORM>
-
-
-
 
 
 
@@ -245,6 +246,21 @@
         }
 
         window.onload = init;
+        
+        $("#click1").click(function(){
+       	  $("#ma_ty_nam").val("廚房用品");
+       	  $("#ma_name").val("平底鍋");
+       	  $("#ma_price").val("9999");   	  
+         });
+       
+       $("#click2").click(function(){
+      	  $("#ma_ty_nam").val("");
+      	  $("#ma_name").val("");
+      	  $("#ma_price").val("");
+	  
+        });
+                      
+        
     </script>    
 				
 	</body>

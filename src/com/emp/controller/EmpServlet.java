@@ -91,7 +91,6 @@ public class EmpServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.removeAttribute("emp_no");
 			session.removeAttribute("funcList");
-			session.setAttribute("emp_no", "XXX");
 			RequestDispatcher failureView = req.getRequestDispatcher("/backend/emp/login.jsp");
 			failureView.forward(req, res);
 		}
