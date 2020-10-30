@@ -50,7 +50,7 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 		
 		private static final String GET_ALL_ByMemid_STMT = "SELECT * FROM PRE_ORDER WHERE mem_id = ? ORDER BY PO_NO";
 		
-		private static final String GET_ALL_PonoByReachDiscount = "SELECT * FROM PRE_ORDER t1 left join pre_order_detail t2 on t1.po_no = t2.po_no where t2.po_no = (select t2.po_no from pre_order_detail where (po_prod_no = (select po_prod_no from(SELECT p.po_prod_no,sum(PO_QTY) as po_qty FROM PRE_ORDER_DETAIL P WHERE P.PO_PROD_NO IN(SELECT PO_PROD_NO FROM PRE_ORDER WHERE po_status = 3)GROUP BY p.po_prod_no) where po_qty>= ? and po_prod_no = ?)) and rownum<2)";
+		private static final String GET_ALL_PonoByReachDiscount = "SELECT * FROM PRE_ORDER t1 left join pre_order_detail t2 on t1.po_no = t2.po_no where t2.po_no = (select po_no from pre_order_detail where (po_prod_no = (select po_prod_no from(SELECT p.po_prod_no,sum(PO_QTY) as po_qty FROM PRE_ORDER_DETAIL P WHERE P.PO_PROD_NO IN(SELECT PO_PROD_NO FROM PRE_ORDER WHERE po_status = 3)GROUP BY p.po_prod_no) where po_qty>= ? and po_prod_no = ?)) and rownum<2) and po_prod_no =?";
 		
 	
 	
@@ -545,6 +545,8 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 			pstmt.setInt(1, reach_number);
 			System.out.println("set第一個問號 = "+reach_number);
 			pstmt.setString(2, po_prod_no);
+			System.out.println("set第二個問號 = "+po_prod_no);
+			pstmt.setString(3, po_prod_no);
 			System.out.println("set第二個問號 = "+po_prod_no);
 			rs = pstmt.executeQuery();
 			

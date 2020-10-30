@@ -85,6 +85,7 @@ public class ShoppingServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
+				
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String po_no = null;
 				

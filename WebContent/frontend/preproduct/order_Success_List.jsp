@@ -238,7 +238,7 @@
                     <button type="button" class="btn btn-lg btn-primary" role="button"><div id="count_hour">0</div><span>Hours</span></button>
                     <button type="button" class="btn btn-lg btn-primary" role="button"><div id="count_minute">0</div><span>Mins</span></button>
                     <button type="button" class="btn btn-lg btn-primary" role="button"><div id="count_second">0</div><span>Secs</span></button>
-                    <div id="disappear">${list_for_countdown[0].getPo_end()}</div>
+                    <div id="disappear">${list_for_countdown[5].getPo_end()}</div>
                   </div>
                 </div>
                 </div><!-- / banner-info -->
@@ -259,7 +259,7 @@
 					        <span><strong>
 					        <c:if
 						        test="${not empty sessionScope.memVO.m_accno}">
-						        會員帳號:${sessionScope.memVO.m_accno}
+						        會員帳號:${sessionScope.memVO.m_accno}<br>
 						        錢包餘額:${sessionScope.memVO.balance}
 					      	</c:if></strong></span>
 					      	<c:if test="${not empty errorMsgs}">
@@ -272,7 +272,7 @@
 					        </c:if>
 					        <hr>
 				        </div>
-                        <h4>我的預購訂單 <span class="pull-right"><a href="#x" class="btn btn-sm btn-primary btn-rounded no-margin"><i class="lnr lnr-pencil"></i><span>Edit</span></a></span></h4>
+                        <h4>我的預購訂單 <span class="pull-right"><a href="<%=request.getContextPath()%>/frontend/preproduct/frontindex.jsp" class="btn btn-sm btn-primary btn-rounded no-margin"><i class="lnr lnr-pencil"></i><span>繼續購物</span></a></span></h4>
                          <c:forEach var="preorderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                          <div class="row justify-content-around">
                         <div class="col-md-4">
@@ -306,7 +306,7 @@
                         <input type="submit" class="btn btn-sm btn-primary btn-rounded no-margin" value="取消訂單">
                         <input type="hidden" name="po_no"  value="${preorderVO.po_no}">
                         <input type="hidden" name="po_total"  value="${preorderVO.po_total}">
-                        <input type="hidden" name="formhash"  value="<%=formhash %>">
+                        <input id="addcartbtn" type="text" name="formhash"  value="<%=formhash %>">
                         <input type="hidden" name="action" value="cancel_order">
                         </FORM>
                         <div class="account-info-footer"></div>

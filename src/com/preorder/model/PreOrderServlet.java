@@ -117,9 +117,11 @@ public class PreOrderServlet extends HttpServlet{
 				System.out.println("拿到session里面的集合 = "+formhashSession);
 				
 				if(formhashSession == null || !formhashSession.contains(formhash)) {
-					errorMsgs.add("重複提交囉!");
 					formhashSession.remove(formhash);
 					session.setAttribute("formhashSession", formhashSession);
+					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/preproduct/order_Success_List.jsp");
+					failureView.forward(req, res);
+					return;
 				}else {
 					System.out.println("一切正常");
 				}
@@ -209,7 +211,8 @@ public class PreOrderServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料，愛你唷"+e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/preproduct/quantityOfSale.jsp");
-				failureView.forward(req,res);}
+				failureView.forward(req,res);
+			}
 		}
 		if ("update_status".equals(action)) { // 來自getOne_For_Update之後的請求
 			System.out.println("-----Servlet觸發update_status-----");
