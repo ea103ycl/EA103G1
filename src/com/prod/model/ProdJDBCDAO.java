@@ -633,6 +633,12 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 			return null;
 		}
 
+		@Override
+		public List<ProdVO> getRelatedProd(Integer ptr_no) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 		
 
 		

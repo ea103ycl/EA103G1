@@ -33,6 +33,19 @@
 					<div class="container-fluid">				
 						<!--============================自定義內容start ================================================== -->
 						
+						<%-- 頁面標題 --%>
+						
+						
+						<%-- 錯誤表列 --%>
+						<c:if test="${not empty errorMsgs}">
+							<ul>
+								<c:forEach var="message" items="${errorMsgs}">
+									<li style="color: red">${message}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
+	
+						<%-- 資料內容 --%>
 	
 	
 
@@ -40,7 +53,7 @@
 					
 					
 					
-					<%@include file="/backend/prod/addProd123.jsp"%>
+					<%@include file="/backend/prod/master/addProd_in.jsp"%>
 					
 					
 				    </div> <!--END OF content-->

@@ -34,10 +34,11 @@
 						<!--============================自定義內容start ================================================== -->
 						
 						<%-- 頁面標題 --%>
-						
+						<h1 class="h3 mb-2 text-gray-800"  >訂單管理</h1>
 						
 						<%-- 錯誤表列 --%>
 						<c:if test="${not empty errorMsgs}">
+							
 							<ul>
 								<c:forEach var="message" items="${errorMsgs}">
 									<li style="color: red">${message}</li>
@@ -53,7 +54,7 @@
 					
 					
 					
-					<%@include file="/backend/prod/master/update_prod_input_in.jsp"%>
+					<%@include file="/backend/prod/master/OrderbyStatus_in.jsp"%>
 					
 					
 				    </div> <!--END OF content-->

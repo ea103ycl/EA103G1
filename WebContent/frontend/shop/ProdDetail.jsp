@@ -2,11 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*,java.io.*"%>
 <%@ page import="com.prod.model.*"%>
+<%@ page import="com.eval.model.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
 ProdVO prodVO = (ProdVO) request.getAttribute("prodVO"); 
 %>
 
+<%	
+EvalService evalSvc = new EvalService();
+List<EvalVO> list_eval = evalSvc.getAllByProd_no(prodVO.getProd_no());
+pageContext.setAttribute("list_eval", list_eval);
+
+
+%>
 
 
 <!DOCTYPE html>
@@ -59,79 +68,9 @@ ProdVO prodVO = (ProdVO) request.getAttribute("prodVO");
 <!-- header -->
 <header>
 
-      <!-------------------------------------- nav ------------------------------------------>
-<%
-              Integer or_total=0; 
-              Integer count = 0;
-			
-                Vector<ProdVO> buylist = (Vector<ProdVO>) session.getAttribute("shoppingcart");
-                if (buylist != null && (buylist.size() > 0)) {
-				for (int index = 0; index < buylist.size(); index++) {
-				count = (index+1);
-				                     }
-	                                 }
-%>
-
-        <nav class="navbar navbar-default nav-sec navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
-                </div><!-- / navbar-header -->
-                <div class="secondary-nav">
-                    <a href="login-register.html" class="my-account space-right"><i class="fa fa-user"></i></a>
-                    <a href="Cart.jsp" class="shopping-cart"><i class="fa fa-shopping-cart"></i> <span class="cart-badge"><%=count%></span></a>
-                </div>
-                <div class="navbar-collapse collapse text-center">
-                    <ul class="nav navbar-nav">
-                        <li><a href="EShop.jsp"><span>HOME</span></a></li>
-                        <li><a href="about.html"><span>ABOUT</span></a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>BLOG</span> <span class="dropdown-icon"></span></a>
-                            <ul class="dropdown-menu animated zoomIn fast">
-                                <li><a href="blog.html"><span>BLOG FULLWIDTH</span></a></li>
-                                <li><a href="blog-masonry.html"><span>BLOG MASONRY</span></a></li>
-                                <li><a href="blog-sidebar.html"><span>BLOG SIDEBAR</span></a></li>
-                                <li><a href="single-post-full.html"><span>POST FULLWIDTH</span></a></li>
-                                <li><a href="single-post.html"><span>POST SIDEBAR</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>SHOP</span> <span class="dropdown-icon"></span></a>
-                            <ul class="dropdown-menu animated zoomIn fast">
-                                <li class="active"><a href="ESop.jsp"><span>FULL WIDTH</span></a></li>
-                                <li><a href="shop-right.html"><span>RIGHT SIDEBAR</span></a></li>
-                                <li><a href="shop-left.html"><span>LEFT SIDEBAR</span></a></li>
-                                <li><a href="shop-masonry.html"><span>MASONRY</span></a></li>
-                                <li><a href="single-product.html"><span>SINGLE PRODUCT</span></a></li>
-                                <li><a href="single-product2.html"><span>SINGLE PRODUCT 2</span></a></li>
-                                <li><a href="single-product3.html"><span>SINGLE PRODUCT 3</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>PAGES</span> <span class="dropdown-icon"></span></a>
-                            <ul class="dropdown-menu animated zoomIn fast">
-                                <li><a href="faq.html"><span>FAQ</span></a></li>
-                                <li><a href="Cart.jsp"><span>SHOPPING CART</span></a></li>
-                                <li><a href="login-register.html"><span>LOGIN / REGISTER</span></a></li>
-                                <li><a href="my-account.html"><span>MY ACCOUNT</span></a></li>
-                                <li><a href="checkout.html"><span>CHECKOUT</span></a></li>
-                                <li><a href="404.html"><span>404 PAGE</span></a></li>
-                                <li><a href="components.html"><span>COMPONENTS</span></a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html"><span>CONTACT</span></a></li>
-                    </ul>
-                </div>
-                <!--/ nav-collapse -->
-            </div><!-- / container -->
-        </nav>
-        <!------------------------------------ / nav -------------------------------------------->
+<!-------------------------------------- nav ------------------------------------------>
+        <%@include file="/frontend/bar/frontBarTop.jsp"%>
+<!-------------------------------------- /nav ------------------------------------------>   
         
 
     <!-- header-banner -->
@@ -139,8 +78,8 @@ ProdVO prodVO = (ProdVO) request.getAttribute("prodVO");
         <div class="banner-content single-page text-center">
             <div class="banner-border">
                 <div class="banner-info">
-                    <h1>Single Product</h1>
-                    <p>Fashion Product</p>
+                    <h1>ArtsBlock Shop</h1>
+                        <p>Welcome to you</p>
                 </div><!-- / banner-info -->
             </div><!-- / banner-border -->
         </div><!-- / banner-content -->
@@ -185,122 +124,82 @@ ProdVO prodVO = (ProdVO) request.getAttribute("prodVO");
                     </div><!-- / product-slider -->
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#description" role="tab" data-toggle="tab" aria-expanded="true">DESCRIPTION</a></li>
-                        <li class=""><a href="#info" role="tab" data-toggle="tab" aria-expanded="false">PRODUCT INFO</a></li>
-                        <li class=""><a href="#reviews" role="tab" data-toggle="tab" aria-expanded="false">REVIEWS (2)</a></li>
+                        <li class="active"><a href="#description" role="tab" data-toggle="tab" aria-expanded="true">商品描述</a></li>
+                        
+                        <li class=""><a href="#reviews" role="tab" data-toggle="tab" aria-expanded="false">商品評價</a></li>
                     </ul>
                     <!-- / nav-tabs -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane animated fadeIn active" id="description">
-                            <p>Cras mattis odio non dolor elementum, at imperdiet nisi semper. Cras maximus placerat luctus. Praesent blandit sodales mi, sed viverra dolor venenatis sit amet. Nam non mauris odio. Vestibulum id urna eget nibh molestie tempus sit amet id lectus.</p>
-                            <p>Aenean ut suscipit purus, ut facilisis erat. Integer at nulla sit amet augue consequat pulvinar. Pellentesque habitant morbi tristique senectus et netus et malesuada fames.</p>
+                            <p></p>
+                            <p>${prodVO.prod_detail}</p>
                         </div>
                         <!-- / description-tab -->
 
-                        <div role="tabpanel" class="tab-pane animated fadeIn" id="info">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <th>Sizes:</th>
-                                                <td>Small, Medium, Large</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Colors:</th>
-                                                <td>Beige, Black, Blue</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Fabric:</th>
-                                                <td>100% Cotton</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <th>Weight:</th>
-                                                <td>0.5 Kg</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Made In:</th>
-                                                <td>USA</td>
-                                            </tr>
-                                            <tr>
-                                                <th>More Info:</th>
-                                                <td>Lorem ipsum.</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div><!-- / row -->
-                        </div>
-                        <!-- / info-tab -->
-
+                        
+                       
+                      <!---------------------------  reviews-tab ----------換---------------------------------->
                         <div role="tabpanel" class="tab-pane animated fadeIn" id="reviews">
                             <div class="reviews">
+                            
+                            
+<!--                             / description-tab -->
+                        
+                   
+                    <c:if test="${list_eval.size()==0}">
+                                        <font size="5px" color="deeppink">還沒有人評價此商品唷^^"</font>
+                      </c:if>
+                       <c:forEach var="evalVO" items="${list_eval}" >
+                       
+                      
+
+                            
                                 <div class="review-author pull-left">
                                   <img src="images/author1.jpg" alt="">
                                 </div>
-                                <div class="review-content">
-                                    <h4 class="review-title no-margin">Amazing product!</h4>
+                         <!---------------------------------------------------------------------  review-content --------------------------------------------------------->
+                                <div class="review-content" style="margin: 0 0 20px 0;">
+                                    
                                     <div class="review-stars">
+                                    
                                         <span class="product-rating">
+                                        <c:if test="${evalVO.eval_rang==1}">
+                                         <i class="fa fa-star"></i>
+                                         </c:if>
+                                        <c:if test="${evalVO.eval_rang==2}">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                         </c:if>
+                                          <c:if test="${evalVO.eval_rang==3}">       
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                        </c:if>
+                                        <c:if test="${evalVO.eval_rang==4}"> 
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                        </c:if>
+                                        <c:if test="${evalVO.eval_rang==5}"> 
                                             <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                       </c:if>
                                         </span>
-                                    </div><!-- / review-stars -->
-                                    <p>Duis luctus, neque ac ultricies bibendum, risus velit gravida velit, vestibulum laoreet orci magna vel ipsum.</p>
-                                    <cite> - Johana Doe</cite>
-                                </div><!-- / review-content -->
-
-                                <div class="space-25">&nbsp;</div>
-
-                                <div class="review-author pull-left">
-                                  <img src="images/author2.jpg" alt="">
+                                    </div>
+                                    <h6 class="review-title no-margin">${evalVO.eval_review}</h6>
+                                    <cite> ${evalVO.mem_id} 評價於:</cite>
+                                    <cite><fmt:formatDate value="${evalVO.eval_time}" pattern="yyyy-MM-dd HH:mm:ss"/></cite>
                                 </div>
-                                <div class="review-content">
-                                    <h4 class="review-title no-margin">Very good product!</h4>
-                                    <div class="review-stars">
-                                        <span class="product-rating">
-                                            <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i>
-                                        </span>
-                                    </div><!-- / review-stars -->
-                                    <p>Morbi sodales ornare ex, at consectetur ipsum faucibus at. Ut facilisis orci metus, vitae hendrerit leo vulputate sit amet.</p>
-                                    <cite> - Jane Doe</cite>
-                                </div><!-- / review-content -->
+                          
+                                
+                                </c:forEach>
+                          <!-------------------------------------------------------- / review-content -------------------------------------------------------------->
+                               
+                                
+                          <!----------------------------------  review-content -------------------------------------------->
+                                
+                             <!----------------------------- / review-content ---------------------------------------------->
 
-                                <!-- add review -->
-                                <div id="add-review" class="space-top-30">
-                                    <h4 class="">LEAVE A REVIEW</h4>
-                                    <div class="row">
-                                        <div class="col-sm-4 review-form">
-                                            <input type="text" class="form-control" placeholder="*NAME" required>
-                                        </div>
-                                        <div class="col-sm-4 review-form">
-                                            <input type="email" class="form-control" placeholder="*EMAIL" required>
-                                        </div>
-                                        <div class="col-sm-4 review-form">
-                                            <select class="form-control">
-                                                <option>5 STARS</option>
-                                                <option>4 STARS</option>
-                                                <option>3 STARS</option>
-                                                <option>2 STARS</option>
-                                                <option>1 STAR</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-12 review-form">
-                                            <textarea rows="7" class="form-control" placeholder="*REVIEW" required></textarea>
-                                            <button type="submit" class="btn btn-submit btn-primary-filled btn-rounded">Submit Review</button>
-                                        </div>
-                                    </div><!-- / row -->
-                                </div>
-                                <!-- / add review -->
+                              <!----------------------------------- add review --------------------------------------------->
+                                
+                             <!-------------------------------------- / add review ----------------------------------------->
                             </div><!-- / reviews -->
                         </div>
-                        <!-- / reviews-tab -->
+                        <!--------------------------- / reviews-tab -------------------------------------------->
                     </div>
                     <!-- / tab-content -->
                 </div><!-- / product-content-area -->
@@ -313,17 +212,66 @@ ProdVO prodVO = (ProdVO) request.getAttribute("prodVO");
             <div class="col-sm-6 col-md-5 product-sidebar">
                 <div class="product-sidebar-details">
                     <h4>${prodVO.prod_name}</h4>
-                    <p>Praesent sed arcu id dui viverra dapibus et sed est. Mauris vel felis vitae massa suscipit pretium non vel ipsum. Mauris et lacus lacinia, tincidunt elit vel, aliquam sapien. Nam quis pharetra nisi.</p>
+                    
                     <div class="product-info">
                         <div class="info">
                             <p><i class="lnr lnr-tag"></i><span>$ ${prodVO.prod_price}</span></p>
                         </div>
                         
+                        
                         <div class="info">
-                            <p><i class="lnr lnr-menu"></i><span>${prodVO.prod_detail}</span></p>
-                        </div>
-                        <div class="info">
-                            <p><i class="lnr lnr-star"></i><span>Reviews: <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-o"></i></span></p>
+                            <p><i class="lnr lnr-star"></i>
+                            <span>商品評價
+                            
+                            <%  if (list_eval.size()==0){ %>
+                            <font size="1px" color="deeppink">還沒有人評價過此商品</font>
+                             <% } %>
+                             
+                             
+                             <%if (list_eval.size()!=0){
+                            	 
+                            	 Integer star_total = 0; 
+                                 for(EvalVO evalVO2 : list_eval) {
+                                 star_total +=  evalVO2.getEval_rang(); 
+                                }
+                                Integer star_value = star_total / list_eval.size(); 
+                            	%> 
+                      
+                             
+                            <%  if ( star_value >0 && star_value <=0.5){ %> 
+                            <i class="fa fa-star-half-o"></i>
+                            <% } %>
+                            <%  if (star_value>0.5 && star_value<=1){ %>
+                             <i class="fa fa-star"></i>
+                            <% } %>
+                            <%  if (star_value >1 && star_value <=1.5){ %>
+                             <i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+                            <% } %>
+                            <%  if (star_value >1.5 && star_value<=2){ %>
+                            <i class="fa fa-star"></i><i class="fa fa-star"></i>
+                            <% } %>
+                            <%  if (star_value >2 && star_value <=2.5){ %>
+                             <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+                            <% } %>
+                            <%  if (star_value >2.5 && star_value<=3){ %>
+                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                            <% } %>
+                            <%  if (star_value >3 && star_value <=3.5){ %>
+                             <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+                            <% } %>
+                            <%  if (star_value >3.5 && star_value<=4){ %>
+                             <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                            <% } %>
+                            <%  if (star_value >4 && star_value <=4.5){ %>
+                              <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+                            <% } %>
+                             <%  if (star_value >4.5 && star_value <=5){ %>
+                              <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                            <% } %>
+                            <% } %>
+                            </span>
+                            
+                            </p>
                         </div>
                     </div><!-- / product-info -->
 
@@ -331,18 +279,17 @@ ProdVO prodVO = (ProdVO) request.getAttribute("prodVO");
                     
  <div>                  
 <form  action="<%=request.getContextPath()%>/frontend/shop/shopping" method="POST" enctype="multipart/form-data"> 
-        <select  name="ma_no" onchange="submit();">
-        <option value="">看看其他素材</option>
-        <option value="L0001">馬克杯</option>
-        <option value="L0002">手機殼</option>
-        <option value="L0003">杯墊</option>
-        <option value="L0004">帆布袋</option>
-        <option value="L0005">抱枕</option>
-        <option value="L0006">服飾</option>
+ <jsp:useBean id="prodSvc2" scope="page" class="com.prod.model.ProdService"  />
+<b>看看其他素材:</b>
+<select  name="ma_no" style="width:100px;font-size:15px; "onchange="submit();" >
+<option value="">選擇素材</option>  
+   <c:forEach var="prodVO2" items="${prodSvc2.allma}"> 
+   <option value="${prodVO2.ma_no}"> ${prodVO2.ma_name}</option>
+   </c:forEach>
+   </select>
         <input type="hidden" name="prod_no" value="${prodVO.prod_no}">
         <input type="hidden" name="ptr_no" value="${prodVO.ptr_no}">
         <input type="hidden" name="action" value="Other_Ma_Search">
-        </select>
 </form>	
 </div>                  
                     
@@ -350,7 +297,8 @@ ProdVO prodVO = (ProdVO) request.getAttribute("prodVO");
         
         <div class="buy-product">
         <div class="options">
-        <input name="prod_qty" type="number" step="1" min="0"  value="1" title="Qty" class="input-text qty text" size="4">    
+        <b>選擇要買的數量:</b>
+        <input name="prod_qty" type="number" step="1" min="0"  value="1" title="Qty" class="input-text qty text" size="1">    
          </div>
 		 <!-- / options -->
 		
@@ -365,7 +313,7 @@ ProdVO prodVO = (ProdVO) request.getAttribute("prodVO");
       <input type="hidden" name="prod_name" value="${prodVO.prod_name}">
       <input type="hidden" name="prod_price" value="${prodVO.prod_price}">
       <input type="hidden" name="action" value="ADD">	
-       <button type="submit" name="Submit" value="放入購物車" class="btn btn-primary-filled btn-rounded"><i class="lnr lnr-cart"></i><span> Add to Cart</span>>
+       <button type="submit" name="Submit" value="放入購物車" class="btn btn-primary-filled btn-rounded"><i class="lnr lnr-cart"></i><span> 加入購物車</span>>
         </div>
        </form>
        
@@ -387,91 +335,65 @@ ProdVO prodVO = (ProdVO) request.getAttribute("prodVO");
         </div><!-- / row -->
 <!-------------------------------------- / 相關作品????? --------------------------------->
         <div id="related-products">
-            <h4 class="space-top-30 space-bottom-30 space-left">RELATED PRODUCTS</h4>
+            <h4 class="space-top-30 space-bottom-30 space-left">你可能也感興趣的商品</h4>
             <ul class="row shop list-unstyled" id="grid">
-                <!-- product -->
+                
+<!----------------------------------------------- Related-product ------------------------------------------>
+<%	
+ProdService prodSvc3 = new ProdService();
+List<ProdVO> list3 = prodSvc3.getRelatedProd(prodVO.getPtr_no());
+pageContext.setAttribute("list_RelatedProd", list3);
+%>
+                <c:forEach var="prodVO3" items="${list_RelatedProd}" >
                 <li class="col-xs-6 col-md-4 product m-product" data-groups='["mens"]'>
                     <div class="img-bg-color primary">
-                        <h5 class="product-price">$49</h5>
+                        <h5 class="product-price">${prodVO3.prod_price}</h5>
                         <a href="single-product.html" class="product-link"></a>
                         <!-- / product-link -->
-                        <img src="images/m-product.jpg" alt="">
+                        <img src="<%=request.getContextPath()%>/frontend/shop/prod.pic?action=getpic&prod_no=${prodVO3.prod_no}" width="200" height="300"  name="prod_pic">
                         <!-- / product-image -->
-
                         <!-- product-hover-tools -->
-                        <div class="product-hover-tools">
-                            <a href="single-product.html" class="view-btn" data-toggle="tooltip" title="View Product">
-                                <i class="lnr lnr-eye"></i>
-                            </a>
-                            <a href="shopping-cart.html" class="cart-btn" data-toggle="tooltip" title="Add to Cart">
-                                <i class="lnr lnr-cart"></i>
-                            </a>
-                        </div><!-- / product-hover-tools -->
+<div class="product-hover-tools">
+                        
+                        
 
+ <div class="product-hover-tools">                     
+<form  action="<%=request.getContextPath()%>/frontend/shop/shopping" method="POST" enctype="multipart/form-data">
+  <input type="hidden" name="prod_no" value="${prodVO3.prod_no}">
+   <input type="hidden" name="action" value="getOne_For_Detail">		
+    <button type="submit" name="Submit" value="商品詳情"   class="view-btn" data-toggle="tooltip" title="View Product">
+    <i class="lnr lnr-eye"></i>
+    </button>   
+</form>
+
+
+
+<form name="shoppingForm" action="<%=request.getContextPath()%>/frontend/shop/cart" method="POST" enctype="multipart/form-data">
+       <input type="hidden" name="prod_no" value="${prodVO3.prod_no}">
+      <input type="hidden" name="prod_name" value="${prodVO3.prod_name}">
+      <input type="hidden" name="prod_price" value="${prodVO3.prod_price}">
+       <input type="hidden" name="prod_qty" value= 1 >
+      <input type="hidden" name="action" value="ADD">	
+        <button type="submit" name="Submit" value="放入購物車"   class="cart-btn" data-toggle="tooltip" title="Add to Cart">
+        <i class="lnr lnr-cart"></i>
+        </button>   
+</form>
+ </div>
+                                                                   
+                            
+</div>
+<!------------------------------------------- / product-hover-tools ----------------------------------------->
                         <!-- product-details -->
                         <div class="product-details">
-                            <h5 class="product-title">PRODUCT TITLE</h5>
-                            <p class="product-category">CATEGORY</p>
+                            <h5 class="product-title">${prodVO3.prod_name}</h5>
+                            <p class="product-category"></p>
                         </div><!-- / product-details -->
                     </div><!-- / img-bg-color -->
                 </li>
-                <!-- / product -->
+</c:forEach>
+                <!---------------------------------------------- /Related-product ----------------------------------->
 
-                <!-- product -->
-                <li class="col-xs-6 col-md-4 product m-product" data-groups='["womens", "accessories"]'>
-                    <div class="img-bg-color primary">
-                        <h5 class="product-price"><del>$159</del> $79</h5>
-                        <a href="single-product.html" class="product-link"></a>
-                        <!-- / product-link -->
-                        <img src="images/m-product.jpg" alt="">
-                        <!-- / product-image -->
-
-                        <!-- product-hover-tools -->
-                        <div class="product-hover-tools">
-                            <a href="single-product.html" class="view-btn" data-toggle="tooltip" title="View Product">
-                                <i class="lnr lnr-eye"></i>
-                            </a>
-                            <a href="shopping-cart.html" class="cart-btn" data-toggle="tooltip" title="Add to Cart">
-                                <i class="lnr lnr-cart"></i>
-                            </a>
-                        </div><!-- / product-hover-tools -->
-
-                        <!-- product-details -->
-                        <div class="product-details">
-                            <h5 class="product-title">PRODUCT TITLE</h5>
-                            <p class="product-category">CATEGORY</p>
-                        </div><!-- / product-details -->
-                    </div><!-- / img-bg-color -->
-                </li>
-                <!-- / product -->
-
-                <!-- product -->
-                <li class="col-xs-6 col-md-4 product m-product" data-groups='["mens"]'>
-                    <div class="img-bg-color primary">
-                        <h5 class="product-price">$39</h5>
-                        <a href="single-product.html" class="product-link"></a>
-                        <!-- / product-link -->
-                        <img src="images/m-product.jpg" alt="">
-                        <!-- / product-image -->
-
-                        <!-- product-hover-tools -->
-                        <div class="product-hover-tools">
-                            <a href="single-product.html" class="view-btn" data-toggle="tooltip" title="View Product">
-                                <i class="lnr lnr-eye"></i>
-                            </a>
-                            <a href="shopping-cart.html" class="cart-btn" data-toggle="tooltip" title="Add to Cart">
-                                <i class="lnr lnr-cart"></i>
-                            </a>
-                        </div><!-- / product-hover-tools -->
-
-                        <!-- product-details -->
-                        <div class="product-details">
-                            <h5 class="product-title">PRODUCT TITLE</h5>
-                            <p class="product-category">CATEGORY</p>
-                        </div><!-- / product-details -->
-                    </div><!-- / img-bg-color -->
-                </li>
-                <!-- / product -->
+                
 
             </ul><!-- / row -->
         </div><!-- / related-products -->
@@ -486,110 +408,9 @@ ProdVO prodVO = (ProdVO) request.getAttribute("prodVO");
 <a href="#top" class="scroll-to-top page-scroll is-hidden" data-nav-status="toggle"><i class="fa fa-angle-up"></i></a>
 <!-- / scroll to top -->
 
-<!-- footer -->
-<footer class="light-footer">
-    <div class="widget-area">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-4 widget">
-                    <div class="about-widget">
-                        <div class="widget-title-image">
-                            <img src="images/logo2.png" alt="">
-                        </div>
-                        <p>Vivamus consequat lacus quam, nec egestas quam egestas sit amet. Suspendisse et risus gravida tellus aliquam ullamcorper. Pellentesque elit dolor, ornare ut lorem nec, convallis nibh accumsan lacus morbi leo lipsum.</p>
-                    </div><!-- / about-widget -->
-                </div><!-- / widget -->
-                <!-- / first widget -->
-
-                <div class="col-md-2 widget">
-                    <div class="widget-title">
-                        <h4>BRANDS</h4>
-                    </div>
-                    <div class="link-widget">
-                        <div class="info">
-                            <a href="#x">Brand 1</a>
-                        </div>
-                        <div class="info">
-                            <a href="#x">Brand 2</a>
-                        </div>
-                        <div class="info">
-                            <a href="#x">Brand 3</a>
-                        </div>
-                        <div class="info">
-                            <a href="#x">Brand 4</a>
-                        </div>
-                    </div>
-                </div><!-- / widget -->
-                <!-- / second widget -->
-
-                <div class="col-md-2 widget">
-                    <div class="widget-title">
-                        <h4>SUPPORT</h4>
-                    </div>
-                    <div class="link-widget">
-                        <div class="info">
-                            <a href="#x">Terms & Conditions</a>
-                        </div>
-                        <div class="info">
-                            <a href="#x">Shipping & Return</a>
-                        </div>
-                        <div class="info">
-                            <a href="faq.html">F.A.Q</a>
-                        </div>
-                        <div class="info">
-                            <a href="contact.html">Contact</a>
-                        </div>
-                    </div>
-                </div><!-- / widget -->
-                <!-- / third widget -->
-
-                <div class="col-md-4 widget">
-                    <div class="widget-title">
-                        <h4>CONTACT</h4>
-                    </div>
-                    <div class="contact-widget">
-                        <div class="info">
-                            <p><i class="lnr lnr-map-marker"></i><span>Miami, S Miami Ave, SW 20th, Store No.1</span></p>
-                        </div>
-                        <div class="info">
-                            <a href="tel:+0123456789"><i class="lnr lnr-phone-handset"></i><span>+0123 456 789</span></a>
-                        </div>
-                        <div class="info">
-                            <a href="mailto:hello@yoursite.com"><i class="lnr lnr-envelope"></i><span>office@yoursite.com</span></a>
-                        </div>
-                        <div class="info">
-                            <i class="lnr lnr-thumbs-up"></i>
-                            <span class="social text-left">
-                                <a class="no-margin" href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-google-plus"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
-                            </span>
-                        </div>
-                    </div><!-- / contact-widget -->
-                </div><!-- / widget -->
-                <!-- / fourth widget -->
-
-            </div><!-- / row -->
-        </div><!-- / container -->
-    </div><!-- / widget-area -->
-    <div class="footer-info">
-        <div class="container">
-                <div class="pull-left copyright">
-                    <p><strong>© MS - MINIMAL SHOP THEME</strong></p>
-                </div>
-                <span class="pull-right">
-                    <img src="images/visa.png" alt="">
-                    <img src="images/mastercard.png" alt="">
-                    <img src="images/discover.png" alt="">
-                    <img src="images/paypal.png" alt="">
-                </span>
-        </div><!-- / container -->
-    </div><!-- / footer-info -->
-</footer>
-<!-- / footer -->
+<!--------------------------------------- footer --------------------------------------->
+<%@include file="/frontend/bar/frontBarFooter.jsp"%>
+<!--------------------------------------- /footer --------------------------------------->
 
 <!-- javascript -->
 <script src="js/jquery.min.js"></script>

@@ -16,7 +16,7 @@ import java.sql.*;
 		static {
 			try {
 				Context ctx = new InitialContext();
-				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/EA103G1");
+				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/G1");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}
@@ -25,21 +25,21 @@ import java.sql.*;
 		
 		private static final String INSERT_STMT = "INSERT INTO PRODUCT(PROD_NO, PTR_NO, MA_NO, PROD_NAME, PROD_PRICE, PROD_DETAIL ,PROD_STATUS, PROD_PIC )   VALUES(PROD_SEQ.nextval, ?, ?, ?, ?, ?, ?, ?)";
 		private static final String UPDATE = "UPDATE PRODUCT SET  PTR_NO=?, MA_NO=?, PROD_NAME=?, PROD_PRICE=?, PROD_DETAIL=?, PROD_STATUS=?, PROD_PIC=? WHERE PROD_NO=?";
-		private static final String UPDATE_NOPIC = "UPDATE PRODUCT SET  PTR_NO=?, MA_NO=?, PROD_NAME=?, PROD_PRICE=?, PROD_DETAIL=?, PROD_STATUS=? WHERE PROD_NO=?";
+		private static final String UPDATE_NO_PIC = "UPDATE PRODUCT SET  PTR_NO=?, MA_NO=?, PROD_NAME=?, PROD_PRICE=?, PROD_DETAIL=?, PROD_STATUS=? WHERE PROD_NO=?";
 		private static final String GET_ALL_STMT = "SELECT * FROM PRODUCT ORDER BY PROD_NO";
 		private static final String GET_ONE_STMT = "SELECT * FROM PRODUCT WHERE PROD_NO = ?";
 		private static final String DELETE = "DELETE FROM PRODUCT WHERE PROD_NO = ?";
-		private static final String GET_PIC = "SELECT prod_pic FROM product WHERE prod_pic IS NOT NULL AND prod_no=";
+		
 		private static final String GET_SEARCH = "SELECT * FROM PRODUCT WHERE PROD_NAME LIKE ?";		
 		private static final String CHANGE_STATUS = "UPDATE PRODUCT SET  PROD_STATUS=? WHERE PROD_NO=?";
-		private static final String GET_ALL_STMT_STATUS = "SELECT * FROM PRODUCT WHERE PROD_STATUS = 1  ORDER BY PROD_NO";
+		private static final String GET_ALL_STMT_STATUS = "SELECT * FROM PRODUCT WHERE PROD_STATUS = 1  order by dbms_random.value()";
 		private static final String GET_MA_QUERY = "SELECT * FROM PRODUCT WHERE ma_no = ? AND PROD_STATUS = 1";
 		private static final String GET_FUZZY_QUERY = "SELECT * FROM PRODUCT WHERE PROD_NAME LIKE ? AND PROD_STATUS = 1";
 		private static final String GET_PTR_QUERY = "SELECT * FROM PRODUCT WHERE ptr_no = ? AND PROD_STATUS = 1";
 		private static final String GET_PTR_MA_PROD = "SELECT * FROM PRODUCT WHERE ptr_no = ? and  ma_no = ? AND PROD_STATUS = 1";
 		private static final String GET_ALL_PTR = "SELECT * FROM PAINTER ORDER BY PTR_NO";
 		private static final String GET_ALL_MA = "SELECT * FROM MATERIAL_DATA ORDER BY MA_NO";
-		
+		private static final String GET_RELATED_PROD ="SELECT * FROM PRODUCT WHERE ptr_no =?  and PROD_STATUS = 1 and  ROWNUM <= 3 order by dbms_random.value()";
 		
 		@Override
 		public void insert(ProdVO prodVO) {
@@ -90,7 +90,7 @@ import java.sql.*;
 			try {
 				con = ds.getConnection();
 				if (prodVO.getProd_pic() == null) {
-				pstmt = con.prepareStatement(UPDATE_NOPIC);
+				pstmt = con.prepareStatement(UPDATE_NO_PIC);
 				pstmt.setInt(1,    prodVO.getPtr_no());
 				pstmt.setString(2,    prodVO.getMa_no());
 				pstmt.setString(3, prodVO.getProd_name());
@@ -699,6 +699,7 @@ import java.sql.*;
 						while (rs.next()) {
 							prodVO = new ProdVO();
 							prodVO.setMa_no(rs.getString("ma_no"));
+							prodVO.setMa_name(rs.getString("ma_name"));
 							list.add(prodVO);
 						}
 						// Handle any SQL errors
@@ -730,6 +731,64 @@ import java.sql.*;
 					}
 					return list;
 				}
+
+			
+			@Override
+			public List<ProdVO> getRelatedProd(Integer ptr_no) {
+				List<ProdVO> list = new ArrayList<ProdVO>();
+				ProdVO prodVO = null;
+
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+
+				try {
+					con = ds.getConnection();
+					pstmt = con.prepareStatement(GET_RELATED_PROD);
+					pstmt.setInt(1, ptr_no);
+					rs = pstmt.executeQuery();
+					
+					while (rs.next()) {
+						prodVO = new ProdVO();
+						prodVO.setProd_no(rs.getInt("prod_no"));
+						prodVO.setPtr_no(rs.getInt("ptr_no"));
+						prodVO.setMa_no(rs.getString("ma_no"));
+						prodVO.setProd_name(rs.getString("prod_name"));
+						prodVO.setProd_price(rs.getInt("prod_price"));
+						prodVO.setProd_detail(rs.getString("prod_detail"));
+						prodVO.setProd_status(rs.getInt("prod_status"));
+						prodVO.setProd_pic(rs.getBytes("prod_pic"));
+						list.add(prodVO);
+					}
+					// Handle any SQL errors
+				} catch (SQLException se) {
+					throw new RuntimeException("A database error occured. " + se.getMessage());
+					// Clean up JDBC resources
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (pstmt != null) {
+						try {
+							pstmt.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (con != null) {
+						try {
+							con.close();
+						} catch (Exception e) {
+							e.printStackTrace(System.err);
+						}
+					}
+				}
+				return list;
+			}
 
 
 

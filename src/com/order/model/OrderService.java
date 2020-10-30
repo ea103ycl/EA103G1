@@ -46,6 +46,8 @@ public class OrderService {
 		return dao.getAll();
 	}
 	
+	
+	
 	public OrderVO updateProd(Integer or_status) {
 
 		OrderVO orderVO = new OrderVO();
@@ -61,7 +63,23 @@ public class OrderService {
 	}
 	
 	
+	public OrderVO ChangeStatus(String or_no,  Integer or_status) {
+
+		OrderVO orderVO = new OrderVO();
+		
+		orderVO.setOr_no(or_no);
+		orderVO.setOr_status(or_status);
+		dao.changeStatus(orderVO);
+		return orderVO;
+	}
 	
+	public List<OrderVO> getOrderByStauts(Integer or_status) {
+		return dao.getOrderByStauts(or_status);
+	}
+	
+	public List<OrderVO> getOrderByStauts_Buyer(Integer or_status,String mem_id) {
+		return dao.getOrderByStauts_Buyer(or_status,mem_id);
+	}
 	
 }
 

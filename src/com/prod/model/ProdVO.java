@@ -25,10 +25,19 @@ public class ProdVO implements java.io.Serializable{
 	
 	
 	private Integer  prod_qty;
-	private Integer  prod_total;
+	private String  ma_name;
 	
 	
-	
+	public String getMa_name() {
+		return ma_name;
+	}
+
+
+	public void setMa_name(String ma_name) {
+		this.ma_name = ma_name;
+	}
+
+
 	public Integer getProd_qty() {
 		return prod_qty;
 	}

@@ -1,4 +1,6 @@
-package com.detail.model;
+package com.eval.model;
+
+
 
 import java.util.*;
 
@@ -7,6 +9,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.eval.model.*;
 import com.order.model.OrderVO;
 
 import java.sql.*;
@@ -14,7 +17,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 
 
-public class DetailDAO implements DetailDAO_interface {
+public class EvalDAO implements EvalDAO_interface {
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
 				private static DataSource ds = null;
 				static {
@@ -26,92 +29,34 @@ public class DetailDAO implements DetailDAO_interface {
 					}
 				}
 
-				private static final String INSERT_STMT = "INSERT INTO ORDER_DETAIL (OR_NO, PROD_NO, OR_QTY, OR_P_PRICE ) VALUES(?,?,?,?)";
-				private static final String GET_ONE_STMT = "SELECT * FROM ORDER_DETAIL WHERE OR_NO = ?";
-				private static final String GET_ALL_STMT = "SELECT * FROM ORDER_DETAIL ORDER BY OR_NO";
-				private static final String DETAIL_SEARCH = "SELECT * FROM ORDER_DETAIL WHERE OR_NO = ? ORDER BY OR_NO";
+				private static final String INSERT_STMT = "INSERT INTO EVAL_PROD (eval_no, prod_no, or_no,  mem_id, eval_rang, eval_review) VALUES(eval_prod_seq.nextval,?,?,?,?,?)";
+				private static final String GET_ALL_BY_PROD_NO = "SELECT * FROM EVAL_PROD WHERE PROD_NO=? ORDER BY EVAL_NO DESC";
+				private static final String GET_ALL_BY_OR_NO = "SELECT * FROM EVAL_PROD WHERE OR_NO=? ORDER BY EVAL_NO";
+				private static final String GET_ONE_STMT = "SELECT * FROM eval_prod WHERE OR_NO =? and prod_no=?";
+	
 				
 				
-				
-	@Override
-	public void insert(DetailVO detailVO, Connection con) {
+		public void insert(EvalVO evalVO) {
+		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, detailVO.getOr_no());
-			pstmt.setInt(2,    detailVO.getProd_no());
-			pstmt.setInt(3,    detailVO.getOr_qty());
-			pstmt.setInt(4,    detailVO.getOr_p_price());
+			pstmt.setInt(1,    evalVO.getProd_no());
+			pstmt.setString(2, evalVO.getOr_no());
+			pstmt.setString(3, evalVO.getMem_id());
+			pstmt.setInt(4,    evalVO.getEval_rang());
+			pstmt.setString(5, evalVO.getEval_review());
 			
 			pstmt.executeUpdate();
 
-
-			// Handle any driver errors
-		} catch (SQLException se) {
-			try {
-				con.rollback();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			
-		}
-	}
-
-	
-	
-
-	
-
-	@Override
-	public DetailVO findByPrimaryKey(String or_no) {
-		DetailVO detailVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_STMT);
-			
-			pstmt.setString(1, or_no);
-			
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				detailVO = new DetailVO();
-				
-				detailVO.setOr_no(rs.getString("or_no"));
-				detailVO.setProd_no(rs.getInt("prod_no"));
-				detailVO.setOr_qty(rs.getInt("or_qty"));
-				detailVO.setOr_p_price(rs.getInt("or_p_price"));
-				
-			}
-			
-			// Handle any driver errors
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -127,13 +72,12 @@ public class DetailDAO implements DetailDAO_interface {
 				}
 			}
 		}
-		return detailVO;
 	}
 
 	@Override
-	public List<DetailVO> getAll() {
-		List<DetailVO> list = new ArrayList<DetailVO>();
-		DetailVO detailVO = null;
+	public List<EvalVO> getAllByProd_no(Integer prod_no) {
+		List<EvalVO> list = new ArrayList<EvalVO>();
+		EvalVO evalVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -141,81 +85,24 @@ public class DetailDAO implements DetailDAO_interface {
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ALL_STMT);
-			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
-				detailVO = new DetailVO();
-				
-				detailVO.setOr_no(rs.getString("or_no"));
-				detailVO.setProd_no(rs.getInt("prod_no"));
-				detailVO.setOr_qty(rs.getInt("or_qty"));
-				detailVO.setOr_p_price(rs.getInt("or_p_price"));
-				
-				list.add(detailVO);
-			}
+		 pstmt = con.prepareStatement(GET_ALL_BY_PROD_NO);
 			
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
-
-
-
-
-
-
-	@Override
-	public List<DetailVO> detailSearch(String or_no) {
-		List<DetailVO> list = new ArrayList<DetailVO>();
-		DetailVO detailVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(DETAIL_SEARCH);
-			
-			pstmt.setString(1, or_no);
+			pstmt.setInt(1,prod_no);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				detailVO = new DetailVO();
+				evalVO = new EvalVO();
+				evalVO.setEval_no(rs.getInt("eval_no"));
+				evalVO.setProd_no(rs.getInt("prod_no"));
+				evalVO.setOr_no(rs.getString("or_no"));
+				evalVO.setMem_id(rs.getString("mem_id"));
+				evalVO.setEval_rang(rs.getInt("eval_rang"));
+				evalVO.setEval_review(rs.getString("eval_review"));
 				
-				detailVO.setOr_no(rs.getString("or_no"));
-				detailVO.setProd_no(rs.getInt("prod_no"));
-				detailVO.setOr_qty(rs.getInt("or_qty"));
-				detailVO.setOr_p_price(rs.getInt("or_p_price"));
-				
-				list.add(detailVO);
+				evalVO.setEval_time(rs.getTimestamp("eval_time"));
+				list.add(evalVO);
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -247,13 +134,120 @@ public class DetailDAO implements DetailDAO_interface {
 		return list;
 	}
 
+	@Override
+	public List<EvalVO> getAllByOr_no(String or_no) {
+		List<EvalVO> list = new ArrayList<EvalVO>();
+		EvalVO evalVO = null;
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			
+		 pstmt = con.prepareStatement(GET_ALL_BY_OR_NO);
+			
+			pstmt.setString(1,or_no);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				evalVO = new EvalVO();
+				evalVO.setEval_no(rs.getInt("eval_no"));
+				evalVO.setProd_no(rs.getInt("prod_no"));
+				evalVO.setOr_no(rs.getString("or_no"));
+				evalVO.setMem_id(rs.getString("mem_id"));
+				evalVO.setEval_rang(rs.getInt("eval_rang"));
+				evalVO.setEval_review(rs.getString("eval_review"));
+				
+				evalVO.setEval_time(rs.getTimestamp("eval_time"));
+				list.add(evalVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 
+	@Override
+	public EvalVO getOneByOr_no_and_Prod_no(String or_no, Integer prod_no) {
+		EvalVO evalVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+			
+			pstmt.setString(1, or_no);
+			pstmt.setInt(2, prod_no);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				evalVO = new EvalVO();
+				evalVO.setOr_no(rs.getString("or_no"));
+				evalVO.setMem_id(rs.getString("mem_id"));
+				evalVO.setProd_no(rs.getInt("prod_no"));
+				evalVO.setEval_rang(rs.getInt("eval_rang"));
+				evalVO.setEval_review(rs.getString("eval_review"));
+			}
 
-
-
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return evalVO;
+	}
 	
-	
-	
+
 }
 

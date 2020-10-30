@@ -33,8 +33,8 @@ public class ProdServlet extends HttpServlet {
 
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String prod = req.getParameter("prod_no");
-				if (prod == null || (prod.trim()).length() == 0) {
+				String prod = req.getParameter("prod_no").trim();
+				if (prod == null || prod.length() == 0) {
 					errorMsgs.add("商品編號不可為空!!");
 				}
 				
@@ -95,7 +95,7 @@ public class ProdServlet extends HttpServlet {
 			
 			try {
 				/***************************1.接收請求參數****************************************/
-				Integer prod_no = new Integer(req.getParameter("prod_no"));
+				Integer prod_no = new Integer (req.getParameter("prod_no").trim());
 				
 				/***************************2.開始查詢資料****************************************/
 				ProdService prodSvc = new ProdService();
@@ -129,34 +129,35 @@ public class ProdServlet extends HttpServlet {
 				
 				Integer prod_no = new Integer(req.getParameter("prod_no").trim());
                  
-				String prod_name = req.getParameter("prod_name");
-				String prod_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
-				if (prod_name == null || prod_name.trim().length() == 0) {
+				String prod_name = req.getParameter("prod_name").trim();
+				if (prod_name == null || prod_name.length() == 0) {
 					errorMsgs.add("商品名稱不可空白!!");
-				} else if(!prod_name.trim().matches(prod_nameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("商品名稱: 只能是中、英文字母、數字和_ ,且長度必需在1到20之間");
-	          }
+				} 
 				
 				
-				Integer ptr_no = new Integer(req.getParameter("ptr_no"));
+				Integer ptr_no = new Integer(req.getParameter("ptr_no").trim());
 				
-				String ma_no = req.getParameter("ma_no");
+				String ma_no = req.getParameter("ma_no").trim();
 				
 				
-				String price = req.getParameter("prod_price");
-				if (price == null || (price.trim()).length() == 0) {
-					errorMsgs.add("價錢不可為空!!");
+				String price = req.getParameter("prod_price").trim();
+				if ( price == null || price.length() == 0 ) {
+					errorMsgs.add("價錢不可為空或0元!!");
+				
 				}
 				Integer prod_price = null;
 				try {
 					prod_price = new Integer(price);
+					if(prod_price <= 0){
+						errorMsgs.add("價錢不可為0元或負數!!");
+					}
 				} catch (NumberFormatException e) {
 					errorMsgs.add("價錢請填數字!");
 				}
 				
 				
-				String prod_detail = req.getParameter("prod_detail");
-				if (prod_detail == null || prod_detail.trim().length() == 0) {
+				String prod_detail = req.getParameter("prod_detail").trim();
+				if (prod_detail == null || prod_detail.length() == 0) {
 					errorMsgs.add("商品描述不可為空!!");
 	            }
 				
@@ -245,37 +246,37 @@ public class ProdServlet extends HttpServlet {
 				
 				
 	     try {
-				String prod_name = req.getParameter("prod_name");
-				String prod_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
-				if (prod_name == null || prod_name.trim().length() == 0) {
+				String prod_name = req.getParameter("prod_name").trim();
+				if (prod_name == null || prod_name.length() == 0) {
 					errorMsgs.add("商品名稱不可空白!!");
-				} else if(!prod_name.trim().matches(prod_nameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("商品名稱: 只能是中、英文字母、數字和_ ,且長度必需在1到20之間");
-	            }
+				} 
 				
 				
 				
-                Integer ptr_no = new Integer(req.getParameter("ptr_no"));
+                Integer ptr_no = new Integer(req.getParameter("ptr_no").trim());
 				
                
-				String ma_no = req.getParameter("ma_no");
+				String ma_no = req.getParameter("ma_no").trim();
 					
 				
-				String price = req.getParameter("prod_price");
-				if (price == null || (price.trim()).length() == 0) {
+				String price = req.getParameter("prod_price").trim();
+				if (price == null || price.length() == 0 ) {
 					errorMsgs.add("價錢不可以為空!!");
 				}
 				Integer prod_price = null;
 				try {
 					prod_price = new Integer(price);
+					if(prod_price <= 0){
+						errorMsgs.add("價錢不可為0元或負數!!");
+					}
 				} catch (NumberFormatException e) {
 					errorMsgs.add("價錢請填數字!!");
 				}
 				
 				
 				
-				String prod_detail = req.getParameter("prod_detail");
-				if (prod_detail == null || prod_detail.trim().length() == 0) {
+				String prod_detail = req.getParameter("prod_detail").trim();
+				if (prod_detail == null || prod_detail.length() == 0) {
 					errorMsgs.add("商品描述不可空白!!");
 	            }
 				
@@ -363,7 +364,7 @@ public class ProdServlet extends HttpServlet {
 	
 			try {
 				/***************************1.接收請求參數***************************************/
-				Integer prod_no = new Integer(req.getParameter("prod_no"));
+				Integer prod_no = new Integer(req.getParameter("prod_no").trim());
 				
 				/***************************2.開始刪除資料***************************************/
 				ProdService prodSvc = new ProdService();
@@ -388,9 +389,9 @@ public class ProdServlet extends HttpServlet {
 		if ("getOne_For_Status".equals(action)) { // 來自listAllEmp.jsp
 
 			
-				Integer prod_no = new Integer(req.getParameter("prod_no")); 
+				Integer prod_no = new Integer(req.getParameter("prod_no").trim()); 
 				
-				String status = req.getParameter("prod_status");
+				String status = req.getParameter("prod_status").trim();
 				
 				
 				Integer prod_status = null;
