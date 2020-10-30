@@ -50,6 +50,7 @@
 </head>
 
 <body>
+
 	<jsp:useBean id="pSvc" scope="page"
 		class="com.painter.model.PainterService" />
 	<jsp:useBean id="ptSvc" scope="page"
@@ -108,10 +109,14 @@
 		<section class="breadcrumbs">
 			<div class="container">
 				<div class="d-flex justify-content-between align-items-center">
-					<h2>Inner Page</h2>
+					<h2 style="color: #ad8b60; margin: 0 0 0 -3px;">ArtsBlock</h2>
 					<ol>
-						<li><a href="index.html">Home</a></li>
-						<li>Inner Page</li>
+						<li><a
+							href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout">Login
+								&nbsp</li>/
+						<li><a
+							href="<%=request.getContextPath()%>/frontend/members/memRegister.jsp">&nbsp
+								Register</a></li>
 					</ol>
 				</div>
 			</div>
@@ -123,19 +128,15 @@
 					<div id="logoBlock">
 						<div id="leftHeader">
 							<div class="LH-inner">
-								<a href="">
-									<div class="">創意主題競賽</div>
-								</a>
+								<a
+									href="<%=request.getContextPath()%>/frontend/painter/listAllPainterFollow.jsp"><span>社群</span></a>
 							</div>
 							<div class="LH-inner">
-								<a href="">
-									<div class="">競標</div>
-								</a>
+								<a href="<%=request.getContextPath()%>/frontend/shop/EShop.jsp"><span>商城</span></a>
 							</div>
 							<div class="LH-inner">
-								<a href="">
-									<div class="">商城</div>
-								</a>
+								<a
+									href="<%=request.getContextPath()%>/frontend/event_p/event_homePage.jsp"><span>主題競賽</span></a>
 							</div>
 						</div>
 						<div id="logo">
@@ -144,19 +145,16 @@
 						</div>
 						<div id="rightHeader">
 							<div class="RH-inner">
-								<div id="SBA-svg-1">
-									<span>page1</span>
-								</div>
+								<a
+									href="<%=request.getContextPath()%>/frontend/preproduct/frontindex.jsp"><span>預購</span></a>
 							</div>
 							<div class="RH-inner">
-								<div id="SBA-svg-1">
-									<span>page2</span>
-								</div>
+								<a
+									href="<%=request.getContextPath()%>/frontend/biddingFront/biddingPage.jsp"><span>競標</span></a>
 							</div>
 							<div class="RH-inner">
-								<div id="SBA-svg-1">
-									<span>page3</span>
-								</div>
+								<a
+									href="<%=request.getContextPath()%>/frontend/biddingFront/biddingPage.jsp"><span>見面會</span></a>
 							</div>
 						</div>
 					</div>
@@ -251,25 +249,36 @@
 							<div class=" modal-right col-md-4">
 								<div id="msg-content"></div>
 								<div class="comment-container">
-									<hr>
-									<h5 class="comment-title">Add a new comment</h5>
 									<div class="comment-body">
-										<img
-											src="<%=request.getContextPath()%>/ReadMemPic?action=getPic&memId=${memVO.mem_id}"
-											class="comment-avatar" alt="avatar"> <span>${memVO.m_name}</span>
-										<div style="margin-top: 5%;">
-											<form id="writeComment"
-												action="<%=request.getContextPath()%>/painter/TagGetPic">
-												<input name="action" value="writeComment" type="hidden">
-												<textarea name="comment" class="comment-textarea"
-													placeholder="Type your message ..." rows="8"></textarea>
-												<div class="comment-post">
-													<div style="text-align: right;">
-														<button class="comment-send">Post Comment</button>
-													</div>
+										<c:choose>
+											<c:when test="${not empty memVO}">
+												<hr style="margin-top:0";>
+												<h5 class="comment-title">Add a new comment</h5>
+												<div style="margin-top: 5%; text-align: center;">
+													<form id="writeComment"
+														action="<%=request.getContextPath()%>/painter/TagGetPic">
+														<input name="action" value="writeComment" type="hidden">
+														<img
+															src="<%=request.getContextPath()%>/ReadMemPic?action=getPic&memId=${memVO.mem_id}"
+															class="comment-avatar" alt="avatar"> 
+														<input id="commentInput" name="comment"
+															class="comment-textarea"
+															placeholder="Type your message ..." rows="8">
+														<div class="comment-post">
+															<div style="text-align: right;">
+																<button class="comment-send">Post Comment</button>
+															</div>
+														</div>
+													</form>
 												</div>
-											</form>
-										</div>
+											</c:when>
+											<c:otherwise>
+												<hr>
+												<a href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout">
+													<h6 class="loginToComment">Login to comment</h6>
+												</a>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</div>
@@ -294,7 +303,6 @@
 							<div class="grid" id="grid">
 								<c:forEach var="ptrno" items="${ptrnoList}">
 									<div class="grid-item draggableImg">
-										<%-- 										<img src="<%=request.getContextPath()%>/painter/ShowImage?ptr_no=${ptrno}"> --%>
 										<img draggable='true' ondragstart="drag();" id='${ptrno}'
 											src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${ptrno}">
 									</div>
@@ -308,7 +316,6 @@
 							<div class="grid" id="grid">
 								<c:forEach var="pVO" items="${pSvc.getMostLiked(1,7)}">
 									<div class="grid-item">
-										<%-- 										<img src="<%=request.getContextPath()%>/painter/ShowImage?ptr_no=${pVO.ptr_no}"> --%>
 										<img draggable='true' ondragstart="drag();" id='${pVO.ptr_no}'
 											src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${pVO.ptr_no}">
 									</div>
@@ -327,7 +334,8 @@
 		</section>
 	</main>
 	<!-- End #main -->
-	<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+	<a href="#" class="back-to-top"><img
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/img/up-chevron.svg"></a>
 	<!-- Vendor JS Files -->
 	<script
 		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/jquery/jquery.min.js"></script>
