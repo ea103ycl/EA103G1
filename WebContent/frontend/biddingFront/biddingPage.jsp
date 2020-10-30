@@ -111,7 +111,7 @@ img {
 	<!-- this bdNo is eventNo -->
 	<input id="bdNo" type="hidden" value="${bdNo}">
 	<input id="memId" type="hidden" value="${memVO.mem_id}">
-
+	<input id="memWallet" type="hidden" value="${memVO.balance}">
 	<c:set var="epVO" value="${epSvc.findTopByEventNoWithoutReport(bdNo)}" />
 	<c:set var="memId" value="${memVO.mem_id}" />
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
@@ -274,8 +274,8 @@ img {
 																	<h4>
 																		Balance: $<span id="balance">${memVO.balance}</span>
 																	</h4>
-																	<div class="space-50">&nbsp;</div>
-																	<div class="cart-total-footer">
+
+																	<div class="cart-total-footer" style="margin-top: 10%">
 																		<a href="" class="btn btn-default-filled btn-rounded"><i
 																			class="lnr lnr-arrow-left"></i><span>Back to
 																				Page</span></a> <a href="shop-right.html"
@@ -375,7 +375,7 @@ img {
 																					Date of Birth: <span>${memVO.m_bday}</span>
 																				</p>
 																				<p>
-																					Balance: <span>${memVO.balance}</span>
+																					MyWallet: $ <span>${memVO.balance}</span>
 																				</p>
 
 																			</div>
@@ -443,6 +443,9 @@ img {
 																			</c:choose>
 
 																		</p>
+																		<p>
+																			<a href="#x">Price: </a> $ <span>${bVO.bdPrice}</span>
+																		</p>
 
 																	</div>
 																	<!-- / my-orders -->
@@ -479,16 +482,16 @@ img {
 								<a href="#"><h4>Top1</h4> <img id="top1pic"
 									src="<%=request.getContextPath()%>/frontend/biddingFront/img/trophy.svg"
 									alt="Image" class="mr-2 memAvatar" style="margin-right: 1.5%;">
-									<span>Jean Smith</span> <span class="pull-right price"
-									id="price1">$0</span> </a>
+									<span></span> <span class="pull-right price" id="price1">$0</span>
+								</a>
 							</div>
 							<!-- / post-category -->
 							<div class="post-category" id="top2">
 								<a href="#"><h4>Top2</h4> <img id="top2pic"
 									src="<%=request.getContextPath()%>/frontend/biddingFront/img/second.svg"
 									alt="Image" class="mr-2 memAvatar" style="margin-right: 1.5%;">
-									<span class="mr-2">Chris Wilson</span> <span
-									class="pull-right price" id="price2">$0</span> </a>
+									<span class="mr-2"></span> <span class="pull-right price"
+									id="price2">$0</span> </a>
 							</div>
 							<!-- / post-category -->
 							<div class="post-category" id="top3">
@@ -496,8 +499,7 @@ img {
 									<h4>Top3</h4> <img id="top3pic"
 									src="<%=request.getContextPath()%>/frontend/biddingFront/img/third.svg"
 									alt="Image" class="mr-12 memAvatar" style="margin-right: 1.5%;">
-									<span>Kyle Anderson</span> <span class="pull-right price"
-									id="price3">$0</span>
+									<span></span> <span class="pull-right price" id="price3">$0</span>
 								</a>
 							</div>
 
@@ -562,7 +564,10 @@ img {
 									<button id="plus100" class="btn btn-primary btn-block">+$100</button>
 								</div>
 								<p class="mb-0" style="text-align: center; margin-top: 10%;">
-									<a href="">Sign In</a> / <a href="">Register</a>
+									<a
+										href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout">Sign
+										In</a> / <a
+										href="<%=request.getContextPath()%>/frontend/members/memRegister.jsp">Register</a>
 								</p>
 							</form>
 						</div>
@@ -570,16 +575,21 @@ img {
 					<!-- / categories-sidebar-widget -->
 					<div class="space-50">&nbsp;</div>
 					<div class="space-50">&nbsp;</div>
-					<div class="blog block about-sidebar-widget authorBlock">
-						<p class="blog-post-footer"></p>
-						<img
-							src="<%=request.getContextPath()%>/frontend/template/img/troglodyte.svg"
-							alt="Image" class="img-fluid w-50 rounded-circle mb-4 authAvatar">
-						<h4>AUTHOR</h4>
-						<h3 class="h5 text-black">${memSvc.findByPrimaryKey(epVO.mem_id).m_name}</h3>
-						<p>Aenean vestibulum purus a nulla sollicitudin molestie.
-							Maecenas bibendum erat in erat maximus.</p>
-					</div>
+
+					<c:set var="author" value="${memSvc.findByPrimaryKey(epVO.mem_id)}" />
+					<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainterFollow.jsp?sid=${author.mem_id}">
+						<div class="blog block about-sidebar-widget authorBlock">
+							<p class="blog-post-footer"></p>
+							<img style="margin: auto;"
+								src="<%=request.getContextPath()%>/ReadMemPic?action=getPic&memId=${author.mem_id}"
+								alt="Image"
+								class="img-fluid w-50 rounded-circle mb-4 authAvatar">
+							<h4>AUTHOR</h4>
+							<h3 class="h5 text-black">${author.m_name}</h3>
+							<p>Aenean vestibulum purus a nulla sollicitudin molestie.
+								Maecenas bibendum erat in erat maximus.</p>
+						</div>
+					</a>
 					<!-- about-sidebar-widget -->
 					<div class="space-50">&nbsp;</div>
 					<p class="blog-post-footer"></p>
