@@ -139,7 +139,7 @@ public class ShoppingServlet extends HttpServlet {
 					
 					
 					for(int i = 0;i<buylist.size();i++) {
-						System.out.println("start insert ");
+						System.out.println("start insert 第"+(i+1)+"件商品");
 //						PreProductVO order = buylist.get(i);
 						Integer po_qty1 = new Integer(po_qty[i]);;
 						System.out.println(po_qty1);

@@ -20,7 +20,6 @@
     List<Event_PVO> list01 = eventpSvc.findAllByEventNoRankDescWithoutReport(eventSvc.findLastEndEvent());
     pageContext.setAttribute("list01",list01);
 %>
-
 <%
 	Event_PVO eventpVO = (Event_PVO) request.getAttribute("eventpVO");
 %>
@@ -189,7 +188,8 @@ header #header-banner{
   </div>
   
 <hr>
-<h1>本期得獎作品</h1>
+<h1>本期得獎作品</h1><%=eventSvc.findLastEndEvent() %>
+
 	<div class="row">
 	    <div class="col-12">
 			<%@include file="/backend/preproduct/pages/page3.file" %>
