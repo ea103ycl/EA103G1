@@ -29,13 +29,16 @@ public class PainterMsgServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		System.out.println("msg servlet act = " + action);
-
+		
+		//新增留言
 		if (("insert").contentEquals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			String msg = (String) req.getParameter("msg");
+			String src = (String) req.getParameter("src");
+			String sid = (String) req.getParameter("sid");
 			Integer ptr_no = Integer.valueOf(req.getParameter("ptr_no"));
 			
 			MemVO memVO = (MemVO)req.getSession().getAttribute("memVO");
@@ -53,7 +56,7 @@ public class PainterMsgServlet extends HttpServlet {
 
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no);
+							.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no="  + ptr_no + "&src=" + src+ "&sid=" + sid);
 					failureView.forward(req, res);
 					return;
 				}
@@ -69,13 +72,13 @@ public class PainterMsgServlet extends HttpServlet {
 				/*************************** 3.新增完畢導回查詢頁 ***********/
 //				RequestDispatcher successView = req.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no);
 //				successView.forward(req, res);
-				res.sendRedirect(req.getContextPath() + "/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no + "#msg");
+				res.sendRedirect(req.getContextPath() + "/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no + "&src=" + src+ "&sid=" + sid + "#msg");
 
 			} catch (Exception e) {
 				errorMsgs.add("無法新增資料:" + e.getMessage());
 				System.out.println("錯誤訊息:" + e.fillInStackTrace().getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no);
+						.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no + "&src=" + src+ "&sid=" + sid);
 				failureView.forward(req, res);
 			}
 
@@ -87,19 +90,22 @@ public class PainterMsgServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			Integer msg_no = Integer.valueOf(req.getParameter("msg_no"));
 			Integer ptr_no = Integer.valueOf(req.getParameter("ptr_no"));
+			String src = (String) req.getParameter("src");
+			String sid = (String) req.getParameter("sid");
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
 				PainterMsgService painterMsgSvc = new PainterMsgService();
 				painterMsgSvc.delete(msg_no, 2);
 
-				RequestDispatcher successView = req.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no);
+				RequestDispatcher successView = req.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no + "&src=" + src+ "&sid=" + sid);
 				successView.forward(req, res);
+				
 
 			} catch (Exception e) {
 				errorMsgs.add("無法刪除資料:" + e.getMessage());
 				System.out.println("錯誤訊息:" + e.fillInStackTrace().getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no);
+				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no + "&src=" + src+ "&sid=" + sid);
 				failureView.forward(req, res);
 			}
 		}
@@ -110,19 +116,21 @@ public class PainterMsgServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			Integer msg_no = Integer.valueOf(req.getParameter("msg_no"));
 			Integer ptr_no = Integer.valueOf(req.getParameter("ptr_no"));
+			String src = (String) req.getParameter("src");
+			String sid = (String) req.getParameter("sid");
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
 				PainterMsgService painterMsgSvc = new PainterMsgService();
 				painterMsgSvc.delete(msg_no, 3);
 
-				RequestDispatcher successView = req.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no);
+				RequestDispatcher successView = req.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no + "&src=" + src + "&sid=" + sid);
 				successView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				System.out.println("錯誤訊息:" + e.fillInStackTrace().getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no);
+				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no + "&src=" + src+ "&sid=" + sid);
 				failureView.forward(req, res);
 			}
 		}

@@ -32,6 +32,10 @@ public class Event_PService {
 		event_pVO.setEvent_vote_num(new Integer( event_vote_num));
 		event_pVO.setVote_rank(new Integer( vote_rank));
 		event_pVO.setEvent_p_stat(new Integer( event_p_stat));
+		if(event_p_img.length==0) {
+			System.out.println("更新的event_pVO 的img是null");
+			
+		}
 		event_pVO.setEvent_p_img(event_p_img);
 		dao.update(event_pVO);
 	}

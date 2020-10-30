@@ -131,9 +131,13 @@
  	margin-bottom: 1%; 
  } 
 
- #queryResult { 
+ .queryResult { 
  	margin-left: 1.5%; 
+ 	
  } 
+ #showSearchNum{
+ 	color:#c39d6d;
+ }
  #error{ 
  	color:red;
  	margin-top:5px; 
@@ -141,13 +145,21 @@
 #neo-vote-button,#neo-delvote-button{
 	padding-left:0px;
 }
+#header-banner{
+	background-image: url("<%=request.getContextPath()%>/frontend/template/neoTools/img/DART-Art-web-2020.jpg");/*art-competition.jpg*/
+	background-repeat: no-repeat;
+	background-position:center;
+	background-size: cover;
+}
 
 </style>
 <%--     <link href="<%=request.getContextPath() %>/frontend/temple/css/album.css" rel="stylesheet"> --%>
 </head>
 <body>
-
-<%@include  file="/frontend/event_p/frontBarTop.jsp"%>
+<div id="preloader">
+    <div class="spinner spinner-round"></div>
+</div>
+<%@include  file="/frontend/bar/frontBarTop.jsp"%>
 
 
 
@@ -155,8 +167,11 @@
 <!-- 		<section class="jumbotron text-center"> -->
     <!-- header-banner -->
     <div id="header-banner">
+    
         <div class="banner-content single-page text-center">
+            
             <div class="banner-border">
+            <img src="<%=request.getContextPath()%>/frontend/template/neoTools/img/art-competition.jpg">    
                 <div class="banner-info">
            			<h1>
 						本次活動編號:<%=sess.getAttribute("event_no") %>
@@ -173,7 +188,7 @@
 					</div>
 					 目前活動狀態的截止時間(之後刪): ${event_statTime[eventVO.event_stat]}
 					<div id="displayReamainTime"></div>
-                    <p>Our latest blog posts</p>
+                    <p>${eventVO.event_name}</p>
                 </div>
                 <!-- / banner-info -->
             </div>
@@ -198,8 +213,7 @@
 						role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">Modal
-									title</h5>
+								<h5 class="modal-title" id="exampleModalLongTitle">我的投稿作品</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -211,7 +225,7 @@
 										<%@include file="displayMemUpload.jsp"%>
 									</c:when>
 									<c:otherwise>
-					      		尚未上傳作品。
+					      		尚未上傳過作品。
 					      	</c:otherwise>
 								</c:choose>
 							</div>
@@ -239,7 +253,7 @@
     <div class="container">
     
     <div class="row queryRow">
-	<div class=" col-sm-6 " id="queryResult">
+	<div class=" col-sm-6 " class="queryResult" id="showSearchNum">
 	<%@ include	file="page1.file"%>
 	</div>
 	<span class="pull-right space-right col-sm-2" id="selectBar">
@@ -331,11 +345,14 @@
 
 						</div>
 
-                        <h5><a href="single-post.html">SINGLE POST</a></h5>
-                        <p class="small-post-meta">AUG 16, 2016</p>
-                        <p class="space-bottom">Suspendisse in mattis neque, sed accumsan erat. Maecenas eget metus dui. Vestibulum accumsan massa quam...</p>
+                        <h5><a href="single-post.html">${event_pVO.event_p_name}</a></h5>
+                        <p class="small-post-meta">
+                        <fmt:parseDate value="${event_pVO.event_p_date}" var="dateObject" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate value="${dateObject}"/>                        
+                        </p>
+<!--                         <p class="space-bottom">Suspendisse in mattis neque, sed accumsan erat. Maecenas eget metus dui. Vestibulum accumsan massa quam...</p> -->
                         <p class="small-post-footer">
-                            <a href="single-post.html">READ MORE</a>
+                            <a href="single-post.html">READ MORE(呈現原圖)</a>
                             <span class="post-icons pull-right">
                                 <a href="#x"><i class="lnr lnr-thumbs-up"></i></a>
                                 <a href="#x"><i class="lnr lnr-bubble"></i></a>
@@ -348,13 +365,14 @@
 </c:forEach>
 
         </div><!-- / row -->
-
-
+	<div class="queryResult">
+	<%@include file="/frontend/event_p/page2.file"%>
+    </div>
     </div><!-- / container -->
 </section>
 
 <a href="<%=request.getContextPath() %>/frontend/event_p/event_homePage.jsp">回到瀏覽主題競賽</a>
-<%@include file="/frontend/event_p/frontBarFooter.jsp" %>
+<%@include file="/frontend/bar/frontBarFooter.jsp" %>
 </body>
 
 <%-- <script src="<%=request.getContextPath()%>/frontend/template/jquery/jquery-3.5.1.js"></script> --%>
@@ -363,7 +381,7 @@
 
 <!-- mark by YCL 重複引入導致modal跑不出來     -->
 <%-- 	<script src="<%=request.getContextPath() %>/frontend/template/js/bootstrap.min.js" ></script> --%>
-	<script src="<%=request.getContextPath()%>/frontend/neoTools/sweetAlert/sweetalert.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/template/neoTools/sweetAlert/sweetalert.min.js"></script>
 <script>
 	// 		var checkreport=document.getElementsByClassName("checkreport");
 	// 		for(let i=0;i<checkreport.length;i++){

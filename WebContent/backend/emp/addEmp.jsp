@@ -66,103 +66,105 @@
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/emp/emp.do" name="form1" enctype="multipart/form-data">
 
-<!-- <table style="margin-left:15px;"> -->
-<!-- <tr> -->
-<!--         <td class="row"> -->
-<!--         <td></td> -->
-<!--             <label>上傳照片: </label> -->
-<!--             <input type="file" id="myFile"  name ="emp_photo"multiple> -->
-<!--         </td> -->
-<!--         <td class="row"> -->
-
-<!--             <input type=hidden name="filename" id="filename"> -->
-<!--         </td> -->
-<!--         <td class="row" id="preview"> -->
-<!--             <label></label> -->
-            
-<!--         </td> -->
-       
-<!-- </tr> -->
-<!-- </table> -->
-
-<div class="input-group mb-3" style="max-width:300px">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroupFileAddon01" >Upload</span>
-  </div>
-  <div class="custom-file" style="max-width:300px">
-    <input type="file" class="custom-file-input" id="myFile" name="emp_photo" aria-describedby="inputGroupFileAddon01" >
-    <input type=hidden name="filename" id="filename">
-    <label class="custom-file-label" for="inputGroupFile01">Choose Photo</label>  
-  </div>
-</div>
+<div class="container">
+<div class="row align-items-center">
 
 
-<div class="row" id="preview">
-<img src="<%=request.getContextPath()%>/backend/emp/images/avatar-icon-images-4.jpg" width="300" height="300" id="image">
-<!-- 	<img src="./images/avatar-icon-images-4.jpg" width="300" height="300" id="image">	 -->
-</div>
 
-<div> &nbsp</div>
+		<div class="col col-xs-12 col-sm-12 col-md-5">
+			<div class="row" id="preview">
+				<img src="<%=request.getContextPath()%>/backend/emp/images/avatar-icon-images-4.jpg" width="300" height="300" id="image">
 
-<div class="input-group mb-3" style="max-width:300px">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroup-sizing-default">姓名:</span>
-  </div>
-  <input type="text" class="form-control"  name="emp_name" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpName()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-</div>
+			</div>
 
-<div class="input-group mb-3" style="max-width:300px">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroup-sizing-default">職位:</span>
-  </div>
-  <input type="text" class="form-control"  name="emp_pos" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpPos()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-</div>
 
-<div class="input-group mb-3" style="max-width:300px">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroup-sizing-default">信箱:</span>
-  </div>
-  <input type="text" class="form-control"  name="emp_mail" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpMail()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-</div>
+			<div class="input-group mb-3 mt-5" >
+			  <div class="input-group-prepend">
+<!-- 			    <span class="input-group-text" id="inputGroupFileAddon01" >Upload</span> -->
+			  </div>
+			  <div class="custom-file" style="max-width:300px">
+			    <input type="file" class="custom-file-input" id="myFile" name="emp_photo" aria-describedby="inputGroupFileAddon01" >
+			    <input type=hidden name="filename" id="filename">
+			    <label class="custom-file-label" style = "width:280px" for="inputGroupFile01">Choose Photo</label>  
+			  </div>
+			</div>
+		</div>
+
+
+<div class="col col-xs-12 col-sm-12 col-md-6">
+
+	<div class="input-group mb-3" style="max-width:430px"> 
+	  <div class="input-group-prepend">
+	    <span class="input-group-text" id="inputGroup-sizing-default">姓名:</span>
+	  </div>
+	  <input type="text" class="form-control"  name="emp_name" id="emp_name" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpName()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+	 </div>
+
+	<div class="input-group mb-3" style="max-width:430px">
+	  <div class="input-group-prepend">
+	    <span class="input-group-text" id="inputGroup-sizing-default">職位:</span>
+	  </div>
+	  <input type="text" class="form-control"  name="emp_pos" id="emp_pos" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpPos()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+	</div>
+
+	<div class="input-group mb-3" style="max-width:430px">
+	  <div class="input-group-prepend">
+	    <span class="input-group-text" id="inputGroup-sizing-default">信箱:</span>
+	  </div>
+	  <input type="text" class="form-control"  name="emp_mail" id="emp_mail" value="<%= (emp_Account_VO==null)? "" : emp_Account_VO.getEmpMail()%>"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+	</div>
 	
-<div>
-	<input type="hidden" name="emp_status"  value="1">
-</div>	
+	<div>
+		<input type="hidden" name="emp_status"  value="1">
+	</div>	
 
-<table>
-		<jsp:useBean id="funcidSvc" scope="page" class="com.emp.model.Func_No_List_Service"/>
+	<jsp:useBean id="funcidSvc" scope="page" class="com.emp.model.Func_No_List_Service"/>
+	<table class="table table-borderless">
+  		<tbody>
+			<tr>
+		 		<c:forEach var="funcidVO" items="${funcidSvc.all}" varStatus="vs">
+	      		<td><input type="checkbox" id="${funcidVO.funcId }" name="func_id" value="${funcidVO.funcId }" >${funcidVO.funcName}</td>
+		  		<c:if test="${vs.count % 3 == 0 }">
+		  			<tr></tr>
+		  		</c:if>	
+	  			</c:forEach>
+    		</tr>
+  		</tbody>
+	</table>
+<div style = "margin-left:70px">
+<!-- 	 <div class="container"> -->
+<!-- 	  <div class="row"> -->
+<!-- 	    <div class="col text-center"> -->
+	      <button class="btn btn-primary" type="button" onclick="selAll();">全選</button>  
+	      <button class="btn btn-primary" type="button" onclick="unselAll();">全取消</button>  
+		  <button class="btn btn-primary" type="button" id="click">Click Me</button>        
+	      <button class="btn btn-primary" type="submit" name="action" value="insert">送出新增</button> 
+
+<!-- 	    </div> -->
+<!-- 	  </div> -->
+<!-- 	</div> -->
+</div>
+
+
+</div>
+
+
+
+</div>
+</div>
+
+
+	  
+
+</FORM>
+
 	
-		<tr>
-		<c:forEach var="funcidVO" items="${funcidSvc.all}" varStatus="vs">
-		<td>
-		<input type="checkbox" id="${funcidVO.funcId }" name="func_id" value="${funcidVO.funcId }" >${funcidVO.funcName}
-		</td>
-		<c:if test="${vs.count % 3 == 0 }">
-		<tr></tr>
-		</c:if>		
-		</c:forEach>
-</table>
-
-<label>&nbsp&nbsp</label><br>
-<input type="hidden" name="action" value="insert">
-<button class="btn btn-primary" type="submit">送出新增</button></FORM>
-
-</body>	
 	
-	
-    </div>
-    <!-- End of Content Wrapper -->
 
-  </div>	
 	
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-	
-	
-	
-	
-	
 	
 						<%-- 資料內容 --%>
 	
@@ -234,6 +236,27 @@
         }
 
         window.onload = init;
+
+        $("#click").click(function(){
+      	  $("#emp_name").val("李嘉誠");
+      	  $("#emp_pos").val("打掃阿伯");
+      	  $("#emp_mail").val("farmer7382@gmail.com");
+        });
+             
+        function selAll(){
+            var checkItem = document.getElementsByName("func_id");
+            for(var i=0;i<checkItem.length;i++){
+                checkItem[i].checked=true; 
+            }
+        }
+        
+        function unselAll(){
+            var checkItem = document.getElementsByName("func_id");
+            for(var i=0;i<checkItem.length;i++){
+                checkItem[i].checked=false;
+            }
+        }
+                    
     </script>   
 						
 	</body>

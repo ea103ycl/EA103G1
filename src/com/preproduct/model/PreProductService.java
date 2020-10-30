@@ -23,7 +23,7 @@ public class PreProductService {
 		preproductVO.setPo_end(po_end);
 		preproductVO.setPo_price(po_price);
 		preproductVO.setPo_detail(po_detail);
-		
+		 
 		System.out.println("Service - 準備使用dao.insert");
 		dao.insert(preproductVO);
 		System.out.println("Service - dao.insert執行完成，return preproductVO");

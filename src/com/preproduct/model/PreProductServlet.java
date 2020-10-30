@@ -239,7 +239,7 @@ public class PreProductServlet extends HttpServlet{
 				}
 				/*****************琩高Θ非称锣ユ*********************/
 				req.setAttribute("preproductVO",preproductVO);
-				String url = "/backend/preproduct/listOnebackendindex.jsp";
+				String url = "/backend/preproduct/listOnePreProduct.jsp";
 				System.out.println("-----Servlet琩高Θ.非称锣ユ-----");
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				System.out.println("***************************************************");

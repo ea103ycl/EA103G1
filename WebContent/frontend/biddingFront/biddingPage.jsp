@@ -103,15 +103,20 @@ img {
 		class="com.bidding.model.BdRedis" />
 	<jsp:useBean id="bdSvc" scope="page"
 		class="com.bidding.model.BiddingService" />
+	<jsp:useBean id="epSvc" scope="page" class="com.event_p.model.Event_PService"/>
+	<jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService"/>		
+	
 
 <!-- this bdNo is eventNo -->
 	<input id="bdNo" type="hidden" value="${bdNo}"> 
 	<input id="memId" type="hidden" value="${memVO.mem_id}">
-
+	
+	<c:set var="epVO" value="${epSvc.findTopByEventNoWithoutReport(bdNo)}"/>
 	<c:set var="memId" value="${memVO.mem_id}" />
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
 	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
 	<c:set var="topBidder" value="${bdr.getHighestBidder(bdNo)}" />
+	
 
 
 	<!-- preloader -->
@@ -645,7 +650,7 @@ img {
 							src="<%=request.getContextPath()%>/frontend/template/img/troglodyte.svg"
 							alt="Image" class="img-fluid w-50 rounded-circle mb-4 authAvatar">
 						<h4>AUTHOR</h4>
-						<h3 class="h5 text-black">Collen Winston</h3>
+						<h3 class="h5 text-black">${memSvc.findByPrimaryKey(epVO.mem_id).m_name}</h3>
 						<p>Aenean vestibulum purus a nulla sollicitudin molestie.
 							Maecenas bibendum erat in erat maximus.</p>
 					</div>

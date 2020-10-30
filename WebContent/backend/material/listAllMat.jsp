@@ -64,22 +64,22 @@
 							</ul>
 						</c:if>
 	
-<ul class="displayEmp">          
+<!-- <ul class="displayEmp">           -->
 
-	<li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/material/mat.do" class="form-inline">
-       <b>選擇素材名稱:&nbsp</b>
-       <select class="form-control " id="exampleFormControlSelect1"  style="max-width:200px" name="ma_no">
-          <option value="">
-         <c:forEach var="matVO" items="${list}" > 
-          <option value="${matVO.maNo}">${matVO.maName}
-         </c:forEach>   
-       </select>
-       <b>&nbsp</b><button class="btn btn-primary " type="submit" name="action" value="getOne_For_Display"  >送出</button>
-     </FORM>
-   </li>
+<!-- 	<li> -->
+<%--      <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/material/mat.do" class="form-inline"> --%>
+<!--        <b>選擇素材名稱:&nbsp</b> -->
+<!--        <select class="form-control " id="exampleFormControlSelect1"  style="max-width:200px" name="ma_no"> -->
+<!--           <option value=""> -->
+<%--          <c:forEach var="matVO" items="${list}" >  --%>
+<%--           <option value="${matVO.maNo}">${matVO.maName} --%>
+<%--          </c:forEach>    --%>
+<!--        </select> -->
+<!--        <b>&nbsp</b><button class="btn btn-primary " type="submit" name="action" value="getOne_For_Display"  >送出</button> -->
+<!--      </FORM> -->
+<!--    </li> -->
   
-</ul>
+<!-- </ul> -->
 
 <!--         <div class="container-fluid"> -->
 
@@ -105,7 +105,6 @@
                       <th>照片</th>
                       <th>狀態</th>
                       <th>修改</th>
-                      <th>刪除</th>
                     </tr>            
                   </thead>
                   <tfoot>
@@ -117,7 +116,6 @@
                       <th>Photo</th>
                       <th>Status</th>
                       <th>Edit</th>
-                      <th>Delete</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -145,12 +143,6 @@
                         <input type="hidden" name="action"	value="getOne_For_Update">
                         <button class="btn btn-primary" type="submit">修改</button></FORM>
 					 </td>				 
-					  <td>
-			  		   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/material/mat.do" style="margin-bottom: 0px;">
-			    	   <input type="hidden" name="ma_no"  value="${matVO.maNo}">
-			     	   <input type="hidden" name="action" value="delete">
-                       <button class="btn btn-primary" type="submit">刪除</button></FORM>
-				    </td>
                     </tr>
                    </c:forEach> 
                   </tbody>

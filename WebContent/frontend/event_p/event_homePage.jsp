@@ -64,7 +64,7 @@
 <!-- <link -->
 <%-- 	href="<%=request.getContextPath()%>/frontend/template/css/carousel.css" --%>
 <!-- 	rel="stylesheet"> -->
-	<link href="<%=request.getContextPath()%>/frontend/neoTools/sweetAlert/sweetalert.css">
+	<link href="<%=request.getContextPath()%>/frontend/template/neoTools/sweetAlert/sweetalert.css">
 <title>event Home Page</title>
 <style>
 .bd-placeholder-img {
@@ -100,13 +100,15 @@ background-color:#fff;
 /* 	width: 500px; */
 /* 	height:500px; */
 /* } */
+
+
 </style>
 
 
 </head>
-<body>
+<body >
 <div id="top"></div>
-<%@include  file="/frontend/event_p/frontBarTop.jsp"%>
+<%@include  file="/frontend/bar/frontBarTop.jsp"%>
 	
 
 
@@ -142,7 +144,7 @@ background-color:#fff;
 	</div>
 	</div>
 </div>
-<div class="container">
+<div class="container" >
               <div class="container text-center ">
 <!-- 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"  > -->
 <!-- 					 我有點子 -->
@@ -202,7 +204,7 @@ background-color:#fff;
             <!-- / media -->
             <% int i=0; %><!-- 紀錄是第幾個index -->
 <            <c:forEach var="event_p_top" items="${event_p_tops}" varStatus="status">
-<!--             <hr class="featurette-divider"> -->
+            <hr class="featurette-divider">
              <div class="media">
                 <div class="media-left">
                 		<a href="<%=request.getContextPath() %>/frontend/event_p/Event_pServlet?event_no=${event_nos[status.index]}&action=to_event_sepc"> 
@@ -263,7 +265,7 @@ background-color:#fff;
 <!-- scroll to top -->
 <a href="#top" class="scroll-to-top page-scroll is-hidden" data-nav-status="toggle"><i class="fa fa-angle-up"></i></a>
 <!-- / scroll to top -->
-<%@include file="frontBarFooter.jsp" %>
+<%@include file="/frontend/bar/frontBarFooter.jsp" %>
 
     <script src="<%=request.getContextPath() %>/frontend/template/jquery/jquery.min.js" ></script>
     

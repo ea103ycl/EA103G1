@@ -198,9 +198,67 @@
             $('#searchBar1').val($(this).children().html());
             $('#searchForm1').submit();
         });
+        //==================================================
+        ['dragover', 'dragleave', 'dragenter', 'drop'].forEach(ev => {
+            window.addEventListener(ev, function(e) {
+                e.preventDefault();
+            })
+        });
 
+        function drag(event) {
 
+            console.log(event.currentTarget);
+            event.dataTransfer.setData("text", e.target.id);
+        }
 
-        $('.draggableImg').on('dragStart', function() {
+        function drop(event) {
+            let Id = event.dataTransfer.getData("text");
+            console.log(document.getElementById(Id));
+        }
 
-        })
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+        //================================
+        // $('.grid-item').on('click', function(e) {
+
+        //     $('#modalButton').click();
+        // })
+
+        // Get the modal
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+
+        $('.grid-item').on('click', function(e) {
+            console.log('heher');
+            $("#myModal").css('display', 'block');
+            $("#img01").attr('src', e.target.src);
+
+            if ($("#img01").width() > $("#img").height()) {
+                $("#img01").addClass("horizontal");
+            } else {
+                $("#img01").addClass("vertical");
+            }
+
+            let ptrno = e.target.id;
+            console.log('ptrno' + ptrno);
+            $.ajax({
+                method: "post",
+                url: "/EA103G1/painter/TagGetPic",
+                data: { ptrno: ptrno, action: "msgUpdate" },
+                success: function(d) {
+                    $('#msg-content').html(d);
+
+                },
+                error: function() {
+                    alert("(msgUpdate)failed");
+                }
+            });
+        });
+
+        $('#myModal').on('click', function(e) {
+            var target = $(e.target);
+            if (!target.parents('.myContainer').length) {
+                $('#myModal').css('display', 'none');
+            }
+        });

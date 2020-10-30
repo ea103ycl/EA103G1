@@ -3,11 +3,6 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.emp.model.*"%>
 
-<%
-String no1 = (String)session.getAttribute("emp_no1");
-String pwd1 = (String)session.getAttribute("emp_pwd1");
-%>
-
 <!DOCTYPE html>
 <html>
 	
@@ -61,24 +56,20 @@ String pwd1 = (String)session.getAttribute("emp_pwd1");
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/emp/emp.do" name="form1" enctype="multipart/form-data">
 
 
-
-
-
-
 <div> &nbsp</div>
 
 <div class="input-group mb-3" style="max-width:300px">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">帳號:</span>
   </div>
-  <input type="text" class="form-control"  name="emp_no" value="<%=no1%>">
+  <input type="text" class="form-control"  name="emp_no" value="<%=request.getParameter("emp_no1")%>">
 </div>
 
 <div class="input-group mb-3" style="max-width:300px">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-default">密碼:</span>
   </div>
-  <input type="text" class="form-control"  name="old_pwd" value="<%=pwd1%>">
+  <input type="text" class="form-control"  name="old_pwd" value="<%=request.getParameter("emp_pwd1")%>">
 </div>
 
 <div class="input-group mb-3" style="max-width:300px">
@@ -95,17 +86,11 @@ String pwd1 = (String)session.getAttribute("emp_pwd1");
   <input type="password" class="form-control"  name="emp_pwdc" value="">
 </div>
 
-<label>&nbsp&nbsp</label><br>
+<div style = "margin-left:108px">
 <input type="hidden" name="action" value="newEmp">
-<button class="btn btn-primary" type="submit">送出修改</button></FORM>
-
-</body>	
-	
-	
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>	
+<button class="btn btn-primary" type="submit">送出修改</button>
+</div>
+</FORM>
 	
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>

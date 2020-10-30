@@ -38,17 +38,19 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 			"SELECT po_no,mem_id,po_time,po_zip,po_name,po_phone,po_addr,po_status,po_total,po_note "
 			+ "FROM PRE_ORDER order by po_no";
 		private static final String GET_ONE_STMT = 
-			"SELECT po_no,mem_id,po_time,po_zip,po_name,po_phone,po_addr,po_status,po_total,po_note "
-			+ "FROM PRE_ORDER where po_no = ?";
+			"SELECT * FROM PRE_ORDER where po_no = ?";
 		private static final String DELETE = 
 			"DELETE FROM PRE_ORDER_DETAIL where po_no = ?";
 		private static final String DELETE2 = 
 			"DELETE FROM PRE_ORDER where po_no = ?";
 		private static final String UPDATE = 
 			"UPDATE PRE_ORDER set mem_id=?, po_time=?, po_zip=?, po_name=?, po_phone=?, po_addr=?,po_status=?,po_total=?,po_note=? where po_no = ?";
+		private static final String UPDATE_STATUS = "UPDATE PRE_ORDER set po_status=? where po_no = ?";
 		private static final String GET_Detail_ByOrder_STMT = "SELECT PO_NO,PO_PROD_NO,PO_QTY,PO_PRICE FROM PRE_ORDER_DETAIL WHERE PO_NO = ? ORDER BY PO_PROD_NO";
 		
 		private static final String GET_ALL_ByMemid_STMT = "SELECT * FROM PRE_ORDER WHERE mem_id = ? ORDER BY PO_NO";
+		
+		private static final String GET_ALL_PonoByReachDiscount = "SELECT * FROM PRE_ORDER t1 left join pre_order_detail t2 on t1.po_no = t2.po_no where t2.po_no = (select t2.po_no from pre_order_detail where (po_prod_no = (select po_prod_no from(SELECT p.po_prod_no,sum(PO_QTY) as po_qty FROM PRE_ORDER_DETAIL P WHERE P.PO_PROD_NO IN(SELECT PO_PROD_NO FROM PRE_ORDER WHERE po_status = 3)GROUP BY p.po_prod_no) where po_qty>= ? and po_prod_no = ?)) and rownum<2)";
 		
 	
 	
@@ -524,6 +526,116 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 			}
 		}
 		return list;
+	}
+	@Override
+	public List<PreOrderVO> look_discount_pono(Integer reach_number,String po_prod_no) {
+		List<PreOrderVO> list = new ArrayList<PreOrderVO>();
+		PreOrderVO preorderVO = null;
+
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		
+		try {
+			System.out.println("訂單DAO - 進入look_discount_pono()方法");
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_PonoByReachDiscount);
+			pstmt.setInt(1, reach_number);
+			System.out.println("set第一個問號 = "+reach_number);
+			pstmt.setString(2, po_prod_no);
+			System.out.println("set第二個問號 = "+po_prod_no);
+			rs = pstmt.executeQuery();
+			
+			
+			while (rs.next()) {
+				preorderVO = new PreOrderVO();
+				System.out.println("進入rs迴圈");
+				
+				preorderVO.setMem_id(rs.getString("mem_id"));
+				System.out.println("進入rs迴圈取mem_id" + rs.getString("mem_id"));
+				preorderVO.setPo_time(rs.getTimestamp("po_time"));
+				preorderVO.setPo_zip(rs.getInt("po_zip"));
+				preorderVO.setPo_name(rs.getString("po_name"));
+				preorderVO.setPo_phone(rs.getString("po_phone"));
+				preorderVO.setPo_addr(rs.getString("po_addr"));
+				preorderVO.setPo_status(rs.getInt("po_status"));
+				preorderVO.setPo_total(rs.getInt("po_total"));
+				preorderVO.setPo_note(rs.getString("po_note"));
+				System.out.println("count++");
+
+				list.add(preorderVO);
+			}
+			
+			
+
+		
+		}catch (SQLException se) {
+					throw new RuntimeException("A database error occured. "
+							+ se.getMessage());
+					// Clean up JDBC resources
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (pstmt != null) {
+						try {
+							pstmt.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (con != null) {
+						try {
+							con.close();
+						} catch (Exception e) {
+							e.printStackTrace(System.err);
+						}
+					}
+				}
+		
+		System.out.println("回傳list 結束PreOrderDAO");
+		return list;
+	}
+	@Override
+	public void updateStatus(PreOrderVO preorderVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+			pstmt.setInt(1, preorderVO.getPo_status());
+			pstmt.setString(2, preorderVO.getPo_no());
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
 	}
 	
 	

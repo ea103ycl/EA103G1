@@ -8,8 +8,9 @@
 <%@ page import="com.painter_tag.model.*"%>
 <%@ page import="com.painter_msg.model.*"%>
 <%@ page import="com.follow.model.*"%>
+<%@ page import="com.mem.model.*"%>
 
-<%@include file="/frontend/bar/testLogin.jsp"%>
+<%-- <%@include file="/frontend/bar/testLogin.jsp"%> --%>
 
 <%
 	MemVO loginMemVO = (MemVO)session.getAttribute("memVO");
@@ -30,12 +31,14 @@
 	
 	String src = (String)request.getParameter("src");
 	pageContext.setAttribute("src", src);
+	System.out.println("src=" + src);
 	
 	String spg = (String)request.getParameter("spg");
 	pageContext.setAttribute("spg", spg);
 	
 	String sid = (String)request.getParameter("sid");
 	pageContext.setAttribute("sid", sid);
+	System.out.println("sid=" + sid);
 	
 	PainterTagMapService painterTagMapSvc = new PainterTagMapService();
 	List<PainterTagMapVO> tagList = painterTagMapSvc.getAllByPtrNo(ptr_no);
@@ -93,7 +96,8 @@
 	            			
 	            				<!-- 創作者頭像&會員帳號 -->
 	            				<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${painterVO.mem_id}">
-	            					<img class="ycl-creator-pic" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${painterVO.mem_id}">
+									<%--<img class="ycl-creator-pic" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${painterVO.mem_id}"> --%>
+	            					<img class="ycl-creator-pic" src="<%=request.getContextPath()%>/painter/painter.do?action=showCreatorPhoto&sid=${painterVO.mem_id}">
 	            					${sMembersSvc.findByPrimaryKey(painterVO.mem_id).getM_accno()}
 	            				</a>
 	            				
@@ -132,7 +136,8 @@
 		                            <div class="media-left">
 		                            
 		                                <a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${painterMsgVO.mem_id}">
-		                                    <img class="media-object" alt="" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${painterMsgVO.mem_id}">
+											<%--<img class="media-object" alt="" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${painterMsgVO.mem_id}"> --%>
+		                                    <img class="media-object" alt="" src="<%=request.getContextPath()%>/painter/painter.do?action=showCreatorPhoto&sid=${painterMsgVO.mem_id}">
 		                                </a>
 		                            </div>
 		                            
@@ -200,6 +205,8 @@
 	                            		<c:when test="${src==3}"><div class="col-xs-5"><a href="<%=request.getContextPath()%>/frontend/painter/listAllPainterFollow.jsp?sid=${sid}&whichPage=${spg}" class="btn btn-md btn-primary btn-form-submit"><strong>回關注圈</strong></a></div></c:when>
 	                            		<c:otherwise><div class="col-xs-5"><a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${painterVO.mem_id}&whichPage=${spg}" class="btn btn-md btn-primary btn-form-submit"><strong>回作品列表</strong></a></div></c:otherwise>
 	                            	</c:choose>
+	                            	<input style="display:none" name="src" value="${src}">
+	                            	<input style="display:none" name="sid" value="${sid}">
 	                            	<div class="col-xs-7"><button type="submit" name="action" value="insert" id="form-submit" class="btn btn-md btn-primary-filled btn-form-submit"><strong>送出</strong></button></div>
 	                            </div>
 	                            
@@ -329,7 +336,7 @@
 				})
 				.then((willDelete) => {
 				  if (willDelete) {
-					  location.href='<%=request.getContextPath()%>/painter/painter_msg.do?action=deleteByMsgOwner&msg_no=' + id + '&ptr_no=${painterVO.ptr_no}';
+					  location.href='<%=request.getContextPath()%>/painter/painter_msg.do?action=deleteByMsgOwner&msg_no=' + id + '&ptr_no=${painterVO.ptr_no}&src=${src}&sid=${sid}';
 				  } else {
 				   null;
 				  }
@@ -347,7 +354,7 @@
 				})
 				.then((willDelete) => {
 				  if (willDelete) {
-					  location.href='<%=request.getContextPath()%>/painter/painter_msg.do?action=deleteByPainterOwner&msg_no=' + id + '&ptr_no=${painterVO.ptr_no}';
+					  location.href='<%=request.getContextPath()%>/painter/painter_msg.do?action=deleteByPainterOwner&msg_no=' + id + '&ptr_no=${painterVO.ptr_no}&src=${src}&sid=${sid}';
 				  } else {
 				   null;
 				  }

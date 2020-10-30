@@ -87,7 +87,7 @@ background-color:#fff;
 </head>
 <body>
 <div id="top"></div>
-<%@include  file="/frontend/event_p/frontBarTop.jsp"%>
+<%@include  file="/frontend/bar/frontBarTop.jsp"%>
 	
 
 
@@ -211,7 +211,7 @@ background-color:#fff;
 <!-- scroll to top -->
 <a href="#top" class="scroll-to-top page-scroll is-hidden" data-nav-status="toggle"><i class="fa fa-angle-up"></i></a>
 <!-- / scroll to top -->
-<%@include file="frontBarFooter.jsp" %>
+<%@include file="/frontend/bar/frontBarFooter.jsp" %>
 
     <script src="<%=request.getContextPath() %>/frontend/template/jquery/jquery.min.js" ></script>
 	<script src="<%=request.getContextPath() %>/frontend/template/js/bootstrap.min.js" ></script>

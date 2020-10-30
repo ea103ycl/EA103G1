@@ -358,8 +358,11 @@ public class EventServlet extends HttpServlet {
 			
 			svc.update(event_no, event_name, event_start, event_end, event_ul_start, event_ul_end, event_vote_start, event_vote_end, event_stat);
 			//回傳turnback
+			System.out.println(req.getParameter("requestURL"));
+			
 			String path="/backend/event/TestListAll.jsp";
 			RequestDispatcher ok=req.getRequestDispatcher(path);
+//			req.getParameter("requestURI")
 			ok.forward(req, res);
 			}catch(Exception e) {
 				errMsgs.add("出現錯誤");

@@ -91,7 +91,6 @@ public class EmpServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.removeAttribute("emp_no");
 			session.removeAttribute("funcList");
-			session.setAttribute("emp_no", "XXX");
 			RequestDispatcher failureView = req.getRequestDispatcher("/backend/emp/login.jsp");
 			failureView.forward(req, res);
 		}
@@ -571,7 +570,8 @@ public class EmpServlet extends HttpServlet {
 				}
 				
 				
-				String resetUrl = "http://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath() + "/backend/emp/newEmp.jsp";
+				String resetUrl = "http://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath() + "/backend/emp/newEmp.jsp"
+						 + "?emp_no1="+emp_no+"&emp_pwd1="+emp_pwd;
 				
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			    //寄送E-Mail

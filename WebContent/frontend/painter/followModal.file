@@ -21,7 +21,7 @@
 				    		<tr>
 	                    		<td>
 	                    			<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${followVO.f_mem_id}">
-	                    				<img class="ycl-follow-list-pic" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${followVO.f_mem_id}">
+	                    				<img class="ycl-follow-list-pic" src="<%=request.getContextPath()%>/painter/painter.do?action=showCreatorPhoto&sid=${followVO.f_mem_id}">
 	                    				<span>${sMemSvc.findByPrimaryKey(followVO.f_mem_id).getM_accno()}</span>
 	                    			</a>
 	                    			<c:choose>
@@ -65,7 +65,7 @@
 				    		<tr id="fansTr${fansVO.mem_id}">
 	                    		<td>
 	                    			<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${fansVO.mem_id}">
-	                    				<img class="ycl-fans-list-pic" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${fansVO.mem_id}">
+	                    				<img class="ycl-fans-list-pic" src="<%=request.getContextPath()%>/painter/painter.do?action=showCreatorPhoto&sid=${fansVO.mem_id}">
 	                    				<span>${sMemSvc.findByPrimaryKey(fansVO.mem_id).getM_accno()}</span>
 	                    			</a>
 	                    			<c:choose>

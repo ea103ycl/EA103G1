@@ -46,7 +46,7 @@
 <title>投稿作品頁面</title>
 </head>
 <body>
-<%@include file="/frontend/event_p/frontBarTop.jsp" %>
+<%@include  file="/frontend/bar/frontBarTop.jsp"%>
 ${event_pVO==null }
 <c:if test="${not empty errMsgs }">
 	<c:forEach var="err" items="${errMsgs}">
@@ -156,6 +156,7 @@ ${event_pVO==null }
 	</form>
 	<img id="demo2">
 	</div>
+	<%@include file="/frontend/bar/frontBarFooter.jsp" %>
 </body>
 
 

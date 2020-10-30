@@ -1,8 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.prod.model.*"%>
+<%@ page import="com.preproduct.model.*"%>
+
+<% 
+	//一般購物車
+	@SuppressWarnings("unchecked")
+	Vector<PreProductVO> tBarCart1 = (Vector<PreProductVO>) session.getAttribute("shoppingcart");
+	int tBarCart1Cnt = ( (tBarCart1 != null && tBarCart1.size() > 0) ? tBarCart1.size() : 0);
+	System.out.print( "一般購物車數量=" + tBarCart1Cnt );
+
+	//預購購物車
+	@SuppressWarnings("unchecked")
+	Vector<PreProductVO> tBarCart2 = (Vector<PreProductVO>) session.getAttribute("preshoppingcart");
+    int tBarCart2Cnt = ( (tBarCart2 != null && tBarCart2.size() > 0) ? tBarCart2.size() : 0);
+    System.out.print( "預購購物車數量=" + tBarCart2Cnt );
+    
+    //總數量
+    int tBarCartTotal = tBarCart1Cnt + tBarCart2Cnt;
+    pageContext.setAttribute("tBarCart1Cnt", tBarCart1Cnt);
+    pageContext.setAttribute("tBarCart2Cnt", tBarCart2Cnt);
+    pageContext.setAttribute("tBarCartTotal", tBarCartTotal);
+
+    
+%>
+
 <!DOCTYPE html>
-
-
 
 <html>
 	<head>
@@ -58,15 +83,15 @@
                 </button>
                 <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
             </div><!-- / navbar-header -->
-            
+            	
             <div class="secondary-nav" style="display:inline-block;">
 
             	<!-- 購物車 -->
             	<li class="dropdown ycl-topBar-second">
-                    <a href="#" class="shopping-cart space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart"></i><span class="cart-badge">5</span></a>
+                    <a href="#" class="shopping-cart space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart"></i><span class="cart-badge">${tBarCartTotal}</span></a>
                     <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="<%=request.getContextPath()%>/frontend/shop/Cart.jsp"><span>一般商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt1">30</span></a></li>
-                        <li><a href="<%=request.getContextPath()%>/frontend/preproduct/shoppingCart.jsp"><span>預購商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt2">2</span></a></li>
+                        <li><a href="<%=request.getContextPath()%>/frontend/shop/Cart.jsp"><span>一般商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt1">${tBarCart1Cnt}</span></a></li>
+                        <li><a href="<%=request.getContextPath()%>/frontend/preproduct/shoppingCart.jsp"><span>預購商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt2">${tBarCart2Cnt}</span></a></li>
                     </ul>
                 </li>
 
@@ -74,8 +99,16 @@
             	<li class="dropdown ycl-topBar-second">
                     <a href="#" class="my-account space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
                     <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="<%=request.getContextPath()%>/frontend/members/memArea.jsp"><span>設定</span></a></li>
-                        <li><a href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout"><span>登出</span></a></li>
+                    	<c:choose>
+                    		<c:when test="${empty sessionScope.memVO}">
+                    			<li><a href="<%=request.getContextPath()%>/frontend/members/memLogin.jsp"><span>登入</span></a></li>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<li><a href="<%=request.getContextPath()%>/frontend/members/memArea.jsp"><span>設定</span></a></li>
+                        		<li><a href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout"><span>登出</span></a></li>
+                        	</c:otherwise>
+                    	</c:choose>
+
                     </ul>
                 </li>
                 
@@ -104,18 +137,6 @@
                     <!-- 見面會 -->
                     <li><a href="<%=request.getContextPath()%>/frontend/biddingFront/biddingPage.jsp"><span>見面會</span></a></li>
 
-
-                    <!-- ------------------------------------------------------------------ -->
-
-<!--                     備用 -->
-<!--                     <li class="dropdown"> -->
-<!-- 	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>預購</span> <span class="dropdown-icon"></span></a> -->
-<!-- 	                    <ul class="dropdown-menu animated zoomIn fast"> -->
-<!-- 	                        <li><a href="blog.html"><span>備用</span></a></li> -->
-<!-- 	                        <li><a href="single-post.html"><span>備用</span></a></li> -->
-<!-- 	                    </ul> -->
-<!--                     </li> -->
-                    
                     
                 </ul>
             </div><!--/ nav-collapse -->

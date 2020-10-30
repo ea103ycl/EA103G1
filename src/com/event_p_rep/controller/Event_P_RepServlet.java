@@ -57,8 +57,8 @@ System.out.println("rep_stat: "+rep_stat);
 			pSvc.update(event_pVO.getMem_id(), event_pVO.getEvent_no(), event_pVO.getEvent_p_name(), event_pVO.getEvent_p_date(), event_pVO.getEvent_vote_num(), event_pVO.getVote_rank(),new Integer(pStat), event_pVO.getEvent_p_img(), new Integer(event_p_no));
 			List<Event_PVO> event_pVOs=pSvc.findAllNoReport(pSvc.findByPrimaryKey(new Integer(event_p_no)).getEvent_no());
 			sess.setAttribute("event_pVOs", event_pVOs);
-			String path="/backend/event_p_rep/listAllRep.jsp";
-			RequestDispatcher success=req.getRequestDispatcher(path);
+//			String path="/backend/event_p_rep/listAllRep.jsp";
+			RequestDispatcher success=req.getRequestDispatcher(req.getParameter("requestURL"));
 			success.forward(req, res);
 		}
 		if("report".equals(action)){

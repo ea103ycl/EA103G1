@@ -15,8 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mem.model.MemService;
+import com.mem.model.MemVO;
 import com.painter.model.PainterService;
 import com.painter.model.PainterVO;
+import com.painter_msg.model.PainterMsgService;
+import com.painter_msg.model.PainterMsgVO;
 import com.painter_tag.model.*;
 import com.painter_tag_map.model.PainterTagMapService;
 import com.painter_tag_map.model.PainterTagMapVO;
@@ -96,6 +100,51 @@ public class TagGetPic extends HttpServlet {
 				}
 			}
 			out.println(jsonOb);
+		}
+		
+		if("msgUpdate".equals(action)) {
+			
+			MemService memSvc =new MemService();
+ 			PainterMsgService pmsgSvc =new PainterMsgService();
+			PainterTagService ptSvc = new PainterTagService();
+			PainterTagMapService ptmSvc =new PainterTagMapService();
+			
+			String ptrno = req.getParameter("ptrno");
+			List<PainterMsgVO> list =pmsgSvc.getAll(Integer.valueOf(ptrno));
+			List<PainterTagMapVO> tagnoList= ptmSvc.getAllByPtrNo(Integer.valueOf(ptrno));
+			
+			//==========getTag=====================
+			if(tagnoList.size()!=0) {
+				
+				out.print("<div>");
+				for(PainterTagMapVO ptmVO:tagnoList) {
+					Integer tagno=ptmVO.getTag_no();
+					String tagDesc= ptSvc.getOneByTagNo(tagno).getTag_desc();
+					
+					out.print("<a> #"+tagDesc+"</a>");
+				}
+				out.print("</div>");
+			}
+			//==========!getTag=====================
+			
+			//==========getComment==============
+			if(ptrno.length()==0 ||list.size()==0) {
+				out.print("Leave a comment...");
+				return;
+			}
+			
+			for(PainterMsgVO pmsgVO:list) {
+				String memId=pmsgVO.getMem_id();
+				MemVO memVO= memSvc.findByPrimaryKey(memId);
+				String memName=memVO.getM_name();
+				
+				out.print(
+						"<div>"
+						+"<div class='msgImg'><img src='"+req.getContextPath()+"/ReadMemPic?action=getPic&memId="+memId+"'>"+memName+"</div>"
+						+ pmsgVO.getMsg()
+						+ "</div>");
+			}
+			//==========!getComment==============
 		}
 	}
 }

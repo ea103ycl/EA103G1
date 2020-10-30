@@ -17,9 +17,11 @@
     List<PreOrderVO> list = preorderSvc.getAllByMemid(memVO.getMem_id());
     pageContext.setAttribute("list",list);
     
-    PreOrderDetailService preorderdetailSvc = new PreOrderDetailService();
-    List<PreOrderDetailVO> list1 = preorderdetailSvc.getAllByPo_no(po_no);
-    pageContext.setAttribute("list1",list1);
+//     PreOrderDetailService preorderdetailSvc = new PreOrderDetailService();
+//     List<PreOrderDetailVO> list1 = preorderdetailSvc.getAllByPo_no(po_no);
+//     pageContext.setAttribute("list1",list1);
+
+
     
     WelRecordService welRecordSvc = new WelRecordService();
     List<WelRecordVO> set = welRecordSvc.getWelRecordByMemID(memVO.getMem_id());

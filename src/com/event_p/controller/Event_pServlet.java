@@ -271,8 +271,8 @@ public class Event_pServlet extends HttpServlet {
 			List<Event_PVO> event_pVOs=svc.findAllByEventNo(event_no);
 			sess.setAttribute("SearchByEventNo", event_no);
 			sess.setAttribute("event_pVOs", event_pVOs);
-			String path="/backend/event_p/listAllPic.jsp";
-			RequestDispatcher ok=req.getRequestDispatcher(path);
+//			String path="/backend/event_p/listAllPic.jsp";
+			RequestDispatcher ok=req.getRequestDispatcher(req.getParameter("requestURL"));
 			ok.forward(req, res);
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -343,7 +343,7 @@ public class Event_pServlet extends HttpServlet {
 				return;
 			}else {
 				//ノ岿粇癟ㄓ硄笷щ布Ω计
-				if(voteNum==3) {
+				if(voteNum.equals(4)) {
 					errMsgs.add("笷щ布计(程щ3Ω)");
 				}
 				if(checkDup) {
@@ -357,6 +357,7 @@ public class Event_pServlet extends HttpServlet {
 					return;
 				}else {
 					errMsgs.add("ゼ岿粇");
+					System.out.println("voteNum:"+voteNum);
 					req.setAttribute("event_p_no", event_p_no);
 					RequestDispatcher fail=req.getRequestDispatcher("/frontend/event_p/event_spec.jsp");
 					fail.forward(req, res);

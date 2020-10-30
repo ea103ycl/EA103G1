@@ -134,7 +134,7 @@ table.table {
 						<c:forEach var="eventVO" items="${eventVOs}"
 							begin="<%=pageIndex %>" end="<%=pageIndex+rowsPerPage-1 %>">
 
-							<tr>
+							<tr ${param.event_no==eventVO.event_no?"bgcolor=#CCCCFF":""}>
 								<td scope="row"><%=num++%></td>
 								<td>${eventVO.event_no}</td>
 								<td>${eventVO.event_name}</td>
@@ -167,10 +167,11 @@ table.table {
 
 								<td>
 									<form action="eventServlet" method="post">
-										<input type="hidden" name="event_no"
-											value="${eventVO.event_no}"> <input type="hidden"
-											name="action" value="updateFromListAll"> <input
-											type="submit" value="修改">
+										<input type="hidden" name="event_no" value="${eventVO.event_no}"> 
+										<input type="hidden" name="action" value="updateFromListAll"> 
+										<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+										<input type="hidden" name="whichPage" value="<%=whichPage%>">
+										<input type="submit" value="修改">
 									</form>
 								</td>
 							</tr>

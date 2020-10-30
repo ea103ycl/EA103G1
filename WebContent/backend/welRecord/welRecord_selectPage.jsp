@@ -231,11 +231,11 @@ tr, td, th {
 
 									<div class="row" style="margin-bottom: 20px">
 										<div class="col-md-6">
-											<canvas id="myChart1"></canvas>
+											<canvas id="myChart1" style="width: 200px"></canvas>
 										</div>
 										<div class="col-md-6">
 											<canvas id="myChart2"
-												style="position: relative; width: 180px"></canvas>
+												style="width: 200px"></canvas>
 										</div>
 									</div>
 
@@ -436,16 +436,18 @@ tr, td, th {
 	
 	
 	$("#simpleSearch").click(function(){
-		
+		 $("#resultHeader").css("visibility","hidden");
 		 $("#result").empty();
 		 $("#chart").css("display","none");
-		 $("#resultHeader").css("visibility","hidden");
+		 $("#queryResult").css("visibility","hidden"); 
+		
 	});
 
 	//全部交易紀錄查詢
 	$("#getAllRecords").click(function(){
 		 $("#result").empty();
 		 $("#resultHeader").css("visibility","visible");
+		 $("#queryResult").css("visibility","visible"); 
 		 $("#chart").css("display","inline");
 		 $("#myChart1").css("display","inline-block");
 		 $("#myChart2").css("display","inline-block");

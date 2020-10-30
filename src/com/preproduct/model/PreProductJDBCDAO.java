@@ -17,7 +17,7 @@
 //	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 //	String userid = "G1";
 //	String passwd = "123456";
-//	
+//	 
 //	private static final String INSERT_STMT = "INSERT INTO PRE_PRODUCT (PO_PROD_NO,EVENT_P_NO,MA_NO,PO_START,PO_END,PO_PRICE,PO_DETAIL) "
 //			+ "VALUES (PRE_PRODUCT_SEQ.NEXTVAL,?,?,?,?,?,?)";
 //	private static final String INSERT_ByRanking_STMT = "INSERT INTO PRE_PRODUCT ( PO_PROD_NO, EVENT_P_NO, MA_NO, PO_START, PO_END,PO_PRICE, PO_DETAIL) SELECT PRE_PRODUCT_SEQ.NEXTVAL, EVENT_P_NO, ?, ?, ?,?, ? FROM EVENT_P E WHERE E.VOTE_RANK BETWEEN 1 AND 10 AND E.EVENT_NO = (SELECT MAX(T.EVENT_NO) FROM EVENT T WHERE T.EVENT_STAT = 3)";

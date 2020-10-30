@@ -69,6 +69,15 @@ public class PreOrderService {
 		
 		return dao.findByPrimaryKey(po_no);
 	}
+	public PreOrderVO updateStatus(Integer po_status,String po_no) {
+		PreOrderVO preorderVO = new PreOrderVO();
+		System.out.println("進入Servic - updateStatus");
+		preorderVO.setPo_status(po_status);
+		preorderVO.setPo_no(po_no);
+		dao.updateStatus(preorderVO);
+		System.out.println("進入Servic - findByPrimaryKey準備執行");
+		return dao.findByPrimaryKey(po_no);
+	}
 	
 	public void updatePreOrder(PreOrderVO preorderVO) {
 		dao.update(preorderVO);
@@ -88,6 +97,10 @@ public class PreOrderService {
 	public List<PreOrderVO> getAll(){
 		System.out.println("預購訂單Service - 進入getAll()方法");
 		return dao.getAll();
+	}
+	public List<PreOrderVO> look_discount_pono(Integer reach_number,String po_prod_no){
+		System.out.println("預購訂單Service - 進入look_discount_pono方法");
+		return dao.look_discount_pono(reach_number,po_prod_no);
 	}
 	
 	
