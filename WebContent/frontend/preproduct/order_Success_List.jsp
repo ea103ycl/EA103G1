@@ -67,6 +67,14 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
   <script type="text/javascript" src="<%=request.getContextPath()%>/frontend/preproduct/css/index_parts/jquery-3.5.1.js"></script>
   <style type="text/css" media="screen">
+  
+  @media screen and (max-width:1200px){
+	.btn-lg {
+	    width: 110px !important;
+	    font-size: 18px !important;
+	}
+}
+  
     #disappear,
     #disappear01,
     #disappear02,

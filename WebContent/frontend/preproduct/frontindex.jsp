@@ -47,10 +47,17 @@
   
   <style type="text/css" media="screen">
   
-@media screen and (max-width:1280px){
-.count_contentBx .count_conutdown {
-    display: block !important;
+@media screen and (max-width:1200px){
+	.btn-lg {
+	    width: 110px !important;
+	    font-size: 18px !important;
+	}
 }
+@media screen and (max-width:1000px){
+	.btn-lg {
+	    width: 85px !important;
+	    font-size: 12px !important;
+	}
 }
   
 #disappear,
@@ -105,8 +112,8 @@ header #header-banner{
 	
 }
 .btn-lg{
-	width: 100% !important;
-	font-size: 28px;
+	width: 150px !important;
+    font-size: 25px;
 	margin:2px;
 	padding: 12px 0px;
 	font-weight: 600;
@@ -116,6 +123,7 @@ header #header-banner{
 }
 .divcss5{
  border:1px groove #000; width:300px; height:300px; 
+ margin-bottom:5px;
  } 
 .divcss5 img{width:100%px; height:auto;} 
 
@@ -124,13 +132,11 @@ header #header-banner{
 		opacity: 1;
 		z-index: -100;
 		top: -170%;
-		left: -110%;
+		left: -95%;
 		width: 270px;
 		max-width: 270px;
 		height: 200px;
-
 }
-
 
 	</style>
 </head>
@@ -147,66 +153,7 @@ header #header-banner{
 
 
 <header>
-    <!-- nav -->
-    <nav class="navbar navbar-default nav-sec navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="frontindex.jsp"><img src="<%=request.getContextPath()%>/frontend/template/images/favicon.png" alt="logo"></a>
-            </div><!-- / navbar-header -->
-            <div class="secondary-nav">
-                <a href="login-register.html" class="my-account space-right"><i class="fa fa-user"></i></a>
-                <a href="shoppingcart.jsp" class="shopping-cart"><i class="fa fa-shopping-cart"></i> <span id="countcart" class="cart-badge">0</span></a>
-            </div>
-            <div class="navbar-collapse collapse text-center">
-                <ul class="nav navbar-nav">
-                    <li><a href="index.html"><span>首頁</span></a></li>
-                    <li><a href="about.html"><span>ABOUT</span></a></li>
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>BLOG</span> <span class="dropdown-icon"></span></a>
-                    <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="blog.html"><span>BLOG FULLWIDTH</span></a></li>
-                        <li><a href="blog-masonry.html"><span>BLOG MASONRY</span></a></li>
-                        <li><a href="blog-sidebar.html"><span>BLOG SIDEBAR</span></a></li>
-                        <li><a href="single-post-full.html"><span>POST FULLWIDTH</span></a></li>
-                        <li><a href="single-post.html"><span>POST SIDEBAR</span></a></li>
-                    </ul>
-                    </li>
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>SHOP</span> <span class="dropdown-icon"></span></a>
-                    <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="shop.html"><span>FULL WIDTH</span></a></li>
-                        <li><a href="shop-right.html"><span>RIGHT SIDEBAR</span></a></li>
-                        <li><a href="shop-left.html"><span>LEFT SIDEBAR</span></a></li>
-                        <li class="active"><a href="shop-masonry.html"><span>MASONRY</span></a></li>
-                        <li><a href="single-product.html"><span>SINGLE PRODUCT</span></a></li>
-                        <li><a href="single-product2.html"><span>SINGLE PRODUCT 2</span></a></li>
-                        <li><a href="single-product3.html"><span>SINGLE PRODUCT 3</span></a></li>
-                    </ul>
-                    </li>
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>PAGES</span> <span class="dropdown-icon"></span></a>
-                    <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="faq.html"><span>FAQ</span></a></li>
-                        <li><a href="shopping-cart.html"><span>SHOPPING CART</span></a></li>
-                        <li><a href="login-register.html"><span>LOGIN / REGISTER</span></a></li>
-                        <li><a href="my-account.html"><span>MY ACCOUNT</span></a></li>
-                        <li><a href="checkout.html"><span>CHECKOUT</span></a></li>
-                        <li><a href="404.html"><span>404 PAGE</span></a></li>
-                        <li><a href="components.html"><span>COMPONENTS</span></a></li>
-                    </ul>
-                    </li>
-                    <li><a href="contact.html"><span>CONTACT</span></a></li>
-                </ul>
-            </div><!--/ nav-collapse -->
-        </div><!-- / container -->
-    </nav>
-    <!-- / nav -->
+    
     <!-- header-banner 本期預購活動倒數-->
     <div id="header-banner">
         <div class="banner-content single-page text-center">
@@ -243,14 +190,13 @@ header #header-banner{
   
 <hr>
 <h1>本期得獎作品</h1>
-<%=list01.size() %>
 	<div class="row">
 	    <div class="col-12">
 			<%@include file="/backend/preproduct/pages/page3.file" %>
 	    <div class="mdb-lightbox no-margin">
 			<c:forEach var="eventpVO" items="${list01}" begin="<%=pageIndexx%>" end="<%=pageIndexx+rowsPerPagee-2%>">
 		      <figure class="col-md-4">
-		      <p>編號${eventpVO.event_p_no+1}</p>
+		      <p>編號${eventpVO.event_p_no+1}  第${eventpVO.vote_rank+1}名</p>
 		        <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg" data-size="1600x1067"><div class="divcss5 "> 
 		          <img alt="picture" src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${eventpVO.event_p_no+1}"
 		            class="img-fluid">
@@ -267,7 +213,7 @@ header #header-banner{
 				<!-- shop section -->
 			<section id="shop" class="space-top-30">
 		    <div class="container">
-		        <p class="shop-results space-left">Showing <strong>1-12</strong> of <strong>36</strong> items. 
+		        <p class="shop-results space-left">Showing <strong>${list.size()}</strong> items. 
 		            <span class="pull-right space-right">
 		                <select class="selectpicker">
 		                    <optgroup label="Sort By:">
