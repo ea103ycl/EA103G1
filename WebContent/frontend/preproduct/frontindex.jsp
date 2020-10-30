@@ -46,6 +46,13 @@
   <script type="text/javascript" src="<%=request.getContextPath()%>/frontend/preproduct/css/index_parts/jquery-3.5.1.js"></script>
   
   <style type="text/css" media="screen">
+  
+@media screen and (max-width:1280px){
+.count_contentBx .count_conutdown {
+    display: block !important;
+}
+}
+  
 #disappear,
 #disappear01,
 #disappear02,
@@ -53,7 +60,7 @@
 	display: none;
 	}
 	.img01{
-	width:100%px; height:auto;
+	width:100%; height:auto;
 	}
 	.count_contentBx .count_conutdown{
 	display: flex;
@@ -100,7 +107,7 @@ header #header-banner{
 .btn-lg{
 	width: 100% !important;
 	font-size: 28px;
-	margin:8px;
+	margin:2px;
 	padding: 12px 0px;
 	font-weight: 600;
 	justify-content: center;
