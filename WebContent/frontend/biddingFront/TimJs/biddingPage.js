@@ -460,7 +460,17 @@
 
 
         function getPrice() {
-            $('#checkoutPrice').html($('#price1').html());
+            let checkoutPrice=$('#checkoutPrice').html($('#price1').html());
+				checkoutPrice=parseInt(checkoutPrice.html().substring(1));
+			let myWallet=$('#myWallet').html();
+			let balance= myWallet-checkoutPrice;
+			
+			if(balance<=0){
+				$('#balance').parent('h4').html('$<span>餘額不足</span><br><br><span>Balance $:'+balance+'</span>');
+			}else{
+				$('#balance').html(balance);
+			}	
+			
         };
 
 

@@ -26,7 +26,7 @@ public class EventDAO  implements EventDAO_interface{
 	private static final String FINDBYEVENTNO=
 			"SELECT * FROM EVENT WHERE EVENT_NO=?";
 	private static final String FINDWITHOUTEND="SELECT * FROM EVENT WHERE EVENT_STAT!=3";
-	private static final String FINDLASTENDEVENT="select event_no from event where event_stat=3 and rownum=1 order by event_no desc";
+	private static final String FINDLASTENDEVENT="select event_no from(select event_no from event where event_stat=3  order by event_no desc)where rownum<=1";
 	
 	static{
 		try {

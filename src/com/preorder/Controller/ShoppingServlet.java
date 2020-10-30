@@ -85,6 +85,7 @@ public class ShoppingServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
+				
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String po_no = null;
 				
@@ -139,7 +140,7 @@ public class ShoppingServlet extends HttpServlet {
 					
 					
 					for(int i = 0;i<buylist.size();i++) {
-						System.out.println("start insert ");
+						System.out.println("start insert 第"+(i+1)+"件商品");
 //						PreProductVO order = buylist.get(i);
 						Integer po_qty1 = new Integer(po_qty[i]);;
 						System.out.println(po_qty1);

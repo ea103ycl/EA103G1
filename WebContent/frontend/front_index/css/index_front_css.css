@@ -788,4 +788,9 @@
             max-width: 13%;
             border-radius: 50%;
         }
+
+        .comment-body img {
+            max-width: 13%;
+            border-radius: 50%;
+        }
         /* !comment */
