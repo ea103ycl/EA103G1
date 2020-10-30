@@ -102,19 +102,19 @@
 										</tfoot>
 										<tbody>
 										<%@ include file="pages/page1.file" %>
-					                    <c:forEach var="preorderVO" items="${preorderlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+					                    <c:forEach var="preorderVO" items="${preorderlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="status">
 					                   
 											<tr>
 												<td>${preorderVO.mem_id}</td>
-												<td></td>
+												<td>${list[status.index].po_prod_no}</td>
 												<td></td>
 												<td></td>
 												<td>
-<%-- 													<c:forEach var="disVO" items="${list_dis}"> --%>
-<%-- 														<c:if test="${preorderdetailVO.po_prod_no==disVO.po_prod_no}"> --%>
-<%-- 															${disVO.reach_discount}%/${disVO.reach_number}人<br> --%>
-<%-- 														</c:if> --%>
-<%-- 													</c:forEach> --%>
+													<c:forEach var="disVO" items="${list_dis}">
+														<c:if test="${preorderVO.po_no==disVO.po_prod_no}">
+															${disVO.po_prod_no}<br>
+														</c:if>
+													</c:forEach>
 												</td>
 												<td></td>
 												<td>
@@ -133,7 +133,7 @@
 											</tr>
 											</c:forEach>
 					                    
-					                    <%@ include file="pages/page2.file" %>
+<%-- 					                    <%@ include file="pages/page2.file" %> --%>
 					                   </tbody>
 					                </table>
 								</div>

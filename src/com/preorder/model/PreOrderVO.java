@@ -13,6 +13,8 @@ public class PreOrderVO implements java.io.Serializable{
 	private Integer po_total;
 	private String po_note;
 	
+	
+	
 	public String getPo_no() {
 		return po_no;
 	}
