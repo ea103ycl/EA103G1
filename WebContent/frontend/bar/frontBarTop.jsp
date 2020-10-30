@@ -145,7 +145,7 @@
     <!-- / nav -->
     
     <!-- header-banner -->
-    <div id="header-banner" style="margin-top:60px;"></div>
+<!--     <div id="header-banner" style="margin-top:60px;"></div> -->
     <!-- / header-banner -->
 	
 	</body>
