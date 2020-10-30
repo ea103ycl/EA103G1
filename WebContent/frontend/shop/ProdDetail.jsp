@@ -4,6 +4,7 @@
 <%@ page import="com.prod.model.*"%>
 <%@ page import="com.eval.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="com.mem.model.*" %>
 
 <%
 ProdVO prodVO = (ProdVO) request.getAttribute("prodVO"); 
@@ -13,8 +14,12 @@ ProdVO prodVO = (ProdVO) request.getAttribute("prodVO");
 EvalService evalSvc = new EvalService();
 List<EvalVO> list_eval = evalSvc.getAllByProd_no(prodVO.getProd_no());
 pageContext.setAttribute("list_eval", list_eval);
+%>
 
 
+<%//Session
+MemVO memVO = new MemVO();
+memVO = (MemVO)request.getSession().getAttribute("memVO");
 %>
 
 
@@ -155,7 +160,7 @@ pageContext.setAttribute("list_eval", list_eval);
 
                             
                                 <div class="review-author pull-left">
-                                  <img src="images/author1.jpg" alt="">
+                                  <img src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=<%=memVO.getMem_id()%>" alt="">
                                 </div>
                          <!---------------------------------------------------------------------  review-content --------------------------------------------------------->
                                 <div class="review-content" style="margin: 0 0 20px 0;">
