@@ -21,7 +21,7 @@
 <title>report page</title>
 </head>
 <body>
-
+<%@include  file="/frontend/bar/frontBarTop.jsp"%>
 <c:if test="${not empty errMsgs }">
 	<c:forEach var="err" items="${errMsgs}">
 		<ul>
@@ -80,6 +80,7 @@
 	</form>
 	
 	</div>
+	<%@include file="/frontend/bar/frontBarFooter.jsp" %>
     <script src="<%=request.getContextPath() %>/frontend/template/jquery/jquery-3.1.0.min.js" ></script>
 	 <script>
     window.jQuery || document.write('<script src="<%=request.getContextPath()%>/frontend/template/jquery/jquery.min.js"><\/script>')
