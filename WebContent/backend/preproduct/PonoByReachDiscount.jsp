@@ -50,6 +50,7 @@
 			#addcartbtn{
 		      display: none;
 		    }
+
 		</style>
 	</head>
 	<body id="page-top">
@@ -147,7 +148,7 @@
 												</td>
 												<td>
 													<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/preproduct/preorder.do" style="margin-bottom: 0px;">
-														<input type="submit" value="發送折讓金">
+														<input type="submit"  name="submit" value="發送折讓金" >
 														<input type="hidden" name="po_no"  value="${preorderVO.po_no}">
 														<input type="hidden" name="po_status"  value="${preorderVO.po_status}">
 														<input type="hidden" name="mem_id"  value="${preorderVO.mem_id}">
@@ -179,6 +180,8 @@
 				</div> <!--END OF content-->
 			</div><!--END OF content-wrapper -->
 		</div><!--END OF wrapper -->
-		
+		<script type="text/javascript">
+			
+		</script>
 	</body>
 </html>
