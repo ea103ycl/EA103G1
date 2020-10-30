@@ -13,7 +13,10 @@ public class PreOrderVO implements java.io.Serializable{
 	private Integer po_total;
 	private String po_note;
 	
-	
+	//以下是暫存用的變數(for折讓金用)
+	private Integer po_qty;
+	private Integer po_price;
+	private String po_prod_no;
 	
 	public String getPo_no() {
 		return po_no;
@@ -75,6 +78,24 @@ public class PreOrderVO implements java.io.Serializable{
 	public void setPo_note(String po_note) {
 		this.po_note = po_note;
 	}
-	
+	//以下是暫存用的變數(for折讓金用)
+	public Integer getPo_qty() {
+		return po_qty;
+	}
+	public void setPo_qty(Integer po_qty) {
+		this.po_qty = po_qty;
+	}
+	public Integer getPo_price() {
+		return po_price;
+	}
+	public void setPo_price(Integer po_price) {
+		this.po_price = po_price;
+	}
+	public String getPo_prod_no() {
+		return po_prod_no;
+	}
+	public void setPo_prod_no(String po_prod_no) {
+		this.po_prod_no = po_prod_no;
+	}
 	
 }

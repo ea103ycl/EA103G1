@@ -50,7 +50,7 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 		
 		private static final String GET_ALL_ByMemid_STMT = "SELECT * FROM PRE_ORDER WHERE mem_id = ? ORDER BY PO_NO";
 		
-		private static final String GET_ALL_PonoByReachDiscount = "SELECT * FROM PRE_ORDER t1 left join pre_order_detail t2 on t1.po_no = t2.po_no where t2.po_no = (select po_no from pre_order_detail where (po_prod_no = (select po_prod_no from(SELECT p.po_prod_no,sum(PO_QTY) as po_qty FROM PRE_ORDER_DETAIL P WHERE P.PO_PROD_NO IN(SELECT PO_PROD_NO FROM PRE_ORDER WHERE po_status = 3)GROUP BY p.po_prod_no) where po_qty>= ? and po_prod_no = ?)) and rownum<2) and po_prod_no =?";
+		private static final String GET_ALL_PonoByReachDiscount = "SELECT * FROM PRE_ORDER t1 left join pre_order_detail t2 on t1.po_no = t2.po_no where t1.po_no IN (select po_no from pre_order_detail where (po_prod_no IN (select po_prod_no from(SELECT p.po_prod_no,sum(PO_QTY) as po_qty FROM PRE_ORDER_DETAIL P WHERE P.PO_PROD_NO IN(SELECT PO_PROD_NO FROM PRE_ORDER WHERE po_status = 3)GROUP BY p.po_prod_no) where po_qty>= ? and po_prod_no = ?))) and po_prod_no =?";
 		
 	
 	
@@ -553,10 +553,9 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 			
 			while (rs.next()) {
 				preorderVO = new PreOrderVO();
-				System.out.println("進入rs迴圈");
 				
+				preorderVO.setPo_no(rs.getString("po_no"));
 				preorderVO.setMem_id(rs.getString("mem_id"));
-				System.out.println("進入rs迴圈取mem_id" + rs.getString("mem_id"));
 				preorderVO.setPo_time(rs.getTimestamp("po_time"));
 				preorderVO.setPo_zip(rs.getInt("po_zip"));
 				preorderVO.setPo_name(rs.getString("po_name"));
@@ -565,8 +564,11 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 				preorderVO.setPo_status(rs.getInt("po_status"));
 				preorderVO.setPo_total(rs.getInt("po_total"));
 				preorderVO.setPo_note(rs.getString("po_note"));
-				System.out.println("count++");
-
+				//暫存用
+				preorderVO.setPo_qty(rs.getInt("po_qty"));
+				preorderVO.setPo_price(rs.getInt("po_price"));
+				preorderVO.setPo_prod_no(rs.getString("po_prod_no"));
+				
 				list.add(preorderVO);
 			}
 			
