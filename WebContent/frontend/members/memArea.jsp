@@ -17,13 +17,42 @@
 
 <head>
 <!-- icon -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"> -->
+
 <link href="<%=request.getContextPath()%>/frontend/template/Caroline/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet">
+
 
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- page title -->
+<title>ArtsBlock</title>
+<style>
+
+
+
+#content {
+  float: right;
+  min-height: 2000px;
+  width: calc(100% - 215px);
+
+}
+
+#sidebar {
+  float: left;
+  top:100;
+
+}
+
+.clearfix:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+
+
+</style>
 
 </head>
 
@@ -43,52 +72,66 @@
 	
 		<%@include file="/frontend/bar/frontBarTop.jsp"%>
 
-		<!-- header-banner -->
-		<div id="header-banner"
-			style="background-size: Contain; background-repeat: no-repeat; background-position: center; background-color: white">
-			<div class="banner-content single-page text-center">
-				<div class="banner-border">
-					<div class="banner-info">
-						<h1 style="color: #272727">My Account</h1>
-					</div>
-					<!-- / banner-info -->
-				</div>
-				<!-- / banner-border -->
-			</div>
-			<!-- / banner-content -->
-		</div>
-		<!-- / header-banner -->
+		    <!-- header-banner -->
+    <div id="header-banner">
+        <div class="banner-content single-page text-center">
+            <div class="banner-border">
+                <div class="banner-info" id="banner-info">
+                    <h1>My Account</h1>
+                </div><!-- / banner-info -->
+            </div><!-- / banner-border -->
+        </div><!-- / banner-content -->
+    </div>
+    <!-- / header-banner -->
 	</header>
 	<!-- / header -->
 	<!-- content -->
 	<!-- my-account -->
 	<section id="my-account">
 		<div class="container">
+		
+		
+		<div id="main-content" class="main">
+  
+		
 			<div class="row">
-				<div class="col-sm-2 account-sidebar">
+			  <div id="sidebar" class="sidebar">
+        <div class="sidebar__inner">
+    
+				<div class="account-sidebar">
+				 <div class="sticky-top">
 					<img
 						src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=<%=memVO.getMem_id()%>"
-						alt="">
+						alt="" style="width:100%">
 					<p>
-						<a href="#personal-info" class="page-scroll">編輯個人資料</a>
+						<a href="#banner-info" class="page-scroll">編輯個人資料</a>
 					</p>
 					<p>
-						<a href="#shippingArea" class="page-scroll">編輯收件人資料</a>
+						<a href="#submitBtnArea" class="page-scroll">編輯收件資料</a>
 					</p>
 
 					<p>
-						<a href="#accountArea" class="page-scroll">帳號管理</a>
+						<a href="#shipingArea" class="page-scroll">帳號管理</a>
 					</p>
 					<p>
-						<a href="#welRecordArea" class="page-scroll">錢包管理</a>
+						<a href="#accountArea" class="page-scroll">電子錢包管理</a>
 					</p>
 
 				</div>
+				</div>
+				
+				
+        </div>
+    </div>
+ 
+				
+				
 				<!-- / account-sidebar -->
-				<div class="col-sm-10 account-info">
+				
+				   <div id="content" class="content">
+
 					<div id="personal-info" class="account-info-content">
 						<h4>編輯個人資料&emsp;&emsp; ${sessionScope.memVO.m_accno}</h4>
-
 
 						<div class="row">
 							<div class="col-md-2" style="padding-right: 0px;">
@@ -106,34 +149,6 @@
 									data-target="#photoModal">
 									<i class="fas fa-camera"></i>更換頭像
 								</button>
-
-
-
-<!-- 								<div>&emsp;</div> -->
-
-<!-- 								<button class="btn btn-primary btn-xs btn-rounded no-margin" -->
-<!-- 									type="button" style="font-weight: bold;" data-toggle="collapse" -->
-<!-- 									data-target="#personalIntro" aria-expanded="false" -->
-<!-- 									aria-controls="personalIntro"> -->
-<!-- 									<i class="lnr lnr-pencil"></i>修改簡介 -->
-<!-- 								</button> -->
-<!-- 								<div>&emsp;</div> -->
-<!-- 								<div class="collapse" id="personalIntro"> -->
-
-<!-- 									<div class="form-group"> -->
-<!-- 										<textarea class="form-control" -->
-<!-- 											id="exampleFormControlTextarea1" rows="8" -->
-<!-- 											style="margin: 0px; width: 100%; background-color: white"> 不要先入為主覺得coding很複雜，實際上，coding可能比你想的還要更複雜。coding絕對是史無前例的。本人也是經過了深思熟慮，在每個日日夜夜思考這個問題。老舊的想法已經過時了。這種事實對本人來說意義重大，相信對這個世界也是有一定意義的。</textarea> -->
-<!-- 									</div> -->
-
-<!-- 									<div style="text-align: center"> -->
-<!-- 										<button type="submit" class="btn btn-primary-filled btn-pill">提交</button> -->
-<!-- 									</div> -->
-
-<!-- 								</div> -->
-
-
-
 
 							</div>
 							<div class="col-md-10">
@@ -305,7 +320,7 @@
 									<!-- 							第七行居住地址結束-->
 
 
-									<div style="text-align: center; margin-top: 25px;">
+									<div style="text-align: center; margin-top: 25px;" id="submitBtnArea">
 										<button type="submit" class="btn btn-primary-filled btn-pill">提交</button>
 									</div>
 									<input type="hidden" name="action" value="UpdateMem">
@@ -316,7 +331,7 @@
 					<!--                       收件人資料區塊開始                          -->
 					<div id="shippingArea" class="account-info-content">
 						<h4>
-							編輯收件人資料<span class="pull-right">
+							編輯收件資料<span class="pull-right">
 								<button class="btn btn-sm btn-primary btn-rounded no-margin"
 									type="button" data-toggle="collapse"
 									data-target="#collapseExample2" aria-expanded="false"
@@ -327,7 +342,7 @@
 
 
 						</h4>
-						<p class="space-bottom">
+						<p class="space-bottom" id="shipingArea">
 
 							收件人姓名:<br><br>
 							 收件人電話:<br><br>
@@ -451,7 +466,7 @@
 											</div>
 										</div>
 										<div class="col col-md-5">
-											<button type="submit" class="btn btn-primary-filled btn-pill">提交</button>
+											<button type="submit" class="btn btn-primary-filled btn-pill" >提交</button>
 										</div>
 
 									</div>
@@ -481,7 +496,7 @@
 
 
 						</h4>
-						<p class="space-bottom">
+						<p class="space-bottom" id="accountArea">
 							<span><strong> <c:if
 										test="${not empty sessionScope.memVO.m_accno}">
 							加入時間:&emsp;${sessionScope.memVO.m_joindate}<br>
@@ -766,7 +781,10 @@
 
 
 					<!-- / wishlist -->
-				</div>
+				
+				
+				    </div>
+</div>
 				<!-- / account-info -->
 			</div>
 			<!-- / row -->
@@ -1011,17 +1029,14 @@
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
 		   value: '<%=m_bday%>',   // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-           //startDate:	            '2017/07/10',  // 起始日
-           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+
         });
         
        
         
 </script>
 
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.min.js"></script>
 <script>
 	
 	$(document).ready(function(){
@@ -1083,9 +1098,9 @@
 												.val(),
 									},
 									success : function(data) {
-										$("#InputPassword1").val("");
-										$("#InputPassword2").val("");
-										$("#InputPassword3").val("");
+										$("#InputPassword1").val(""),
+										$("#InputPassword2").val(""),
+										$("#InputPassword3").val(""),
 										
 										if (data === 'true') {
 											$('#myTest').trigger('click');
@@ -1153,6 +1168,17 @@
 </script>
 
 
+<!-- sticky-sidebar -->
+<script src="<%=request.getContextPath()%>/frontend/members/stickysidebarJs/sticky-sidebar.min.js"></script>
+<script type="text/javascript">
+    var sidebar = new StickySidebar('#sidebar', { 
+        containerSelector: '#main-content', // 側邊欄外面的區塊
+        innerWrapperSelector: '.sidebar__inner',
+        topSpacing: 120, // 距離頂部 120px
+   
+        
+    });
+</script>
 
 
 </html>
