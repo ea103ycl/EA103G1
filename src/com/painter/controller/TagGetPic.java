@@ -2,6 +2,7 @@ package com.painter.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,40 +44,38 @@ public class TagGetPic extends HttpServlet {
 		String action = req.getParameter("action");
 
 		if ("tagGetPic".equals(action)) { // 要找出最熱門tag 最新tag
-			
+
 			String tag_desc = req.getParameter("searchBar1");
 			PainterTagService ptSvc = new PainterTagService();
 			List<Integer> list = ptSvc.getPicbyTag(tag_desc);
-			 
-			
-			if(list.isEmpty()) {
-				String errorMsgs=new String("No Data,Please confirm your search : "+tag_desc+" ?");
-				req.setAttribute("errorMsgs",errorMsgs);
-			}else {
+
+			if (list.isEmpty()) {
+				String errorMsgs = new String("No Data,Please confirm your search : " + tag_desc + " ?");
+				req.setAttribute("errorMsgs", errorMsgs);
+			} else {
 				req.setAttribute("ptrnoList", list);
 			}
-			
+
 			RequestDispatcher view = req.getRequestDispatcher("/frontend/front_index/front_index.jsp");
 			view.forward(req, res);
 			return;
 		}
 
 		if ("getMostLiked".equals(action)) {
-			
+
 			String rank = req.getParameter("rank");
 			PainterService pSvc = new PainterService();
 			Integer totalPic = pSvc.getPicCount();
-			Integer rankBegin=Integer.valueOf(rank);
+			Integer rankBegin = Integer.valueOf(rank);
 			if (rankBegin > totalPic) {
 				return;
 //				out.print("<div class=\"grid-item\"><h1>資料不足</h1></div>");
 			}
-			List<PainterVO> list = pSvc.getMostLiked(rankBegin,rankBegin+5);
+			List<PainterVO> list = pSvc.getMostLiked(rankBegin, rankBegin + 5);
 
 			for (PainterVO pVO : list) {
-				out.print("<div class=\"grid-item\">" 
-			+ "<img src=\"/G1/painter/ShowImage?ptr_no="+pVO.getPtr_no()+"\"/>"
-			+ "</div>");
+				out.print("<div class=\"grid-item\">" + "<img src=\"/G1/painter/ShowImage?ptr_no=" + pVO.getPtr_no()
+						+ "\"/>" + "</div>");
 			}
 		}
 
@@ -88,7 +88,7 @@ public class TagGetPic extends HttpServlet {
 			for (PainterTagVO ptVO : list) {
 				if (i < 12) {
 					i++;
-					String result=ptVO.getTag_desc();
+					String result = ptVO.getTag_desc();
 
 					try {
 						jsonOb.put("bubble" + i, result);
@@ -101,50 +101,73 @@ public class TagGetPic extends HttpServlet {
 			}
 			out.println(jsonOb);
 		}
-		
-		if("msgUpdate".equals(action)) {
-			
-			MemService memSvc =new MemService();
- 			PainterMsgService pmsgSvc =new PainterMsgService();
+
+		if ("msgUpdate".equals(action)) {
+
+			MemService memSvc = new MemService();
+			PainterMsgService pmsgSvc = new PainterMsgService();
 			PainterTagService ptSvc = new PainterTagService();
-			PainterTagMapService ptmSvc =new PainterTagMapService();
-			
+			PainterTagMapService ptmSvc = new PainterTagMapService();
+
 			String ptrno = req.getParameter("ptrno");
-			List<PainterMsgVO> list =pmsgSvc.getAll(Integer.valueOf(ptrno));
-			List<PainterTagMapVO> tagnoList= ptmSvc.getAllByPtrNo(Integer.valueOf(ptrno));
-			
-			//==========getTag=====================
-			if(tagnoList.size()!=0) {
-				
+			List<PainterMsgVO> list = pmsgSvc.getAll(Integer.valueOf(ptrno));
+			List<PainterTagMapVO> tagnoList = ptmSvc.getAllByPtrNo(Integer.valueOf(ptrno));
+
+			// ==========getTag=====================
+			if (tagnoList.size() != 0) {
+
 				out.print("<div>");
-				for(PainterTagMapVO ptmVO:tagnoList) {
-					Integer tagno=ptmVO.getTag_no();
-					String tagDesc= ptSvc.getOneByTagNo(tagno).getTag_desc();
-					
-					out.print("<a> #"+tagDesc+"</a>");
+				for (PainterTagMapVO ptmVO : tagnoList) {
+					Integer tagno = ptmVO.getTag_no();
+					String tagDesc = ptSvc.getOneByTagNo(tagno).getTag_desc();
+
+					out.print("<a> #" + tagDesc + "</a>");
 				}
 				out.print("</div>");
 			}
-			//==========!getTag=====================
-			
-			//==========getComment==============
-			if(ptrno.length()==0 ||list.size()==0) {
+			// ==========!getTag=====================
+
+			// ==========getComment==============
+			if (ptrno.length() == 0 || list.size() == 0) {
 				out.print("Leave a comment...");
 				return;
 			}
-			
-			for(PainterMsgVO pmsgVO:list) {
-				String memId=pmsgVO.getMem_id();
-				MemVO memVO= memSvc.findByPrimaryKey(memId);
-				String memName=memVO.getM_name();
-				
-				out.print(
-						"<div>"
-						+"<div class='msgImg'><img src='"+req.getContextPath()+"/ReadMemPic?action=getPic&memId="+memId+"'>"+memName+"</div>"
-						+ pmsgVO.getMsg()
+
+			for (PainterMsgVO pmsgVO : list) {
+				String memId = pmsgVO.getMem_id();
+				MemVO memVO = memSvc.findByPrimaryKey(memId);
+				String memName = memVO.getM_name();
+
+				out.print("<div>" + "<div class='msgImg'><img src='" + req.getContextPath()
+						+ "/ReadMemPic?action=getPic&memId=" + memId + "'>" + memName + "</div>" + pmsgVO.getMsg()
 						+ "</div>");
 			}
-			//==========!getComment==============
+			// ==========!getComment==============
 		}
+		if ("writeComment".equals(action)) {
+
+			Integer ptrno = Integer.valueOf(req.getParameter("ptrno"));
+			String comment = req.getParameter("comment");
+			Timestamp ts =new Timestamp(System.currentTimeMillis());
+			HttpSession session = req.getSession();
+			PainterMsgService pmsgSvc = new PainterMsgService();
+			PainterMsgVO pmsgVO = null;
+
+			if (comment.trim().isEmpty()) {
+				System.out.println("(TagGetPic)writeComment: comment is empty String");
+				return;
+			}
+
+			try {
+				pmsgVO.setMem_id((String) session.getAttribute("mem_id"));
+				pmsgVO.setMsg(comment);
+				pmsgVO.setPtr_no(ptrno);
+				
+				pmsgSvc.insert(pmsgVO);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }

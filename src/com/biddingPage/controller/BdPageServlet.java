@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
@@ -20,6 +21,8 @@ import com.bidding.model.BiddingService;
 import com.bidding.model.BiddingVO;
 import com.mem.model.MemService;
 import com.mem.model.MemVO;
+
+import tools.MoneyTool;
 
 //@WebServlet("/biddingPage/BdPageServlet") //mark By YCL
 public class BdPageServlet extends HttpServlet {
@@ -81,7 +84,6 @@ public class BdPageServlet extends HttpServlet {
 						bdZip = 00000;
 						errorMsgs.add("郵遞區號請填數字");
 					}
-
 					
 					Integer bdProdNo = null;
 					try {
@@ -91,13 +93,7 @@ public class BdPageServlet extends HttpServlet {
 						errorMsgs.add("商品編號無法取得，請聯絡服務人員");
 					}
 
-					Integer bdPrice = null;
-					try {
-						bdPrice = bdr.getTopBid(bdNo);
-					} catch (NumberFormatException e) {
-						bdPrice = 0;
-						errorMsgs.add("得標金額無法取得，請聯絡服務人員");
-					}
+				
 
 					java.sql.Timestamp bdDateStr = null;
 					try {
@@ -144,14 +140,30 @@ public class BdPageServlet extends HttpServlet {
 						System.out.println("(BdPageServlet)has errorMsgs");
 						return;
 					}
+					
+					Integer bdPrice = null;
+					try {
+						bdPrice = bdr.getTopBid(bdNo);
+					} catch (NumberFormatException e) {
+						bdPrice = 0;
+						errorMsgs.add("得標金額無法取得，請聯絡服務人員");
+					}
+					
+					HttpSession	session=req.getSession();
+					if(MoneyTool.checkOut(session, 42, bdr.getSqlBdNo(bdNo), bdPrice*-1)) {
+					
 					BiddingService bdSvc = new BiddingService();
 					bdSvc.update(bdr.getSqlBdNo(bdNo), memId, bdProdNo, bdPrice, bdDateStr, bdDateEnd, bdStatus, bdOrdStatus,
 							pmtStatus, bdZip, bdName, bdPhone, bdAddr);
 					
 					out.write("complete");
-
 					
+					}else {
+						errorMsgs.add("您的錢包餘額不足");
+						System.out.println("(BdPageServlet) checkout: MoneyTool error or Insufficient funds");
+					}
 				} catch (Exception e) {
+					e.printStackTrace();
 					errorMsgs.add("新增資料失敗:" + e.getMessage());
 					out.write(errorMsgs.get(0));
 				}

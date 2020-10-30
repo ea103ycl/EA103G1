@@ -233,21 +233,15 @@
             console.log('heher');
             $("#myModal").css('display', 'block');
             $("#img01").attr('src', e.target.src);
-
-            if ($("#img01").width() > $("#img").height()) {
-                $("#img01").addClass("horizontal");
-            } else {
-                $("#img01").addClass("vertical");
-            }
-
             let ptrno = e.target.id;
-            console.log('ptrno' + ptrno);
+
             $.ajax({
                 method: "post",
                 url: "/EA103G1/painter/TagGetPic",
                 data: { ptrno: ptrno, action: "msgUpdate" },
                 success: function(d) {
                     $('#msg-content').html(d);
+                    $('.comment-textarea').before('<input type="hidden" name="ptrno" value="' + ptrno + '"');
 
                 },
                 error: function() {
@@ -262,3 +256,20 @@
                 $('#myModal').css('display', 'none');
             }
         });
+        // ============================================================
+
+        $('.comment-send').on('click', function(e) {
+
+            $.ajax({
+                method: "post",
+                url: "/EA103G1/painter/TagGetPic",
+                data: { ptrno: ptrno, action: "writeComment" },
+                success: function(d) {
+                    $('#msg-content').html(d);
+
+                },
+                error: function() {
+                    alert("(msgUpdate)failed");
+                }
+            });
+        })

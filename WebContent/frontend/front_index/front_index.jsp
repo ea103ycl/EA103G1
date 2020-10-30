@@ -254,16 +254,24 @@
 									<hr>
 									<h5 class="comment-title">Add a new comment</h5>
 									<div class="comment-body">
-										<img src="" class="comment-avatar" alt="avatar">
-										<div>
-											<textarea class="comment-textarea"
-												placeholder="Type your message ..." rows="8"></textarea>
-											<div class="comment-post">
-												<div class="comment-info">Write something</div>
-												<div style="text-align: right;">
-													<button class="comment-send">Post Comment</button>
+										<img
+											src="<%=request.getContextPath()%>/ReadMemPic?action=getPic&memId=${memVO.mem_id}"
+											class="comment-avatar" alt="avatar"> <span>${memVO.m_name}</span>
+										<div style="margin-top: 5%;">
+											<form
+												action="<%=request.getContextPath()%>/painter/TagGetPic">
+												<input name="action" value="writeComment" type="hidden">
+												<input name="ptrno" value="" type="hidden">
+												
+												<textarea class="comment-textarea"
+													placeholder="Type your message ..." rows="8"></textarea>
+												<div class="comment-post">
+													<div class="comment-info">Write something</div>
+													<div style="text-align: right;">
+														<button class="comment-send">Post Comment</button>
+													</div>
 												</div>
-											</div>
+											</form>
 										</div>
 									</div>
 								</div>
