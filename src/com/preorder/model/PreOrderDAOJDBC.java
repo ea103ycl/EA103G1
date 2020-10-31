@@ -1,3 +1,4 @@
+package com.preorder.model;
 //package com.preorder.model;
 //
 //import java.sql.Connection;

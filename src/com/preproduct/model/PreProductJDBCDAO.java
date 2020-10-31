@@ -1,3 +1,4 @@
+package com.preproduct.model;
 //package com.preproduct.model;
 //
 //import java.util.*;
