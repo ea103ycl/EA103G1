@@ -565,7 +565,7 @@ img {
 								</div>
 								<p class="mb-0" style="text-align: center; margin-top: 10%;">
 									<a
-										href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout">Sign
+										 href="<%=request.getContextPath()%>/frontend/members/memLogin.jsp">Sign
 										In</a> / <a
 										href="<%=request.getContextPath()%>/frontend/members/memRegister.jsp">Register</a>
 								</p>

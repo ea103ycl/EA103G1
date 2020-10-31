@@ -751,10 +751,15 @@
 
         #msg-content {
             position: absolute;
-            padding-top: 10%;
-            padding-left: 2%;
+            padding: 5% 0 3% 2%;
             overflow: scroll;
             height: calc(100% - 165px);
+        }
+        #msg-content div {
+            margin-top: 1.5%;
+        }
+        .msgComm {
+            margin-top: 1.5%;
         }
 
         .comment-container {
@@ -830,5 +835,13 @@
         }
 
         .loginToComment:hover {
+            color: #d6b58b !important;
+        }
+
+        .mya {
+            color: #ad8b60 !important;
+        }
+
+        .mya:hover {
             color: #d6b58b !important;
         }

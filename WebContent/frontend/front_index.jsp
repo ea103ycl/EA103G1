@@ -41,6 +41,9 @@
 <link
 	href="<%=request.getContextPath()%>/frontend/front_index/css/index_front_css.css"
 	rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/frontend/template/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
 <!-- =======================================================
   * Template Name: iPortfolio - v1.4.0
   * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
@@ -109,20 +112,27 @@
 			<div class="container">
 				<div class="d-flex justify-content-between align-items-center">
 					<h2 style="color: #ad8b60; margin: 0 0 0 -3px;">ArtsBlock</h2>
+
 					<ol>
 						<c:choose>
-							<c:when test="${not empty memVO}">
-								<li><a
-									href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=login">Login
+							<c:when test="${empty memVO}">
+								<li><a class="mya"
+									href="<%=request.getContextPath()%>/frontend/members/memLogin.jsp">Login
 										&nbsp</li>/
-								<li><a
+								<li><a class="mya"
 									href="<%=request.getContextPath()%>/frontend/members/memRegister.jsp">&nbsp
 										Register</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a
+								<li></li>
+								<p>
+								<li><a class="mya"
 									href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout">Logout
-										&nbsp</li>
+										&nbsp</li>/ &nbsp
+								<li><a class="mya"
+									href="<%=request.getContextPath()%>/frontend/members/memArea.jsp"
+									hover=""><i class="fa fa-user" aria-hidden="true"></i></a></li>
+								</p>
 							</c:otherwise>
 						</c:choose>
 					</ol>
@@ -254,11 +264,12 @@
 									style="border: 0; border-radius: 25px 0 0 25px">
 							</div>
 							<div class=" modal-right col-md-4">
-								<div id="msg-content"></div>
-								<div class="comment-container">
-									<div class="comment-body">
-										<c:choose>
-											<c:when test="${not empty memVO}">
+
+								<c:choose>
+									<c:when test="${not empty memVO}">
+										<div id="msg-content"></div>
+										<div class="comment-container">
+											<div class="comment-body">
 												<hr style="margin-top: 0";>
 												<h5 class="comment-title">Add a new comment</h5>
 												<div style="margin-top: 5%; text-align: center;">
@@ -277,66 +288,69 @@
 														</div>
 													</form>
 												</div>
-											</c:when>
-											<c:otherwise>
-												<hr>
+									</c:when>
+									<c:otherwise>
+										<div id="msg-content" style="height: calc(100% - 64px)"></div>
+										<div class="comment-container">
+											<div class="comment-body">
+												<hr style="margin-top: 0";>
 												<a
-													href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout">
+													href="<%=request.getContextPath()%>/frontend/members/memLogin.jsp">
 													<h6 class="loginToComment">Login to comment</h6>
 												</a>
-											</c:otherwise>
-										</c:choose>
-									</div>
-								</div>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- The Modal -->
+			</div>
+			</div>
+			<!-- The Modal -->
 
 
-				<%-- ============================================= --%>
-				<c:if test="${not empty errorMsgs}">
-					<br>
-					<div class="errorMsgs" id="errorMsgs">
-						<h2>${errorMsgs}</h2>
+			<%-- ============================================= --%>
+			<c:if test="${not empty errorMsgs}">
+				<br>
+				<div class="errorMsgs" id="errorMsgs">
+					<h2>${errorMsgs}</h2>
+				</div>
+				<hr>
+			</c:if>
+			<c:choose>
+				<c:when test="${not empty ptrnoList}">
+					<div style="display: hidden" id="getPicResult"></div>
+					<div class="gridWrapper">
+						<div class="grid" id="grid">
+							<c:forEach var="ptrno" items="${ptrnoList}">
+								<div class="grid-item draggableImg">
+									<img draggable='true' ondragstart="drag();" id='${ptrno}'
+										src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${ptrno}">
+								</div>
+							</c:forEach>
+						</div>
 					</div>
-					<hr>
-				</c:if>
-				<c:choose>
-					<c:when test="${not empty ptrnoList}">
-						<div style="display: hidden" id="getPicResult"></div>
-						<div class="gridWrapper">
-							<div class="grid" id="grid">
-								<c:forEach var="ptrno" items="${ptrnoList}">
-									<div class="grid-item draggableImg">
-										<img draggable='true' ondragstart="drag();" id='${ptrno}'
-											src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${ptrno}">
-									</div>
-								</c:forEach>
-							</div>
+				</c:when>
+				<%-- ==============Top100Liked===================== --%>
+				<c:otherwise>
+					<div class="gridWrapper">
+						<div class="grid" id="grid">
+							<c:forEach var="pVO" items="${pSvc.getMostLiked(1,7)}">
+								<div class="grid-item">
+									<img draggable='true' ondragstart="drag();" id='${pVO.ptr_no}'
+										src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${pVO.ptr_no}">
+								</div>
+							</c:forEach>
 						</div>
-					</c:when>
-					<%-- ==============Top100Liked===================== --%>
-					<c:otherwise>
-						<div class="gridWrapper">
-							<div class="grid" id="grid">
-								<c:forEach var="pVO" items="${pSvc.getMostLiked(1,7)}">
-									<div class="grid-item">
-										<img draggable='true' ondragstart="drag();" id='${pVO.ptr_no}'
-											src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${pVO.ptr_no}">
-									</div>
-								</c:forEach>
-							</div>
-						</div>
-						<div id="lastDiv"></div>
-					</c:otherwise>
-				</c:choose>
+					</div>
+					<div id="lastDiv"></div>
+				</c:otherwise>
+			</c:choose>
 
 
 
 
-				<!-- ================================= -->
+			<!-- ================================= -->
 			</div>
 		</section>
 	</main>

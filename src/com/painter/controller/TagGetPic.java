@@ -139,7 +139,8 @@ public class TagGetPic extends HttpServlet {
 				String memName = memVO.getM_name();
 
 				out.print("<div>" + "<div class='msgImg'><img src='" + req.getContextPath()
-						+ "/ReadMemPic?action=getPic&memId=" + memId + "'>" + memName + "</div>" + pmsgVO.getMsg()
+						+ "/ReadMemPic?action=getPic&memId=" + memId + "'> " + memName + "</div>" 
+						+"<div class='msgComm'>"+ pmsgVO.getMsg()+"</div>"
 						+ "</div>");
 			}
 			// ==========!getComment==============
