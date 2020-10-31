@@ -138,6 +138,16 @@
 		<servlet-name>ProdPic</servlet-name>
 		<url-pattern>/frontend/shop/prod.pic</url-pattern>
 	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>EvalPic</servlet-name>
+		<servlet-class>com.eval.model.Eval_mem_pic</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EvalPic</servlet-name>
+		<url-pattern>/frontend/shop/eval.pic</url-pattern>
+	</servlet-mapping>
 
 
 
