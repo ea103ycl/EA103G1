@@ -191,89 +191,68 @@ public class MemServlet extends HttpServlet {
 		}
 
 		if ("UpdateMem".equals(action)) {
-
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
+			JSONObject jsonObject = new JSONObject();
 
 			try {
-
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String name = req.getParameter("name");
 				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]{2,10}$";
 				if (name == null || name.trim().length() == 0) {
-					errorMsgs.add("會員姓名請勿空白");
+					jsonObject.put("name", "姓名請勿空白");
 				} else if (!name.trim().matches(nameReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員姓名請輸入中、英文字母, 且長度必須在2到10之間");
+					jsonObject.put("name", "會員姓名請輸入中、英文字母, 且長度必須在2到10之間");
 				}
-				System.out.println("通過會員姓名驗證");
 
 				String gender = req.getParameter("gender");
 
-				if (gender == null || gender.trim().length() == 0) {
-					errorMsgs.add("請選擇性別");
-				}
-				System.out.println(gender);
-				System.out.println("通過性別驗證");
-
 				String birthday = req.getParameter("birthday");
+
 				Date bday = java.sql.Date.valueOf(birthday);
 
 				String mobile = req.getParameter("mobile").trim();
+
 				String mobileReg = "\\d{10}";
 				if (mobile == null || mobile.trim().length() == 0) {
-					errorMsgs.add("手機請勿空白");
+					jsonObject.put("mobile", "手機請勿空白");
 				} else if (!mobile.trim().matches(mobileReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("請輸入十碼數字如0912312312");
+					jsonObject.put("mobile", "請輸入十碼數字如0912312312");
 				}
 
-				System.out.println("通過手機驗證");
-
 				String phone = req.getParameter("phone").trim();
-				String phoneReg = "[0-9-]{14}";
-
-				if (!mobile.trim().matches(mobileReg)) {
-					errorMsgs.add("請輸入格式如02-xxxxxxxx");
+				String phoneReg = "[0-9]{10}";
+				if (!phone.trim().matches(phoneReg)) {
+					jsonObject.put("phone", "請輸入格式如0212345678");
 				}
 
 				String email = req.getParameter("email").trim();
 				String emailReg = "^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$";
 				if (email == null || email.trim().length() == 0) {
-					errorMsgs.add("電子信箱請勿空白");
+					jsonObject.put("email", "電子信箱請勿空白");
 				} else if (!email.trim().matches(emailReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("請輸入正確的電子信箱格式");
+					jsonObject.put("email", "請輸入正確的電子信箱格式");
 				}
-
-				System.out.println("通過電子信箱驗證");
 
 				String contactZip = req.getParameter("contactZip");
 
-				System.out.println(contactZip);
-
 				String contactCity = "";
 				Integer contactZipcode = null;
-
 				if (contactZip == null || contactZip.trim().length() == 0) {
-					errorMsgs.add("請選擇郵遞區號");
+					jsonObject.put("contactZip", "請輸入郵遞區號");
 				} else {
 					String[] zips = contactZip.split(" ", 2);
 					contactCity = zips[1];
 					contactZipcode = Integer.parseInt(zips[0]);
-					System.out.println("contactZipcode:" + contactZipcode);
-					System.out.println("contactCity:" + contactCity);
-
-					System.out.println("通過郵遞區號驗證");
 				}
 				String contactAddress = req.getParameter("contactAddr").trim();
 
 				if (contactAddress == null || contactAddress.trim().length() == 0) {
-					errorMsgs.add("地址請勿空白");
-
+					jsonObject.put("contactAddr", "地址請勿空白");
 				}
-				System.out.println("contactAddress:" + contactAddress);
 
-				System.out.println("通過地址驗證");
-
-				System.out.println();
+				if (jsonObject.length() != 0) {
+					out.print(jsonObject);
+					return;
+				}
 
 				HttpSession session = req.getSession();
 				MemVO memVO = (MemVO) session.getAttribute("memVO");
@@ -287,16 +266,16 @@ public class MemServlet extends HttpServlet {
 				memVO.setM_addr(contactAddress);
 				memVO.setM_email(email);
 
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
-					System.out.println(errorMsgs);
-					failureView.forward(req, res);
-					out.print(new JSONObject(memVO));
-					return;
-
-				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的empVO物件,也存入req
+//					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
+//					System.out.println(errorMsgs);
+//					failureView.forward(req, res);
+//					out.print(new JSONObject(memVO));
+//					return;
+//
+//				}
 
 				/*************************** 2.開始新增資料 ***************************************/
 				MemService memSvc = new MemService();
@@ -308,18 +287,19 @@ public class MemServlet extends HttpServlet {
 				session.setAttribute("memVO", UpdatedmemVO);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				out.print(new JSONObject(UpdatedmemVO));
-				String url = "/frontend/members/memArea.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
+				System.out.println("out.print:true");
+				// ajax送回成功訊息
+				out.print("true");
 
+//				String url = "/frontend/members/memArea.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);
+//				successView.forward(req, res);
+//				System.out.println("yooooooooooo");
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
-
-				JSONArray array = new JSONArray(errorMsgs);
-				out.print(array);
-
+				e.printStackTrace();
+//				errorMsgs.add(e.getMessage());
+				out.print("exception");
 				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memRegister.jsp");
 				failureView.forward(req, res);
 			}

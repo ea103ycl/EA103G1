@@ -18,10 +18,7 @@
 <head>
 <!-- icon -->
 
-
 <link href="<%=request.getContextPath()%>/frontend/template/Caroline/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet">
-
-
 
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -109,7 +106,7 @@
 						<a href="#banner-info" class="page-scroll">編輯個人資料</a>
 					</p>
 					<p>
-						<a href="#submitBtnArea" class="page-scroll">編輯收件資料</a>
+						<a href="#memInfoBtn" class="page-scroll">編輯收件資料</a>
 					</p>
 
 					<p>
@@ -163,7 +160,7 @@
 									<div class="col-md-9">
 										<input type="text" class="form-control rounded" id="name"
 											value="<%=memVO.getM_name()%>"
-											style="margin-bottom: 10px; background-color: white"
+											style="margin-bottom: 0px; background-color: white"
 											name="name">
 									</div>
 
@@ -176,7 +173,7 @@
 										style="text-align: right; margin-top: 13px;">性別:</div>
 									<div class="col-md-9">
 										<select name="gender" id="gender" class="form-control"
-											style="margin-bottom: 10px; background-color: white">
+											style="margin-top: 10px;margin-bottom: 0px; background-color: white">
 											<option value="" disabled>性別</option>
 											<option value="M"
 												<c:if test="${memVO.m_gender=='M'}">selected</c:if>>男性</option>
@@ -195,7 +192,7 @@
 									<div class="col-md-9">
 										<input type="text" class="form-control rounded" id="birthday"
 											value="<%=memVO.getM_bday()%>" name="birthday"
-											style="margin-bottom: 10px; background-color: white">
+											style="margin-top: 10px;margin-bottom: 0px; background-color: white">
 									</div>
 
 
@@ -209,7 +206,7 @@
 										<input type="text" class="form-control rounded" id="phone"
 											name="phone"
 											value="<%=(memVO.getM_phone() == null) ? "" : memVO.getM_phone()%>"
-											style="margin-bottom: 10px; background-color: white">
+											style="margin-top: 10px; margin-bottom: 0px;background-color: white">
 									</div>
 								</div>
 
@@ -221,7 +218,7 @@
 									<div class="col-md-9">
 										<input type="text" class="form-control rounded" id="mobile"
 											value="<%=memVO.getM_mobile()%>" name="mobile"
-											style="margin-bottom: 10px; background-color: white">
+											style="margin-top: 10px; margin-bottom: 0px;background-color: white">
 									</div>
 								</div>
 								<!-- 							第五行手機結束-->
@@ -231,7 +228,7 @@
 									<div class="col-md-9">
 										<input type="email" class="form-control rounded" id="email"
 											value="<%=memVO.getM_email()%>" name="email"
-											style="margin-bottom: 10px; background-color: white">
+											style="margin-top: 10px;margin-bottom: 0px; background-color: white">
 									</div>
 								</div>
 								<!-- 							第六行電子郵箱結束-->
@@ -242,7 +239,7 @@
 
 
 										<select name="contactZip" id="contactZip" class="form-control"
-											style="background-color: white; margin-bottom: 10px">
+											style="background-color: white; margin-top: 10px;margin-bottom: 0px">
 											<option value="" disabled selected>郵遞區號</option>
 											<option value="100 台北市 中正區">100 台北市 中正區</option>
 											<option value="103 台北市 大同區">103 台北市 大同區</option>
@@ -314,7 +311,7 @@
 										<input type="text" class="form-control rounded"
 											id="contactAddr" value="<%=memVO.getM_addr()%>"
 											name="contactAddr"
-											style="margin-bottom: 10px; background-color: white;">
+											style="margin-top: 10px;margin-bottom: 0px; background-color: white;">
 									</div>
 								</div>
 
@@ -371,7 +368,7 @@
 											style="text-align: right; margin-top: 13px;">手機:</div>
 										<div class="col-md-9">
 											<input type="text" class="form-control rounded"
-												id="shoiMobile" value=""
+												id="shipMobile" value=""
 												style="margin-bottom: 10px; background-color: white">
 										</div>
 									</div>
@@ -786,7 +783,7 @@
 			<!-- / row -->
 		</div>
 		<!-- / container -->
-
+<!-- alert通知 -->
 		<div class="alert alert-warning alert-dismissible" role="alert"
 			id="alertWarn"
 			style="display: none; position: fixed; bottom: 0; width: 100%">
@@ -795,6 +792,16 @@
 				<span aria-hidden="true">&times;</span>
 			</button>
 			<strong>密碼設定失敗</strong> 請檢查密碼格式是否正確或密碼是否一致
+		</div>
+		
+			<div class="alert alert-success alert-dismissible" role="alert"
+			id="alertUpdateSuccess"
+			style="display: none; position: fixed; bottom: 0; width: 100%">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong>個人資料已更新成功！</strong> 
 		</div>
 
 	</section>
@@ -1034,118 +1041,103 @@
         
 </script>
 
-<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath()%>/frontend/members/jqueryJs/jquery.min.js"></script>
 <script>
-	
 	$(document).ready(function(){
 		//取得聯絡地址及郵遞區號
-        	$.ajax({
-        		url: "<%=request.getContextPath()%>/frontend/members/mem.do",
-				type: "POST",
-				data: {
-					action: "getContactZip"},
-				success: function(data) {
-				
-					var memVO = JSON.parse(data);
-	
-					var zip = memVO.m_zip;
-					var city = memVO.m_city;
-					
-					$('#contactZip option[value=\''+zip+' '+city+'\']').attr('selected', true);
-					
-				}
-			});
-		//傳送、取得收件地址及郵遞區號	
-//         	$.ajax({
-<%--         		url: "<%=request.getContextPath()%>/frontend/members/mem.do", --%>
-// 								type : "POST",
-// 									data : {
-// 										action : "getShipZipNAddr",
-// 									},
-// 									success : function(data) {
-
-// 										$(
-// 												'#contactZip option[value=\''+ data + '\']').attr(
-// 												'selected', true);
-// 									}
-// 								});
-
-					});
-
-	
-	$("#sameAsContactBtn").click(function() {
-
-		$("#shipName").value($("#name").value());	
-		$("shipmobile").value($("#mobile").value());	
-		$('#shipZip option[value=\''+$("#contactZip").value()+'\']').attr('selected', true);
-		$("#shipAddr").value($("#contactAddr").value());	
-		
+        $.ajax({
+        	url: "<%=request.getContextPath()%>/frontend/members/mem.do",
+			type: "POST",
+			data: {
+				action: "getContactZip"
+			},
+			success: function(data) {	
+				var memVO = JSON.parse(data);
+				var zip = memVO.m_zip;
+				var city = memVO.m_city;
+				$('#contactZip option[value=\''+zip+' '+city+'\']').attr('selected', true);	
+			}
 		});
-	$("#memInfoBtn").click(function() {
-		
-		console.log( $("#contactZip").val());
-		
+	});		
+
+	$("#sameAsContactBtn").click(function() {
+		$("#shipName").val($("#name").val());	
+		$("#shipMobile").val($("#mobile").val());	
+		$('#shipZip option[value=\''+$("#contactZip").val()+'\']').attr('selected', true);
+		$("#shipAddr").val($("#contactAddr").val());
+	});
+	
+	$("#memInfoBtn").click(function() {	
+		 $('#alertUpdateSuccess').removeClass('show');
+		 
+		 var errormsg;
+		 
 		$.ajax({
     		url: "<%=request.getContextPath()%>/frontend/members/mem.do",
-									type : "POST",
-									data : {
-										action : "UpdateMem",
-										name : $("#name").val(),
-										gender : $("#gender").val(),
-										birthday :  $("#birthday").val(),
-										mobile :  $("#mobile").val(),
-										phone :  $("#phone").val(),
-										email :  $("#email").val(),
-										contactZip :  $("#contactZip").val(),
-										contactAddr :   $("#contactAddr").val(),
-										
-									},
-									success : function(data) {
-										
-									console.log(data);
-									}
-		
-		
-	});
-		
+			type: "POST",
+			data: {
+				action: "UpdateMem",
+				name: $("#name").val(),
+				gender: $("#gender").val(),
+				birthday: $("#birthday").val(),
+				mobile: $("#mobile").val(),
+				phone: $("#phone").val(),
+				email: $("#email").val(),
+				contactZip: $("#contactZip").val(),
+				contactAddr: $("#contactAddr").val()
+			},
+			success: function(data) {
+				if (data === "true") {
+					$('#alertUpdateSuccess').addClass('show');
+					console.log('succsess');
+					
+					if (errormsg !== null){
+					 	   $.each(errormsg, function(key, val) {
+						  	  	$("#" + key).next("div").remove();
+						     });
+					}	
+				} else {
+			
+											  
+					var msg = JSON.parse(data);
+					errormsg = msg;
+					$.each(msg, function(key, val) {
+						$("#" + key).next("div").remove();
+						
+					    $("#" + key).after($("<div>").text(val).css("color","red"));
+					    
+					});
+				}		
+			}
+		});
 	});
 	
 	
 	$("#submitPsw").click(function() {
 		$.ajax({
     		url: "<%=request.getContextPath()%>/frontend/members/memLoginHandler.do",
-									type : "POST",
-									data : {
-										action : "changePwd",
-										oldPassword : $("#InputPassword1")
-												.val(),
-										newPassword1 : $("#InputPassword2")
-												.val(),
-										newPassword2 : $("#InputPassword3")
-												.val(),
-									},
-									success : function(data) {
-										$("#InputPassword1").val(""),
-										$("#InputPassword2").val(""),
-										$("#InputPassword3").val(""),
-										
-										if (data === 'true') {
-											$('#myTest').trigger('click');
-											$('#alertWarn').css("display",
-											"none");
-											$('#changePwdBtn').trigger('click');
-										}
-
-										else {
-											$('#alertWarn').css("display",
-													"block");
-										}
-
-									}
-
-								});
-
-					});
+			type: "POST",
+			data: {
+				action: "changePwd",
+				oldPassword: $("#InputPassword1").val(),
+				newPassword1: $("#InputPassword2").val(),
+				newPassword2: $("#InputPassword3").val()
+			},
+			success: function(data) {
+				$("#InputPassword1").val("");
+				$("#InputPassword2").val("");
+				$("#InputPassword3").val("");
+									
+				if (data === 'true') {
+					$('#myTest').trigger('click');
+					$('#alertWarn').css("display", "none");
+					$('#changePwdBtn').trigger('click');
+				} else {
+					$('#alertWarn').css("display", "block");
+				}
+			}
+		});
+	});
 </script>
 <script>
 	$("#headphoto").click(function() {

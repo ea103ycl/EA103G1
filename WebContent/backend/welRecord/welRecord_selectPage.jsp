@@ -230,12 +230,12 @@ tr, td, th {
 									</div>
 
 									<div class="row" style="margin-bottom: 20px">
-										<div class="col-md-6">
-											<canvas id="myChart1" style="width: 200px"></canvas>
+										<div class="col-md-6" style="height:320px">
+											<canvas id="myChart1"></canvas>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-6" style="height:320px">
 											<canvas id="myChart2"
-												style="width: 200px"></canvas>
+												></canvas>
 										</div>
 									</div>
 

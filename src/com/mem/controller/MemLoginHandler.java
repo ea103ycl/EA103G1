@@ -105,7 +105,7 @@ public class MemLoginHandler extends HttpServlet {
 
 						else {
 							// 若沒有來源網頁, 導回首頁
-							res.sendRedirect(req.getContextPath() + "/frontend/members/select_page_frontend.jsp");
+							res.sendRedirect(req.getContextPath() + "/frontend/front_index/front_index.jsp");
 						}
 
 					} catch (Exception ignored) {
