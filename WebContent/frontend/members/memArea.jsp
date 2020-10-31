@@ -105,9 +105,9 @@
 					<p>
 						<a href="#banner-info" class="page-scroll">編輯個人資料</a>
 					</p>
-					<p>
-						<a href="#memInfoBtn" class="page-scroll">編輯收件資料</a>
-					</p>
+<!-- 					<p> -->
+<!-- 						<a href="#memInfoBtn" class="page-scroll">編輯收件資料</a> -->
+<!-- 					</p> -->
 
 					<p>
 						<a href="#shipingArea" class="page-scroll">帳號管理</a>
@@ -326,155 +326,155 @@
 							</div>
 						</div>
 					</div>
-					<!--                       收件人資料區塊開始                          -->
-					<div id="shippingArea" class="account-info-content">
-						<h4>
-							編輯收件資料<span class="pull-right">
-								<button class="btn btn-sm btn-primary btn-rounded no-margin"
-									type="button" data-toggle="collapse"
-									data-target="#collapseExample2" aria-expanded="false"
-									aria-controls="collapseExample2" style="font-weight: bold">
-									<i class="lnr lnr-pencil"></i>修改收件人資料
-								</button>
-							</span>
+<!-- 					                      收件人資料區塊開始                          -->
+<!-- 					<div id="shippingArea" class="account-info-content"> -->
+<!-- 						<h4> -->
+<!-- 							編輯收件資料<span class="pull-right"> -->
+<!-- 								<button class="btn btn-sm btn-primary btn-rounded no-margin" -->
+<!-- 									type="button" data-toggle="collapse" -->
+<!-- 									data-target="#collapseExample2" aria-expanded="false" -->
+<!-- 									aria-controls="collapseExample2" style="font-weight: bold"> -->
+<!-- 									<i class="lnr lnr-pencil"></i>修改收件人資料 -->
+<!-- 								</button> -->
+<!-- 							</span> -->
 
 
-						</h4>
-						<p class="space-bottom" id="shipingArea">
+<!-- 						</h4> -->
+<!-- 						<p class="space-bottom" id="shipingArea"> -->
 
-							收件人姓名:<br>
-							<br> 收件人電話:<br>
-							<br> 收件人地址:
-						</p>
-
-
-						<div class="collapse" id="collapseExample2"
-							style="margin: auto 50px;">
-							<div class="well">
-								<FORM>
-
-									<div class="row">
-										<div class="col-md-2"
-											style="text-align: right; margin-top: 13px;">姓名:</div>
-										<div class="col-md-9">
-											<input type="text" class="form-control rounded" id="shipName"
-												value=""
-												style="margin-bottom: 10px; background-color: white">
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-md-2"
-											style="text-align: right; margin-top: 13px;">手機:</div>
-										<div class="col-md-9">
-											<input type="text" class="form-control rounded"
-												id="shipMobile" value=""
-												style="margin-bottom: 10px; background-color: white">
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-md-2"
-											style="text-align: right; margin-top: 13px;">收件地址:</div>
-										<div class="col-md-4">
-
-											<select name="shipZip" id="shipZip" class="form-control"
-												style="background-color: white; margin-bottom: 10px">
-												<option value="" disabled selected>郵遞區號</option>
-												<option value="100 台北市 中正區">100 台北市 中正區</option>
-												<option value="103 台北市 大同區">103 台北市 大同區</option>
-												<option value="104 台北市 中山區">104 台北市 中山區</option>
-												<option value="105 台北市 松山區">105 台北市 松山區</option>
-												<option value="106 台北市 大安區">106 台北市 大安區</option>
-												<option value="234 新北市 永和區">234 新北市 永和區</option>
-												<option value="235 新北市 中和區">235 新北市 中和區</option>
-												<option value="236 新北市 土城區">236 新北市 土城區</option>
-												<option value="237 新北市 三峽區">237 新北市 三峽區</option>
-												<option value="238 新北市 樹林區">238 新北市 樹林區</option>
-												<option value="239 新北市 鶯歌區">239 新北市 鶯歌區</option>
-												<option value="241 新北市 三重區">241 新北市 三重區</option>
-												<option value="242 新北市 新莊區">242 新北市 新莊區</option>
-												<option value="243 新北市 泰山區">243 新北市 泰山區</option>
-												<option value="244 新北市 林口區">244 新北市 林口區</option>
-												<option value="247 新北市 蘆洲區">247 新北市 蘆洲區</option>
-												<option value="248 新北市 五股區">248 新北市 五股區</option>
-												<option value="249 新北市 八里區">249 新北市 八里區</option>
-												<option value="251 新北市 淡水區">251 新北市 淡水區</option>
-												<option value="252 新北市 三芝區">252 新北市 三芝區</option>
-												<option value="253 新北市 石門區">253 新北市 石門區</option>
-												<option value="260 宜蘭縣 宜蘭市">260 宜蘭縣 宜蘭市</option>
-												<option value="261 宜蘭縣 頭城鎮">261 宜蘭縣 頭城鎮</option>
-												<option value="262 宜蘭縣 礁溪鄉">262 宜蘭縣 礁溪鄉</option>
-												<option value="263 宜蘭縣 壯圍鄉">263 宜蘭縣 壯圍鄉</option>
-												<option value="264 宜蘭縣 員山鄉">264 宜蘭縣 員山鄉</option>
-												<option value="265 宜蘭縣 羅東鎮">265 宜蘭縣 羅東鎮</option>
-												<option value="266 宜蘭縣 三星鄉">266 宜蘭縣 三星鄉</option>
-												<option value="267 宜蘭縣 大同鄉">267 宜蘭縣 大同鄉</option>
-												<option value="268 宜蘭縣 五結鄉">268 宜蘭縣 五結鄉</option>
-												<option value="269 宜蘭縣 冬山鄉">269 宜蘭縣 冬山鄉</option>
-												<option value="270 宜蘭縣 蘇澳鎮">270 宜蘭縣 蘇澳鎮</option>
-												<option value="272 宜蘭縣 南澳鄉">272 宜蘭縣 南澳鄉</option>
-												<option value="300 新竹市 北區">300 新竹市 北區</option>
-												<option value="300 新竹市 東區">300 新竹市 東區</option>
-												<option value="300 新竹市 香山區">300 新竹市 香山區</option>
-												<option value="300 新竹市 ">300 新竹市</option>
-												<option value="302 新竹縣 竹北市">302 新竹縣 竹北市</option>
-												<option value="303 新竹縣 湖口鄉">303 新竹縣 湖口鄉</option>
-												<option value="304 新竹縣 新豐鄉">304 新竹縣 新豐鄉</option>
-												<option value="305 新竹縣 新埔鎮">305 新竹縣 新埔鎮</option>
-												<option value="306 新竹縣 關西鎮">306 新竹縣 關西鎮</option>
-												<option value="307 新竹縣 芎林鄉">307 新竹縣 芎林鄉</option>
-												<option value="308 新竹縣 寶山鄉">308 新竹縣 寶山鄉</option>
-												<option value="310 新竹縣 竹東鎮">310 新竹縣 竹東鎮</option>
-												<option value="311 新竹縣 五峰鄉">311 新竹縣 五峰鄉</option>
-												<option value="312 新竹縣 橫山鄉">312 新竹縣 橫山鄉</option>
-												<option value="313 新竹縣 尖石鄉">313 新竹縣 尖石鄉</option>
-												<option value="314 新竹縣 北埔鄉">314 新竹縣 北埔鄉</option>
-												<option value="315 新竹縣 峨眉鄉">315 新竹縣 峨眉鄉</option>
-												<option value="320 桃園市 中壢區">320 桃園市 中壢區</option>
-												<option value="324 桃園市 平鎮區">324 桃園市 平鎮區</option>
-												<option value="325 桃園市 龍潭區">325 桃園市 龍潭區</option>
-												<option value="326 桃園市 楊梅區">326 桃園市 楊梅區</option>
-												<option value="327 桃園市 新屋區">327 桃園市 新屋區</option>
-												<option value="328 桃園市 觀音區">328 桃園市 觀音區</option>
-												<option value="330 桃園市 桃園區">330 桃園市 桃園區</option>
-												<option value="333 桃園市 龜山區">333 桃園市 龜山區</option>
-												<option value="334 桃園市 八德區">334 桃園市 八德區</option>
-												<option value="335 桃園市 大溪區">335 桃園市 大溪區</option>
-												<option value="336 桃園市 復興區">336 桃園市 復興區</option>
-												<option value="337 桃園市 大園區">337 桃園市 大園區</option>
-												<option value="338 桃園市 蘆竹區">338 桃園市 蘆竹區</option>
-
-											</select>
-										</div>
-										<div class="col-md-5">
-											<input type="text" class="form-control rounded" id="shipAddr"
-												value=""
-												style="margin-bottom: 10px; background-color: white">
-										</div>
-									</div>
-
-									<div class="row" style="text-align: center">
-										<div class="col col-md-4">
-											<div class="checkbox checkbox-primary space-bottom">
-												<label class="hide"><input type="checkbox"></label>
-												<input id="sameAsContactBtn" type="checkbox"> <label
-													for="sameAsContactBtn" style="color: grey"><span><strong>同聯絡地址</strong></span></label>
-											</div>
-										</div>
-										<div class="col col-md-5">
-											<button type="submit" class="btn btn-primary-filled btn-pill" >提交</button>
-										</div>
-
-									</div>
+<!-- 							收件人姓名:<br> -->
+<!-- 							<br> 收件人電話:<br> -->
+<!-- 							<br> 收件人地址: -->
+<!-- 						</p> -->
 
 
-								</FORM>
+<!-- 						<div class="collapse" id="collapseExample2" -->
+<!-- 							style="margin: auto 50px;"> -->
+<!-- 							<div class="well"> -->
+<!-- 								<FORM> -->
 
-							</div>
-						</div>
+<!-- 									<div class="row"> -->
+<!-- 										<div class="col-md-2" -->
+<!-- 											style="text-align: right; margin-top: 13px;">姓名:</div> -->
+<!-- 										<div class="col-md-9"> -->
+<!-- 											<input type="text" class="form-control rounded" id="shipName" -->
+<!-- 												value="" -->
+<!-- 												style="margin-bottom: 10px; background-color: white"> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
 
-					</div>
+<!-- 									<div class="row"> -->
+<!-- 										<div class="col-md-2" -->
+<!-- 											style="text-align: right; margin-top: 13px;">手機:</div> -->
+<!-- 										<div class="col-md-9"> -->
+<!-- 											<input type="text" class="form-control rounded" -->
+<!-- 												id="shipMobile" value="" -->
+<!-- 												style="margin-bottom: 10px; background-color: white"> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+
+<!-- 									<div class="row"> -->
+<!-- 										<div class="col-md-2" -->
+<!-- 											style="text-align: right; margin-top: 13px;">收件地址:</div> -->
+<!-- 										<div class="col-md-4"> -->
+
+<!-- 											<select name="shipZip" id="shipZip" class="form-control" -->
+<!-- 												style="background-color: white; margin-bottom: 10px"> -->
+<!-- 												<option value="" disabled selected>郵遞區號</option> -->
+<!-- 												<option value="100 台北市 中正區">100 台北市 中正區</option> -->
+<!-- 												<option value="103 台北市 大同區">103 台北市 大同區</option> -->
+<!-- 												<option value="104 台北市 中山區">104 台北市 中山區</option> -->
+<!-- 												<option value="105 台北市 松山區">105 台北市 松山區</option> -->
+<!-- 												<option value="106 台北市 大安區">106 台北市 大安區</option> -->
+<!-- 												<option value="234 新北市 永和區">234 新北市 永和區</option> -->
+<!-- 												<option value="235 新北市 中和區">235 新北市 中和區</option> -->
+<!-- 												<option value="236 新北市 土城區">236 新北市 土城區</option> -->
+<!-- 												<option value="237 新北市 三峽區">237 新北市 三峽區</option> -->
+<!-- 												<option value="238 新北市 樹林區">238 新北市 樹林區</option> -->
+<!-- 												<option value="239 新北市 鶯歌區">239 新北市 鶯歌區</option> -->
+<!-- 												<option value="241 新北市 三重區">241 新北市 三重區</option> -->
+<!-- 												<option value="242 新北市 新莊區">242 新北市 新莊區</option> -->
+<!-- 												<option value="243 新北市 泰山區">243 新北市 泰山區</option> -->
+<!-- 												<option value="244 新北市 林口區">244 新北市 林口區</option> -->
+<!-- 												<option value="247 新北市 蘆洲區">247 新北市 蘆洲區</option> -->
+<!-- 												<option value="248 新北市 五股區">248 新北市 五股區</option> -->
+<!-- 												<option value="249 新北市 八里區">249 新北市 八里區</option> -->
+<!-- 												<option value="251 新北市 淡水區">251 新北市 淡水區</option> -->
+<!-- 												<option value="252 新北市 三芝區">252 新北市 三芝區</option> -->
+<!-- 												<option value="253 新北市 石門區">253 新北市 石門區</option> -->
+<!-- 												<option value="260 宜蘭縣 宜蘭市">260 宜蘭縣 宜蘭市</option> -->
+<!-- 												<option value="261 宜蘭縣 頭城鎮">261 宜蘭縣 頭城鎮</option> -->
+<!-- 												<option value="262 宜蘭縣 礁溪鄉">262 宜蘭縣 礁溪鄉</option> -->
+<!-- 												<option value="263 宜蘭縣 壯圍鄉">263 宜蘭縣 壯圍鄉</option> -->
+<!-- 												<option value="264 宜蘭縣 員山鄉">264 宜蘭縣 員山鄉</option> -->
+<!-- 												<option value="265 宜蘭縣 羅東鎮">265 宜蘭縣 羅東鎮</option> -->
+<!-- 												<option value="266 宜蘭縣 三星鄉">266 宜蘭縣 三星鄉</option> -->
+<!-- 												<option value="267 宜蘭縣 大同鄉">267 宜蘭縣 大同鄉</option> -->
+<!-- 												<option value="268 宜蘭縣 五結鄉">268 宜蘭縣 五結鄉</option> -->
+<!-- 												<option value="269 宜蘭縣 冬山鄉">269 宜蘭縣 冬山鄉</option> -->
+<!-- 												<option value="270 宜蘭縣 蘇澳鎮">270 宜蘭縣 蘇澳鎮</option> -->
+<!-- 												<option value="272 宜蘭縣 南澳鄉">272 宜蘭縣 南澳鄉</option> -->
+<!-- 												<option value="300 新竹市 北區">300 新竹市 北區</option> -->
+<!-- 												<option value="300 新竹市 東區">300 新竹市 東區</option> -->
+<!-- 												<option value="300 新竹市 香山區">300 新竹市 香山區</option> -->
+<!-- 												<option value="300 新竹市 ">300 新竹市</option> -->
+<!-- 												<option value="302 新竹縣 竹北市">302 新竹縣 竹北市</option> -->
+<!-- 												<option value="303 新竹縣 湖口鄉">303 新竹縣 湖口鄉</option> -->
+<!-- 												<option value="304 新竹縣 新豐鄉">304 新竹縣 新豐鄉</option> -->
+<!-- 												<option value="305 新竹縣 新埔鎮">305 新竹縣 新埔鎮</option> -->
+<!-- 												<option value="306 新竹縣 關西鎮">306 新竹縣 關西鎮</option> -->
+<!-- 												<option value="307 新竹縣 芎林鄉">307 新竹縣 芎林鄉</option> -->
+<!-- 												<option value="308 新竹縣 寶山鄉">308 新竹縣 寶山鄉</option> -->
+<!-- 												<option value="310 新竹縣 竹東鎮">310 新竹縣 竹東鎮</option> -->
+<!-- 												<option value="311 新竹縣 五峰鄉">311 新竹縣 五峰鄉</option> -->
+<!-- 												<option value="312 新竹縣 橫山鄉">312 新竹縣 橫山鄉</option> -->
+<!-- 												<option value="313 新竹縣 尖石鄉">313 新竹縣 尖石鄉</option> -->
+<!-- 												<option value="314 新竹縣 北埔鄉">314 新竹縣 北埔鄉</option> -->
+<!-- 												<option value="315 新竹縣 峨眉鄉">315 新竹縣 峨眉鄉</option> -->
+<!-- 												<option value="320 桃園市 中壢區">320 桃園市 中壢區</option> -->
+<!-- 												<option value="324 桃園市 平鎮區">324 桃園市 平鎮區</option> -->
+<!-- 												<option value="325 桃園市 龍潭區">325 桃園市 龍潭區</option> -->
+<!-- 												<option value="326 桃園市 楊梅區">326 桃園市 楊梅區</option> -->
+<!-- 												<option value="327 桃園市 新屋區">327 桃園市 新屋區</option> -->
+<!-- 												<option value="328 桃園市 觀音區">328 桃園市 觀音區</option> -->
+<!-- 												<option value="330 桃園市 桃園區">330 桃園市 桃園區</option> -->
+<!-- 												<option value="333 桃園市 龜山區">333 桃園市 龜山區</option> -->
+<!-- 												<option value="334 桃園市 八德區">334 桃園市 八德區</option> -->
+<!-- 												<option value="335 桃園市 大溪區">335 桃園市 大溪區</option> -->
+<!-- 												<option value="336 桃園市 復興區">336 桃園市 復興區</option> -->
+<!-- 												<option value="337 桃園市 大園區">337 桃園市 大園區</option> -->
+<!-- 												<option value="338 桃園市 蘆竹區">338 桃園市 蘆竹區</option> -->
+
+<!-- 											</select> -->
+<!-- 										</div> -->
+<!-- 										<div class="col-md-5"> -->
+<!-- 											<input type="text" class="form-control rounded" id="shipAddr" -->
+<!-- 												value="" -->
+<!-- 												style="margin-bottom: 10px; background-color: white"> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+
+<!-- 									<div class="row" style="text-align: center"> -->
+<!-- 										<div class="col col-md-4"> -->
+<!-- 											<div class="checkbox checkbox-primary space-bottom"> -->
+<!-- 												<label class="hide"><input type="checkbox"></label> -->
+<!-- 												<input id="sameAsContactBtn" type="checkbox"> <label -->
+<!-- 													for="sameAsContactBtn" style="color: grey"><span><strong>同聯絡地址</strong></span></label> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 										<div class="col col-md-5"> -->
+<!-- 											<button type="submit" class="btn btn-primary-filled btn-pill" >提交</button> -->
+<!-- 										</div> -->
+
+<!-- 									</div> -->
+
+
+<!-- 								</FORM> -->
+
+<!-- 							</div> -->
+<!-- 						</div> -->
+
+<!-- 					</div> -->
 
 
 

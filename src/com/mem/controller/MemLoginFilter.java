@@ -32,7 +32,7 @@ public class MemLoginFilter implements Filter {
 
 		if (memVO == null) {
 			System.out.println("來源location:" + req.getRequestURI());
-			session.setAttribute("location", req.getRequestURI());// 為什麼是URI而非URL
+			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/frontend/members/memLogin.jsp");
 
 			return;

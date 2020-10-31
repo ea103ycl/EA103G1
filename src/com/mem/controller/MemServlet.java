@@ -36,7 +36,7 @@ public class MemServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
-
+//會員註冊
 		if ("InsertMem".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -177,8 +177,9 @@ public class MemServlet extends HttpServlet {
 
 				System.out.println("已呼叫MemService新增會員");
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/frontend/members/select_page_frontend.jsp";
+				String url = "/frontend/members/memLogin.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
+
 				System.out.println("準備forward");
 				successView.forward(req, res);
 
@@ -190,6 +191,9 @@ public class MemServlet extends HttpServlet {
 			}
 		}
 
+		// 會員註冊後發驗證信
+
+		// 修改會員資料 from memArea.jsp
 		if ("UpdateMem".equals(action)) {
 			JSONObject jsonObject = new JSONObject();
 
@@ -402,13 +406,6 @@ public class MemServlet extends HttpServlet {
 			out.print(new JSONObject(memVO));
 
 		}
-		// 收件地址未完成
-//		if ("getShipZip".equals(action)) {
-//
-//			HttpSession session = req.getSession();
-//			MemVO memVO = (MemVO) session.getAttribute("memVO");
-//
-//		}
 
 	}
 }
