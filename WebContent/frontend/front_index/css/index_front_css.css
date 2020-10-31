@@ -750,11 +750,11 @@
         }
 
         #msg-content {
+            position: absolute;
             padding-top: 10%;
             padding-left: 2%;
             overflow: scroll;
-            height: 58%;
-
+            height: calc(100% - 165px);
         }
 
         .comment-container {

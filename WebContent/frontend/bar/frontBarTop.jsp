@@ -117,7 +117,7 @@
             <div class="navbar-collapse collapse text-center">
                 <ul class="nav navbar-nav">
                 	
-                    <li class=""><a href="index.html"><span>首頁</span></a></li>
+                    <li class=""><a href="<%=request.getContextPath()%>/frontend/front_index.jsp"><span>首頁</span></a></li>
                     
                     <!-- 社群 -->
                     <li><a href="<%=request.getContextPath()%>/frontend/painter/listAllPainterFollow.jsp"><span>社群</span></a></li>
@@ -132,10 +132,10 @@
                     <li><a href="<%=request.getContextPath()%>/frontend/preproduct/frontindex.jsp"><span>預購</span></a></li>
 
                     <!-- 競標 -->
-                    <li><a href="<%=request.getContextPath()%>/frontend/biddingFront/biddingPage.jsp"><span>競標</span></a></li>
+                    <li><a href="<%=request.getContextPath()%>/frontend/biddingFront/biddingIndex.jsp"><span>競標</span></a></li>
 
                     <!-- 見面會 -->
-                    <li><a href="<%=request.getContextPath()%>/frontend/biddingFront/biddingPage.jsp"><span>見面會</span></a></li>
+                    <li><a href="<%=request.getContextPath()%>/frontend/front_index.jsp"><span>見面會</span></a></li>
 
                     
                 </ul>
