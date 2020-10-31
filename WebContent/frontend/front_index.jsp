@@ -149,7 +149,7 @@
 							</div>
 							<div class="RH-inner">
 								<a
-									href="<%=request.getContextPath()%>/frontend/biddingFront/biddingPage.jsp"><span>競標</span></a>
+									href="<%=request.getContextPath()%>/frontend/biddingFront/biddingIndex.jsp"><span>競標</span></a>
 							</div>
 							<div class="RH-inner">
 								<a
