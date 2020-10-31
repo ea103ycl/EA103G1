@@ -136,11 +136,11 @@ public class MaterialServlet extends HttpServlet {
 				}
 
 				String ma_name = ((req.getParameter("ma_name")).trim());
-				String ma_name_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,30}$";
+				String ma_name_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-)]{1,30}$";
 				if (ma_name == null || ma_name.length() == 0) {
 					errorMsgs.add("請輸入素材名稱。");
 				} else if (!ma_name.matches(ma_name_Reg)) {
-					errorMsgs.add("素材名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到30之間。");
+					errorMsgs.add("素材名稱: 只能是中、英文字母、數字和- , 且長度必需在2到30之間。");
 				} 
 				
 
@@ -246,11 +246,11 @@ public class MaterialServlet extends HttpServlet {
 				String ma_ty_nam = material_Type_VO.getMaTyNam();
 				
 				String ma_ty_nam_edit = (req.getParameter("ma_ty_nam_edit")).trim();
-				String ma_ty_no_editReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,30}$";
+				String ma_ty_no_editReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-)]{1,30}$";
 				if(ma_ty_nam_edit == null || ma_ty_nam_edit.length() ==0) {
 					errorMsgs.add("請輸入新的類別名稱。");
 				} else if(!ma_ty_nam_edit.matches(ma_ty_no_editReg)) {
-					errorMsgs.add("類別名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到30之間。");
+					errorMsgs.add("類別名稱: 只能是中、英文字母、數字和- , 且長度必需在2到30之間。");
 				} 
 				
 //				else if(ma_ty_nam.equals(ma_ty_nam_edit)) {
@@ -310,14 +310,14 @@ public class MaterialServlet extends HttpServlet {
 //				}
 				
 				String ma_ty_nam = (req.getParameter("ma_ty_nam")).trim();
-				String ma_ty_nam_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,30}$";
+				String ma_ty_nam_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-)]{1,30}$";
 				
 				if((ma_ty_no == null || ma_ty_no.length() == 0)&&(ma_ty_nam == null || ma_ty_nam.length() == 0)){
 					errorMsgs.add("請輸入素材種類。");	
 				} else if((ma_ty_no != null && ma_ty_no.length() != 0)&&(ma_ty_nam != null && ma_ty_nam.length() != 0)) {
 					errorMsgs.add("素材種類不可重複輸入。");
 				} else if((!ma_ty_nam.matches(ma_ty_nam_Reg))&&(ma_ty_nam.length()!=0)) {
-					errorMsgs.add("素材種類名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到30之間。");
+					errorMsgs.add("素材種類名稱: 只能是中、英文字母、數字和- , 且長度必需在2到30之間。");
 				} 
 	
 				for(Material_Type_VO material_Type_VO :list2) {
@@ -334,11 +334,11 @@ public class MaterialServlet extends HttpServlet {
 //				}
 		
 				String ma_name = ((req.getParameter("ma_name")).trim());
-				String ma_name_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,30}$";
+				String ma_name_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-)]{1,30}$";
 				if (ma_name == null || ma_name.length() == 0) {
 					errorMsgs.add("請輸入素材名稱。");
 				} else if (!ma_name.matches(ma_name_Reg)) {
-					errorMsgs.add("素材名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到30之間。");
+					errorMsgs.add("素材名稱: 只能是中、英文字母、數字和- , 且長度必需在2到30之間。");
 				} else {
 					for (Material_Data_VO mana_db : list) {
 						if (ma_name.equals(mana_db.getMaName())) {
@@ -425,11 +425,11 @@ public class MaterialServlet extends HttpServlet {
 			try {
 				
 				String ma_ty_nam = (req.getParameter("ma_ty_nam")).trim();
-				String ma_ty_nam_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,30}$";
+				String ma_ty_nam_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-)]{1,30}$";
 				if(ma_ty_nam == null||ma_ty_nam.length() == 0) {
 					errorMsgs.add("請輸入要新增的素材種類名稱。");
 				}else if(!ma_ty_nam.matches(ma_ty_nam_Reg)) {
-					errorMsgs.add("素材種類名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到30之間。");
+					errorMsgs.add("素材種類名稱: 只能是中、英文字母、數字和- , 且長度必需在2到30之間。");
 				}
 				
 				for(Material_Type_VO material_Type_VO :list) {
@@ -518,6 +518,19 @@ public class MaterialServlet extends HttpServlet {
 					map = map1;
 				} 
 				
+//				if(req.getParameter("ma_price_up") == null || req.getParameter("ma_price_up").length() == 0) {
+//					map.put("ma_price_up",new String[] { "9999" });
+//				}
+//				
+//				if(req.getParameter("ma_price_down") == null || req.getParameter("ma_price_down").length() == 0) {
+//					map.put("ma_price_down",new String[] { "0" });
+//				}
+				
+//				Set<String> keys = map.keySet();
+//				for(String key : keys) {
+//					System.out.println(key + " = "+map.get(key)[0]);
+//				}
+			
 				Material_Data_Service matSvc = new Material_Data_Service();
 				List<Material_Data_VO> list  = matSvc.getAll(map);
 				
