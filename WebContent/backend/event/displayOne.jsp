@@ -92,19 +92,20 @@
 							<td><c:if test="${eventVO.event_stat==3 }">
 						活動結束
 					</c:if> <c:if test="${eventVO.event_stat==2 }">
-						活動投票中
+						開始投票
 					</c:if> <c:if test="${eventVO.event_stat==1 }">
-						活動徵圖中
+						開始徵稿
 					</c:if> <c:if test="${eventVO.event_stat==0 }">
-						活動尚未開始
+						尚未開始
 					</c:if></td>
 
 							<td>
 								<form action="eventServlet" method="post">
-									<input type="hidden" name="event_no"
-										value="${eventVO.event_no}"> <input type="hidden"
-										name="action" value="updateFromListAll"> <input
-										type="submit" value="修改">
+									<input type="hidden" name="event_no" value="${eventVO.event_no}"> 
+									<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+									
+									<input type="hidden"name="action" value="updateFromListAll"> 
+									<input type="submit" value="修改">
 								</form>
 							</td>
 						</tr>

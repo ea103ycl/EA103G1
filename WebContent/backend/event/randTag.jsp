@@ -37,6 +37,11 @@
 		<div class="form-group row">
 			<label for="inputEmail3" class="col-sm-2 col-form-label">活動名稱</label>
 			<div class="col-sm-3" id="resTxt"></div>
+			<c:if test="${not empty errMsgs['event_name']}">
+				<div style="color:red;">
+				${errMsgs['event_name'] }
+				</div>
+			</c:if>
 <%-- 			<c:forEach var="event_tagVO" items="${event_tagRandVOs}"> --%>
 <!-- 				<div class="col-sm-3"> -->
 										

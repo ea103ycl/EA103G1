@@ -274,7 +274,7 @@ background-color:#fff;
 	<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.easing.min.js"></script><!-- return to top id -->
 	
 <%-- 	<script src="<%=request.getContextPath()%>/frontend/neoTools/sweetAlert/polyfills.js"></script> --%>
-	<script src="<%=request.getContextPath()%>/frontend/neoTools/sweetAlert/sweetalert.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/template/neoTools/sweetAlert/sweetalert.min.js"></script>
 	<script>
 	$("#eventHashTagSubmit").click(function(){
 		$.ajax({
@@ -287,7 +287,7 @@ background-color:#fff;
 			success:function(data){
 				console.log("OK");
 				$("#tagName").val("") //clear text
-				swal("Good job!", "You clicked the button!", "success");
+				swal("Nice!", "點子送出完成", "success");
 			}
 		})
 

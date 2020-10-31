@@ -22,15 +22,8 @@
 </head>
 <body>
 <%@include  file="/frontend/bar/frontBarTop.jsp"%>
-<c:if test="${not empty errMsgs }">
-	<c:forEach var="err" items="${errMsgs}">
-		<ul>
-			<li>${err}</li>
-		</ul>		
-		
-	</c:forEach>
-</c:if>
-<a href="event_spec.jsp">回到主題競賽</a>
+<div style="margin-top:80px;"></div>
+<a href="<%=request.getContextPath() %>/frontend/event_p/event_spec.jsp">回到主題競賽</a>
 
 
 	<div class="container">
@@ -64,8 +57,16 @@
              <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">檢舉原因</label>
                 <div class="col-sm-3">
-                    <textarea  class="form-control" name="rep_reason"  rows="3" ></textarea>
+                    <textarea  class="form-control" name="rep_reason"  rows="3"  ></textarea>
                 </div>
+                <c:if test="${not empty errMsgs }">
+					<c:forEach var="err" items="${errMsgs}">
+						<ul>
+							<li>${err}</li>
+						</ul>		
+						
+					</c:forEach>
+				</c:if>
             </div>
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">被檢舉的圖片</label>
