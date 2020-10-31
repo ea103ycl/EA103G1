@@ -243,7 +243,7 @@ header #header-banner{
 		                    <!-- product-hover-tools -->
 		                    <div class="product-hover-tools">
 			                    <div class="boxxx">
-			                    	<img class="productshow" alt="picture" src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${preproductVO.event_p_no}">
+			                    	<img class="productshow " alt="picture" src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${preproductVO.event_p_no}">
 		                        </div>
 		                        <a href="#" class="view-btn" data-toggle="tooltip" title="View Product">
 		                            <i class="lnr lnr-eye"></i>
@@ -256,8 +256,8 @@ header #header-banner{
 		
 		                    <!-- product-details -->
 		                    <div class="product-details">
-		                        <h5 class="product-title">商品名稱</h5>
-		                        <p class="product-category">商品描述</p>
+		                        <h5 class="product-title">商品編號:${preproductVO.po_prod_no}</h5>
+		                        <p class="product-category">商品描述:${preproductVO.po_detail}</p>
 		                    </div><!-- / product-details -->
 		                </div><!-- / img-bg-color -->
 		            <input type="hidden" name="po_prod_no" value="${preproductVO.po_prod_no}">
