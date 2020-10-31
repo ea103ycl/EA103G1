@@ -110,12 +110,21 @@
 				<div class="d-flex justify-content-between align-items-center">
 					<h2 style="color: #ad8b60; margin: 0 0 0 -3px;">ArtsBlock</h2>
 					<ol>
-						<li><a
-							href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout">Login
-								&nbsp</li>/
-						<li><a
-							href="<%=request.getContextPath()%>/frontend/members/memRegister.jsp">&nbsp
-								Register</a></li>
+						<c:choose>
+							<c:when test="${not empty memVO}">
+								<li><a
+									href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=login">Login
+										&nbsp</li>/
+								<li><a
+									href="<%=request.getContextPath()%>/frontend/members/memRegister.jsp">&nbsp
+										Register</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a
+									href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout">Logout
+										&nbsp</li>
+							</c:otherwise>
+						</c:choose>
 					</ol>
 				</div>
 			</div>
@@ -250,7 +259,7 @@
 									<div class="comment-body">
 										<c:choose>
 											<c:when test="${not empty memVO}">
-												<hr style="margin-top:0";>
+												<hr style="margin-top: 0";>
 												<h5 class="comment-title">Add a new comment</h5>
 												<div style="margin-top: 5%; text-align: center;">
 													<form id="writeComment"
@@ -258,9 +267,8 @@
 														<input name="action" value="writeComment" type="hidden">
 														<img
 															src="<%=request.getContextPath()%>/ReadMemPic?action=getPic&memId=${memVO.mem_id}"
-															class="comment-avatar" alt="avatar"> 
-														<input id="commentInput" name="comment"
-															class="comment-textarea"
+															class="comment-avatar" alt="avatar"> <input
+															id="commentInput" name="comment" class="comment-textarea"
 															placeholder="Type your message ..." rows="8">
 														<div class="comment-post">
 															<div style="text-align: right;">
@@ -272,7 +280,8 @@
 											</c:when>
 											<c:otherwise>
 												<hr>
-												<a href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout">
+												<a
+													href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout">
 													<h6 class="loginToComment">Login to comment</h6>
 												</a>
 											</c:otherwise>
