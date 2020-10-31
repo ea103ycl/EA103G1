@@ -43,7 +43,7 @@
                         
                         <div class="form-group">
               
-                           <p style="margin-bottom:15px">使用者名稱或註冊之電子信箱<br>我們將會發送電子郵件給您重設密碼</p>
+                           <p style="margin-bottom:15px">請輸入使用者名稱或註冊之電子信箱<br>將會發送電子郵件給您重設密碼</p>
                             <input type="text" class="form-control" id="input" placeholder="使用者名稱或註冊之電子信箱" required>
                             <div class="help-block with-errors"></div>
                               <button id="submitBtn" class="btn btn-md btn-primary-filled btn-log btn-rounded"

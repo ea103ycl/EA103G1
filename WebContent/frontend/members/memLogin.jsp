@@ -167,7 +167,7 @@ img {
 			<div class="center"  style="">
 			
 				<a href="<%=request.getContextPath()%>/frontend/front_index.jsp" title=""><img
-					src="<%=request.getContextPath()%>/frontend/members/images/logo1009.PNG" alt=""></a>
+					src="<%=request.getContextPath()%>/frontend/members/images/logo.PNG" alt=""></a>
 				<div style="text-align: left; color: red; font-size: 9px;width:100%; height:8%">
 						<c:if test="${not empty errorMsgs}">
 								

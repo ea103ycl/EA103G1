@@ -3,7 +3,7 @@ package com.wel_record.model;
 import java.util.List;
 
 import com.mem.model.MemDAO_interface;
-import com.mem.model.MemJDBCDAO;
+import com.mem.model.MemJNDIDAO;
 
 public class WelRecordService
 {
@@ -15,7 +15,7 @@ public class WelRecordService
 	{
 
 		dao = new WelRecordJDBCDAO();
-		memDao = new MemJDBCDAO();
+		memDao = new MemJNDIDAO();
 
 	}
 

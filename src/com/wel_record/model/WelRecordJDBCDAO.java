@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mem.model.MemJDBCDAO;
+import com.mem.model.MemJNDIDAO;
 import com.mem.model.MemVO;
 
 import tools.DateTool;
@@ -36,7 +36,7 @@ public class WelRecordJDBCDAO implements WelRecordDAO_interface
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		MemJDBCDAO memDao = new MemJDBCDAO();
+		MemJNDIDAO memDao = new MemJNDIDAO();
 
 		try
 			{

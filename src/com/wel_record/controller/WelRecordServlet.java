@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,6 +50,8 @@ public class WelRecordServlet extends HttpServlet
 		MemVO memVO = new MemVO();
 		HttpSession session = req.getSession();
 		memVO = (MemVO) session.getAttribute("memVO");
+
+		System.out.println("memVO.accno:" + memVO.getM_accno());
 
 		if ("deposit".equals(action))
 			{
@@ -118,13 +119,14 @@ public class WelRecordServlet extends HttpServlet
 
 						if (ifCheckOutSucess)
 							{
-
+								System.out.println("結帳成功");
 								String url = "/frontend/members/memArea.jsp";// 結帳成功後轉交回原會員頁面
 								RequestDispatcher successView = req.getRequestDispatcher(url);
 								successView.forward(req, res);
 
 							} else
 							{
+								System.out.println("結帳失敗");
 								errorMsgsForMoney.add("儲值失敗,請檢查格式是否正確"); // 結帳失敗後的處理
 							}
 

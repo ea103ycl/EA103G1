@@ -23,4 +23,12 @@ public class DateTool
 		return time;
 	}
 
+	public static String timestamp2String4Ecpay(Timestamp ts)
+	{
+
+		DateFormat sdf = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss");
+		String time = sdf.format(ts);
+		return time;
+	}
+
 }
