@@ -4,6 +4,10 @@
 <%@ page import="com.prod.model.*"%>
 
 <!DOCTYPE html>
+
+
+
+
 <%
 	ProdService prodSvc = new ProdService();
 	List<ProdVO> list = prodSvc.getAll();
@@ -27,10 +31,13 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
+<body>
+
+
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-   
+ 
     <div class="card shadow mb-4">
        
         <div class="card-body">
@@ -107,6 +114,7 @@
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
+
 </body>
 
 </html>

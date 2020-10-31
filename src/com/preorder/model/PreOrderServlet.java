@@ -15,6 +15,7 @@ import com.preorderdetail.model.PreOrderDetailService;
 import com.preorderdetail.model.PreOrderDetailVO;
 import com.preproduct.model.PreProductService;
 import com.preproduct.model.PreProductVO;
+import com.wel_record.model.WelRecordService;
 
 import tools.MoneyTool;
 public class PreOrderServlet extends HttpServlet{
@@ -117,9 +118,10 @@ public class PreOrderServlet extends HttpServlet{
 				System.out.println("拿到session里面的集合 = "+formhashSession);
 				
 				if(formhashSession == null || !formhashSession.contains(formhash)) {
-					formhashSession.remove(formhash);
+//					formhashSession.remove(formhash);
 					session.setAttribute("formhashSession", formhashSession);
-					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/preproduct/order_Success_List.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher
+							("/frontend/preproduct/order_Success_List.jsp");
 					failureView.forward(req, res);
 					return;
 				}else {
@@ -200,9 +202,7 @@ public class PreOrderServlet extends HttpServlet{
 				HttpSession ordersession = req.getSession();
 				ordersession.setAttribute("preorderlist",preorderlist);
 				System.out.println("ordersession = "+ordersession);
-//				req.setAttribute("preorderlist",preorderlist);
-//				req.setAttribute("po_prod_no",po_prod_no);
-//				String url = "/backend/preproduct/PonoByReachDiscount.jsp";
+
 				String url = "/backend/preproduct/PonoByReachDiscount.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				System.out.println("大結局");
@@ -265,5 +265,99 @@ public class PreOrderServlet extends HttpServlet{
 				failureView.forward(req, res);
 			}
 		}
+		
+		if("returnDiscount".equals(action)) {
+			System.out.println("-----Servlet觸發returnDiscount-----");
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+			/***************************0.阻擋重複傳值問題**********************/
+				String formhash = req.getParameter("formhash");
+				System.out.println("拿到表單的formhash = "+formhash);
+				Set<String> formhashSession = (Set<String>) session.getAttribute("formhashSession");
+				System.out.println("拿到session里面的集合 = "+formhashSession);
+				
+				if(formhashSession == null || !formhashSession.contains(formhash)) {
+					formhashSession.remove(formhash);
+					session.setAttribute("formhashSession", formhashSession);
+					RequestDispatcher failureView = req.getRequestDispatcher
+							("/backend/preproduct/PonoByReachDiscount.jsp");
+					failureView.forward(req, res);
+					return;
+				}else {
+					System.out.println("一切正常");
+				}
+			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+			String po_no = req.getParameter("po_no");
+			System.out.println("取值po_no = "+po_no);
+			//--------------------------------------------------------------------------------
+			Integer po_status = new Integer(req.getParameter("po_status"));
+			if(po_status == 4) {
+				errorMsgs.add("本訂單已結案不得發送折讓金!");
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/preproduct/PonoByReachDiscount.jsp");
+				failureView.forward(req, res);
+				return;
+			}else
+			{
+				po_status = 4;
+			}
+			po_status = 4;
+			System.out.println("取值po_status = "+po_status);
+			//--------------------------------------------------------------------------------
+			String mem_id = req.getParameter("mem_id");
+			System.out.println("取值mem_id = "+mem_id);
+			//--------------------------------------------------------------------------------
+			Integer return_discount = new Integer(req.getParameter("return_discount"));
+			System.out.println("取值return_discount = "+return_discount);
+			
+			PreOrderVO preorderVO = new PreOrderVO();
+			preorderVO.setPo_no(po_no);
+			preorderVO.setPo_status(po_status);
+			
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("preorderVO", preorderVO);
+				System.out.println("判斷到errorMsgs.isEmpty()不是空的");
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/preproduct/PonoByReachDiscount.jsp");
+				failureView.forward(req, res);
+				return; //程式中斷
+			}
+			/***************************2.開始修改資料*****************************************/
+			PreOrderService preorderSvc = new PreOrderService();
+			System.out.println("準備轉入Servic執行 = preorderSvc.updateStatus");
+			preorderVO = preorderSvc.updateStatus(po_status,po_no);
+			System.out.println("準備轉入Servic執行 = wrSrc.addWelRecord");
+			WelRecordService wrSrc = new WelRecordService();
+			wrSrc.addWelRecord(mem_id, 34, po_no, return_discount);
+				
+			/***************************3.修改完成,準備轉交(Send the Success view)*************/	
+			req.setAttribute("preorderVO", preorderVO);
+			
+			formhashSession.remove(formhash);
+			session.setAttribute("formhashSession", formhashSession);
+			session.removeAttribute("formhashSession");
+			
+			String url = "/backend/preproduct/PonoByReachDiscount.jsp";
+			System.out.println("-----Servlet發送折讓金成功.準備轉交-----");
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			System.out.println("***************************************************");
+			successView.forward(req, res);
+			
+			
+			
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/preproduct/PonoByReachDiscount.jsp");
+				failureView.forward(req, res);
+			}
+
+		}
+		
+		
+		
+		
+		
 	}
 }

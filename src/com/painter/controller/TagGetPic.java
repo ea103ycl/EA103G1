@@ -148,22 +148,23 @@ public class TagGetPic extends HttpServlet {
 
 			Integer ptrno = Integer.valueOf(req.getParameter("ptrno"));
 			String comment = req.getParameter("comment");
-			Timestamp ts =new Timestamp(System.currentTimeMillis());
 			HttpSession session = req.getSession();
 			PainterMsgService pmsgSvc = new PainterMsgService();
-			PainterMsgVO pmsgVO = null;
+			PainterMsgVO pmsgVO = new PainterMsgVO();
+			MemVO memVO=(MemVO) session.getAttribute("memVO");
 
 			if (comment.trim().isEmpty()) {
 				System.out.println("(TagGetPic)writeComment: comment is empty String");
 				return;
 			}
-
 			try {
-				pmsgVO.setMem_id((String) session.getAttribute("mem_id"));
+				pmsgVO.setMem_id(memVO.getMem_id());
 				pmsgVO.setMsg(comment);
 				pmsgVO.setPtr_no(ptrno);
 				
 				pmsgSvc.insert(pmsgVO);
+				
+				out.print("insertComplete");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

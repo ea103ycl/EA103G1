@@ -317,13 +317,14 @@ public class DetailJDBCDAO implements DetailDAO_interface {
 				System.out.println();
 			}
 			System.out.println("明細查詢成功!!");
-//			
 
-
-
-		
 		
 		}
+
+
+
+
+
 			
 }
 

@@ -18,5 +18,10 @@ public interface OrderDAO_interface {
 	
 	public List<OrderVO> orderSearch(String mem_id);
 	
+	public List<OrderVO> getOrderByStauts(Integer or_stauts);
+	
+	public void changeStatus(OrderVO orderVO);
+	
+	public List<OrderVO> getOrderByStauts_Buyer(Integer or_stauts,String mem_id);
 	
 }

@@ -22,6 +22,7 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT * FROM ORDERS WHERE OR_NO = ?";
 	private static final String UPDATE = "UPDATE ORDERS SET OR_STATUS=? WHERE OR_NO=?";
 	private static final String ORDER_SEARCH = "SELECT * FROM ORDERS WHERE MEM_ID = ? ORDER BY OR_NO";
+	private static final String GET_ORDER_BY_STAUTS = "SELECT * FROM ORDERS WHERE OR_STATUS=? ORDER BY OR_NO";
 	
 	@Override
 	public String insert(OrderVO orderVO, List<DetailVO> detailList) {
@@ -338,42 +339,111 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 			return list;
 		}
 	
+	
+	@Override
+	public List<OrderVO> getOrderByStauts(Integer or_stauts) {
+		List<OrderVO> list = new ArrayList<OrderVO>();
+		OrderVO orderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ORDER_BY_STAUTS);
+			
+			pstmt.setInt(1, or_stauts);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				orderVO = new OrderVO();
+				orderVO.setOr_no(rs.getString("or_no"));
+				orderVO.setMem_id(rs.getString("mem_id"));
+				orderVO.setOr_name(rs.getString("or_name"));
+				orderVO.setOr_phone(rs.getString("or_phone"));
+				orderVO.setOr_zip(rs.getInt("or_zip"));
+				orderVO.setOr_addr(rs.getString("or_addr"));
+				orderVO.setOr_note(rs.getString("or_note"));
+				orderVO.setOr_total(rs.getInt("or_total"));
+				orderVO.setOr_status(rs.getInt("or_status"));
+				orderVO.setOr_time(rs.getTimestamp("or_time"));
+				list.add(orderVO);
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+
+	
+	
 		public static void main(String[] args) {
 
 			OrderJDBCDAO dao = new OrderJDBCDAO();
 
-////			// 新增
-			OrderVO orderVO1 = new OrderVO();
-			orderVO1.setMem_id("M000001");
-			orderVO1.setOr_name("小辣");
-			orderVO1.setOr_phone("0982777666");
-			orderVO1.setOr_zip(666);
-			orderVO1.setOr_addr("高雄市");
-			orderVO1.setOr_note("請在晚上寄過來");
-			orderVO1.setOr_total(600);
-			
-			
-			
-			DetailVO detailVO1 = new DetailVO();
-			detailVO1.setProd_no(1);
-			detailVO1.setOr_qty(10);
-			detailVO1.setOr_p_price(1000);
-			
-			
-			DetailVO detailVO2 = new DetailVO();
-			detailVO2.setProd_no(5);
-			detailVO2.setOr_qty(1);
-			detailVO2.setOr_p_price(1);
-			
-			
-			List<DetailVO> detailList = new ArrayList<>();
-			detailList.add(detailVO1);
-			detailList.add(detailVO2);
-			
-			
-			dao.insert(orderVO1, detailList);
-			System.out.println("新增成功!!");
-			
+//////			// 新增
+//			OrderVO orderVO1 = new OrderVO();
+//			orderVO1.setMem_id("M000001");
+//			orderVO1.setOr_name("小辣");
+//			orderVO1.setOr_phone("0982777666");
+//			orderVO1.setOr_zip(666);
+//			orderVO1.setOr_addr("高雄市");
+//			orderVO1.setOr_note("請在晚上寄過來");
+//			orderVO1.setOr_total(600);
+//			
+//			
+//			
+//			DetailVO detailVO1 = new DetailVO();
+//			detailVO1.setProd_no(1);
+//			detailVO1.setOr_qty(10);
+//			detailVO1.setOr_p_price(1000);
+//			
+//			
+//			DetailVO detailVO2 = new DetailVO();
+//			detailVO2.setProd_no(5);
+//			detailVO2.setOr_qty(1);
+//			detailVO2.setOr_p_price(1);
+//			
+//			
+//			List<DetailVO> detailList = new ArrayList<>();
+//			detailList.add(detailVO1);
+//			detailList.add(detailVO2);
+//			
+//			
+//			dao.insert(orderVO1, detailList);
+//			System.out.println("新增成功!!");
+//			
 			
 			
 			//查詢單列
@@ -438,9 +508,58 @@ public class OrderJDBCDAO implements OrderDAO_interface {
 //			}
 //			System.out.println("訂單查詢成功!!");
 			
+			//用訂單狀態查詢
+			List<OrderVO> list = dao.getOrderByStauts(4);
+			for(OrderVO aOrder : list) {
+				System.out.print(aOrder.getOr_no()+ ", ");
+				System.out.print(aOrder.getMem_id()+ ", ");
+				System.out.print(aOrder.getOr_name()+ ", ");
+				System.out.print(aOrder.getOr_phone()+ ", ");
+				System.out.print(aOrder.getOr_zip()+ ", ");
+				System.out.print(aOrder.getOr_addr()+ ", ");
+				System.out.print(aOrder.getOr_note()+ ", ");
+				System.out.print(aOrder.getOr_total()+ ", ");
+				System.out.print(aOrder.getOr_status()+ ", ");
+				Format f2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				System.out.println(f2.format(aOrder.getOr_time().getTime()));
+				System.out.println();
+			}
 			
 			
 			
+			
+			
+			
+			
+			
+		}
+
+
+
+
+
+
+		
+
+
+
+
+
+		@Override
+		public void changeStatus(OrderVO orderVO) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+
+
+
+
+		@Override
+		public List<OrderVO> getOrderByStauts_Buyer(Integer or_stauts, String mem_id) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 }

@@ -38,7 +38,7 @@
 						
 						<%-- 錯誤表列 --%>
 						<c:if test="${not empty errorMsgs}">
-							<font style="color: red">請修正以下錯誤:</font>
+							
 							<ul>
 								<c:forEach var="message" items="${errorMsgs}">
 									<li style="color: red">${message}</li>
@@ -54,7 +54,7 @@
 					
 					
 					
-					<%@include file="/backend/prod/listOneProd123.jsp"%>
+					<%@include file="/backend/prod/master/listOneProd_in.jsp"%>
 					
 					
 				    </div> <!--END OF content-->

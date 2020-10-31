@@ -78,6 +78,10 @@ public class ProdService {
 		return dao.getAllma();
 	}
 	
+	public List<ProdVO> getRelatedProd(Integer ptr_no) {
+		return dao.getRelatedProd(ptr_no);
+	}
+	
 	
 	public List<ProdVO> getAll_stauts() {
 		return dao.getAll_status();

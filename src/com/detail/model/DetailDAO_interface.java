@@ -16,6 +16,8 @@ public interface  DetailDAO_interface {
 		public List<DetailVO> getAll();
 		
 		public List<DetailVO> detailSearch(String or_no);
+		
+		
 	}
 
 

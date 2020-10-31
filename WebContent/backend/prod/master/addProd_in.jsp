@@ -80,9 +80,7 @@
             font-family: "Courgette", 微軟正黑體;
             font-weight: bold;
         }
-        span {
-            color: red;
-            }
+        
         .show_pic {
             width: 20px;
             height: 20px;
@@ -193,7 +191,6 @@
         }
     </style>
     
-    
                   
 
     
@@ -202,7 +199,8 @@
     
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>新增商品</title>      
+    <title>新增商品</title> 
+         
 </head>
 
 
@@ -211,14 +209,7 @@
 </div> 
     
     
-        <%-- 錯誤表列 --%>
-        <c:if test="${not empty errorMsgs}">
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+       
         
         
         
@@ -238,7 +229,7 @@
                         	<div><label><span>*</span>商品價格</label></div>
                         	<div><label><span>*</span>商品描述</label></div>
                         	<div><label><span>*</span>作品編號</label></div>
-                        	<div><label><span>*</span>素材編號</label></div>
+                        	<div><label><span>*</span>選擇素材</label></div>
                         	<div><label><span>*</span>商品狀態</label></div>
                         	<div><label><span>*</span>上傳商品照片</label></div>                                                                                                                                                                                                                                                                                    
                         </div>
@@ -283,7 +274,7 @@
     <div class="input-div">
   <select size="1" name="ma_no" style=" width:450px; height:30px; font-size: 15px;  ">
    <c:forEach var="prodVO2" items="${prodSvc.allma}">
-    <option value="${prodVO2.ma_no}" ${(prodVO2.ma_no==prodVO.ma_no)?'selected':'' }> ${prodVO2.ma_no}</option>
+    <option value="${prodVO2.ma_no}" ${(prodVO2.ma_no==prodVO.ma_no)?'selected':'' }> ${prodVO2.ma_name}</option>
    </c:forEach>
   </select>
 </div>
@@ -321,7 +312,7 @@
    
 						
 						<div>
-						<p>* 為必填欄位，請填妥欄位資訊。</p>
+						<p style="font-color:red;">* 為必填欄位，請填妥欄位資訊。</p>
 							<input type="hidden" name="action" value="insert" />
                         	<button type="submit" class="btn" id="btn-submit">新增商品</button>
 						</div> 

@@ -12,58 +12,47 @@
 <%@page import="com.mem.model.*"%>
 
 <!DOCTYPE html>
-
-
-
-
-
-<%//假資料
-
-// 	String mem_id = "M000001";
-// 	String m_name = "麥可";
-// 	Integer m_zip = 421;
-// 	String m_addr = "台中市豐原區";
-// 	String m_phone = "0982-766248";
-
-// 	MemVO memVO = new MemVO();
-// 	memVO.setMem_id(mem_id);
-// 	memVO.setM_name(m_name);
-// 	memVO.setM_zip(m_zip);
-// 	memVO.setM_addr(m_addr);
-// 	memVO.setM_phone(m_phone);
-// 	request.getSession().setAttribute("memVO", memVO);
-%>
-
-
-
-
-
-
-
-
-
 <%
-	//Session
+	//假資料
+
+	String mem_id = "M000001";
+	String m_name = "麥可";
+	Integer m_zip = 421;
+	String m_addr = "台中市豐原區";
+	String m_phone = "0982-766248";
+
 	MemVO memVO = new MemVO();
-	memVO = (MemVO) request.getSession().getAttribute("memVO");
+	memVO.setMem_id(mem_id);
+	memVO.setM_name(m_name);
+	memVO.setM_zip(m_zip);
+	memVO.setM_addr(m_addr);
+	memVO.setM_phone(m_phone);
+	request.getSession().setAttribute("memVO", memVO);
+%>
 
+
+
+
+<%
+	memVO = (MemVO) request.getSession().getAttribute("memVO");
+%>
+
+
+
+
+
+<%
+	//session
+	// MemVO memVO = new MemVO();
+	memVO = (MemVO) request.getSession().getAttribute("memVO");
 %>
 
 
 
 <%
-	
-	OrderService orderSvc = new OrderService();
-	List<OrderVO> order_list = orderSvc.orderSearch(memVO.getMem_id());
-	pageContext.setAttribute("order_list", order_list);
+List<OrderVO> order_list = (ArrayList<OrderVO>)session.getAttribute("or_status_list_buyer");
+pageContext.setAttribute("order_list", order_list);
 %>
-
-
-                            	 
-                            	 
-                                
-                            
- 
 
 
 
@@ -92,6 +81,8 @@
 	<!-- Begin Page Content -->
 	<div class="container-fluid">
 	
+
+ 
 		<div class="card shadow mb-4">
 
 			<div class="card-body">
@@ -99,8 +90,7 @@
 				
 				
 <form  action="<%=request.getContextPath()%>/frontend/shop/order" method="POST" enctype="multipart/form-data">
-   <select  name="or_status" style="width:130px;font-size:15px; "onchange="submit();" >
-   
+   <select  name="or_status" style="width:130px;font-size:15px; "onchange="submit();" >   
    <option value="">選擇訂單狀態</option>
    <option value="100">查看全部</option> 
    <option value="1">尚未出貨</option> 
@@ -110,20 +100,19 @@
    </select>
    <input type="hidden" name="mem_id" value="<%=memVO.getMem_id()%>"> 
    <input type="hidden" name="action" value="Get_Order_By_Status_Buyer"> 
-</form> 
+</form>
 
-<%------------------- 錯誤表列 --------------------------%>
+		<%------------------- 錯誤表列 --------------------------%>
 						<c:if test="${not empty errorMsgs}">
 						<ul>
 						<c:forEach var="message" items="${errorMsgs}">
 						<li style="color: red">${message}</li>
 						</c:forEach>
 						</ul>
-						</c:if>
-<%------------------- 錯誤表列 --------------------------%>				
-				
-				
-	<table class="table table-bordered" id="dataTable" width="100%"  cellspacing="0" style="margin: 20px 0 100px 0;">
+						</c:if>		
+		<%------------------- 錯誤表列 --------------------------%>
+		
+<table class="table table-bordered" id="dataTable" width="100%"  cellspacing="0" style="margin: 20px 0 100px 0;">
 						<thead>
 							<tr>
 								<th>訂單編號</th>
@@ -139,16 +128,16 @@
 						<tbody>
 							<c:forEach var="orderVO" items="${order_list}">
 								<tr>
-								    
+								     
 									<td>${orderVO.or_no}</td>
 									<td><fmt:formatDate value="${orderVO.or_time}"
 											pattern="yyyy-MM-dd HH:mm" /></td>
 									<td>$ ${orderVO.or_total}</td>
 									<td>${orderVO.or_note}</td>
-									<td><c:if test="${orderVO.or_status==1}"><font color="deeppink">處理中</font></c:if> <c:if
-											test="${orderVO.or_status==2}"><font color="blue">出貨中</font></c:if> <c:if
-											test="${orderVO.or_status==3}"><font color="deeppink">已到貨</font></c:if> <c:if
-											test="${orderVO.or_status==4}"><font color="blue">訂單完成</font></c:if></td>
+									<td><c:if test="${orderVO.or_status==1}">處理中</c:if> <c:if
+											test="${orderVO.or_status==2}">出貨中</c:if> <c:if
+											test="${orderVO.or_status==3}">已到貨</c:if> <c:if
+											test="${orderVO.or_status==4}">訂單完成</c:if></td>
 											
 									<td>
 										<FORM METHOD="post"
@@ -166,7 +155,7 @@
 				<td>
 				<c:if test="${orderVO.or_status==2}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;">
-							<input style="color:deeppink"  type="submit" value="我收到貨了"> 
+							<input type="submit" value="我收到貨了"> 
 							<input type="hidden" name="or_status" value="${orderVO.or_status}">
 							<input type="hidden" name="or_no" value="${orderVO.or_no}">
 							<input type="hidden" name="action" value="Change_Order_Status_forBuyer">
@@ -175,21 +164,14 @@
 				 
 				 <c:if test="${orderVO.or_status==3}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;">
-							<input  style="color:deeppink" type="submit" value="完成訂單"> 
+							<input type="submit" value="完成訂單"> 
 							<input type="hidden" name="or_status" value="${orderVO.or_status}">
 							<input type="hidden" name="or_no" value="${orderVO.or_no}">
 							<input type="hidden" name="action" value="Change_Order_Status_forBuyer">
 				</FORM>
 				 </c:if>
 				 
-				 
-				
-
-			 
-
-
-
-<jsp:useBean id="evalSvc" scope="page" class="com.eval.model.EvalService" />
+				<jsp:useBean id="evalSvc" scope="page" class="com.eval.model.EvalService" />
 
 <c:if test="${orderVO.or_status==4 && pageScope.evalSvc.getAllByOr_no(orderVO.or_no).size()==0}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;">
@@ -199,14 +181,10 @@
 							<input type="hidden" name="action" value="Eval_Prod">
 				</FORM>
 				 </c:if>
-
+				 
 				
 				 
-				 
-				</td>	
-				
-				
-					
+				</td>		
 											
 											
 									

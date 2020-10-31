@@ -269,7 +269,7 @@
 
                 //=====================================================================================
                 if (bid > currentPrice) {
-//                    console.log("memId" + memId);
+                    //                    console.log("memId" + memId);
                     $.ajax({
                         method: "post",
                         url: "/EA103G1/biddingPage/BdPageServlet",
@@ -376,8 +376,11 @@
                         $('#top3 span').html(bidData.top3name);
 
                         $('#currentPrice').html(bidData.price1);
+                        if (bidData.price1 === undefined) { bidData.price1 = 0 }
                         $('#price1').html('$' + bidData.price1);
+                        if (bidData.price2 === undefined) { bidData.price2 = 0 }
                         $('#price2').html('$' + bidData.price2);
+                        if (bidData.price3 === undefined) { bidData.price3 = 0 }
                         $('#price3').html('$' + bidData.price3);
                         $('#numberOfBids').html(bidData.numberOfBids);
                         // ============================
@@ -430,6 +433,7 @@
                                         cancelButtonColor: '#d33',
                                         confirmButtonText: '確認'
                                     }).then((result2) => {
+										console.log("result2 confirmed");
                                         if (result2.isConfirmed) {
                                             $('#modalButton').click();
                                             location.reload();
@@ -437,7 +441,7 @@
                                     })
                                 }, 4000);
                             } else {
-								$('#errorMsgs').html(d);
+                                $('#errorMsgs').html(d);
                                 console.log('failed to complete');
                             }
                             //==================sweetAlert==============
@@ -460,17 +464,26 @@
 
 
         function getPrice() {
-            let checkoutPrice=$('#checkoutPrice').html($('#price1').html());
-				checkoutPrice=parseInt(checkoutPrice.html().substring(1));
-			let myWallet=$('#myWallet').html();
-			let balance= myWallet-checkoutPrice;
-			
-			if(balance<=0){
-				$('#balance').parent('h4').html('$<span>餘額不足</span><br><br><span>Balance $:'+balance+'</span>');
-			}else{
-				$('#balance').html(balance);
-			}	
-			
+            let checkoutPrice = $('#checkoutPrice').html($('#price1').html());
+            checkoutPrice = parseInt(checkoutPrice.html().substring(1));
+            let myWallet = $('#memWallet').val();
+            let balance = myWallet - checkoutPrice;
+
+            if (balance < 0) {
+                $('#balance').parent('h4').html('$<span>餘額不足</span> &nbsp &nbsp' +
+                    '<br><br><span>Balance: $ ' +
+                    balance +
+                    '</span>');
+                $('.cart-total-footer').append('<div style="margin-top:5%;">'
+				+'<a href="/EA103G1/frontend/members/memArea.jsp#accountArea" class="btn btn-default-filled btn-rounded">'
+				+'<span>快速儲值 </span></a></div>');
+
+            } else {
+                //              
+                $('#balance').html(balance);
+
+            }
+
         };
 
 

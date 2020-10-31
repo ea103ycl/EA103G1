@@ -34,11 +34,13 @@
 						<!--============================自定義內容start ================================================== -->
 						
 						<%-- 頁面標題 --%>
-						<h1 class="h3 mb-2 text-gray-800"  >商品管理</h1>
-						
+						<div>
+							<h1 class="h3 mb-2 text-gray-800" style="display: inline-block;">商品管理</h1>
+							<input style="margin: 0 0 0 1200px; color:deeppink; display: inline-block;" type="button" value="我要新增商品" onclick="location.href='<%=request.getContextPath()%>/backend/prod/addProd.jsp'">
+						</div>
 						<%-- 錯誤表列 --%>
 						<c:if test="${not empty errorMsgs}">
-							<font style="color: red">請修正以下錯誤:</font>
+							
 							<ul>
 								<c:forEach var="message" items="${errorMsgs}">
 									<li style="color: red">${message}</li>
@@ -54,7 +56,7 @@
 					
 					
 					
-					<%@include file="/backend/prod/listAllProd123.jsp"%>
+					<%@include file="/backend/prod/master/listAllProd_in.jsp"%>
 					
 					
 				    </div> <!--END OF content-->

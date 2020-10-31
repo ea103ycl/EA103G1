@@ -28,6 +28,8 @@ public interface ProdDAO_interface {
 	public List<ProdVO> MaSearch(String ma_no);
 	
 	public List<ProdVO> PtrSearch(Integer ptr_no);
+	
+	public List<ProdVO> getRelatedProd(Integer ptr_no);
 
 	public ProdVO OthrMaSearch(Integer ptr_no, String ma_no);
 	

@@ -230,9 +230,9 @@
         // Get the image and insert it inside the modal - use its "alt" text as a caption
 
         $('.grid-item').on('click', function(e) {
-            console.log('heher');
             $("#myModal").css('display', 'block');
             $("#img01").attr('src', e.target.src);
+            $("#img01").after('<input type="hidden" name="ptrno" value="' + e.target.id + '">');
             let ptrno = e.target.id;
 
             $.ajax({
@@ -259,17 +259,35 @@
         // ============================================================
 
         $('.comment-send').on('click', function(e) {
+            e.preventDefault();
 
+            var data = $('#writeComment').serialize();
+            var ptrno = $('#img01').next().val();
+            console.log("data" + data);
             $.ajax({
                 method: "post",
                 url: "/EA103G1/painter/TagGetPic",
-                data: { ptrno: ptrno, action: "writeComment" },
+                data: data + "&ptrno=" + ptrno,
                 success: function(d) {
-                    $('#msg-content').html(d);
+                    $.ajax({
+                        method: "post",
+                        url: "/EA103G1/painter/TagGetPic",
+                        data: { ptrno: ptrno, action: "msgUpdate" },
+                        success: function(d) {
+                            $('#msg-content').html(d);
+                            $('.comment-textarea').before('<input type="hidden" name="ptrno" value="' + ptrno + '"');
 
+                        },
+                        error: function() {
+                            alert("(msgUpdate)failed");
+                        }
+                    });
                 },
                 error: function() {
                     alert("(msgUpdate)failed");
                 }
             });
+
+
+
         })

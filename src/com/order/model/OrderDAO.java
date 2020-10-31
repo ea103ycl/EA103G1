@@ -28,7 +28,7 @@ public class OrderDAO implements OrderDAO_interface {
 			static {
 				try {
 					Context ctx = new InitialContext();
-					ds = (DataSource) ctx.lookup("java:comp/env/jdbc/EA103G1");
+					ds = (DataSource) ctx.lookup("java:comp/env/jdbc/G1");
 				} catch (NamingException e) {
 					e.printStackTrace();
 				}
@@ -39,6 +39,9 @@ public class OrderDAO implements OrderDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT * FROM ORDERS WHERE OR_NO = ?";
 	private static final String UPDATE = "UPDATE ORDERS SET OR_STATUS=? WHERE OR_NO=?";
 	private static final String ORDER_SEARCH = "SELECT * FROM ORDERS WHERE MEM_ID = ? ORDER BY OR_NO";
+	private static final String CHANGE_STATUS = "UPDATE ORDERS SET OR_STATUS=? WHERE OR_NO=?";
+	private static final String GET_ORDER_BY_STAUTS = "SELECT * FROM ORDERS WHERE OR_STATUS=? ORDER BY OR_NO";
+	private static final String GET_ORDER_BY_STAUTS_BUYER = "SELECT * FROM ORDERS WHERE OR_STATUS=? AND MEM_ID=? ORDER BY OR_NO";
 	
 	@Override
 	public String insert(OrderVO orderVO, List<DetailVO> detailList)  {
@@ -358,6 +361,187 @@ public class OrderDAO implements OrderDAO_interface {
 		}
 		return list;
 	}
+
+
+
+
+
+
+	
+	@Override
+	public List<OrderVO> getOrderByStauts(Integer or_stauts) {
+		List<OrderVO> list = new ArrayList<OrderVO>();
+		OrderVO orderVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			
+		 pstmt = con.prepareStatement(GET_ORDER_BY_STAUTS);
+			
+			pstmt.setInt(1,or_stauts);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				orderVO = new OrderVO();
+				orderVO.setOr_no(rs.getString("or_no"));
+				orderVO.setMem_id(rs.getString("mem_id"));
+				orderVO.setOr_name(rs.getString("or_name"));
+				orderVO.setOr_phone(rs.getString("or_phone"));
+				orderVO.setOr_zip(rs.getInt("or_zip"));
+				orderVO.setOr_addr(rs.getString("or_addr"));
+				orderVO.setOr_note(rs.getString("or_note"));
+				orderVO.setOr_total(rs.getInt("or_total"));
+				orderVO.setOr_status(rs.getInt("or_status"));
+				orderVO.setOr_time(rs.getTimestamp("or_time"));
+				list.add(orderVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+
+
+
+
+
+
+	@Override
+	public void changeStatus(OrderVO orderVO) {
+		
+			Connection con = null;
+			PreparedStatement pstmt = null;
+
+			try {
+				con = ds.getConnection();
+				
+				pstmt = con.prepareStatement(CHANGE_STATUS);
+				pstmt.setInt(1,   orderVO.getOr_status());
+				pstmt.setString(2,    orderVO.getOr_no());
+				pstmt.executeUpdate();
+				
+
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. " + se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+
+		}
+
+
+
+
+
+
+
+	@Override
+	public List<OrderVO> getOrderByStauts_Buyer(Integer or_stauts, String mem_id) {
+		List<OrderVO> list = new ArrayList<OrderVO>();
+		OrderVO orderVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			
+		 pstmt = con.prepareStatement(GET_ORDER_BY_STAUTS_BUYER);
+			
+			pstmt.setInt(1,or_stauts);
+			pstmt.setString(2,mem_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				orderVO = new OrderVO();
+				orderVO.setOr_no(rs.getString("or_no"));
+				orderVO.setMem_id(rs.getString("mem_id"));
+				orderVO.setOr_name(rs.getString("or_name"));
+				orderVO.setOr_phone(rs.getString("or_phone"));
+				orderVO.setOr_zip(rs.getInt("or_zip"));
+				orderVO.setOr_addr(rs.getString("or_addr"));
+				orderVO.setOr_note(rs.getString("or_note"));
+				orderVO.setOr_total(rs.getInt("or_total"));
+				orderVO.setOr_status(rs.getInt("or_status"));
+				orderVO.setOr_time(rs.getTimestamp("or_time"));
+				list.add(orderVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
 	
 	
 	
