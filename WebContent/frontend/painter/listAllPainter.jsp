@@ -12,8 +12,16 @@
 
 <%
 	MemVO loginMemVO = (MemVO)session.getAttribute("memVO");
+	System.out.println("loginMemVO is null ? " + (loginMemVO==null));
+	
+	if(loginMemVO == null){
+		System.out.println("未登入，重新導向登入頁面");
+		response.sendRedirect(request.getContextPath() + "/frontend/members/memLogin.jsp");
+		return;
+	}
+	
 	pageContext.setAttribute("loginMemVO", loginMemVO);
-
+	
 	String sessionMemId = loginMemVO.getMem_id(); //登入者的ID
 	String sid1 = (String)request.getAttribute("sid"); //從controller送來的ID
 	String sid2 = (String)request.getParameter("sid"); //從網址列輸入的ID

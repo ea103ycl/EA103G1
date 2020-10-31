@@ -13,6 +13,11 @@
 
 <%
 	MemVO loginMemVO = (MemVO)session.getAttribute("memVO");
+	if(loginMemVO == null){
+		System.out.println("未登入，重新導向登入頁面");
+		response.sendRedirect(request.getContextPath() + "/frontend/members/memLogin.jsp");
+		return;
+	}
 	pageContext.setAttribute("loginMemVO", loginMemVO);
 
 	String sessionMemId = loginMemVO.getMem_id(); //登入者的ID
