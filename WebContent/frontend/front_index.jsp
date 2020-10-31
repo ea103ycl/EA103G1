@@ -104,7 +104,6 @@
 	</header>
 	<!-- End Header -->
 	<main id="main">
-
 		<!-- ======= Breadcrumbs ======= -->
 		<section class="breadcrumbs">
 			<div class="container">
@@ -241,7 +240,6 @@
 					<span class="close">&times;</span>
 					<div class="myContainer container">
 						<div class="row" id="modal-content">
-
 							<div class="modal-left col-md-8" style="padding: 0">
 								<img class="modal-content" id="img01"
 									style="border: 0; border-radius: 25px 0 0 25px">

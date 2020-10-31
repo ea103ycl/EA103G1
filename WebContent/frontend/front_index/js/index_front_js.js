@@ -287,7 +287,4 @@
                     alert("(msgUpdate)failed");
                 }
             });
-
-
-
         })
