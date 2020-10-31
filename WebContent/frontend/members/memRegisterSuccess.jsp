@@ -3,7 +3,9 @@
 <%@ page import="com.mem.model.*"%>
 <!DOCTYPE html>
 <html lang="en">
-
+<%
+	MemVO memVO = (MemVO) request.getAttribute("memVO");
+%>
 
 <head>
 
@@ -39,10 +41,10 @@
         <h2>WAIT...THE LAST STEP</h2>
         <p class="lead"><strong>請至您的電子信箱收取驗證信, 即可開始探索ArtsBlock！</strong></p>
         
-        
-        <p><a href="index.html" class="btn btn-lg btn-primary-filled btn-rounded"><span>收不到驗證信? 點此重新發送</span></a></p>
+       
+        <p><a href="<%=request.getContextPath()%>/frontend/members/mem.do?action=sendVerifyAgain" class="btn btn-lg btn-primary-filled btn-rounded"><span>收不到驗證信? 點此重新發送</span></a></p>
         <h6>OR</h6>
-        <p><a href="shop.html" class="btn btn-lg btn-default-filled btn-rounded"><i class="fa fa-long-arrow-right"></i><span>先逛逛首頁</span></a></p>
+        <p><a href="<%=request.getContextPath()%>/frontend/front_index.jsp" class="btn btn-lg btn-default-filled btn-rounded"><i class="fa fa-long-arrow-right"></i><span>先逛逛首頁</span></a></p>
     </div>
 </div><!-- / container -->
 

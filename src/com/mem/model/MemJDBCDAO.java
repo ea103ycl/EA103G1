@@ -14,7 +14,8 @@ import java.util.TreeSet;
 
 import tools.DateTool;
 
-public class MemJDBCDAO implements MemDAO_interface {
+public class MemJDBCDAO implements MemDAO_interface
+{
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -51,122 +52,145 @@ public class MemJDBCDAO implements MemDAO_interface {
 	// 新增會員
 
 	@Override
-	public void insert(MemVO memVO) {
+	public void insert(MemVO memVO)
+	{
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
-		try {
+		try
+			{
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, memVO.getLv());
-			pstmt.setString(2, memVO.getM_accno());
-			pstmt.setString(3, memVO.getM_psw());
-			pstmt.setString(4, memVO.getM_name());
-			pstmt.setString(5, memVO.getM_gender());
+				pstmt.setInt(1, memVO.getLv());
+				pstmt.setString(2, memVO.getM_accno());
+				pstmt.setString(3, memVO.getM_psw());
+				pstmt.setString(4, memVO.getM_name());
+				pstmt.setString(5, memVO.getM_gender());
 
-			pstmt.setDate(6, memVO.getM_bday());
-			pstmt.setString(7, memVO.getM_phone());
-			pstmt.setString(8, memVO.getM_mobile());
-			pstmt.setInt(9, memVO.getM_zip());
-			pstmt.setString(10, memVO.getM_city());
+				pstmt.setDate(6, memVO.getM_bday());
+				pstmt.setString(7, memVO.getM_phone());
+				pstmt.setString(8, memVO.getM_mobile());
+				pstmt.setInt(9, memVO.getM_zip());
+				pstmt.setString(10, memVO.getM_city());
 
-			pstmt.setString(11, memVO.getM_addr());
-			pstmt.setString(12, memVO.getM_email());
-			pstmt.setString(13, memVO.getM_word());
-			pstmt.setBytes(14, memVO.getM_photo());
-			pstmt.setInt(15, memVO.getM_source());
+				pstmt.setString(11, memVO.getM_addr());
+				pstmt.setString(12, memVO.getM_email());
+				pstmt.setString(13, memVO.getM_word());
+				pstmt.setBytes(14, memVO.getM_photo());
+				pstmt.setInt(15, memVO.getM_source());
 
-			pstmt.setInt(16, memVO.getM_active());
-			pstmt.setInt(17, memVO.getM_public());
-			pstmt.setInt(18, memVO.getM_bancount());
-			pstmt.setInt(19, memVO.getBalance());
+				pstmt.setInt(16, memVO.getM_active());
+				pstmt.setInt(17, memVO.getM_public());
+				pstmt.setInt(18, memVO.getM_bancount());
+				pstmt.setInt(19, memVO.getBalance());
 
-			pstmt.executeUpdate();
+				pstmt.executeUpdate();
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
 
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
 
-					e.printStackTrace();
-				}
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (Exception e)
+							{
+								e.printStackTrace();
+							}
+					}
+
 			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
 
 	}
 
 	// 新增大頭照
 	@Override
-	public void insertPhoto(String mem_id, byte[] photo) {
+	public void insertPhoto(String mem_id, byte[] photo)
+	{
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
-		try {
+		try
+			{
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE_PHOTO);
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(UPDATE_PHOTO);
 
-			pstmt.setBytes(1, photo);
-			pstmt.setString(2, mem_id);
+				pstmt.setBytes(1, photo);
+				pstmt.setString(2, mem_id);
 
-			pstmt.executeUpdate();
+				pstmt.executeUpdate();
 
-			// 清空裡面參數，重覆使用已取得的PreparedStatement物件
-			pstmt.clearParameters();
+				// 清空裡面參數，重覆使用已取得的PreparedStatement物件
+				pstmt.clearParameters();
 
-			System.out.println("新增成功");
+				System.out.println("新增成功");
 
-		} catch (ClassNotFoundException e) {
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			// 依建立順序關閉資源 (越晚建立越早關閉)
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					System.out.println(se);
-				}
+			} catch (ClassNotFoundException e)
+			{
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
+				// 依建立順序關閉資源 (越晚建立越早關閉)
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException se)
+							{
+								System.out.println(se);
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException se)
+							{
+								System.out.println(se);
+							}
+					}
 			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException se) {
-					System.out.println(se);
-				}
-			}
-		}
 
 	}
 
 	// 更新餘額
 	@Override
-	public MemVO updateBalance(int amount, MemVO memVO, Connection con) {
+	public MemVO updateBalance(int amount, MemVO memVO, Connection con)
+	{
 		// TODO Auto-generated method stub
 
 		PreparedStatement pstmt = null;
@@ -175,372 +199,443 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 		int newBalance = oldBalance + amount;
 
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+		try
+			{
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
 
-			pstmt = con.prepareStatement(UPDATE_BALANCE_BY_ID);
+				pstmt = con.prepareStatement(UPDATE_BALANCE_BY_ID);
 
-			pstmt.setInt(1, newBalance);
-			pstmt.setString(2, memVO.getMem_id());
+				pstmt.setInt(1, newBalance);
+				pstmt.setString(2, memVO.getMem_id());
 
-			pstmt.executeUpdate();
+				pstmt.executeUpdate();
 
-			memVO.setBalance(newBalance);
+				memVO.setBalance(newBalance);
 
-			System.out.println("會員id:" + memVO.getMem_id());
-			System.out.println("欲加值金額:" + amount);
-			System.out.println("加值後餘額:" + newBalance);
+				System.out.println("會員id:" + memVO.getMem_id());
+				System.out.println("欲加值金額:" + amount);
+				System.out.println("加值後餘額:" + newBalance);
 
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			if (con != null) {
-				try {
-					// 設定於當有exception發生時之catch區塊內
-					con.rollback();
-					memVO.setBalance(oldBalance);
-				} catch (SQLException excep) {
-					throw new RuntimeException("rollback error occured. " + excep.getMessage());
-				}
+			} catch (ClassNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e)
+			{
+				if (con != null)
+					{
+						try
+							{
+								// 設定於當有exception發生時之catch區塊內
+								con.rollback();
+								memVO.setBalance(oldBalance);
+							} catch (SQLException excep)
+							{
+								throw new RuntimeException("rollback error occured. " + excep.getMessage());
+							}
+					}
+				throw new RuntimeException("A database error occured. " + e.getMessage());
+
+			} finally
+			{
+
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (Exception e)
+							{
+								e.printStackTrace();
+							}
+					}
+
 			}
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-
-		} finally {
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
 		return memVO;
 
 	}
 
 	// 更新密碼
 	@Override
-	public void updatePsw(String mem_id, String m_psw) {
+	public void updatePsw(String mem_id, String m_psw)
+	{
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+		try
+			{
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
 
-			pstmt = con.prepareStatement(UPDATE_PSW_BY_ID);
+				pstmt = con.prepareStatement(UPDATE_PSW_BY_ID);
 
-			pstmt.setString(1, m_psw);
-			pstmt.setString(2, mem_id);
+				pstmt.setString(1, m_psw);
+				pstmt.setString(2, mem_id);
 
-			pstmt.executeUpdate();
+				pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			} catch (ClassNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
 
-		} finally {
+			} finally
+			{
 
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
 
-					e.printStackTrace();
-				}
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (Exception e)
+							{
+								e.printStackTrace();
+							}
+					}
+
 			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
 
 	}
 
 	// 前台修改
 
 	@Override
-	public void updateByUser(MemVO memVO) {
+	public void updateByUser(MemVO memVO)
+	{
 		// TODO Auto-generated method stub
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE_BY_USER);
+		try
+			{
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(UPDATE_BY_USER);
 
-			pstmt.setString(1, memVO.getM_name());
-			pstmt.setString(2, memVO.getM_gender());
-			pstmt.setDate(3, memVO.getM_bday());
-			pstmt.setString(4, memVO.getM_phone());
-			pstmt.setString(5, memVO.getM_mobile());
-			pstmt.setInt(6, memVO.getM_zip());
-			pstmt.setString(7, memVO.getM_city());
+				pstmt.setString(1, memVO.getM_name());
+				pstmt.setString(2, memVO.getM_gender());
+				pstmt.setDate(3, memVO.getM_bday());
+				pstmt.setString(4, memVO.getM_phone());
+				pstmt.setString(5, memVO.getM_mobile());
+				pstmt.setInt(6, memVO.getM_zip());
+				pstmt.setString(7, memVO.getM_city());
 
-			pstmt.setString(8, memVO.getM_addr());
-			pstmt.setString(9, memVO.getM_email());
+				pstmt.setString(8, memVO.getM_addr());
+				pstmt.setString(9, memVO.getM_email());
 
-			pstmt.setString(10, memVO.getMem_id());
+				pstmt.setString(10, memVO.getMem_id());
 
-			pstmt.executeUpdate();
+				pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
+			} catch (ClassNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
 
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
 
-					e.printStackTrace();
-				}
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (Exception e)
+							{
+								e.printStackTrace();
+							}
+					}
+
 			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
 
 	}
 
 	// 後台修改
 
 	@Override
-	public void updateByStaff(MemVO memVO) {
+	public void updateByStaff(MemVO memVO)
+	{
 		// TODO Auto-generated method stub
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE_BY_STAFF);
-			// UPDATE MEMBERS SET m_active=?, m_public=? ,m_bancount= ?
+		try
+			{
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(UPDATE_BY_STAFF);
+				// UPDATE MEMBERS SET m_active=?, m_public=? ,m_bancount= ?
 
-			pstmt.setInt(1, memVO.getM_active());
-			pstmt.setInt(2, memVO.getM_public());
-			pstmt.setInt(3, memVO.getM_bancount());
-			pstmt.setString(4, memVO.getMem_id());
+				pstmt.setInt(1, memVO.getM_active());
+				pstmt.setInt(2, memVO.getM_public());
+				pstmt.setInt(3, memVO.getM_bancount());
+				pstmt.setString(4, memVO.getMem_id());
 
-			pstmt.executeUpdate();
+				pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
+			} catch (ClassNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
 
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
 
-					e.printStackTrace();
-				}
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (Exception e)
+							{
+								e.printStackTrace();
+							}
+					}
+
 			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
 	}
 
 	// 查詢BY 會員帳號 或 會員信箱
 	@Override
-	public MemVO findByAccnoEmail(String input) {
+	public MemVO findByAccnoEmail(String input)
+	{
 		// TODO Auto-generated method stub
 		MemVO memVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		try {
+		try
+			{
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ONE_BY_ACCNO);
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_ONE_BY_ACCNO);
 
-			pstmt.setString(1, input);
-			pstmt.setString(2, input);
+				pstmt.setString(1, input);
+				pstmt.setString(2, input);
 
-			rs = pstmt.executeQuery();
+				rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				memVO = new MemVO();
-				memVO.setMem_id(rs.getString("mem_id"));
-				memVO.setLv(rs.getInt("lv"));
-				memVO.setM_accno(rs.getString("m_accno"));
+				while (rs.next())
+					{
+						memVO = new MemVO();
+						memVO.setMem_id(rs.getString("mem_id"));
+						memVO.setLv(rs.getInt("lv"));
+						memVO.setM_accno(rs.getString("m_accno"));
 
-				memVO.setM_psw(rs.getString("m_psw"));
-				memVO.setM_name(rs.getString("m_name"));
-				memVO.setM_gender(rs.getString("m_gender"));
+						memVO.setM_psw(rs.getString("m_psw"));
+						memVO.setM_name(rs.getString("m_name"));
+						memVO.setM_gender(rs.getString("m_gender"));
 
-				memVO.setM_bday(rs.getDate("m_bday"));
-				memVO.setM_phone(rs.getString("m_phone"));
-				memVO.setM_mobile(rs.getString("m_mobile"));
-				memVO.setM_zip(rs.getInt("m_zip"));
-				memVO.setM_city(rs.getString("m_city"));
+						memVO.setM_bday(rs.getDate("m_bday"));
+						memVO.setM_phone(rs.getString("m_phone"));
+						memVO.setM_mobile(rs.getString("m_mobile"));
+						memVO.setM_zip(rs.getInt("m_zip"));
+						memVO.setM_city(rs.getString("m_city"));
 
-				memVO.setM_addr(rs.getString("m_addr"));
-				memVO.setM_email(rs.getString("m_email"));
-				memVO.setM_word(rs.getString("m_word"));
-				memVO.setM_photo(rs.getBytes("m_photo"));
-				memVO.setM_source(rs.getInt("m_source"));
-				memVO.setM_joindate(DateTool.timestamp2StringMin(rs.getTimestamp("m_joindate")));
+						memVO.setM_addr(rs.getString("m_addr"));
+						memVO.setM_email(rs.getString("m_email"));
+						memVO.setM_word(rs.getString("m_word"));
+						memVO.setM_photo(rs.getBytes("m_photo"));
+						memVO.setM_source(rs.getInt("m_source"));
+						memVO.setM_joindate(DateTool.timestamp2StringMin(rs.getTimestamp("m_joindate")));
 
-				memVO.setM_active(rs.getInt("m_active"));
-				memVO.setM_public(rs.getInt("m_public"));
-				memVO.setM_bancount(rs.getInt("m_bancount"));
-				memVO.setBalance(rs.getInt("balance"));
+						memVO.setM_active(rs.getInt("m_active"));
+						memVO.setM_public(rs.getInt("m_public"));
+						memVO.setM_bancount(rs.getInt("m_bancount"));
+						memVO.setBalance(rs.getInt("balance"));
 
+					}
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
+			} catch (ClassNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
 		return memVO;
 
 	}
 
 	// 查詢byPK
 	@Override
-	public MemVO findByPrimaryKey(String mem_id) {
+	public MemVO findByPrimaryKey(String mem_id)
+	{
 		// TODO Auto-generated method stub
 		MemVO memVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		try {
+		try
+			{
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ONE_STMT);
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, mem_id);
-			rs = pstmt.executeQuery();
+				pstmt.setString(1, mem_id);
+				rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				memVO = new MemVO(); // ??????
-				memVO.setMem_id(rs.getString("mem_id"));
-				memVO.setLv(rs.getInt("lv"));
-				memVO.setM_accno(rs.getString("m_accno"));
+				while (rs.next())
+					{
+						memVO = new MemVO(); // ??????
+						memVO.setMem_id(rs.getString("mem_id"));
+						memVO.setLv(rs.getInt("lv"));
+						memVO.setM_accno(rs.getString("m_accno"));
 
-				memVO.setM_psw(rs.getString("m_psw"));
-				memVO.setM_name(rs.getString("m_name"));
-				memVO.setM_gender(rs.getString("m_gender"));
+						memVO.setM_psw(rs.getString("m_psw"));
+						memVO.setM_name(rs.getString("m_name"));
+						memVO.setM_gender(rs.getString("m_gender"));
 
-				memVO.setM_bday(rs.getDate("m_bday"));
-				memVO.setM_phone(rs.getString("m_phone"));
-				memVO.setM_mobile(rs.getString("m_mobile"));
-				memVO.setM_zip(rs.getInt("m_zip"));
-				memVO.setM_city(rs.getString("m_city"));
+						memVO.setM_bday(rs.getDate("m_bday"));
+						memVO.setM_phone(rs.getString("m_phone"));
+						memVO.setM_mobile(rs.getString("m_mobile"));
+						memVO.setM_zip(rs.getInt("m_zip"));
+						memVO.setM_city(rs.getString("m_city"));
 
-				memVO.setM_addr(rs.getString("m_addr"));
-				memVO.setM_email(rs.getString("m_email"));
-				memVO.setM_word(rs.getString("m_word"));
-				memVO.setM_photo(rs.getBytes("m_photo"));
-				memVO.setM_source(rs.getInt("m_source"));
-				memVO.setM_joindate(DateTool.timestamp2StringMin(rs.getTimestamp("m_joindate")));
+						memVO.setM_addr(rs.getString("m_addr"));
+						memVO.setM_email(rs.getString("m_email"));
+						memVO.setM_word(rs.getString("m_word"));
+						memVO.setM_photo(rs.getBytes("m_photo"));
+						memVO.setM_source(rs.getInt("m_source"));
+						memVO.setM_joindate(DateTool.timestamp2StringMin(rs.getTimestamp("m_joindate")));
 
-				memVO.setM_active(rs.getInt("m_active"));
-				memVO.setM_public(rs.getInt("m_public"));
-				memVO.setM_bancount(rs.getInt("m_bancount"));
-				memVO.setBalance(rs.getInt("balance"));
+						memVO.setM_active(rs.getInt("m_active"));
+						memVO.setM_public(rs.getInt("m_public"));
+						memVO.setM_bancount(rs.getInt("m_bancount"));
+						memVO.setBalance(rs.getInt("balance"));
 
+					}
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
+			} catch (ClassNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
 		return memVO;
 
 	}
 
 	// 查詢byPK或會員名稱或會員帳號
 	@Override
-	public List<MemVO> findByPKNameAcc(String str) {
+	public List<MemVO> findByPKNameAcc(String str)
+	{
 		// TODO Auto-generated method stub
 		List<MemVO> list = new ArrayList<MemVO>();
 		MemVO memVO = null;
@@ -549,93 +644,107 @@ public class MemJDBCDAO implements MemDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ALL_BY_ID_NAME_ACC);
-			pstmt.setString(1, "%" + str + "%");
-			pstmt.setString(2, "%" + str + "%");
-			pstmt.setString(3, "%" + str + "%");
-
-			System.out.println(GET_ALL_BY_ID_NAME_ACC);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) // rs往下移一筆, 若有值則回傳ture
+		try
 			{
-				memVO = new MemVO();
-				memVO.setMem_id(rs.getString("mem_id"));
-				memVO.setLv(rs.getInt("lv"));
-				memVO.setM_accno(rs.getString("m_accno"));
 
-				memVO.setM_psw(rs.getString("m_psw"));
-				memVO.setM_name(rs.getString("m_name"));
-				memVO.setM_gender(rs.getString("m_gender"));
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_ALL_BY_ID_NAME_ACC);
+				pstmt.setString(1, "%" + str + "%");
+				pstmt.setString(2, "%" + str + "%");
+				pstmt.setString(3, "%" + str + "%");
 
-				memVO.setM_bday(rs.getDate("m_bday"));
-				memVO.setM_phone(rs.getString("m_phone"));
-				memVO.setM_mobile(rs.getString("m_mobile"));
-				memVO.setM_zip(rs.getInt("m_zip"));
-				memVO.setM_city(rs.getString("m_city"));
+				System.out.println(GET_ALL_BY_ID_NAME_ACC);
 
-				memVO.setM_addr(rs.getString("m_addr"));
-				memVO.setM_email(rs.getString("m_email"));
-				memVO.setM_word(rs.getString("m_word"));
-				memVO.setM_photo(rs.getBytes("m_photo"));
-				memVO.setM_source(rs.getInt("m_source"));
-				memVO.setM_joindate(DateTool.timestamp2StringMin(rs.getTimestamp("m_joindate")));
+				rs = pstmt.executeQuery();
 
-				memVO.setM_active(rs.getInt("m_active"));
-				memVO.setM_public(rs.getInt("m_public"));
-				memVO.setM_bancount(rs.getInt("m_bancount"));
-				memVO.setBalance(rs.getInt("balance"));
+				while (rs.next()) // rs往下移一筆, 若有值則回傳ture
+					{
+						memVO = new MemVO();
+						memVO.setMem_id(rs.getString("mem_id"));
+						memVO.setLv(rs.getInt("lv"));
+						memVO.setM_accno(rs.getString("m_accno"));
 
-				list.add(memVO);
+						memVO.setM_psw(rs.getString("m_psw"));
+						memVO.setM_name(rs.getString("m_name"));
+						memVO.setM_gender(rs.getString("m_gender"));
+
+						memVO.setM_bday(rs.getDate("m_bday"));
+						memVO.setM_phone(rs.getString("m_phone"));
+						memVO.setM_mobile(rs.getString("m_mobile"));
+						memVO.setM_zip(rs.getInt("m_zip"));
+						memVO.setM_city(rs.getString("m_city"));
+
+						memVO.setM_addr(rs.getString("m_addr"));
+						memVO.setM_email(rs.getString("m_email"));
+						memVO.setM_word(rs.getString("m_word"));
+						memVO.setM_photo(rs.getBytes("m_photo"));
+						memVO.setM_source(rs.getInt("m_source"));
+						memVO.setM_joindate(DateTool.timestamp2StringMin(rs.getTimestamp("m_joindate")));
+
+						memVO.setM_active(rs.getInt("m_active"));
+						memVO.setM_public(rs.getInt("m_public"));
+						memVO.setM_bancount(rs.getInt("m_bancount"));
+						memVO.setBalance(rs.getInt("balance"));
+
+						list.add(memVO);
+
+					}
+
+			} catch (ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
+				if (rs != null)
+					{
+						try
+							{
+								rs.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
 
 			}
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-		}
 
 		return list;
 	}
 
 	// 查詢全部
 	@Override
-	public List<MemVO> getAll() {
+	public List<MemVO> getAll()
+	{
 
 		List<MemVO> list = new ArrayList<MemVO>();
 		MemVO memVO = null;
@@ -644,144 +753,172 @@ public class MemJDBCDAO implements MemDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ALL_STMT);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) // rs往下移一筆, 若有值則回傳ture
+		try
 			{
-				memVO = new MemVO();
-				memVO.setMem_id(rs.getString("mem_id"));
-				memVO.setLv(rs.getInt("lv"));
-				memVO.setM_accno(rs.getString("m_accno"));
 
-				memVO.setM_psw(rs.getString("m_psw"));
-				memVO.setM_name(rs.getString("m_name"));
-				memVO.setM_gender(rs.getString("m_gender"));
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_ALL_STMT);
+				rs = pstmt.executeQuery();
 
-				memVO.setM_bday(rs.getDate("m_bday"));
-				memVO.setM_phone(rs.getString("m_phone"));
-				memVO.setM_mobile(rs.getString("m_mobile"));
-				memVO.setM_zip(rs.getInt("m_zip"));
-				memVO.setM_city(rs.getString("m_city"));
+				while (rs.next()) // rs往下移一筆, 若有值則回傳ture
+					{
+						memVO = new MemVO();
+						memVO.setMem_id(rs.getString("mem_id"));
+						memVO.setLv(rs.getInt("lv"));
+						memVO.setM_accno(rs.getString("m_accno"));
 
-				memVO.setM_addr(rs.getString("m_addr"));
-				memVO.setM_email(rs.getString("m_email"));
-				memVO.setM_word(rs.getString("m_word"));
-				memVO.setM_photo(rs.getBytes("m_photo"));
-				memVO.setM_source(rs.getInt("m_source"));
-				memVO.setM_joindate(DateTool.timestamp2StringMin(rs.getTimestamp("m_joindate")));
+						memVO.setM_psw(rs.getString("m_psw"));
+						memVO.setM_name(rs.getString("m_name"));
+						memVO.setM_gender(rs.getString("m_gender"));
 
-				memVO.setM_active(rs.getInt("m_active"));
-				memVO.setM_public(rs.getInt("m_public"));
-				memVO.setM_bancount(rs.getInt("m_bancount"));
-				memVO.setBalance(rs.getInt("balance"));
+						memVO.setM_bday(rs.getDate("m_bday"));
+						memVO.setM_phone(rs.getString("m_phone"));
+						memVO.setM_mobile(rs.getString("m_mobile"));
+						memVO.setM_zip(rs.getInt("m_zip"));
+						memVO.setM_city(rs.getString("m_city"));
 
-				list.add(memVO);
+						memVO.setM_addr(rs.getString("m_addr"));
+						memVO.setM_email(rs.getString("m_email"));
+						memVO.setM_word(rs.getString("m_word"));
+						memVO.setM_photo(rs.getBytes("m_photo"));
+						memVO.setM_source(rs.getInt("m_source"));
+						memVO.setM_joindate(DateTool.timestamp2StringMin(rs.getTimestamp("m_joindate")));
+
+						memVO.setM_active(rs.getInt("m_active"));
+						memVO.setM_public(rs.getInt("m_public"));
+						memVO.setM_bancount(rs.getInt("m_bancount"));
+						memVO.setBalance(rs.getInt("balance"));
+
+						list.add(memVO);
+
+					}
+
+			} catch (ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
+				if (rs != null)
+					{
+						try
+							{
+								rs.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
 
 			}
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-		}
 
 		return list;
 	}
 
 	@Override
-	public Set<String> getAllUsrId() {
+	public Set<String> getAllUsrId()
+	{
 		Set<String> set = new TreeSet<String>();
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_USERID);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) // rs往下移一筆, 若有值則回傳ture
+		try
 			{
-				set.add(rs.getString("m_accno"));
-			}
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_USERID);
+				rs = pstmt.executeQuery();
 
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+				while (rs.next()) // rs往下移一筆, 若有值則回傳ture
+					{
+						set.add(rs.getString("m_accno"));
+					}
 
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			} catch (ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
+				if (rs != null)
+					{
+						try
+							{
+								rs.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
 
-		}
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+			}
 
 		return set;
 	}
 
 	@Override
-	public Map<String, String> getAllAccounts() {
+	public Map<String, String> getAllAccounts()
+	{
 		// TODO Auto-generated method stub
 
 		Map<String, String> map = new TreeMap<String, String>();
@@ -790,52 +927,65 @@ public class MemJDBCDAO implements MemDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GETPASSWORD_BYACCNO);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) // rs往下移一筆, 若有值則回傳ture
+		try
 			{
-				map.put(rs.getString("m_accno"), rs.getString("m_psw"));
-			}
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GETPASSWORD_BYACCNO);
+				rs = pstmt.executeQuery();
 
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+				while (rs.next()) // rs往下移一筆, 若有值則回傳ture
+					{
+						map.put(rs.getString("m_accno"), rs.getString("m_psw"));
+					}
 
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			} catch (ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
+				if (rs != null)
+					{
+						try
+							{
+								rs.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
 
-		}
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+			}
 
 		return map;
 
@@ -843,22 +993,24 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 	// 取得會員照片
 	@Override
-	public byte[] getPhoto(String mem_id) {
+	public byte[] getPhoto(String mem_id)
+	{
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		byte[] photo = null;
 
-		try {
+		try
+			{
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_PHOTO);
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_PHOTO);
 
-			pstmt.setString(1, mem_id);
-			ResultSet rs = pstmt.executeQuery();
-			rs.next();
-			photo = rs.getBytes(1);
+				pstmt.setString(1, mem_id);
+				ResultSet rs = pstmt.executeQuery();
+				rs.next();
+				photo = rs.getBytes(1);
 
 //			pstmt.setInt(1, 3);
 //			ResultSet rs3 = pstmt.executeQuery();
@@ -866,38 +1018,48 @@ public class MemJDBCDAO implements MemDAO_interface {
 //			InputStream is = rs3.getBinaryStream(1);
 //			readPicture(is);
 
-			// 清空裡面參數，重覆使用已取得的PreparedStatement物件
-			pstmt.clearParameters();
+				// 清空裡面參數，重覆使用已取得的PreparedStatement物件
+				pstmt.clearParameters();
 
-		} catch (ClassNotFoundException ce) {
-			System.out.println(ce);
+			} catch (ClassNotFoundException ce)
+			{
+				System.out.println(ce);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			// 依建立順序關閉資源 (越晚建立越早關閉)
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					System.out.println(se);
-				}
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
+				// 依建立順序關閉資源 (越晚建立越早關閉)
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException se)
+							{
+								System.out.println(se);
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException se)
+							{
+								System.out.println(se);
+							}
+					}
 			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException se) {
-					System.out.println(se);
-				}
-			}
-		}
 
 		return photo;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 
 		MemJDBCDAO memDao = new MemJDBCDAO();
 //		新增
