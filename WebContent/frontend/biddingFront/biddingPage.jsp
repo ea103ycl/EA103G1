@@ -159,7 +159,7 @@ img {
 				<div class="col-sm-8 col-md-9">
 					<div class="blog block post-content-area">
 						<div class="post-info-box">
-							<img
+							<img onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (2).jpg'"
 								src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}"
 								style="max-height: auto; width: 100%" alt="">
 							<div class="space-50">&nbsp;</div>
@@ -588,9 +588,9 @@ img {
 					<c:set var="author" value="${memSvc.findByPrimaryKey(epVO.mem_id)}" />
 					<a
 						href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${author.mem_id}">
-						<div class="blog block about-sidebar-widget authorBlock">
+						<div class="blog block about-sidebar-widget authorBlock" style="margin-top:2%">
 							<p class="blog-post-footer"></p>
-							<img style="margin: auto;"
+							<img style="margin: auto;" onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/biddingFront/img/user.svg'"
 								src="<%=request.getContextPath()%>/ReadMemPic?action=getPic&memId=${author.mem_id}"
 								alt="Image"
 								class="img-fluid w-50 rounded-circle mb-4 authAvatar">
