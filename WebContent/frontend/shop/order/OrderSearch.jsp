@@ -17,22 +17,23 @@
 
 
 
-<%//假資料
+<%  //假資料
+// String mem_id = "M000003"; 
+// String m_name = "麥可";
+// Integer m_zip = 421;
+// String m_city = "台中市豐原區";
+// String m_addr = "大馬路123號";
+// String m_phone = "0982-766248";
 
-// 	String mem_id = "M000001";
-// 	String m_name = "麥可";
-// 	Integer m_zip = 421;
-// 	String m_addr = "台中市豐原區";
-// 	String m_phone = "0982-766248";
-
-// 	MemVO memVO = new MemVO();
-// 	memVO.setMem_id(mem_id);
-// 	memVO.setM_name(m_name);
-// 	memVO.setM_zip(m_zip);
-// 	memVO.setM_addr(m_addr);
-// 	memVO.setM_phone(m_phone);
-// 	request.getSession().setAttribute("memVO", memVO);
-%>
+// MemVO memVO = new MemVO();
+// memVO.setMem_id(mem_id);
+// memVO.setM_name(m_name);
+// memVO.setM_zip(m_zip);
+// memVO.setM_city(m_city);
+// memVO.setM_addr(m_addr);
+// memVO.setM_phone(m_phone);
+// request.getSession().setAttribute("memVO",memVO);
+%> 
 
 
 
