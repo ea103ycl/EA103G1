@@ -1,10 +1,7 @@
 package com.wel_record.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +19,6 @@ import com.mem.model.MemVO;
 import com.wel_record.model.WelRecordService;
 import com.wel_record.model.WelRecordVO;
 
-import tools.EcpayTool;
 import tools.MoneyTool;
 
 //@WebServlet("/welRecord/welRecord.do") //mark by YCL
@@ -114,18 +110,18 @@ public class WelRecordServlet extends HttpServlet {
 				Boolean ifCheckOutSucess = MoneyTool.checkOut(session, 10, null, amount);// 儲值傳入正數
 
 				if (ifCheckOutSucess) {
-					String request2Ecpay = EcpayTool.genAioCheckOutALL(amount, action, req);
-
-					URL url = new URL(request2Ecpay);
-					HttpURLConnection http = (HttpURLConnection) url.openConnection();
-					http.setRequestMethod("POST");
-					InputStream input = http.getInputStream();
-					http.disconnect();
-					byte[] data = new byte[1024];
-					int idx = input.read(data);
-					String str = new String(data, 0, idx);
-					out.println(str);
-					input.close();
+//					String request2Ecpay = EcpayTool.genAioCheckOutALL(amount, action, req);
+//
+//					URL url = new URL(request2Ecpay);
+//					HttpURLConnection http = (HttpURLConnection) url.openConnection();
+//					http.setRequestMethod("POST");
+//					InputStream input = http.getInputStream();
+//					http.disconnect();
+//					byte[] data = new byte[1024];
+//					int idx = input.read(data);
+//					String str = new String(data, 0, idx);
+//					out.println(str);
+//					input.close();
 
 					System.out.println("結帳成功");
 					String returnUrl = "/frontend/members/memArea.jsp";// 結帳成功後轉交回原會員頁面
