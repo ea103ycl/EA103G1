@@ -1,5 +1,8 @@
 package com.mem.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -204,6 +207,42 @@ public class MemServlet extends HttpServlet
 						HttpSession session = req.getSession();
 						session.setAttribute("registeredMemVO", registeredMemVO);
 
+						// -----------------新增會員預設圖片---------------------------------------
+
+						// 從此本地目錄流入預設圖並取得圖片byte[]
+						String defaultPicDirectory = "";
+						if (gender.equals("F"))
+							{
+								defaultPicDirectory = "/frontend/members/images/femaleDefault.png";
+							} else
+							{
+								defaultPicDirectory = "/frontend/members/images/maleDefault.png";
+							}
+
+						String defaultPicPath = getServletContext().getRealPath(defaultPicDirectory);
+
+						File file = new File(defaultPicPath);
+						FileInputStream fis = new FileInputStream(file);
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();// 此資料流會把write的位元資料存到一個內建的byte[]
+						byte[] buffer = new byte[8192];
+						int i;
+						while ((i = fis.read(buffer)) != -1)
+							{
+								baos.write(buffer, 0, i);
+								baos.flush();
+							}
+
+						baos.close();
+						fis.close();
+
+						byte[] photo = baos.toByteArray();
+
+						// 開始送進資料庫
+
+						memSvc.addPhoto(registeredMemVO.getMem_id(), photo);
+
+						System.out.println("預設照片資料庫成功");
+
 						System.out.println("已呼叫MemService新增會員");
 
 						/*************************** 3.新增完成,寄送驗證信 ********************/
@@ -357,17 +396,6 @@ public class MemServlet extends HttpServlet
 						memVO.setM_addr(contactAddress);
 						memVO.setM_email(email);
 
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的empVO物件,也存入req
-//					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
-//					System.out.println(errorMsgs);
-//					failureView.forward(req, res);
-//					out.print(new JSONObject(memVO));
-//					return;
-//
-//				}
-
 						/*************************** 2.開始新增資料 ***************************************/
 						memSvc = new MemService();
 						memSvc.updateByUser(name, gender, bday, phone, mobile, contactZipcode, contactCity,
@@ -382,15 +410,10 @@ public class MemServlet extends HttpServlet
 						// ajax送回成功訊息
 						out.print("true");
 
-//				String url = "/frontend/members/memArea.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url);
-//				successView.forward(req, res);
-//				System.out.println("yooooooooooo");
 						/*************************** 其他可能的錯誤處理 **********************************/
 					} catch (Exception e)
 					{
 						e.printStackTrace();
-//				errorMsgs.add(e.getMessage());
 						out.print("exception");
 						RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memRegister.jsp");
 						failureView.forward(req, res);
