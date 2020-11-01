@@ -39,7 +39,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/backend/template/css/bootstrap.min.css">
-<title>listAllPic</title>
+<title>listAllPic By Event_no</title>
 <style type="text/css">
 * {
 	text-align: center;

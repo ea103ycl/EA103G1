@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -267,10 +268,10 @@ public class Event_pServlet extends HttpServlet {
 //			Event_PService svc=new Event_PService();
 			svc.update(mem_id, event_no, event_p_name, event_p_date, new Integer( event_vote_num), new Integer( vote_rank), new Integer( event_p_stat), event_p_img, new Integer( event_p_no));
 			//轉送資料
-			HttpSession sess=req.getSession();
-			List<Event_PVO> event_pVOs=svc.findAllByEventNo(event_no);
-			sess.setAttribute("SearchByEventNo", event_no);
-			sess.setAttribute("event_pVOs", event_pVOs);
+//			HttpSession sess=req.getSession();
+//			List<Event_PVO> event_pVOs=svc.findAllByEventNo(event_no);
+//			sess.setAttribute("SearchByEventNo", event_no);
+//			sess.setAttribute("event_pVOs", event_pVOs);
 //			String path="/backend/event_p/listAllPic.jsp";
 			RequestDispatcher ok=req.getRequestDispatcher(req.getParameter("requestURL"));
 			ok.forward(req, res);
@@ -330,29 +331,37 @@ public class Event_pServlet extends HttpServlet {
 			//同一個活動只能投3個不同作品
 			if(voteNum<4&&!checkDup) {
 				Event_PService svc=new Event_PService();
-				svc.votePic(new Integer( event_p_no),mem_id);
+				svc.votePic(new Integer(event_p_no),mem_id);
 				System.out.println("success vote!");
+				
 				//改變目前sess中的event_pVOs
 				HttpSession sess=req.getSession();
-				Event_PService pSvc=new Event_PService();
-				List<Event_PVO> event_pVOs=pSvc.findAllNoReport(event_no);
+				
+				List<Event_PVO> event_pVOs=svc.findAllNoReport(event_no);
 				sess.setAttribute("event_pVOs", event_pVOs);
+				
 				String path="/frontend/event_p/event_spec.jsp";
 				RequestDispatcher ok=req.getRequestDispatcher(path);
 				ok.forward(req,res);
 				return;
 			}else {
 				//利用錯誤訊息來通知已達到投票次數上限
+
 				if(voteNum.equals(4)) {
 					errMsgs.add("達到投票數上限(最多投3次)");
+					
+					
+					
 				}
 				if(checkDup) {
 					errMsgs.add("已投過此作品");
+					
 				}
 				if(!errMsgs.isEmpty()) {
 					//回傳event_p_no代表以投過的作品編號
 					req.setAttribute("event_p_no", event_p_no);
-					RequestDispatcher fail=req.getRequestDispatcher("/frontend/event_p/event_spec.jsp");
+					
+					RequestDispatcher fail=req.getRequestDispatcher(req.getParameter("requestURL"));
 					fail.forward(req, res);
 					return;
 				}else {
@@ -365,6 +374,76 @@ public class Event_pServlet extends HttpServlet {
 			}
 
 		}
+		if("vote_from_ajax".equals(action)) {
+
+			System.out.println("start vote ajax action-------------");
+			System.out.println("in vote");
+			
+			String event_p_no= req.getParameter("event_p_no");
+			System.out.println("event_p_no :"+event_p_no);
+			//判斷在這次活動有沒有超過三次，要傳入mem_id和event_no
+			String event_no=req.getParameter("event_no");
+			String mem_id=req.getParameter("mem_id");
+			System.out.println("event_no :"+event_no+",mem_id :"+mem_id);
+			
+			Vote_DDAO dao=new Vote_DDAO();
+			Integer voteNum=dao.voteNumByMemInEventno(event_no, mem_id);
+			//判斷 投票次數不能超規定次數，不能投相同作品
+			List<Vote_DVO>vote_dVOs= dao.findAllByMem(mem_id);
+			boolean checkDup=false;
+			Iterator iter=vote_dVOs.iterator();
+			while(iter.hasNext()) {
+				Vote_DVO vote_dVO=(Vote_DVO)iter.next();
+				Integer event_p_noInt=new Integer(event_p_no);
+				
+				if((int)event_p_noInt==(int)vote_dVO.getEvent_p_no()) {
+					 checkDup=true;
+					 System.out.println("checkDup change to true 以重複投同一個作品");
+					 
+				 }
+			
+			}
+			System.out.println("voteNum :"+voteNum);
+			//同一個活動只能投3個不同作品
+			if(voteNum<4&&!checkDup) {
+				Event_PService svc=new Event_PService();
+				svc.votePic(new Integer(event_p_no),mem_id);
+				System.out.println("success vote by ajax!");
+				//改變目前sess中的event_pVOs
+				HttpSession sess=req.getSession();
+				Event_PService pSvc=new Event_PService();
+				List<Event_PVO> event_pVOs=pSvc.findAllNoReport(event_no);
+				sess.setAttribute("event_pVOs", event_pVOs);
+				
+				PrintWriter out=res.getWriter();
+				String strSuccess="0";
+				out.write(strSuccess);
+				return;
+			}else {
+				//利用錯誤訊息來通知已達到投票次數上限
+				PrintWriter out=res.getWriter();
+				res.setCharacterEncoding("UTF-8");
+				String strErr="";
+				if(voteNum==4) {
+					System.out.println(voteNum);
+					strErr+="1";//達到投票數上限(最多投3次)
+					
+				}
+				if(checkDup) {
+					strErr+=","+"2";//已投過此作品
+					
+				}
+				if(!(strErr.length()==0)) {
+					out.write(strErr);
+				}else {
+					strErr+="未知錯誤";
+					out.write(strErr);
+				}
+			}
+
+					
+		}
+		
 		if("to_event_sepc".equals(action)) {
 			System.out.println("準備轉送至event_spec:-----------------------");
 			String event_no=req.getParameter("event_no");
@@ -515,8 +594,8 @@ public class Event_pServlet extends HttpServlet {
 			if(!errMsgs.isEmpty()) {
 				//回傳event_p_no 顯示在正確的作品上
 				req.setAttribute("event_p_no", event_p_no);
-				String path="/frontend/event_p/event_spec.jsp";
-				RequestDispatcher fail=req.getRequestDispatcher(path);
+//				String path="/frontend/event_p/event_spec.jsp";
+				RequestDispatcher fail=req.getRequestDispatcher(req.getParameter("requestURL"));
 				fail.forward(req, res);
 				return;
 			}
@@ -531,6 +610,44 @@ public class Event_pServlet extends HttpServlet {
 			RequestDispatcher ok=req.getRequestDispatcher(path);
 			ok.forward(req, res);
 		}
+		
+		
+		if("delete_vote_ByAjax".equals(action)) {
+			PrintWriter out=res.getWriter();
+			System.out.println("in action: delete_vote_ByAjax-----------------");
+			//取得 mem_id event_p_no
+			String mem_id= req.getParameter("mem_id");
+			String event_p_no=req.getParameter("event_p_no");
+			//判斷vote明細裡面是否有紀錄 ，有才可做刪除
+			Vote_DService voteSvc=new Vote_DService();
+			Event_PService eventPSvc=new Event_PService();
+System.out.println("mem_id:"+mem_id);
+			List<Vote_DVO> vote_dVOs=voteSvc.findAllByMem(mem_id);
+			Iterator iter=vote_dVOs.iterator();
+			System.out.println("vote_dVOs.isEmpty() :"+vote_dVOs.isEmpty());
+			boolean hadVoted=false;
+			
+			while(iter.hasNext()) {
+				Vote_DVO vote_dVO=(Vote_DVO)iter.next();
+				System.out.println("vote_dVO.getEvnet_p_no() :"+vote_dVO.getEvent_p_no());
+				if((int)(new Integer(event_p_no))==(int)vote_dVO.getEvent_p_no()) {
+					System.out.println("same start delete");
+					hadVoted=true;
+				}
+			}
+			if(hadVoted) {
+				System.out.println("start to delete vote detail");
+				eventPSvc.deleteVote(new Integer(event_p_no));
+				voteSvc.delete(new Integer(event_p_no), mem_id);
+				out.write("0");
+			}else {
+				String errStr="1";
+				out.write(errStr);
+			}
+
+		
+		}
+		
 		
 		if("selectOrderBy".equals(action)) {
 			HttpSession sess=req.getSession();

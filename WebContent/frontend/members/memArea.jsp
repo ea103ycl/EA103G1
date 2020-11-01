@@ -32,7 +32,6 @@
 
 #content {
   float: right;
-  min-height: 2000px;
   width: calc(100% - 215px);
 
 }
@@ -40,6 +39,7 @@
 #sidebar {
   float: left;
   top:100;
+
 
 }
 
@@ -95,27 +95,27 @@
 		
 			<div class="row">
 			  <div id="sidebar" class="sidebar">
-        <div class="sidebar__inner">
+        <div class="sidebar__inner"  >
     
 				<div class="account-sidebar">
-				 <div class="sticky-top">
+				 <div class="sticky-top"  >
+				 <div>
 					<img
-						src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=<%=memVO.getMem_id()%>"
-						alt="" style="width:100%">
+						src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=<%=memVO.getMem_id()%>" alt="" style="width:150px;margin:auto; margin-bottom:15px">
 					<p>
-						<a href="#banner-info" class="page-scroll">編輯個人資料</a>
+						<a href="#banner-info" class="page-scroll"><b>編輯個人資料</b></a>
 					</p>
 <!-- 					<p> -->
 <!-- 						<a href="#memInfoBtn" class="page-scroll">編輯收件資料</a> -->
 <!-- 					</p> -->
 
 					<p>
-						<a href="#shipingArea" class="page-scroll">帳號管理</a>
+						<a href="#memInfoBtn" class="page-scroll"><b>帳號管理</b></a>
 					</p>
 					<p>
-						<a href="#accountArea" class="page-scroll">電子錢包管理</a>
+						<a href="#accountArea" class="page-scroll"><b>電子錢包管理</b></a>
 					</p>
-
+</div>
 				</div>
 				</div>
 				
@@ -667,9 +667,9 @@
 									</div>
 									<div id="panel4" class="panel-collapse collapse">
 										<div class="panel-body text-gray">
-											<button class="btn btn-sm btn-warning-filled btn-rounded">一般訂單查詢</button>
+											<a href="<%=request.getContextPath()%>/frontend/shop/order/OrderSearch.jsp"><button class="btn btn-sm btn-warning-filled btn-rounded">一般訂單查詢</button></a>
+											<a href="<%=request.getContextPath()%>/frontend/preproduct\order_Success_List.jsp"><button class="btn btn-sm btn-warning-filled btn-rounded">預購訂單查詢</button></a>
 											<button class="btn btn-sm btn-warning-filled btn-rounded">競標訂單查詢</button>
-											<button class="btn btn-sm btn-warning-filled btn-rounded">預購訂單查詢</button>
 											<button class="btn btn-sm btn-warning-filled btn-rounded">見面會查詢</button>
 										</div>
 									</div>
@@ -811,109 +811,15 @@
 	<a href="#top" class="scroll-to-top page-scroll is-hidden"
 		data-nav-status="toggle"><i class="fa fa-angle-up"></i></a>
 	<!-- / scroll to top -->
-	<!-- footer -->
-	<footer class="light-footer">
-		<div class="widget-area">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4 widget">
-						<div class="about-widget">
-							<div class="widget-title-image">
-								<img src="" alt="">
-							</div>
-							<p>Vivamus consequat lacus quam, nec egestas quam egestas sit
-								amet. Suspendisse et risus gravida tellus aliquam ullamcorper.
-								Pellentesque elit dolor, ornare ut lorem nec, convallis nibh
-								accumsan lacus morbi leo lipsum.</p>
-						</div>
-						<!-- / about-widget -->
-					</div>
-					<!-- / widget -->
-					<!-- / first widget -->
-					<div class="col-md-2 widget">
-						<div class="widget-title">
-							<h4>BRANDS</h4>
-						</div>
-						<div class="link-widget">
-							<div class="info">
-								<a href="#x">Brand 1</a>
-							</div>
-							<div class="info">
-								<a href="#x">Brand 2</a>
-							</div>
-							<div class="info">
-								<a href="#x">Brand 3</a>
-							</div>
-							<div class="info">
-								<a href="#x">Brand 4</a>
-							</div>
-						</div>
-					</div>
-					<!-- / widget -->
-					<!-- / second widget -->
-					<div class="col-md-2 widget">
-						<div class="widget-title">
-							<h4>SUPPORT</h4>
-						</div>
-						<div class="link-widget">
-							<div class="info">
-								<a href="#x">Terms & Conditions</a>
-							</div>
-							<div class="info">
-								<a href="#x">Shipping & Return</a>
-							</div>
-							<div class="info">
-								<a href="faq.html">F.A.Q</a>
-							</div>
-							<div class="info">
-								<a href="contact.html">Contact</a>
-							</div>
-						</div>
-					</div>
-					<!-- / widget -->
-					<!-- / third widget -->
-					<div class="col-md-4 widget">
-						<div class="widget-title">
-							<h4>CONTACT</h4>
-						</div>
-						<div class="contact-widget">
-							<div class="info">
-								<p>
-									<i class="lnr lnr-map-marker"></i><span>Miami, S Miami
-										Ave, SW 20th, Store No.1</span>
-								</p>
-							</div>
-							<div class="info">
-								<a href="tel:+0123456789"><i class="lnr lnr-phone-handset"></i><span>+0123
-										456 789</span></a>
-							</div>
-							<div class="info">
-								<a href="mailto:hello@yoursite.com"><i
-									class="lnr lnr-envelope"></i><span>office@yoursite.com</span></a>
-							</div>
-							<div class="info">
-								<i class="lnr lnr-thumbs-up"></i> <span class="social text-left">
-									<a class="no-margin" href="#"><i class="fa fa-facebook"></i></a>
-									<a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i
-										class="fa fa-google-plus"></i></a> <a href="#"><i
-										class="fa fa-linkedin"></i></a> <a href="#"><i
-										class="fa fa-pinterest"></i></a>
-								</span>
-							</div>
-						</div>
-						<!-- / contact-widget -->
-					</div>
-					<!-- / widget -->
-					<!-- / fourth widget -->
-				</div>
-				<!-- / row -->
-			</div>
-			<!-- / container -->
-		</div>
+	
+	
+	
+		<!-- Modal -->
+		
+		
 		<button type="button" id="myTest" class="btn btn-primary btn-lg"
 			data-toggle="modal" data-target="#myModal3" style="display: none;">
-			Launch demo modal</button>
-		<!-- Modal -->
+			</button>
 		<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -933,8 +839,8 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- photoModal -->
+	
+			<!-- photoModal -->
 		<div class="modal fade" id="photoModal" tabindex="-1" role="dialog"
 			aria-labelledby="photoModal">
 			<div class="modal-dialog" role="document">
@@ -973,27 +879,15 @@
 				</div>
 			</div>
 		</div>
-		<!--  alert-area -->
-
-
-
-		<!-- / widget-area -->
-		<div class="footer-info">
-			<div class="container">
-				<div class="pull-left copyright">
-					<p>
-						<strong>© MS - MINIMAL SHOP THEME</strong>
-					</p>
-				</div>
-
-			</div>
-			<!-- / container -->
-		</div>
-		<!-- / footer-info -->
-	</footer>
-	<!-- / footer -->
+	
+	
+	<!-- footer -->
 
 	<%@include file="/frontend/bar/frontBarFooter.jsp"%>
+
+	<!-- / footer -->
+
+
 
 </body>
 

@@ -178,17 +178,17 @@
 					</h1>
 					<h2>目前活動狀態:
 						${event_statStr[eventVO.event_stat]}
-						${eventVO.event_stat }
+<%-- 						${eventVO.event_stat } --%>
 					</h2>
-					<div id="countDownTimer" style="display: none;">
-						<!--  style="display: none; 不會佔據空間並隱藏 -->
-						<fmt:parseDate var="dateObject"
-							value="${event_statTime[eventVO.event_stat]}" pattern="yyyy-MM-dd" />
-						<fmt:formatDate value="${dateObject}" pattern="yyyy-MM-dd" />
-					</div>
-					 目前活動狀態的截止時間(之後刪): ${event_statTime[eventVO.event_stat]}
-					<div id="displayReamainTime"></div>
-                    <p>${eventVO.event_name}</p>
+<!-- 					<div id="countDownTimer" style="display: none;"> -->
+<!-- 						 style="display: none; 不會佔據空間並隱藏 -->
+<%-- 						<fmt:parseDate var="dateObject" --%>
+<%-- 							value="${event_statTime[eventVO.event_stat]}" pattern="yyyy-MM-dd" /> --%>
+<%-- 						<fmt:formatDate value="${dateObject}" pattern="yyyy-MM-dd" /> --%>
+<!-- 					</div> -->
+<%-- 					 目前活動狀態的截止時間(之後刪): ${event_statTime[eventVO.event_stat]} --%>
+<!-- 					<div id="displayReamainTime"></div> -->
+                    <h3>${eventVO.event_name}</h3>
                 </div>
                 <!-- / banner-info -->
             </div>
@@ -300,24 +300,31 @@
 							
 							<ul class="list-group">
 								<li class="list-group-item">排名:${event_pVO.vote_rank }</li>
-								<li class="list-group-item">票數:${event_pVO.event_vote_num}</li>
+								<li class="list-group-item" id="showVoteNum">票數:${event_pVO.event_vote_num}</li>
 							</ul>
 						</div>
 										<!-- div class="btn-group" change to p tag -->
+						
 						<div class="row " >
 							<div class="col-md-2" id="neo-vote-button" >
 								<form action="Event_pServlet" method="post">
 									<input type="hidden" name="event_no"
-										value="${eventVO.event_no}"> <input type="hidden"
+										value="${eventVO.event_no}"> 
+									<input type="hidden"
 										name="mem_id" value="${sessionScope.mem_id }">
 									<%-- event_no 和mem_id 用於確認投了幾次  --%>
 									<input type="hidden" name="event_p_no"
-										value="${event_pVO.event_p_no}"> <input
+										value="${event_pVO.event_p_no}" id="event_p_no"> 
+									<input
 										type="hidden" name="action" value="vote">
-									<input  type="submit" class="btn btn-primary "  value="投票"
-										${eventVO.getEvent_stat()!=2||event_p_nos.contains(event_pVO.event_p_no)?"disabled":"" }>
+<!-- 									<input  type="submit" class="btn btn-primary "  value="投票" -->
+<%-- 										${eventVO.getEvent_stat()!=2||event_p_nos.contains(event_pVO.event_p_no)?"disabled":"" }> --%>
 									<!-- 把錯誤訊息用alert方式顯示 -->
+									<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+									<input type="hidden" name="whichPage" value="<%=whichPage%>">
+									
 								</form>
+								<button class="vote btn btn-primary btn-pill" >投票</button>
 							</div>
 						<small class="text-muted col-md-5 col-md-offset-1" id="error">
 							<c:if test="${not empty errMsgs&&event_p_no==event_pVO.event_p_no}">
@@ -338,9 +345,13 @@
 										value="${sessionScope.mem_id }"> 
 										<input type="hidden" name="event_p_no" value="${event_pVO.event_p_no}"> 
 										<input	type="hidden" name="action" value="deleteVote">
-										<input	type="submit" class="btn btn-default " value="取消投票"<%=eventVO.getEvent_stat()!=2?"disabled":"" %>>
+<%-- 										<input	type="submit" class="btn btn-default " value="取消投票" <%=eventVO.getEvent_stat()!=2?"disabled":""%>> --%>
 									<!--btn btn-sm btn-outline-secondary change to  -->
+										<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+										<input type="hidden" name="whichPage" value="<%=whichPage%>">
 								</form>
+								<button class="deleteVoteBtn btn btn-default btn-pill">取消投票</button>
+								
 							</div>
 
 						</div>
@@ -377,7 +388,7 @@
 
 <%-- <script src="<%=request.getContextPath()%>/frontend/template/jquery/jquery-3.5.1.js"></script> --%>
 <%-- <script src="<%=request.getContextPath()%>/frontend/template/js/bootstrap.min.js"></script> --%>
-    <script src="<%=request.getContextPath() %>/frontend/template/js/jquery.min.js" ></script>
+<%--     <script src="<%=request.getContextPath() %>/frontend/template/js/jquery.min.js" ></script> --%>
 
 <!-- mark by YCL 重複引入導致modal跑不出來     -->
 <%-- 	<script src="<%=request.getContextPath() %>/frontend/template/js/bootstrap.min.js" ></script> --%>
@@ -390,35 +401,104 @@
 	// 			}
 	// 		}
 	var countDownTimer = document.getElementById("countDownTimer");
-	console.log(countDownTimer.textContent);
+// 	console.log(countDownTimer.textContent);
 	//extract  string tomatch js date format input
-	var timer = countDownTimer.textContent.split("-");
-	var y = timer[0];
-	var m = timer[1];
-	var d = timer[2];
-	console.log(d);
-	var timer = setInterval(countDown, 1000);
-	function countDown() {
-		var countDownTime = new Date(y, m - 1, d).getTime();//js會月份+1
-		var now = new Date().getTime();
-		var remainTime = countDownTime - now;//get long remain time
+// 	var timer = countDownTimer.textContent.split("-");
+// 	var y = timer[0];
+// 	var m = timer[1];
+// 	var d = timer[2];
+// 	console.log(d);
+// 	var timer = setInterval(countDown, 1000);
+// 	function countDown() {
+// 		var countDownTime = new Date(y, m - 1, d).getTime();//js會月份+1
+// 		var now = new Date().getTime();
+// 		var remainTime = countDownTime - now;//get long remain time
 
-		//start convert long time to day,hours,min,sec,
-		var day = Math.floor(remainTime / (1000 * 60 * 60 * 24));
-		var hours = Math.floor((remainTime % (1000 * 60 * 60 * 24))
-				/ (1000 * 60 * 60));
-		var min = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
-		var sec = Math.floor((remainTime % (1000 * 60)) / (1000));
-		console.log(day);
-		//create one div under the countDownTimer div
-		var display = document.getElementById("displayReamainTime");
-		display.innerHTML = "剩下" + day + "天" + hours + "小時" + min + "分" + sec
-				+ "秒";
-		if (remainTime < 0) {
-			display.innerHTML = "已結束";
-		}
-	}
-
+// 		//start convert long time to day,hours,min,sec,
+// 		var day = Math.floor(remainTime / (1000 * 60 * 60 * 24));
+// 		var hours = Math.floor((remainTime % (1000 * 60 * 60 * 24))
+// 				/ (1000 * 60 * 60));
+// 		var min = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
+// 		var sec = Math.floor((remainTime % (1000 * 60)) / (1000));
+// 		console.log(day);
+// 		//create one div under the countDownTimer div
+// 		var display = document.getElementById("displayReamainTime");
+// 		display.innerHTML = "剩下" + day + "天" + hours + "小時" + min + "分" + sec
+// 				+ "秒";
+// 		if (remainTime < 0) {
+// 			display.innerHTML = "已結束";
+// 		}
+// 	}
+	$(document).ready(function(){
+		$(".vote").click(function(){
+			console.log($(this).prev().find("input"));
+			var arr=$(this).prev().find("input");
+			console.log($(this).parent().next());
+			//第一個this是投票按鈕的this，第二個this是input的this
+			$(this).prev().find("input").each(function(){
+				console.log($(this).val());//印出所有的val
+			});
+			//用作品編號設定id:this代表 按下的vote button prev是上一個兄弟元素，find指找呼叫find的子元素
+			var event_p_no=$(this).prev().find("input[name='event_p_no']").val();//取得當前元素的作品編號
+			$(this).parent().next().append("<td id=\""+event_p_no+"\"></td>");//創建id為作品編號的元素，作為success要插入的值
+			var elementShowVoteNum=$(this).parent().parent().prev().children().children("#showVoteNum");//將元素變數李
+			$.ajax({
+				url:"<%=request.getContextPath()%>/frontend/event_p/Event_pServlet",
+				type:"post",
+				data:{
+					action:"vote_from_ajax",
+					mem_id:"${sessionScope.mem_id }",
+					event_no:"${eventVO.event_no}",
+					event_p_no:event_p_no
+				},
+				success: function(e){
+					
+					var element="#"+event_p_no;
+					//e:1->達到投票數上限(最多投3次) ;2->已投過此作品
+					var infoArr=e.split(",");
+					var infoStr=["voteSuccess","達到投票數上限(最多投3次)","已投過此作品"];
+					for(let i=0;i<infoArr.length;i++){
+						if(infoArr[i]==="0"){
+							swal("投票成功","", "success");
+							var voteNum=elementShowVoteNum.text().split(":")[1];//get id=showVoteNum voteNum
+							$(element).text("");
+							elementShowVoteNum.text("票數:"+(parseInt(voteNum)+1));
+						}else{
+							$(element).text(infoStr[infoArr[i]]);//錯誤訊息	
+						}
+					}
+				}
+			});
+		});
+		$(".deleteVoteBtn").click(function(){
+			
+			var event_p_no=$(this).prev().find("input[name='event_p_no']").val();//找對應event_p_no
+			$(this).parent().prev().append("<td id=\""+event_p_no+"\"></td>");//放錯誤訊息
+			var voteNumElement=$(this).parent().parent().prev().children().find("li[id='showVoteNum']");//取得目前投票數
+			$.ajax({
+				
+				url:"<%=request.getContextPath()%>/frontend/event_p/Event_pServlet",
+				type:"post",
+				data:{
+					action:"delete_vote_ByAjax",
+					mem_id:"${sessionScope.mem_id}",
+					event_p_no:event_p_no					
+				},
+				success:function(e){
+					if(e==="1"){
+						console.log(e);
+						$("#"+event_p_no).text("尚未投過此作品");
+					}else{
+						var voteNum=voteNumElement.text().split(":")[1];
+						voteNumElement.text("票數:"+(parseInt(voteNum)-1));
+						$("#"+event_p_no).text("");
+						swal("取消投票成功","", "success");
+					}
+				}
+				
+			});
+		});
+	});
 
 </script>
 </html>

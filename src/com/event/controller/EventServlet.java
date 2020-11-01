@@ -3,9 +3,8 @@ package com.event.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,17 +41,20 @@ public class EventServlet extends HttpServlet {
 		
 		
 		if("insert".equals(action)) {
-			List<String> errMsgs=new ArrayList<String>();
+//			List<String> errMsgs=new ArrayList<String>();
+			Map<String,String>errMsgs=new HashMap<String,String>();
 			req.setAttribute("errMsgs", errMsgs);
 
 			
 			try {
 				//活動名稱不能空白
 				String event_name=req.getParameter("event_name");//從hashTag抽出				
-				if(event_name==null||event_name.trim().length()==0) {
-					errMsgs.add("活動名稱不能空白");
+//System.out.println(event_name);
+				if(event_name==null||event_name.trim().length()==0||"沒有HashTag可以抽選".equals(event_name)||"null".equals(event_name)) {
+					errMsgs.put("event_name","請先新增或抽選HashTag");
 					event_name="請輸入活動名稱";
 				}
+
 				//請輸入活動開始時間
 				String time=" 00:00:00";
 				java.sql.Timestamp event_start=null;
@@ -62,7 +64,7 @@ public class EventServlet extends HttpServlet {
 				try { 
 					event_start=java.sql.Timestamp.valueOf(tIn01); 
 				}catch(IllegalArgumentException e) {
-					errMsgs.add("正確輸入活動開始日期");
+					errMsgs.put("event_start","正確輸入活動開始日期");
 					event_start=new Timestamp(System.currentTimeMillis());
 				}
 				
@@ -72,7 +74,7 @@ public class EventServlet extends HttpServlet {
 				try { 
 					event_end=java.sql.Timestamp.valueOf(tIn02); 
 				}catch(IllegalArgumentException e) {
-					errMsgs.add("正確輸入活動結束日期");
+					errMsgs.put("event_end","正確輸入活動結束日期");
 					event_end=new Timestamp(System.currentTimeMillis());
 				}
 				
@@ -82,7 +84,7 @@ public class EventServlet extends HttpServlet {
 				try { 
 					event_ul_start=java.sql.Timestamp.valueOf(tIn03); 
 				}catch(IllegalArgumentException e) {
-					errMsgs.add("正確輸入開始徵求作品日期");
+					errMsgs.put("event_ul_start","正確輸入開始徵求作品日期");
 					event_ul_start=new Timestamp(System.currentTimeMillis());
 				}
 				
@@ -92,7 +94,7 @@ public class EventServlet extends HttpServlet {
 				try { 
 					event_ul_end=java.sql.Timestamp.valueOf(tIn04); 
 				}catch(IllegalArgumentException e) {
-					errMsgs.add("正確輸入結束徵求作品日期");
+					errMsgs.put("event_ul_end","正確輸入結束徵求作品日期");
 					event_ul_end=new Timestamp(System.currentTimeMillis());
 				}
 				
@@ -102,7 +104,7 @@ public class EventServlet extends HttpServlet {
 				try { 
 					event_vote_start=java.sql.Timestamp.valueOf(tIn05); 
 				}catch(IllegalArgumentException e) {
-					errMsgs.add("正確輸入開始投票日期");
+					errMsgs.put("event_vote_start","正確輸入開始投票日期");
 					event_vote_start=new Timestamp(System.currentTimeMillis());
 				}
 				
@@ -112,7 +114,7 @@ public class EventServlet extends HttpServlet {
 				try { 
 					event_vote_end=java.sql.Timestamp.valueOf(tIn06); 
 				}catch(IllegalArgumentException e) {
-					errMsgs.add("正確輸入結束投票日期");
+					errMsgs.put("event_vote_end","正確輸入結束投票日期");
 					event_vote_end=new Timestamp(System.currentTimeMillis());
 				}
 				
@@ -177,7 +179,7 @@ public class EventServlet extends HttpServlet {
 				ok.forward(req, res);
 				System.out.println("done");
 			}catch(Exception e) {
-				errMsgs.add("錯誤訊息");
+				errMsgs.put("其他錯誤","錯誤訊息");
 				e.printStackTrace();
 				
 				String url="/backend/event/TestInsert.jsp";
@@ -219,7 +221,8 @@ public class EventServlet extends HttpServlet {
 		}
 		//修改
 		if("update".equals(action)) {
-			List<String> errMsgs=new ArrayList<String>();
+//			List<String> errMsgs=new ArrayList<String>();
+			Map<String,String> errMsgs=new HashMap<String,String>(); 
 			req.setAttribute("errMsgs",errMsgs);
 			String event_no=req.getParameter("event_no");
 			//取得尚未修改的eventVO;
@@ -230,7 +233,7 @@ public class EventServlet extends HttpServlet {
 			
 			String event_name=req.getParameter("event_name");
 			if(event_name==null||event_name.trim().length()==0) {
-				errMsgs.add("請勿空白");
+				errMsgs.put("event_name","請勿空白");
 				event_name=eventVOPass.getEvent_name();
 			}
 			
@@ -242,7 +245,7 @@ public class EventServlet extends HttpServlet {
 			try { 
 				event_start=java.sql.Timestamp.valueOf(tIn01); 
 			}catch(IllegalArgumentException e) {
-				errMsgs.add("正確輸入活動開始日期");
+				errMsgs.put("event_start","正確輸入活動開始日期");
 				event_start=eventVOPass.getEvent_start();
 			}
 			
@@ -252,7 +255,7 @@ public class EventServlet extends HttpServlet {
 			try { 
 				event_end=java.sql.Timestamp.valueOf(tIn02); 
 			}catch(IllegalArgumentException e) {
-				errMsgs.add("正確輸入活動結束日期");
+				errMsgs.put("event_end","正確輸入活動結束日期");
 				event_end=eventVOPass.getEvent_end();
 			}
 			
@@ -262,7 +265,7 @@ public class EventServlet extends HttpServlet {
 			try { 
 				event_ul_start=java.sql.Timestamp.valueOf(tIn03); 
 			}catch(IllegalArgumentException e) {
-				errMsgs.add("正確輸入開始徵求作品日期");
+				errMsgs.put("event_ul_start","正確輸入開始徵求作品日期");
 				event_ul_start=eventVOPass.getEvent_ul_start();
 			}
 			
@@ -272,7 +275,7 @@ public class EventServlet extends HttpServlet {
 			try { 
 				event_ul_end=java.sql.Timestamp.valueOf(tIn04); 
 			}catch(IllegalArgumentException e) {
-				errMsgs.add("正確輸入結束徵求作品日期");
+				errMsgs.put("event_ul_end","正確輸入結束徵求作品日期");
 				event_ul_end=eventVOPass.getEvent_ul_end();
 			}
 			
@@ -282,7 +285,7 @@ public class EventServlet extends HttpServlet {
 			try { 
 				event_vote_start=java.sql.Timestamp.valueOf(tIn05); 
 			}catch(IllegalArgumentException e) {
-				errMsgs.add("正確輸入開始投票日期");
+				errMsgs.put("event_vote_start","正確輸入開始投票日期");
 				event_vote_start=eventVOPass.getEvent_vote_start();
 			}
 			
@@ -292,17 +295,17 @@ public class EventServlet extends HttpServlet {
 			try { 
 				event_vote_end=java.sql.Timestamp.valueOf(tIn06); 
 			}catch(IllegalArgumentException e) {
-				errMsgs.add("正確輸入結束投票日期");
+				errMsgs.put("event_vote_end","正確輸入結束投票日期");
 				event_vote_end=eventVOPass.getEvent_vote_end();
 			}
 			
 			String event_statStr=req.getParameter("event_stat");
 			String statReg="^[0-3]$";//判斷為1到3
 			if(event_statStr==null||event_statStr.trim().length()==0) {
-				errMsgs.add("不要空白");
+				errMsgs.put("event_stat","不要空白");
 				event_statStr="3";
 			}else if(!event_statStr.trim().matches(statReg)) {
-				errMsgs.add("請輸入正確狀態碼");
+				errMsgs.put("event_stat","請輸入正確狀態碼");
 				event_statStr="0";
 			}
 			
@@ -358,14 +361,14 @@ public class EventServlet extends HttpServlet {
 			
 			svc.update(event_no, event_name, event_start, event_end, event_ul_start, event_ul_end, event_vote_start, event_vote_end, event_stat);
 			//回傳turnback
+			req.setAttribute("eventVO", eventVO);
 			System.out.println(req.getParameter("requestURL"));
-			
-			String path="/backend/event/TestListAll.jsp";
-			RequestDispatcher ok=req.getRequestDispatcher(path);
+//			String path="/backend/event/TestListAll.jsp";
+			RequestDispatcher ok=req.getRequestDispatcher(req.getParameter("requestURL"));
 //			req.getParameter("requestURI")
 			ok.forward(req, res);
 			}catch(Exception e) {
-				errMsgs.add("出現錯誤");
+				errMsgs.put("其他錯誤","出現錯誤");
 				
 				e.printStackTrace();
 				String path="/backend/event/TestUpdate.jsp";
@@ -376,7 +379,8 @@ public class EventServlet extends HttpServlet {
 		}
 		//ListAll修改請求
 		if("updateFromListAll".equals(action)) {
-			List<String> errMsgs=new ArrayList<String>();
+//			List<String> errMsgs=new ArrayList<String>();
+			Map<String,String>errMsgs=new HashMap<String,String>();
 			req.setAttribute("errMsgs", errMsgs);
 			try {
 				String event_no=req.getParameter("event_no");
@@ -390,7 +394,7 @@ public class EventServlet extends HttpServlet {
 				successView.forward(req, res);
 			}catch(Exception e) {
 				e.printStackTrace();
-				errMsgs.add("未知錯誤");
+				errMsgs.put("錯誤","未知錯誤");
 				String path="/backend/event/TestListAll.jsp";
 				RequestDispatcher fail=req.getRequestDispatcher(path);
 				fail.forward(req, res);}

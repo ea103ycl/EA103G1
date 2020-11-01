@@ -47,16 +47,16 @@ class EventTimer extends TimerTask{
 	public void run() {
 		System.out.println("start run schedule");
 		EventService svc = new EventService();
-//		List<EventVO> eventVOs = svc.findAllEvent();
-		List<EventVO> eventVOs=svc.findWithoutEnd();
+		List<EventVO> eventVOs = svc.findAllEvent();
+//		List<EventVO> eventVOs=svc.findWithoutEnd();
 		Iterator iter = eventVOs.iterator();
 		// 轉換現在時間成Timestamp
 		//test 
-//		GregorianCalendar gc=new GregorianCalendar(2020,7,26);
-//		Date gcDate=gc.getTime();
-//		Timestamp timestamp=new Timestamp(gc.getTimeInMillis());
+		GregorianCalendar gc=new GregorianCalendar(2020,9,12);
+		Date gcDate=gc.getTime();
+		Timestamp timestamp=new Timestamp(gc.getTimeInMillis());
 		
-		Timestamp timestamp = new Timestamp(new Date().getTime());
+//		Timestamp timestamp = new Timestamp(new Date().getTime());
 		while (iter.hasNext()) {
 			System.out.println("in run");
 			// 開始比對時間。

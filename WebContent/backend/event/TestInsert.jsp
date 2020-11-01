@@ -61,14 +61,14 @@
 					<h1 class="h3 mb-2 text-gray-800">頁面標題</h1>
 
 					<%-- 錯誤表列 --%>
-					<c:if test="${not empty errMsgs}">
-						<font style="color: red">請修正以下錯誤:</font>
-						<ul>
-							<c:forEach var="message" items="${errMsgs}">
-								<li style="color: red">${message}</li>
-							</c:forEach>
-						</ul>
-					</c:if>
+<%-- 					<c:if test="${not empty errMsgs}"> --%>
+<!-- 						<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 						<ul> -->
+<%-- 							<c:forEach var="message" items="${errMsgs}"> --%>
+<%-- 								<li style="color: red">${message}</li> --%>
+<%-- 							</c:forEach> --%>
+<!-- 						</ul> -->
+<%-- 					</c:if> --%>
 
 					<%-- 資料內容 --%>
 					<a href="<%=request.getContextPath()%>/backend/event/TestListAll.jsp">回主頁</a><br>
@@ -81,10 +81,12 @@
 							<div class="form-group row">
 <!-- 								<label for="inputEmail3" class="col-sm-2 col-form-label">活動名稱</label> -->
 								<div class="col-sm-3" id="event_randTag"  style="display:none;">
-														<input type="hidden" class="form-control" name="event_name"
-															value=<%=request.getSession().getAttribute("str") %>>
+										<input type="hidden" class="form-control" name="event_name"value=<%=request.getSession().getAttribute("str") %>>
+										
+
 								</div>
 							</div>
+
 							<div class="form-group row">
 								<label for="inputEmail3" class="col-sm-2 col-form-label time">活動開始時間</label>
 								<div class="col-sm-3">
@@ -92,6 +94,11 @@
 										name="event_start"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_start().toString()%>>
 								</div>
+								<c:if test="${not empty errMsgs['event_start']}">
+									<div style="color:red;">
+									${errMsgs['event_start'] }
+									</div>
+								</c:if>
 							</div>
 							
 							<div class="form-group row">
@@ -101,6 +108,11 @@
 										name="event_end"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_end().toString()%>>
 								</div>
+								<c:if test="${not empty errMsgs['event_end']}">
+									<div style="color:red;">
+									${errMsgs['event_end'] }
+									</div>
+								</c:if>
 							</div>
 							<div><hr></div>
 							<div class="form-group row">
@@ -110,6 +122,11 @@
 										name="event_ul_start"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_ul_start().toString()%>>
 								</div>
+								<c:if test="${not empty errMsgs['event_ul_start']}">
+									<div style="color:red;">
+									${errMsgs['event_ul_start'] }
+									</div>
+								</c:if>								
 							</div>
 							<div class="form-group row">
 								<label for="inputEmail3" class="col-sm-2 col-form-label time">徵求作品結束時間</label>
@@ -118,6 +135,11 @@
 										name="event_ul_end"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_ul_end().toString()%>>
 								</div>
+								<c:if test="${not empty errMsgs['event_ul_end']}">
+									<div style="color:red;">
+									${errMsgs['event_ul_end'] }
+									</div>
+								</c:if>									
 							</div>
 							<div><hr></div>
 							<div class="form-group row">
@@ -127,6 +149,11 @@
 										name="event_vote_start"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_vote_start().toString()%>>
 								</div>
+								<c:if test="${not empty errMsgs['event_vote_start']}">
+									<div style="color:red;">
+									${errMsgs['event_vote_start'] }
+									</div>
+								</c:if>									
 							</div>
 							<div class="form-group row">
 								<label for="inputEmail3" class="col-sm-2 col-form-label time">投票結束時間</label>
@@ -135,6 +162,11 @@
 										name="event_vote_end"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_vote_end().toString()%>>
 								</div>
+								<c:if test="${not empty errMsgs['event_vote_end']}">
+									<div style="color:red;">
+									${errMsgs['event_vote_end'] }
+									</div>
+								</c:if>									
 							</div>
 							<div><hr></div>
 							<div class="form-group row">
@@ -163,8 +195,8 @@
 							</div>
 
 
-							<input type="hidden" name="action" value="insert"> <input
-								type="submit" value="送出">
+							<input type="hidden" name="action" value="insert"> 
+							<input type="submit" value="送出">
 						</form>
 					</div>
 

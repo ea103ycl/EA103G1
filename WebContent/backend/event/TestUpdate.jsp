@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.event.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page buffer="32kb"%>
 <%
 	EventVO eventVO = (EventVO) request.getAttribute("eventVO");
 %>
@@ -24,7 +25,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/backend/template/css/bootstrap.min.css">
-<title>Insert title here</title>
+<title>更新主題競賽</title>
 <style>
 .xdsoft_datetimepicker {
 	margin-left: 20%;
@@ -51,14 +52,14 @@
 					<h1 class="h3 mb-2 text-gray-800">主題活動</h1>
 
 					<%-- 錯誤表列 --%>
-					<c:if test="${not empty errMsgs}">
-						<font style="color: red">請修正以下錯誤:</font>
-						<ul>
-							<c:forEach var="message" items="${errMsgs}">
-								<li style="color: red">${message}</li>
-							</c:forEach>
-						</ul>
-					</c:if>
+<%-- 					<c:if test="${not empty errMsgs}"> --%>
+<!-- 						<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 						<ul> -->
+<%-- 							<c:forEach var="message" items="${errMsgs}"> --%>
+<%-- 								<li style="color: red">${message}</li> --%>
+<%-- 							</c:forEach> --%>
+<!-- 						</ul> -->
+<%-- 					</c:if> --%>
 
 					<%-- 資料內容 --%>
 					<a href="<%=request.getContextPath()%>/backend/event/TestListAll.jsp">回主頁</a> <br>
@@ -77,9 +78,10 @@
 								<label for="inputEmail3" class="col-sm-2 col-form-label">活動名稱</label>
 								<div class="col-sm-3">
 									<input type="text" class="form-control" name="event_name"
-										value=<%=(eventVO == null) ? "" : eventVO.getEvent_name().toString()%>>
+										value=<%=(eventVO == null) ? "" : eventVO.getEvent_name().toString()%> readonly="readonly">
 								</div>
 							</div>
+							<div><hr></div>
 							<div class="form-group row">
 								<label for="inputEmail3" class="col-sm-2 col-form-label">活動開始時間</label>
 								<div class="col-sm-3">
@@ -87,6 +89,12 @@
 										name="event_start"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_start().toString()%>>
 								</div>
+								
+								<c:if test="${not empty errMsgs['event_start']}">
+									<div style="color:red;">
+									${errMsgs['event_start'] }
+									</div>
+								</c:if>								
 							</div>
 							<div class="form-group row">
 								<label for="inputEmail3" class="col-sm-2 col-form-label">活動結束時間</label>
@@ -95,8 +103,13 @@
 										name="event_end"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_end().toString()%>>
 								</div>
+								<c:if test="${not empty errMsgs['event_end']}">
+									<div style="color:red;">
+									${errMsgs['event_end'] }
+									</div>
+								</c:if>								
 							</div>
-
+							<div><hr></div>
 							<div class="form-group row">
 								<label for="inputEmail3" class="col-sm-2 col-form-label">徵求作品開始時間</label>
 								<div class="col-sm-3">
@@ -104,15 +117,26 @@
 										name="event_ul_start"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_ul_start().toString()%>>
 								</div>
+								<c:if test="${not empty errMsgs['event_ul_start']}">
+									<div style="color:red;">
+									${errMsgs['event_ul_start'] }
+									</div>
+								</c:if>									
 							</div>
 							<div class="form-group row">
-								<label for="inputEmail3" class="col-sm-2 col-form-label">徵求作品開始時間</label>
+								<label for="inputEmail3" class="col-sm-2 col-form-label">徵求作品結束時間</label>
 								<div class="col-sm-3">
 									<input type="text" class="form-control f_date4"
 										name="event_ul_end"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_ul_end().toString()%>>
 								</div>
+								<c:if test="${not empty errMsgs['event_ul_end']}">
+									<div style="color:red;">
+									${errMsgs['event_ul_end'] }
+									</div>
+								</c:if>									
 							</div>
+							<div><hr></div>
 							<div class="form-group row">
 								<label for="inputEmail3" class="col-sm-2 col-form-label">投票開始時間</label>
 								<div class="col-sm-3">
@@ -120,6 +144,11 @@
 										name="event_vote_start"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_vote_start().toString()%>>
 								</div>
+								<c:if test="${not empty errMsgs['event_vote_start']}">
+									<div style="color:red;">
+									${errMsgs['event_vote_start'] }
+									</div>
+								</c:if>								
 							</div>
 							<div class="form-group row">
 								<label for="inputEmail3" class="col-sm-2 col-form-label">投票結束時間</label>
@@ -128,7 +157,13 @@
 										name="event_vote_end"
 										value=<%=(eventVO == null) ? "" : eventVO.getEvent_vote_end().toString()%>>
 								</div>
+								<c:if test="${not empty errMsgs['event_vote_end']}">
+									<div style="color:red;">
+									${errMsgs['event_vote_end'] }
+									</div>
+								</c:if>									
 							</div>
+							<div><hr></div>
 							<div class="form-group row">
 								<label for="inputEmail3" class="col-sm-2 col-form-label">活動狀態</label>
 								<div class="col-sm-3">

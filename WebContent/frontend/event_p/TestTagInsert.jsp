@@ -73,8 +73,8 @@
 				</c:forEach>
 			</c:if>
 			<input type="hidden" name="action" value="insert">
-			<input type="submit" value="送出"  id="submitHashTag">
-			<input type="button" class="btn btn-primary" id="eventHashTagSubmit" value="送出2"></button>
+<!-- 			<input type="submit" value="送出"  id="submitHashTag"> -->
+			<input type="button" class="btn btn-primary" id="eventHashTagSubmit" value="送出"></button>
 	</form>
 	
 	</div>
