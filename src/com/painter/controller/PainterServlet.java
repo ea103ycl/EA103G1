@@ -1,5 +1,8 @@
 package com.painter.controller;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -43,6 +46,7 @@ public class PainterServlet extends HttpServlet {
 				PainterService painterSvc = new PainterService();
 				YclTools.readByteArrayFromDB(req, res, painterSvc.getPicByPtrNo(ptr_no));
 			} catch (Exception e) {
+				System.out.println("===[PainterServlet]無法取得作品圖片");
 				InputStream in = getServletContext().getResourceAsStream("/backend/img/null.jpg");
 				byte[] b = new byte[in.available()];
 				in.read(b);
@@ -51,8 +55,54 @@ public class PainterServlet extends HttpServlet {
 			}
 
 		} else if("showCreatorPhoto".contentEquals(action)){
+			
+			res.setContentType("image/gif");
+			ServletOutputStream out = res.getOutputStream();
 			String sid = ((String)req.getParameter("sid")).trim();
-			HeadphotoTool.printHeadphotoByMemId(req, res, sid);
+			
+			try{
+				
+//				HeadphotoTool.printHeadphotoByMemId(req, res, sid);
+				InputStream in = new FileInputStream(getServletContext().getRealPath("/frontend/template/YCL/img/fakeAcctPhoto.png"));
+				byte[] buf = new byte[4 * 1024]; // 4K buffer
+				int len;
+				while ((len = in.read(buf)) != -1) {
+					out.write(buf, 0, len);
+				}
+				in.close();
+				
+			}catch(Exception e) {
+				
+				
+				System.out.println("===[PainterServlet]無法取得會員頭像");
+				System.out.println(e);
+				System.out.println("改取:" + getServletContext().getRealPath("/frontend/template/YCL/img/fakeAcctPhoto.png"));
+				
+				
+				InputStream in = new FileInputStream(getServletContext().getRealPath("/frontend/template/YCL/img/fakeAcctPhoto.png"));
+				byte[] buf = new byte[4 * 1024]; // 4K buffer
+				int len;
+				while ((len = in.read(buf)) != -1) {
+					out.write(buf, 0, len);
+				}
+				in.close();
+				
+				
+//				InputStream in = getServletContext().getResourceAsStream( "/frontend/template/YCL/img/fakeAcctPhoto.png");
+//				System.out.println("===1");
+//				
+//				byte[] b = new byte[in.available()];
+//				System.out.println("===2");
+//				
+//				in.read(b);
+//				System.out.println("===3");
+//				
+//				out.write(b);
+//				System.out.println("===4");
+//				
+//				in.close();
+//				System.out.println("===5");
+			}
 			
 		}else {
 			doPost(req, res);
