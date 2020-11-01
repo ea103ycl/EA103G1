@@ -115,6 +115,7 @@ img {
 	<input id="bdNo" type="hidden" value="${bdNo}">
 	<input id="memId" type="hidden" value="${memVO.mem_id}">
 	<input id="memWallet" type="hidden" value="${memVO.balance}">
+	<input id="biddingIndexUrl" type="hidden" value="<%=request.getContextPath()%>/frontend/biddingFront/biddingIndex.jsp">
 	<c:set var="epVO" value="${epSvc.findTopByEventNoWithoutReport(bdNo)}" />
 	<c:set var="memId" value="${memVO.mem_id}" />
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
@@ -485,7 +486,7 @@ img {
 									<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=" class="top1a"><h4>Top1</h4> 
 									<img id="top1pic"
 										src="<%=request.getContextPath()%>/frontend/biddingFront/img/trophy.svg"
-										alt="Image" class="mr-2 memAvatar" style="margin-right: 1.5%;">
+										alt="Image" class="mr-2 memAvatar" style="margin-left: 0.5%;">
 										
 <!-- 										dothis later while avaliable -->
 <!-- 										<img id="top1a" class="topBidderImg" -->

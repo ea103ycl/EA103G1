@@ -3,6 +3,13 @@ var bdNo = $("#bdNo").val();
 
 var bidOver = true;
 
+(function NotgettingBdNo(){
+	if(bdNo.trim().length===0){
+		window.location.href = $('#biddingIndexUrl').val();
+	}
+})();
+
+
 function isLogin() {
 	if (memId.trim().length === 0) {
 		Swal.fire(
@@ -16,6 +23,7 @@ function isLogin() {
 	}
 }
 
+// ============================newBid function====================================//
 (function newBid() {
 
 	$('#submitBid').on("click", function(e) {
@@ -322,6 +330,7 @@ function isLogin() {
 	});
 
 }());
+// ============================newBid function end================================//
 
 
 // ================================================================
@@ -346,12 +355,8 @@ function isLogin() {
 
 			if (bdNo.trim().length === 0) {
 				console.log("No bdNo");
-				Swal.fire(
-					'The Internet?',
-					'Please check your connection',
-					'question'
-				)
-				return;
+				confirm("no BdNo");
+				window.location.href = $('#biddingIndexUrl').val();
 			}
 			updateBid();
 		}
@@ -435,7 +440,7 @@ $(".checkout").on("click", function(e) {
 				success: function(d) {
 					if (d === "complete") {
 						//==================sweetAlert==============
-						$('.modal-body').html('<div>Pending...</div>');
+						$('.modal-body').html('<div style="height:'+ window.height()+'">Pending...</div>');
 						var temp = $('.modal-body').html();
 						setTimeout(function() {
 							$('.modal-body').html(temp);
@@ -443,12 +448,13 @@ $(".checkout").on("click", function(e) {
 								title: '恭喜您',
 								text: '付款成功',
 								icon: 'success',
+								showCancelButton: false,
 								confirmButtonColor: '#3085d6',
 								cancelButtonColor: '#d33',
 								confirmButtonText: '確認'
-							}).then((result2) => {
+							}).then((result) => {
 								console.log("result2 confirmed");
-								if (result2.isConfirmed) {
+								if (result.isConfirmed) {
 									$('#modalButton').click();
 									location.reload();
 								}
