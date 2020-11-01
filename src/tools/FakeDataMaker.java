@@ -1,6 +1,6 @@
 package tools;
 
-import com.wel_record.model.WelRecordJDBCDAO;
+import com.wel_record.model.WelRecordJNDIDAO;
 import com.wel_record.model.WelRecordVO;
 
 public class FakeDataMaker {
@@ -8,7 +8,7 @@ public class FakeDataMaker {
 	public static void main(String[] args) {
 
 		// --------------------------假資料-隨機新增n筆交易紀錄----------------------------------
-		WelRecordJDBCDAO welRecordDAO = new WelRecordJDBCDAO();
+		WelRecordJNDIDAO welRecordDAO = new WelRecordJNDIDAO();
 		int[] srcArray = { 10, 20, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 42, 43 };
 		String[] memArray = { "M000001", "M000002", "M000003", "M000004" };
 

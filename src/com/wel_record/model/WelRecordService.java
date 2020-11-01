@@ -5,22 +5,19 @@ import java.util.List;
 import com.mem.model.MemDAO_interface;
 import com.mem.model.MemJNDIDAO;
 
-public class WelRecordService
-{
+public class WelRecordService {
 
 	private WelRecordDAO_interface dao;
 	private MemDAO_interface memDao;
 
-	public WelRecordService()
-	{
+	public WelRecordService() {
 
-		dao = new WelRecordJDBCDAO();
+		dao = new WelRecordJNDIDAO();
 		memDao = new MemJNDIDAO();
 
 	}
 
-	public WelRecordVO addWelRecord(String mem_id, Integer tns_src, String order_id, Integer tns_amount)
-	{
+	public WelRecordVO addWelRecord(String mem_id, Integer tns_src, String order_id, Integer tns_amount) {
 
 		WelRecordVO welRecordVO = new WelRecordVO();
 
@@ -35,33 +32,28 @@ public class WelRecordService
 
 	}
 
-	public WelRecordVO getOneWelRecord(Integer tns_id)
-	{
+	public WelRecordVO getOneWelRecord(Integer tns_id) {
 
 		return dao.findByPrimaryKey(tns_id);
 	}
 
-	public List<WelRecordVO> getWelRecordBySrc(int tns_src)
-	{
+	public List<WelRecordVO> getWelRecordBySrc(int tns_src) {
 
 		return dao.getWelRecordBySrc(tns_src);
 
 	}
 
-	public List<WelRecordVO> getWelRecordAmongSrc(int tns_srcStart, int tns_srcEnd)
-	{
+	public List<WelRecordVO> getWelRecordAmongSrc(int tns_srcStart, int tns_srcEnd) {
 
 		return dao.getWelRecordAmongSrc(tns_srcStart, tns_srcEnd);
 	}
 
-	public List<WelRecordVO> getWelRecordByMemID(String mem_id)
-	{
+	public List<WelRecordVO> getWelRecordByMemID(String mem_id) {
 
 		return dao.getWelRecordByMemID(mem_id);
 	}
 
-	public List<WelRecordVO> getAll()
-	{
+	public List<WelRecordVO> getAll() {
 
 		return dao.getAll();
 
