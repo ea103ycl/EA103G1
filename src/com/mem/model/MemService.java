@@ -12,7 +12,7 @@ public class MemService
 
 	public MemService()
 	{
-		dao = new MemJDBCDAO();
+		dao = new MemJNDIDAO();
 	}
 
 	public MemVO addMem(Integer lv, String m_accno, String m_psw, String m_name, String m_gender, Date m_bday,
