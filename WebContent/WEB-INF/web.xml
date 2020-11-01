@@ -365,6 +365,25 @@
 		<url-pattern>/follow/follow.do</url-pattern>
 	</servlet-mapping>
 
+	<!--== ROGER=========================================== -->
+<servlet>
+		<servlet-name>MeetingServlet</servlet-name>
+		<servlet-class>com.meeting.controller.MeetingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MeetingServlet</servlet-name>
+		<url-pattern>/frontend/meeting/meeting.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Reg_infServlet</servlet-name>
+		<servlet-class>com.reg_inf_controller.Reg_infServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Reg_infServlet</servlet-name>
+		<url-pattern>/frontend/reg_inf/reg_inf.do</url-pattern>
+	</servlet-mapping>
+
 
 	<!-- ==backend filter by Jeff=========================================== -->
 	<filter>
