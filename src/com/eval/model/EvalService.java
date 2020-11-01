@@ -49,4 +49,8 @@ import com.prod.model.ProdVO;
 			return dao.getOneByOr_no_and_Prod_no(or_no, prod_no);
 		}
 		
+		public EvalVO getMem_pic_ByMem_id(String mem_id) {
+			return dao.getMem_pic_ByMem_id(mem_id);
+			}
+		
 	}

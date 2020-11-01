@@ -33,7 +33,7 @@ public class EvalDAO implements EvalDAO_interface {
 				private static final String GET_ALL_BY_PROD_NO = "SELECT * FROM EVAL_PROD WHERE PROD_NO=? ORDER BY EVAL_NO DESC";
 				private static final String GET_ALL_BY_OR_NO = "SELECT * FROM EVAL_PROD WHERE OR_NO=? ORDER BY EVAL_NO";
 				private static final String GET_ONE_STMT = "SELECT * FROM eval_prod WHERE OR_NO =? and prod_no=?";
-	
+				private static final String GET_PIC_BY_MEM_ID = "SELECT * from members where mem_id =?";
 				
 				
 		public void insert(EvalVO evalVO) {
@@ -247,6 +247,57 @@ public class EvalDAO implements EvalDAO_interface {
 		}
 		return evalVO;
 	}
+
+	@Override
+	public EvalVO getMem_pic_ByMem_id(String mem_id) {
+		 EvalVO evalVO = null;
+		  Connection con = null;
+		  PreparedStatement pstmt = null;
+		  ResultSet rs = null;
+		  
+		  try {
+		   con = ds.getConnection();
+		   pstmt = con.prepareStatement(GET_PIC_BY_MEM_ID);
+		   
+		   pstmt.setString(1, mem_id);
+		   
+		   rs = pstmt.executeQuery();
+		   
+		   while (rs.next()) {
+		    evalVO = new EvalVO();
+		    evalVO.setM_photo(rs.getBytes("m_photo"));
+		    
+		   }
+
+		   // Handle any SQL errors
+		  } catch (SQLException se) {
+		   throw new RuntimeException("A database error occured. " + se.getMessage());
+		   // Clean up JDBC resources
+		  } finally {
+		   if (rs != null) {
+		    try {
+		     rs.close();
+		    } catch (SQLException se) {
+		     se.printStackTrace(System.err);
+		    }
+		   }
+		   if (pstmt != null) {
+		    try {
+		     pstmt.close();
+		    } catch (SQLException se) {
+		     se.printStackTrace(System.err);
+		    }
+		   }
+		   if (con != null) {
+		    try {
+		     con.close();
+		    } catch (Exception e) {
+		     e.printStackTrace(System.err);
+		    }
+		   }
+		  }
+		  return evalVO;
+		 }
 	
 
 }

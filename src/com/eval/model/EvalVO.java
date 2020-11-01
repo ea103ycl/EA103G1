@@ -11,11 +11,22 @@ public class EvalVO {
 	private Integer   eval_rang;
 	private String   eval_review;
 	private Timestamp eval_time;
+	private byte[]   m_photo;
 	
 	
 	public EvalVO() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public byte[] getM_photo() {
+		return m_photo;
+	}
+
+
+	public void setM_photo(byte[] m_photo) {
+		this.m_photo = m_photo;
 	}
 
 

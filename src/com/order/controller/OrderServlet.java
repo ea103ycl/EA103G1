@@ -229,7 +229,7 @@ public class OrderServlet extends HttpServlet {
 						orderVO = orderSvc.ChangeStatus(or_no, or_status);
 						
 						/***************************3.修改完成,準備轉交(Send the Success view)*************/
-						req.setAttribute("orderVO", orderVO); 
+//						req.setAttribute("orderVO", orderVO); 
 						String url = "/backend/prod/listAllOrder.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url); 
 						successView.forward(req, res);
@@ -270,7 +270,7 @@ public class OrderServlet extends HttpServlet {
 						orderVO = orderSvc.ChangeStatus(or_no, or_status);
 						
 						/***************************3.修改完成,準備轉交(Send the Success view)*************/
-						req.setAttribute("orderVO", orderVO); 
+//						req.setAttribute("orderVO", orderVO); 
 						String url = "/frontend/shop/order/OrderSearch.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url); 
 						successView.forward(req, res);

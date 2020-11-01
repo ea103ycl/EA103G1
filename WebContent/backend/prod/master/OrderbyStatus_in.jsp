@@ -1,16 +1,15 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*,java.io.*"%>
 <%@ page import="com.order.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<!DOCTYPE html>
 <%
 List<OrderVO> list = (ArrayList<OrderVO>)session.getAttribute("or_status_list");
 pageContext.setAttribute("list", list);
 %>
 
-
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -36,15 +35,15 @@ pageContext.setAttribute("list", list);
 <form  action="<%=request.getContextPath()%>/frontend/shop/order" method="POST" enctype="multipart/form-data">
    <select  name="or_status" style="width:130px;font-size:15px; "onchange="submit();" >
    
-   <option value="">é¸æ“‡è¨‚å–®ç‹€æ…‹</option> 
-   <option value="100">æŸ¥çœ‹å…¨éƒ¨</option> 
-   <option value="1">å°šæœªå‡ºè²¨</option> 
-   <option value="2">å·²å‡ºè²¨</option> 
-   <option value="3">è²·å®¶å·²æ”¶åˆ°è²¨</option>
-   <option value="4">è¨‚å–®å®Œæˆ</option>  
+   <option value="">¿ï¾Ü­q³æª¬ºA</option>
+   <option value="100">¬d¬İ¥ş³¡</option> 
+   <option value="1">©|¥¼¥X³f</option> 
+   <option value="2">¤w¥X³f</option> 
+   <option value="3">¶R®a¤w¦¬¨ì³f</option>
+   <option value="4">­q³æ§¹¦¨</option>  
    </select>
    <input type="hidden" name="action" value="Get_Order_By_Status"> 
-<from>   
+</form>   
     <div class="card shadow mb-4">
        
         <div class="card-body">
@@ -52,22 +51,22 @@ pageContext.setAttribute("list", list);
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-            <th>è¨‚å–®ç·¨è™Ÿ</th>
-            <th>æœƒå“¡ç·¨è™Ÿ</th>
-			<th>æ”¶ä»¶äººå§“å</th>
-			<th>æ”¶ä»¶äººé›»è©±</th>
-			<th>éƒµéå€è™Ÿ</th>
-			<th>æ”¶ä»¶åœ°å€</th>
-			<th>è¨‚å–®ç¸½é‡‘é¡</th>
-			<th>è³¼è²·å‚™è¨»</th>
-			<th>è¨‚å–®æˆç«‹æ™‚é–“</th>
-			<th>è¨‚å–®ç‹€æ…‹</th>	
+            <th>­q³æ½s¸¹</th>
+            <th>·|­û½s¸¹</th>
+			<th>¦¬¥ó¤H©m¦W</th>
+			<th>¦¬¥ó¤H¹q¸Ü</th>
+			<th>¶l»¼°Ï¸¹</th>
+			<th>¦¬¥ó¦a§}</th>
+			<th>­q³æÁ`ª÷ÃB</th>
+			<th>ÁÊ¶R³Æµù</th>
+			<th>­q³æ¦¨¥ß®É¶¡</th>
+			<th>­q³æª¬ºA</th>	
                         </tr>
                     </thead>
                     <tfoot>                   
                     </tfoot>
                     <tbody>
-                  <c:forEach var="orderVO" items="${list}">
+                        <c:forEach var="orderVO" items="${list}">
 				<tr>
 				    <td>${orderVO.or_no}</td>
 					<td>${orderVO.mem_id}</td>
@@ -79,16 +78,16 @@ pageContext.setAttribute("list", list);
 					<td>${orderVO.or_note}</td>
 					<td><fmt:formatDate value="${orderVO.or_time}" pattern="yyyy-MM-dd HH:mm" /></td>
 					<td> 
-					<c:if test="${orderVO.or_status==1}">è™•ç†ä¸­</c:if> 
-					<c:if test="${orderVO.or_status==2}">å‡ºè²¨ä¸­</c:if> 
-					<c:if test="${orderVO.or_status==3}">å·²åˆ°è²¨</c:if> 
-					<c:if test="${orderVO.or_status==4}">è¨‚å–®å®Œæˆ</c:if>
+					<c:if test="${orderVO.or_status==1}">³B²z¤¤</c:if> 
+					<c:if test="${orderVO.or_status==2}">¹B°e¤¤</c:if> 
+					<c:if test="${orderVO.or_status==3}">¤w¨ì³f</c:if> 
+					<c:if test="${orderVO.or_status==4}">­q³æ§¹¦¨</c:if>
 					</td>
 					
 					<td>
 					<c:if test="${orderVO.or_status==1}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;">
-							<input type="submit" value="å‡ºè²¨"> 
+							<input  style="color:deeppink"   type="submit" value="¥X³f">
 							<input type="hidden" name="or_status" value="${orderVO.or_status}">
 							<input type="hidden" name="or_no" value="${orderVO.or_no}">
 							<input type="hidden" name="action" value="Change_Order_Status">

@@ -160,7 +160,14 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
 
                             
                                 <div class="review-author pull-left">
-                                  <img src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=<%=memVO.getMem_id()%>" alt="">
+<jsp:useBean id="evalSvc2" scope="page" class="com.eval.model.EvalService" />
+<c:if test="${pageScope.evalSvc2.getMem_pic_ByMem_id(evalVO.mem_id).getM_photo()==null}">
+  <img src="<%=request.getContextPath()%>/frontend/shop/order/images/noPic.gif">
+</c:if>
+<c:if test="${pageScope.evalSvc2.getMem_pic_ByMem_id(evalVO.mem_id).getM_photo()!=null}">
+  <img src="<%=request.getContextPath()%>/frontend/shop/eval.pic?action=getpic&mem_id=${evalVO.mem_id}" alt="">
+</c:if>
+                                 
                                 </div>
                          <!---------------------------------------------------------------------  review-content --------------------------------------------------------->
                                 <div class="review-content" style="margin: 0 0 20px 0;">

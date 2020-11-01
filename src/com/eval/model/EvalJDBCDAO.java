@@ -184,6 +184,12 @@ public class EvalJDBCDAO implements EvalDAO_interface {
 		return null;
 	}
 
+	@Override
+	public EvalVO getMem_pic_ByMem_id(String mem_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 }
