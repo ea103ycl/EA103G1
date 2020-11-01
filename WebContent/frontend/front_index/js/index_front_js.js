@@ -278,7 +278,7 @@ $('.comment-send').on('click', function(e) {
 					$('.comment-textarea').before('<input type="hidden" name="ptrno" value="' + ptrno + '"');
 					$('#commentInput').val('');
 					$('#msg-content').animate({
-						scrollTop:$('#msg-content').offset().top
+						scrollTop: $('#msg-content')[0].scrollHeight
 					},0);
 				},
 				error: function() {
