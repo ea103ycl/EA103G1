@@ -83,4 +83,10 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 		return latest;
 	}
 
+	@Override
+	public void attributeRemoved(ServletContextAttributeEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
