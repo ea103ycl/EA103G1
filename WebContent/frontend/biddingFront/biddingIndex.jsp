@@ -94,11 +94,11 @@
 
 		<div id="page-content" class="container">
 			<div class="section-w-image space-top-2x">
-				<div class="row biddingPage" style="background-color: #f8f8f8;">
+				<div class="row biddingPage" style="background-color: #f8f8f8; cursor:pointer" >
 					<h1>${event_no}</h1>
 					<span>${event_no}</span>
 					<div class="col-sm-7 ">
-						<img
+						<img onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (1).jpg'"
 							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}">
 					</div>
 					<div class="col-sm-5 text-center space-top-2x" style="">
@@ -114,15 +114,15 @@
 			<div class="space-50">&nbsp;</div>
 			<section id="team">
 				<div class="container">
-					<h2 class="text-center space-top-2x" style="margin-bottom: 40px;">Latest
+					<h2 class="text-center space-top-2x" style="margin-bottom: 40px; ">Latest
 						Event</h2>
 					<div class="row">
 						<!-- team-block -->
 
 						<div class="col-sm-4 biddingPage" id="latestBd1" >
 							<span>${latestBd1}</span>
-							<div class="team block text-center">
-								<img
+							<div class="team block text-center" style="cursor:pointer;">
+								<img onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (2).jpg'"
 							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd1).event_p_no}">
 								<div class="team-info-box">
 									<h6>JOHN DOE</h6>
@@ -142,10 +142,10 @@
 
 						<!-- team-block -->
 
-						<div class="col-sm-4 biddingPage" id="latestBd2">
+						<div class="col-sm-4 biddingPage" id="latestBd2" >
 						<span>${latestBd2}</span>
-							<div class="team block text-center">
-								<img
+							<div class="team block text-center" style="cursor:pointer;">
+								<img onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (3).jpg'"
 							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd2).event_p_no}">
 								<div class="team-info-box">
 									<h6>JASMINE DOE</h6>
@@ -167,8 +167,8 @@
 
 						<div class="col-sm-4 biddingPage" id="latestBd3" >
 							<span>${latestBd3}</span>
-							<div class="team block text-center">
-								<img
+							<div class="team block text-center" style="cursor:pointer;">
+								<img onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (4).jpg'"
 							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd3).event_p_no}">
 								<div class="team-info-box">
 									<h6>JAMES DOE</h6>
