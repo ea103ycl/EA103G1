@@ -375,11 +375,11 @@ public class EmpServlet extends HttpServlet {
 				String emp_no = req.getParameter("emp_no");
 
 				String emp_name = req.getParameter("emp_name");
-				String emp_name_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				String emp_name_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-)]{2,10}$";
 				if (emp_name == null || emp_name.trim().length() == 0) {
 					errorMsgs.add("員工姓名: 請勿空白。");
 				} else if (!emp_name.trim().matches(emp_name_Reg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間。");
+					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和- , 且長度必需在2到10之間。");
 				}
 
 				
@@ -484,11 +484,11 @@ public class EmpServlet extends HttpServlet {
 				Emp_Account_Service empSvc = new Emp_Account_Service();
 
 				String emp_name = req.getParameter("emp_name");
-				String emp_name_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				String emp_name_Reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-)]{2,10}$";
 				if (emp_name == null || emp_name.trim().length() == 0) {
 					errorMsgs.add("員工姓名: 請勿空白。");
 				} else if (!emp_name.trim().matches(emp_name_Reg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間。");
+					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和- , 且長度必需在2到10之間。");
 				}
 
 //				String emp_pwd = req.getParameter("emp_pwd");

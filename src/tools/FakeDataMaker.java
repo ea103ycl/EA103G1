@@ -3,9 +3,11 @@ package tools;
 import com.wel_record.model.WelRecordJDBCDAO;
 import com.wel_record.model.WelRecordVO;
 
-public class FakeDataMaker {
+public class FakeDataMaker
+{
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 
 		// --------------------------假資料-隨機新增n筆交易紀錄----------------------------------
 		WelRecordJDBCDAO welRecordDAO = new WelRecordJDBCDAO();
@@ -13,52 +15,54 @@ public class FakeDataMaker {
 		String[] memArray = { "M000001", "M000002", "M000003", "M000004" };
 
 		int n = 20;
-		for (int i = 0; i < n; i++) {
-			System.out.println(i);
-			// 隨機抽選交易來源srcArray&memArray索引號
-			int r = (int) (Math.random() * 100 + 1); // 隨機抽取一數字(1-100間)
-			int memIndex = (int) (Math.random() * memArray.length);
-			int amount = ((int) (Math.random() * 100) + 1) * 100;
-			int amountShare = (int) (amount * 0.15);
-			int srcIndex = 0;
-
-			WelRecordVO welRecordVO2 = new WelRecordVO();
-			welRecordVO2.setMem_id(memArray[memIndex]);
-			welRecordVO2.setOrder_id(null);
-
-			if ((r > 0 && r <= 33)) // 1/3機率為儲值
+		for (int i = 0; i < n; i++)
 			{
+				System.out.println(i);
+				// 隨機抽選交易來源srcArray&memArray索引號
+				int r = (int) (Math.random() * 100 + 1); // 隨機抽取一數字(1-100間)
+				int memIndex = (int) (Math.random() * memArray.length);
+				int amount = ((int) (Math.random() * 100) + 1) * 100;
+				int amountShare = (int) (amount * 0.15);
+				int srcIndex = 0;
 
-				welRecordVO2.setTns_src(10);
-				welRecordVO2.setTns_amount(amount);
+				WelRecordVO welRecordVO2 = new WelRecordVO();
+				welRecordVO2.setMem_id(memArray[memIndex]);
+				welRecordVO2.setOrder_id(null);
 
-			} else if (r > 33 && r <= 43) // 約1/10為提款
-			{
-				welRecordVO2.setTns_src(20);
-				welRecordVO2.setTns_amount(-amount);
+				if ((r > 0 && r <= 33)) // 1/3機率為儲值
+					{
 
-			} else if (r > 43 && r <= 53) // 約1/10為平台退款
+						welRecordVO2.setTns_src(10);
+						welRecordVO2.setTns_amount(amount);
 
-			{
-				srcIndex = (int) (Math.random() * 3 + 35); // 35-38間抽取一數字
-				welRecordVO2.setTns_src(srcIndex);
-				welRecordVO2.setTns_amount((int) (amount * 0.3)); // 退款金額初估為儲值三成
+					} else if (r > 33 && r <= 43) // 約1/10為提款
+					{
+						welRecordVO2.setTns_src(20);
+						welRecordVO2.setTns_amount(-amount);
 
-			} else if (r > 63 && r <= 73) // 約1/10為 分潤+折扣金
+					} else if (r > 43 && r <= 53) // 約1/10為平台退款
 
-			{
-				srcIndex = (int) (Math.random() * 4 + 30); // 30-34間抽取一數字
-				welRecordVO2.setTns_src(srcIndex);
-				welRecordVO2.setTns_amount(amountShare);
+					{
+						srcIndex = (int) (Math.random() * 3 + 35); // 35-38間抽取一數字
+						welRecordVO2.setTns_src(srcIndex);
+						welRecordVO2.setTns_amount((int) (amount * 0.3)); // 退款金額初估為儲值三成
 
-			} else {
-				srcIndex = (int) (Math.random() * 3 + 40); // 40-43間抽取一數字
-				welRecordVO2.setTns_src(srcIndex);
-				welRecordVO2.setTns_amount((int) (-amount * 0.8)); // 1/3機率為平台扣款
+					} else if (r > 63 && r <= 73) // 約1/10為 分潤+折扣金
+
+					{
+						srcIndex = (int) (Math.random() * 4 + 30); // 30-34間抽取一數字
+						welRecordVO2.setTns_src(srcIndex);
+						welRecordVO2.setTns_amount(amountShare);
+
+					} else
+					{
+						srcIndex = (int) (Math.random() * 3 + 40); // 40-43間抽取一數字
+						welRecordVO2.setTns_src(srcIndex);
+						welRecordVO2.setTns_amount((int) (-amount * 0.8)); // 1/3機率為平台扣款
+					}
+
+				welRecordDAO.insert(welRecordVO2);
 			}
-
-			welRecordDAO.insert(welRecordVO2);
-		}
 
 //		10:會員儲值
 //		20:會員提款

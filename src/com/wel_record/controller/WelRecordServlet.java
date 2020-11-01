@@ -23,21 +23,18 @@ import tools.MoneyTool;
 
 //@WebServlet("/welRecord/welRecord.do") //mark by YCL
 
-public class WelRecordServlet extends HttpServlet
-{
+public class WelRecordServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final int WITHDRAW_LIMIT = 300000; // 單日提領上限三十萬
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
-	{
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("有跑到get");
 		doPost(req, res);
 	}
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
-	{
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("有跑到post");
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
@@ -46,40 +43,35 @@ public class WelRecordServlet extends HttpServlet
 
 		WelRecordService welRecordSvc = new WelRecordService();
 
-		// 取得當下登入的會員VO
-		MemVO memVO = new MemVO();
-		HttpSession session = req.getSession();
-		memVO = (MemVO) session.getAttribute("memVO");
+		if ("deposit".equals(action)) {
 
-		System.out.println("memVO.accno:" + memVO.getM_accno());
+			// 取得當下登入的會員VO
+			MemVO memVO = new MemVO();
+			HttpSession session = req.getSession();
+			memVO = (MemVO) session.getAttribute("memVO");
 
-		if ("deposit".equals(action))
-			{
+			System.out.println("memVO.accno:" + memVO.getM_accno());
 
-				List<String> errorMsgsForMoney = new LinkedList<String>();
+			List<String> errorMsgsForMoney = new LinkedList<String>();
 
-				req.setAttribute("errorMsgsForMoney", errorMsgsForMoney);
+			req.setAttribute("errorMsgsForMoney", errorMsgsForMoney);
 
-				try
-					{
+			try {
 
-						// ********************1.接手請求參數並依輸入格式做錯誤處理******************
+				// ********************1.接手請求參數並依輸入格式做錯誤處理******************
 
-						Integer amount = new Integer(req.getParameter("depositAmount").trim());
+				Integer amount = new Integer(req.getParameter("depositAmount").trim());
 
-						if (amount <= 0)
-							{
-								errorMsgsForMoney.add("金額不得小於等於零");
+				if (amount <= 0) {
+					errorMsgsForMoney.add("金額不得小於等於零");
 
-							}
-						if (!errorMsgsForMoney.isEmpty())
-							{
-								System.out.println("金額小於零, 導回原頁面");
-								RequestDispatcher failureView = req
-										.getRequestDispatcher("/frontend/members/memArea.jsp");
-								failureView.forward(req, res);
-								return;
-							}
+				}
+				if (!errorMsgsForMoney.isEmpty()) {
+					System.out.println("金額小於零, 導回原頁面");
+					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
+					failureView.forward(req, res);
+					return;
+				}
 
 //				//********************2.開始新增資料(舊的code待確認)******************
 //
@@ -115,315 +107,291 @@ public class WelRecordServlet extends HttpServlet
 
 //				********************2.開始結帳******************
 
-						Boolean ifCheckOutSucess = MoneyTool.checkOut(session, 10, null, amount);// 儲值傳入正數
+				Boolean ifCheckOutSucess = MoneyTool.checkOut(session, 10, null, amount);// 儲值傳入正數
 
-						if (ifCheckOutSucess)
-							{
-								System.out.println("結帳成功");
-								String url = "/frontend/members/memArea.jsp";// 結帳成功後轉交回原會員頁面
-								RequestDispatcher successView = req.getRequestDispatcher(url);
-								successView.forward(req, res);
+				if (ifCheckOutSucess) {
+//					String request2Ecpay = EcpayTool.genAioCheckOutALL(amount, action, req);
+//
+//					URL url = new URL(request2Ecpay);
+//					HttpURLConnection http = (HttpURLConnection) url.openConnection();
+//					http.setRequestMethod("POST");
+//					InputStream input = http.getInputStream();
+//					http.disconnect();
+//					byte[] data = new byte[1024];
+//					int idx = input.read(data);
+//					String str = new String(data, 0, idx);
+//					out.println(str);
+//					input.close();
 
-							} else
-							{
-								System.out.println("結帳失敗");
-								errorMsgsForMoney.add("儲值失敗,請檢查格式是否正確"); // 結帳失敗後的處理
-							}
+					System.out.println("結帳成功");
+					String returnUrl = "/frontend/members/memArea.jsp";// 結帳成功後轉交回原會員頁面
+					RequestDispatcher successView = req.getRequestDispatcher(returnUrl);
+					successView.forward(req, res);
 
-					} catch (Exception e)
-					{
-						errorMsgsForMoney.add("無法取得資料:" + e.getMessage());
-						RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
-						failureView.forward(req, res);
-					}
+				} else {
+					System.out.println("結帳失敗");
+					errorMsgsForMoney.add("儲值失敗,請檢查格式是否正確"); // 結帳失敗後的處理
+				}
 
+			} catch (Exception e) {
+				errorMsgsForMoney.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
+				failureView.forward(req, res);
 			}
 
-		if ("withdraw".equals(action))
-			{
+		}
 
-				List<String> errorMsgsForMoney = new LinkedList<String>();
+		if ("withdraw".equals(action)) {
 
-				req.setAttribute("errorMsgsForMoney", errorMsgsForMoney);
+			// 取得當下登入的會員VO
+			MemVO memVO = new MemVO();
+			HttpSession session = req.getSession();
+			memVO = (MemVO) session.getAttribute("memVO");
 
-				try
-					{
+			System.out.println("memVO.accno:" + memVO.getM_accno());
 
-						// ********************1.接手請求參數並依輸入格式做錯誤處理******************
+			List<String> errorMsgsForMoney = new LinkedList<String>();
 
-						Integer amount = new Integer(req.getParameter("withdrawAmount").trim());
+			req.setAttribute("errorMsgsForMoney", errorMsgsForMoney);
 
-						if (amount > WITHDRAW_LIMIT)
-							{
-								errorMsgsForMoney.add("單日提領上限為新台幣30萬元");
-							}
+			try {
 
-						if (amount <= 0)
-							{
-								errorMsgsForMoney.add("金額不得小於等於零");
+				// ********************1.接手請求參數並依輸入格式做錯誤處理******************
 
-							}
+				Integer amount = new Integer(req.getParameter("withdrawAmount").trim());
 
-						if (!errorMsgsForMoney.isEmpty())
-							{
+				if (amount > WITHDRAW_LIMIT) {
+					errorMsgsForMoney.add("單日提領上限為新台幣30萬元");
+				}
 
-								RequestDispatcher failureView = req
-										.getRequestDispatcher("/frontend/members/memArea.jsp");
+				if (amount <= 0) {
+					errorMsgsForMoney.add("金額不得小於等於零");
 
-								failureView.forward(req, res);
-								return;
-							}
+				}
+
+				if (!errorMsgsForMoney.isEmpty()) {
+
+					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
+
+					failureView.forward(req, res);
+					return;
+				}
 
 //				********************2.開始結帳******************
 
-						Boolean ifCheckOutSucess = MoneyTool.checkOut(session, 20, null, -amount);// 扣款請傳入負數
+				Boolean ifCheckOutSucess = MoneyTool.checkOut(session, 20, null, -amount);// 扣款請傳入負數
 
-						if (ifCheckOutSucess)
-							{
+				if (ifCheckOutSucess) {
 
-								String url = "/frontend/members/memArea.jsp";// 結帳成功後轉交回原會員頁面
-								RequestDispatcher successView = req.getRequestDispatcher(url);
-								successView.forward(req, res);
+					String returnUrl = "/frontend/members/memArea.jsp";// 結帳成功後轉交回原會員頁面
+					RequestDispatcher successView = req.getRequestDispatcher(returnUrl);
+					successView.forward(req, res);
 
-							} else
-							{
-								errorMsgsForMoney.add("提領失敗,請檢查餘額是否充足或格式正確"); // 結帳失敗後的處理
-							}
+				} else {
+					errorMsgsForMoney.add("提領失敗,請檢查餘額是否充足或格式正確"); // 結帳失敗後的處理
+				}
 
-						if (!errorMsgsForMoney.isEmpty())
-							{
+				if (!errorMsgsForMoney.isEmpty()) {
 
-								RequestDispatcher failureView = req
-										.getRequestDispatcher("/frontend/members/memArea.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
 
-								failureView.forward(req, res);
-								return;
-							}
+					failureView.forward(req, res);
+					return;
+				}
 
-					} catch (Exception e)
-					{
-						errorMsgsForMoney.add("無法取得資料:" + e.getMessage());
-						RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
-						failureView.forward(req, res);
-					}
-
+			} catch (Exception e) {
+				errorMsgsForMoney.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
+				failureView.forward(req, res);
 			}
 
-		if ("getOne_For_Display".equals(action))
-			{
+		}
 
-				List<String> errorMsgs = new LinkedList<String>(); // 創建一個list並將錯誤訊息存入此list中, 再將此list存放於req cope中
-				req.setAttribute("errorMsgs", errorMsgs);
+		if ("getOne_For_Display".equals(action)) {
 
-				try
-					{
+			List<String> errorMsgs = new LinkedList<String>(); // 創建一個list並將錯誤訊息存入此list中, 再將此list存放於req cope中
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
 //				********************1.接手請求參數並依輸入格式做錯誤處理******************
-						String str = req.getParameter("tns_id");
-						if (str == null || (str.trim().length() == 0)) // 未輸入或輸入空白
-							{
-								errorMsgs.add("請輸入交易流水號");
-							}
-						if (!errorMsgs.isEmpty())
-							{
-								RequestDispatcher failureView = req
-										.getRequestDispatcher("/backend/welRecord/select_page_g1.jsp");
+				String str = req.getParameter("tns_id");
+				if (str == null || (str.trim().length() == 0)) // 未輸入或輸入空白
+				{
+					errorMsgs.add("請輸入交易流水號");
+				}
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/welRecord/select_page_g1.jsp");
 
-								failureView.forward(req, res);
-								return;
-							}
+					failureView.forward(req, res);
+					return;
+				}
 
-						Integer tns_id = null;
-						try
-							{
-								tns_id = new Integer(str);
-							} catch (Exception e)
-							{
-								errorMsgs.add("流水編號格式不正確");
-							}
+				Integer tns_id = null;
+				try {
+					tns_id = new Integer(str);
+				} catch (Exception e) {
+					errorMsgs.add("流水編號格式不正確");
+				}
 //				********************2.開始查詢資料******************
 
-						WelRecordVO welRecordVO = welRecordSvc.getOneWelRecord(tns_id);
+				WelRecordVO welRecordVO = welRecordSvc.getOneWelRecord(tns_id);
 
-						if (welRecordVO == null)
-							{
-								errorMsgs.add("查無資料");
-							}
-						if (!errorMsgs.isEmpty())
-							{
-								RequestDispatcher failureView = req
-										.getRequestDispatcher("/backend/welRecord/select_page_g1.jsp");
+				if (welRecordVO == null) {
+					errorMsgs.add("查無資料");
+				}
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/welRecord/select_page_g1.jsp");
 
-								failureView.forward(req, res);
-								return;
-							}
+					failureView.forward(req, res);
+					return;
+				}
 
 //				********************3.查詢完畢,準備轉交******************
-						req.setAttribute("welRecordVO", welRecordVO);
-						String url = "/backend/welRecord/listOneWelRecord.jsp";
-						RequestDispatcher successView = req.getRequestDispatcher(url);
-						successView.forward(req, res);
+				req.setAttribute("welRecordVO", welRecordVO);
+				String url = "/backend/welRecord/listOneWelRecord.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
 
 //				********************其他可能錯誤處理******************
-					} catch (Exception e)
-					{
-						errorMsgs.add("無法取得資料:" + e.getMessage());
-						RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
-						failureView.forward(req, res);
-					}
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
+				failureView.forward(req, res);
 			}
+		}
 
 //			---------------------------------查詢錢包紀錄by會員編號----------------------------------
 
-		if ("getAllbyMem_For_Display".equals(action))
-			{
-				List<String> errorMsgs = new LinkedList<String>();
-				req.setAttribute("errorMsgs", errorMsgs);
+		if ("getAllbyMem_For_Display".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
 
-				try
-					{
+			try {
 //				********************1.接收參數  下拉式選單沒有錯誤處理******************
 
-						String mem_id = req.getParameter("mem_id");
+				String mem_id = req.getParameter("mem_id");
 
 //				********************2.開始查詢資料******************
 
-						List<WelRecordVO> list = welRecordSvc.getWelRecordByMemID(mem_id);
+				List<WelRecordVO> list = welRecordSvc.getWelRecordByMemID(mem_id);
 
-						if (list == null)
-							{
-								errorMsgs.add("查無資料");
-							}
-						if (!errorMsgs.isEmpty())
-							{
-								RequestDispatcher failureView = req
-										.getRequestDispatcher("/backend/welRecord/select_page_g1.jsp");
+				if (list == null) {
+					errorMsgs.add("查無資料");
+				}
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/backend/welRecord/select_page_g1.jsp");
 
-								failureView.forward(req, res);
-								return;
-							}
+					failureView.forward(req, res);
+					return;
+				}
 
 //				********************3.查詢完畢,準備轉交******************
-						req.setAttribute("set", list);
-						String url = "/backend/welRecord/listAllWelRecordByMem.jsp";
-						RequestDispatcher successView = req.getRequestDispatcher(url);
-						successView.forward(req, res);
+				req.setAttribute("set", list);
+				String url = "/backend/welRecord/listAllWelRecordByMem.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
 
 //				********************其他可能錯誤處理******************
-					} catch (Exception e)
-					{
-						errorMsgs.add("無法取得資料:" + e.getMessage());
-						RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
-						failureView.forward(req, res);
-					}
-
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
+				failureView.forward(req, res);
 			}
+
+		}
 
 		// 查詢全部錢包紀錄
 
-		if ("getAllRecords".equals(action))
-			{
+		if ("getAllRecords".equals(action)) {
 
-				List<WelRecordVO> list = welRecordSvc.getAll();
+			List<WelRecordVO> list = welRecordSvc.getAll();
+
+			JSONArray array = new JSONArray(list);
+			out.print(array);
+
+		}
+
+		// 查詢單一會員錢包紀錄by會員編號、會員帳號或單一交易流水號
+
+		if ("getOneById_Accno".equals(action)) {
+
+			try {
+
+				// 處理請求參數, 取得交易來源碼
+				String input = req.getParameter("input").trim();
+
+				if (input.substring(0, 1).equals("M")) {
+
+					System.out.println("input:" + input);
+					List<WelRecordVO> list = welRecordSvc.getWelRecordByMemID(input);
+
+					JSONArray array = new JSONArray(list);
+					out.print(array);
+
+				} else if (input.substring(0, 1).equals("4")) {
+
+					int tnsid = Integer.parseInt(input);
+
+					System.out.println("tnsid:" + tnsid);
+
+					WelRecordVO welRecordVO = welRecordSvc.getOneWelRecord(tnsid);
+
+					JSONObject obj = new JSONObject(welRecordVO);
+
+					out.print(obj);
+
+				} else {
+					System.out.println(false);
+					out.print(false);
+				}
+
+			} catch (Exception e) {
+				e.getMessage();
+				out.print(false);
+			}
+		}
+
+		// 篩選交易來源
+		if ("filterRecords".equals(action)) {
+
+			try {
+
+				// 處理請求參數, 取得交易來源碼
+				String input = req.getParameter("filter").trim();
+
+				int src = Integer.parseInt(input);
+
+				// 開始查詢資料
+
+				List<WelRecordVO> list = null;
+
+				if (src == 10 || src == 20) { // 會員儲值 or 會員提款
+
+					list = welRecordSvc.getWelRecordBySrc(src);
+
+				} else if (src == 77) { // 平台扣款-訂單
+
+					list = welRecordSvc.getWelRecordAmongSrc(40, 43);
+
+				} else if (src == 88) { // 平台撥款-分潤/折扣金
+
+					list = welRecordSvc.getWelRecordAmongSrc(30, 34);
+
+				} else { // 平台退款-訂單
+
+					list = welRecordSvc.getWelRecordAmongSrc(35, 38);
+
+				}
 
 				JSONArray array = new JSONArray(list);
 				out.print(array);
 
-			}
-
-		// 查詢單一會員錢包紀錄by會員編號、會員帳號或單一交易流水號
-
-		if ("getOneById_Accno".equals(action))
-			{
-
-				try
-					{
-
-						// 處理請求參數, 取得交易來源碼
-						String input = req.getParameter("input").trim();
-
-						if (input.substring(0, 1).equals("M"))
-							{
-
-								System.out.println("input:" + input);
-								List<WelRecordVO> list = welRecordSvc.getWelRecordByMemID(input);
-
-								JSONArray array = new JSONArray(list);
-								out.print(array);
-
-							} else if (input.substring(0, 1).equals("4"))
-							{
-
-								int tnsid = Integer.parseInt(input);
-
-								System.out.println("tnsid:" + tnsid);
-
-								WelRecordVO welRecordVO = welRecordSvc.getOneWelRecord(tnsid);
-
-								JSONObject obj = new JSONObject(welRecordVO);
-
-								out.print(obj);
-
-							} else
-							{
-								System.out.println(false);
-								out.print(false);
-							}
-
-					} catch (Exception e)
-					{
-						e.getMessage();
-						out.print(false);
-					}
-			}
-
-		// 篩選交易來源
-		if ("filterRecords".equals(action))
-			{
-
-				try
-					{
-
-						// 處理請求參數, 取得交易來源碼
-						String input = req.getParameter("filter").trim();
-
-						int src = Integer.parseInt(input);
-
-						// 開始查詢資料
-
-						List<WelRecordVO> list = null;
-
-						if (src == 10 || src == 20)
-							{ // 會員儲值 or 會員提款
-
-								list = welRecordSvc.getWelRecordBySrc(src);
-
-							} else if (src == 77)
-							{ // 平台扣款-訂單
-
-								list = welRecordSvc.getWelRecordAmongSrc(40, 43);
-
-							} else if (src == 88)
-							{ // 平台撥款-分潤/折扣金
-
-								list = welRecordSvc.getWelRecordAmongSrc(30, 34);
-
-							} else
-							{ // 平台退款-訂單
-
-								list = welRecordSvc.getWelRecordAmongSrc(35, 38);
-
-							}
-
-						JSONArray array = new JSONArray(list);
-						out.print(array);
-
-					} catch (Exception e)
-					{
-						e.getMessage();
-
-					}
+			} catch (Exception e) {
+				e.getMessage();
 
 			}
+
+		}
 
 	}
 

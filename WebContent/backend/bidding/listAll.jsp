@@ -357,7 +357,7 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">限時競標管理</h1>
                     <p class="mb-4">競標管理訂單明細<a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
-                    <a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
+                    <a href="<%=request.getContextPath()%>/backend/bidding//select_page.jsp">回首頁</a>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">

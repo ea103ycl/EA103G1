@@ -83,4 +83,11 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 		return latest;
 	}
 
+	@Override
+	public void attributeRemoved(ServletContextAttributeEvent sctae) {
+		
+		String event_no = (String) sctae.getValue();
+		System.out.println("(EventEndCheckListener) Ctx remove event_no:" + event_no);
+	}
+
 }

@@ -94,6 +94,9 @@ img {
 #modalWrapper {
 	display: none;
 }
+.topBidderImg {
+	width:10%;
+}
 </style>
 </head>
 
@@ -156,7 +159,7 @@ img {
 				<div class="col-sm-8 col-md-9">
 					<div class="blog block post-content-area">
 						<div class="post-info-box">
-							<img
+							<img onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (2).jpg'"
 								src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}"
 								style="max-height: auto; width: 100%" alt="">
 							<div class="space-50">&nbsp;</div>
@@ -478,16 +481,22 @@ img {
 							<!-- / blog-block -->
 
 							<h2 class="my-4">Bidders</h2>
-							<div class="post-category" id="top1">
-								<a href="#"><h4>Top1</h4> <img id="top1pic"
-									src="<%=request.getContextPath()%>/frontend/biddingFront/img/trophy.svg"
-									alt="Image" class="mr-2 memAvatar" style="margin-right: 1.5%;">
-									<span></span> <span class="pull-right price" id="price1">$0</span>
-								</a>
-							</div>
+								<div class="post-category" id="top1">
+									<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=" class="top1a"><h4>Top1</h4> 
+									<img id="top1pic"
+										src="<%=request.getContextPath()%>/frontend/biddingFront/img/trophy.svg"
+										alt="Image" class="mr-2 memAvatar" style="margin-right: 1.5%;">
+										
+<!-- 										dothis later while avaliable -->
+<!-- 										<img id="top1a" class="topBidderImg" -->
+<%-- 										src="<%=request.getContextPath()%>/ReadMemPic?action=getPic&memId=" /> --%>
+
+										<span></span> <span class="pull-right price" id="price1">$0</span>
+									</a>
+								</div>
 							<!-- / post-category -->
 							<div class="post-category" id="top2">
-								<a href="#"><h4>Top2</h4> <img id="top2pic"
+								<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=" class="top2a"><h4>Top2</h4> <img id="top2pic"
 									src="<%=request.getContextPath()%>/frontend/biddingFront/img/second.svg"
 									alt="Image" class="mr-2 memAvatar" style="margin-right: 1.5%;">
 									<span class="mr-2"></span> <span class="pull-right price"
@@ -495,7 +504,7 @@ img {
 							</div>
 							<!-- / post-category -->
 							<div class="post-category" id="top3">
-								<a href="#">
+								<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=" class="top3a">
 									<h4>Top3</h4> <img id="top3pic"
 									src="<%=request.getContextPath()%>/frontend/biddingFront/img/third.svg"
 									alt="Image" class="mr-12 memAvatar" style="margin-right: 1.5%;">
@@ -565,7 +574,7 @@ img {
 								</div>
 								<p class="mb-0" style="text-align: center; margin-top: 10%;">
 									<a
-										 href="<%=request.getContextPath()%>/frontend/members/memLogin.jsp">Sign
+										href="<%=request.getContextPath()%>/frontend/members/memLogin.jsp">Sign
 										In</a> / <a
 										href="<%=request.getContextPath()%>/frontend/members/memRegister.jsp">Register</a>
 								</p>
@@ -577,10 +586,11 @@ img {
 					<div class="space-50">&nbsp;</div>
 
 					<c:set var="author" value="${memSvc.findByPrimaryKey(epVO.mem_id)}" />
-					<a href="<%=request.getContextPath()%>/frontend/painter/listAllPainterFollow.jsp?sid=${author.mem_id}">
-						<div class="blog block about-sidebar-widget authorBlock">
+					<a
+						href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${author.mem_id}">
+						<div class="blog block about-sidebar-widget authorBlock" style="margin-top:2%">
 							<p class="blog-post-footer"></p>
-							<img style="margin: auto;"
+							<img style="margin: auto;" onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/biddingFront/img/user.svg'"
 								src="<%=request.getContextPath()%>/ReadMemPic?action=getPic&memId=${author.mem_id}"
 								alt="Image"
 								class="img-fluid w-50 rounded-circle mb-4 authAvatar">

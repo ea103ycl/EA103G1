@@ -37,22 +37,37 @@ public class AuthorityFilter implements Filter {
 
 		String location = req.getRequestURI();
 		
-		String a = req.getContextPath() + "/backend/emp/test_power.jsp";				
-		String b = req.getContextPath() + "/backend/emp/test_power.jsp";
-		String c = req.getContextPath() + "/backend/emp/test_power.jsp";
-		String d1 = req.getContextPath() + "/backend/material/addMat.jsp";
-		String d2 = req.getContextPath() + "/backend/material/listOneMat.jsp";
-		String d3 = req.getContextPath() + "/backend/material/listAllMat.jsp";
-		String e = req.getContextPath() + "/backend/emp/test_power.jsp";
-		String f = req.getContextPath() + "/backend/emp/test_power.jsp";	
-		String g = req.getContextPath() + "/backend/emp/test_power.jsp";
-		String h = req.getContextPath() + "/backend/emp/test_power.jsp";
-		String i = req.getContextPath() + "/backend/emp/test_power.jsp";
-		String j = req.getContextPath() + "/backend/emp/test_power.jsp";
-		String k = req.getContextPath() + "/backend/emp/test_power.jsp";
-		String l1 = req.getContextPath() + "/backend/emp/addEmp.jsp";
-		String l2 = req.getContextPath() + "/backend/emp/listOneEmp.jsp";
-		String l3 = req.getContextPath() + "/backend/emp/listAllEmp.jsp";
+		String a = req.getContextPath() + "/backend/members/mem_selectPage.jsp";
+		String b = req.getContextPath() + "/backend/welRecord/welRecord_selectPage.jsp";		
+		String c1 = req.getContextPath() + "/backend/lv/listAllLv.jsp";	
+		String c2 = req.getContextPath() + "/backend/lv/addLv.jsp";	
+		String d1 = req.getContextPath() + "/backend/event/TestInsert.jsp";	
+		String d2 = req.getContextPath() + "/backend/event/TestListAll.jsp";	
+		String d3 = req.getContextPath() + "/backend/event_p/listAllPic.jsp";
+		String d4 = req.getContextPath() + "/backend/event_p/listAllPicByEventNo.jsp";
+		String d5 = req.getContextPath() + "/backend/event_p_rep/listAllRep.jsp";		
+		String e1 = req.getContextPath() + "/backend/bidding/listAll.jsp";	
+		String e2 = req.getContextPath() + "/backend/bidding/select_page.jsp";		
+		String f1 = req.getContextPath() + "/backend/preproduct/addDiscount.jsp";	
+		String f2 = req.getContextPath() + "/backend/preproduct/addPreProduct_ByMano.jsp";	
+		String f3 = req.getContextPath() + "/backend/preproduct/addPreProduct.jsp";	
+		String f4 = req.getContextPath() + "/backend/preproduct/PonoByReachDiscount.jsp";	
+		String f5 = req.getContextPath() + "/backend/preproduct/preOrderDetail.jsp";
+		String g1 = req.getContextPath() + "/backend/prod/listAllProd.jsp";
+		String g2 = req.getContextPath() + "/backend/prod/addProd.jsp";			
+		String h1 = req.getContextPath() + "/backend/material/addMat.jsp";
+		String h2 = req.getContextPath() + "/backend/material/listAllMat.jsp";
+		String h3 = req.getContextPath() + "/backend/material/listAllMatype.jsp";
+		String h4 = req.getContextPath() + "/backend/material/listMat_ByCompositeQuery.jsp";
+		String h5 = req.getContextPath() + "/backend/material/selectMat.jsp";
+		String i;
+		String j1 = req.getContextPath() + "/backend/preproduct/preOrder.jsp";	
+		String j2 = req.getContextPath() + "/backend/prod/listAllOrder.jsp";
+		String j3;
+		String j4;	
+		String k1 = req.getContextPath() + "/backend/emp/addEmp.jsp";
+		String k2 = req.getContextPath() + "/backend/emp/listAllEmp.jsp";		
+	
 
 		String funcList = (String)session.getAttribute("funcList");
 		
@@ -72,27 +87,28 @@ public class AuthorityFilter implements Filter {
 			chain.doFilter(request, response);
 		} else if (funcList.contains("B") && location.equals(b)) {
 			chain.doFilter(request, response);
-		} else if (funcList.contains("C") && location.equals(c)) {
+		} else if (funcList.contains("C") && (location.equals(c1)||
+				location.equals(c2))) {
 			chain.doFilter(request, response);
 		} else if(funcList.contains("D") && (location.equals(d1)||
-				location.equals(d2)||location.equals(d3))){
+				location.equals(d2)||location.equals(d3)||location.equals(d4)||location.equals(d5))){
 			chain.doFilter(request, response);			
-		} else if (funcList.contains("E") && location.equals(e)) {
+		} else if (funcList.contains("E") && (location.equals(e1)||
+				location.equals(e2))) {
 			chain.doFilter(request, response);
-		} else if (funcList.contains("F") && location.equals(f)) {
+		} else if (funcList.contains("F") && (location.equals(f1)||location.equals(f2)||location.equals(f3)||
+				location.equals(f4)||location.equals(f5))) {
 			chain.doFilter(request, response);
-		} else if (funcList.contains("G") && location.equals(g)) {
+		} else if (funcList.contains("G") && (location.equals(g1)||
+				location.equals(g2))) {
 			chain.doFilter(request, response);
-		} else if (funcList.contains("H") && location.equals(h)) {
+		} else if (funcList.contains("H") && (location.equals(h1)||location.equals(h2)||location.equals(h3)||
+				location.equals(h4)||location.equals(h5))) {
 			chain.doFilter(request, response);
-		} else if (funcList.contains("I") && location.equals(i)) {
+		} else if (funcList.contains("J") && (location.equals(j1) || location.equals(j2))) {
 			chain.doFilter(request, response);
-		} else if (funcList.contains("J") && location.equals(j)) {
-			chain.doFilter(request, response);
-		} else if (funcList.contains("K") && location.equals(k)) {
-			chain.doFilter(request, response);
-		} else if(funcList.contains("L") && (location.equals(l1)||
-			location.equals(l2)||location.equals(l3))){
+		} else if(funcList.contains("K") && (location.equals(k1)||
+			location.equals(k2))){
 			chain.doFilter(request, response);
 		} else {
 			res.sendRedirect(req.getContextPath() + "/backend/emp/index.jsp");

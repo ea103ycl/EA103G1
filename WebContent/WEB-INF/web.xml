@@ -138,6 +138,16 @@
 		<servlet-name>ProdPic</servlet-name>
 		<url-pattern>/frontend/shop/prod.pic</url-pattern>
 	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>EvalPic</servlet-name>
+		<servlet-class>com.eval.model.Eval_mem_pic</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EvalPic</servlet-name>
+		<url-pattern>/frontend/shop/eval.pic</url-pattern>
+	</servlet-mapping>
 
 
 
@@ -355,6 +365,25 @@
 		<url-pattern>/follow/follow.do</url-pattern>
 	</servlet-mapping>
 
+	<!--== ROGER=========================================== -->
+<servlet>
+		<servlet-name>MeetingServlet</servlet-name>
+		<servlet-class>com.meeting.controller.MeetingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MeetingServlet</servlet-name>
+		<url-pattern>/frontend/meeting/meeting.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Reg_infServlet</servlet-name>
+		<servlet-class>com.reg_inf_controller.Reg_infServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Reg_infServlet</servlet-name>
+		<url-pattern>/frontend/reg_inf/reg_inf.do</url-pattern>
+	</servlet-mapping>
+
 
 	<!-- ==backend filter by Jeff=========================================== -->
 	<filter>
@@ -379,12 +408,32 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>AuthorityFilter</filter-name>
-		<url-pattern>/backend/emp/test_power.jsp</url-pattern>
-		<url-pattern>/backend/material/addMat.jsp</url-pattern>
-		<url-pattern>/backend/material/listOneMat.jsp</url-pattern>
-		<url-pattern>/backend/material/listAllMat.jsp</url-pattern>
+		<url-pattern>/backend/members/mem_selectPage.jsp</url-pattern>
+		<url-pattern>/backend/welRecord/welRecord_selectPage.jsp</url-pattern>		
+		<url-pattern>/backend/lv/listAllLv.jsp</url-pattern>
+		<url-pattern>/backend/lv/addLv.jsp</url-pattern>
+		<url-pattern>/backend/event/TestInsert.jsp</url-pattern>
+		<url-pattern>/backend/event/TestListAll.jsp</url-pattern>
+		<url-pattern>/backend/event_p/listAllPic.jsp</url-pattern>
+		<url-pattern>/backend/event_p/listAllPicByEventNo.jsp</url-pattern>		
+		<url-pattern>/backend/event_p_rep/listAllRep.jsp</url-pattern>
+		<url-pattern>/backend/bidding/listAll.jsp</url-pattern>
+		<url-pattern>/backend/bidding/select_page.jsp</url-pattern>
+		<url-pattern>/backend/preproduct/addDiscount.jsp</url-pattern>
+		<url-pattern>/backend/preproduct/addPreProduct_ByMano.jsp</url-pattern>
+		<url-pattern>/backend/preproduct/addPreProduct.jsp</url-pattern>
+		<url-pattern>/backend/preproduct/PonoByReachDiscount.jsp</url-pattern>
+		<url-pattern>/backend/preproduct/preOrderDetail.jsp</url-pattern>
+		<url-pattern>/backend/prod/listAllProd.jsp</url-pattern>
+		<url-pattern>/backend/prod/addProd.jsp</url-pattern>
+		<url-pattern>/backend/material/addMat.jsp</url-pattern>	
+		<url-pattern>/backend/material/listAllMat.jsp</url-pattern>	
+		<url-pattern>/backend/material/listAllMatype.jsp</url-pattern>	
+		<url-pattern>/backend/material/listMat_ByCompositeQuery.jsp</url-pattern>
+		<url-pattern>/backend/material/selectMat.jsp</url-pattern>					
+		<url-pattern>/backend/preproduct/preOrder.jsp</url-pattern>
+		<url-pattern>/backend/prod/listAllOrder.jsp</url-pattern>
 		<url-pattern>/backend/emp/addEmp.jsp</url-pattern>
-		<url-pattern>/backend/emp/listOneEmp.jsp</url-pattern>
 		<url-pattern>/backend/emp/listAllEmp.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>

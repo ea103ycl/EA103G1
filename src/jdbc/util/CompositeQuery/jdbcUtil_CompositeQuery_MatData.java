@@ -30,7 +30,20 @@ public class jdbcUtil_CompositeQuery_MatData {
 	}
 
 	public static String get_WhereCondition(Map<String, String[]> map) {
+		
 		Set<String> keys = map.keySet();
+		for(String key : keys) {
+			if(key.equals("ma_price_down") && (map.get(key)[0]).length() == 0) {
+				map.put("ma_price_down", new String[] { "0" });	
+			}
+		}
+		
+		for(String key : keys) {
+			if(key.equals("ma_price_up") && (map.get(key)[0]).length() == 0) {
+				map.put("ma_price_up", new String[] { "9999" });	
+			}
+		}
+
 		StringBuffer whereCondition = new StringBuffer();
 		String sb1 = null;
 		String sb2 = null;

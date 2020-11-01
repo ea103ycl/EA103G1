@@ -82,6 +82,7 @@ public class MemJNDIDAO implements MemDAO_interface
 
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(INSERT_STMT);
 
 				pstmt.setInt(1, memVO.getLv());
@@ -162,6 +163,7 @@ public class MemJNDIDAO implements MemDAO_interface
 
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(UPDATE_PHOTO);
 
 				pstmt.setBytes(1, photo);
@@ -226,7 +228,7 @@ public class MemJNDIDAO implements MemDAO_interface
 			{
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
-
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(UPDATE_BALANCE_BY_ID);
 
 				pstmt.setInt(1, newBalance);
@@ -303,7 +305,7 @@ public class MemJNDIDAO implements MemDAO_interface
 			{
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
-
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(UPDATE_PSW_BY_ID);
 
 				pstmt.setString(1, m_psw);
@@ -363,6 +365,7 @@ public class MemJNDIDAO implements MemDAO_interface
 			{
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(UPDATE_BY_USER);
 
 				pstmt.setString(1, memVO.getM_name());
@@ -432,8 +435,9 @@ public class MemJNDIDAO implements MemDAO_interface
 			{
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
+
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(UPDATE_BY_STAFF);
-				// UPDATE MEMBERS SET m_active=?, m_public=? ,m_bancount= ?
 
 				pstmt.setInt(1, memVO.getM_active());
 				pstmt.setInt(2, memVO.getM_public());
@@ -494,6 +498,7 @@ public class MemJNDIDAO implements MemDAO_interface
 
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ONE_BY_ACCNO);
 
 				pstmt.setString(1, input);
@@ -583,6 +588,7 @@ public class MemJNDIDAO implements MemDAO_interface
 
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ONE_STMT);
 
 				pstmt.setString(1, mem_id);
@@ -672,6 +678,7 @@ public class MemJNDIDAO implements MemDAO_interface
 
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ALL_BY_ID_NAME_ACC);
 				pstmt.setString(1, "%" + str + "%");
 				pstmt.setString(2, "%" + str + "%");
@@ -781,6 +788,7 @@ public class MemJNDIDAO implements MemDAO_interface
 
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ALL_STMT);
 				rs = pstmt.executeQuery();
 
@@ -881,6 +889,7 @@ public class MemJNDIDAO implements MemDAO_interface
 
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_USERID);
 				rs = pstmt.executeQuery();
 
@@ -955,6 +964,7 @@ public class MemJNDIDAO implements MemDAO_interface
 
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GETPASSWORD_BYACCNO);
 				rs = pstmt.executeQuery();
 
@@ -1028,6 +1038,7 @@ public class MemJNDIDAO implements MemDAO_interface
 
 //				Class.forName(driver);
 //				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_PHOTO);
 
 				pstmt.setString(1, mem_id);
