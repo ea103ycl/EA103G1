@@ -61,16 +61,7 @@ public class PainterServlet extends HttpServlet {
 			String sid = ((String)req.getParameter("sid")).trim();
 			
 			try{
-				
-//				HeadphotoTool.printHeadphotoByMemId(req, res, sid);
-				InputStream in = new FileInputStream(getServletContext().getRealPath("/frontend/template/YCL/img/fakeAcctPhoto.png"));
-				byte[] buf = new byte[4 * 1024]; // 4K buffer
-				int len;
-				while ((len = in.read(buf)) != -1) {
-					out.write(buf, 0, len);
-				}
-				in.close();
-				
+				HeadphotoTool.printHeadphotoByMemId(req, res, sid);
 			}catch(Exception e) {
 				
 				
