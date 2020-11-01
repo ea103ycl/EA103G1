@@ -12,7 +12,8 @@
 <link rel="stylesheet" type="text/css" href="chatStyle.css">
 
 </head>
-<body>
+
+<body onload="connect();" onunload="disconnect();">
 
 
 
@@ -70,6 +71,30 @@
 
 
 <script>
+var MyPoint = "/FriendWS/${sessionScope.memVO.mem_id}";
+var host = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf('/', 1));
+var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+
+var statusOutput = document.getElementById("statusOutput");
+var messagesArea = document.getElementById("messagesArea");
+var self = '${userName}';
+var webSocket;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (function () {
 	
     var Message;
