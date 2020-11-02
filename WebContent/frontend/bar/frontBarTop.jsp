@@ -51,6 +51,9 @@
 		<link href='<%=request.getContextPath()%>/frontend/template/fonts/FontAwesome.otf' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/frontend/template/css/linear-icons.css">
 		
+		<!-- Google Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+		
 		<!-- other css -->
 		<style>
 			.ycl-topBar-second{
@@ -60,6 +63,28 @@
 			.ycl-topBar-cartCntText{
 				margin-left:1em !important;
 				font-size:10px !important;
+			}
+			
+			.ycl-topbar-logoNm{
+				color: #ad8b60;
+				font-family: "Raleway", sans-serif !important;
+				--font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+   				--font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+				font-size: 26px;
+    			font-weight: 300;
+    			letter-spacing:0px;
+    			margin-left:5px;
+			}
+			
+			.ycl-topbar-icon{
+				margin:0 4px;
+			}
+			
+			.ycl-topbar-memPhoto{
+				width: 24px;
+				height:24px;
+				border-radius: 50%;
+				display:inline-block;
 			}
 		</style>
 		
@@ -79,7 +104,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
+                <a class="navbar-brand" href="<%=request.getContextPath()%>/frontend/front_index.jsp"><h2 class="ycl-topbar-logoNm">ArtsBlock</h2></a>
             </div><!-- / navbar-header -->
             	
             <div class="secondary-nav" style="display:inline-block;">
@@ -95,7 +120,16 @@
 
             	<!-- 會員 -->
             	<li class="dropdown ycl-topBar-second">
-                    <a href="#" class="my-account space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                    <a href="#" class="my-account space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<c:choose>
+							<c:when test="${not empty sessionScope.memVO}">
+								<img class="ycl-topbar-memPhoto" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${sessionScope.memVO.mem_id}">
+						    </c:when>      	
+	                    	<c:otherwise>
+	                    		<i class="fa fa-user"></i>
+	                    	</c:otherwise>
+                    	</c:choose>     
+                    </a>
                     <ul class="dropdown-menu animated zoomIn fast">
                     	<c:choose>
                     		<c:when test="${empty sessionScope.memVO}">
@@ -103,7 +137,7 @@
                     		</c:when>
                     		<c:otherwise>
                     			<li><a href="<%=request.getContextPath()%>/frontend/members/memArea.jsp"><span>設定</span></a></li>
-                        		<li><a href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout"><span>登出</span></a></li>
+                        		<li><a href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout"><span>登出</span><i class="lnr lnr-exit ycl-topbar-icon"></i></a></li>
                         	</c:otherwise>
                     	</c:choose>
 
