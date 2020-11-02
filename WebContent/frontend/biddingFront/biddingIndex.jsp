@@ -71,7 +71,7 @@
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
 	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
 	<c:set var="topBidder" value="${bdr.getHighestBidder(bdNo)}" />
-
+	<input type="hidden" value="<%=request.getContextPath()%>" name="contextPath" id="contextPath">
 	<form id="enterBidPage" style="display: hidden"
 		action="<%=request.getContextPath()%>/biddingPage/BdPageServlet">
 		<input type="text" id="bdNo" name="bdNo" required><br> <input

@@ -121,6 +121,7 @@ img {
 	<input id="memId" type="hidden" value="${memVO.mem_id}">
 	<input id="memWallet" type="hidden" value="${memVO.balance}">
 	<input id="biddingIndexUrl" type="hidden" value="<%=request.getContextPath()%>/frontend/biddingFront/biddingIndex.jsp">
+	<input id="contextPath" type="hidden" value="<%=request.getContextPath()%>">
 	<c:set var="epVO" value="${epSvc.findTopByEventNoWithoutReport(bdNo)}" />
 	<c:set var="memId" value="${memVO.mem_id}" />
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
