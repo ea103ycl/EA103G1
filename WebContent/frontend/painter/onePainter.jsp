@@ -67,18 +67,20 @@
 <head>
 	
 	<title>${painterVO.ptr_nm}</title>
+	
+	<!-- top bar -->
+	<%@include file="/frontend/bar/frontBarTop.jsp"%>
+	<%@include file="/frontend/template/YCL/YCL.css"%>
+		
+		
 	<link href="<%=request.getContextPath()%>/frontend/template/YCL/YCL.css" rel="stylesheet">
 </head>
 <body>
 
-	<div id="page-content" class="container">
+	<div id="page-content" class="container" >
 	
-       	<!-- top bar -->
-		<%@include file="/frontend/bar/frontBarTop.jsp"%>
-		<%@include file="/frontend/template/YCL/YCL.css"%>
-
 	    <!-- post full-width -->
-	    <section id="blog">
+	    <section id="blog" class="space-top-30">
 	        <div class="row">
 	            <!-- post content area -->
 	            <div class="col-xs-12 col-sm-6">
@@ -87,15 +89,25 @@
 	            </div>
 	            <div class="col-xs-12  col-sm-6">
 	                <div class="blog block post-content-area">
+	                
+                    <c:if test="${loginMemVO.mem_id == painterVO.mem_id}">
+							<div class="btn-group ycl-edit-btn pull-right" role="group">
+							    <button type="button" class="ycl-transparent-Btn ycl-square-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							      <i class="fa fa-ellipsis-h"></i>
+							    </button>
+							    <ul class="dropdown-menu">
+								    <li><a><button class="ycl-transparent-Btn mt-5" id="deletePtrBtn"><i class="lnr lnr-trash"></i>&nbsp;刪除</button></a></li>
+								    <li><a><button class="ycl-transparent-Btn" data-target="#updateModal" onclick="$('#updateModal').modal('show')"><i class="lnr lnr-pencil"></i>&nbsp;修改</button></a></li>
+							    </ul>
+							  </div>
+					</c:if>
+							
 	                    <div class="post-info-box">
-	                    
-	                    	<c:if test="${loginMemVO.mem_id == painterVO.mem_id}">
-	            				<button id="deletePtrBtn" class="pull-right">刪除</button>
-	                    		<button class="pull-right" data-target="#updateModal" onclick="$('#updateModal').modal('show')">修改</button>
-	            			</c:if>
-	            			
+	                    	
 	            			<!-- 作品名稱 -->
-	            			<h3>${painterVO.ptr_nm}</h3>
+	            			<div class="ycl-painter-nm">
+	            				<h4>${painterVO.ptr_nm}</h4>
+	            			</div>
 	            			
 	            			<!-- 作品說明區塊 -->           		
 	            			<p class="post-meta">
@@ -111,7 +123,7 @@
 	            				<fmt:formatDate value="${painterVO.create_dt}" pattern="yyyy/MM/dd HH:mm"/></p>
 						    	
 						    	<!-- 作品說明 -->
-						    	<div>
+						    	<div class="ycl-painter-desc">
 							    	<c:forTokens var="str" items="${painterVO.intro}" delims="&#13;&#10;">
 							    		<p>${str}</p>
 							    	</c:forTokens>
@@ -143,7 +155,7 @@
 		                            
 		                                <a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${painterMsgVO.mem_id}">
 											<%--<img class="media-object" alt="" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${painterMsgVO.mem_id}"> --%>
-		                                    <img class="media-object" alt="" src="<%=request.getContextPath()%>/painter/painter.do?action=showCreatorPhoto&sid=${painterMsgVO.mem_id}">
+		                                    <img class="media-object ycl-creator-pic" alt="" src="<%=request.getContextPath()%>/painter/painter.do?action=showCreatorPhoto&sid=${painterMsgVO.mem_id}">
 		                                </a>
 		                            </div>
 		                            
@@ -172,7 +184,7 @@
 		                                    
 		                                </div><!-- / comment-info -->
 		                                
-		                                <div class="comment">
+		                                <div class="comment ycl-msg-comment">
 		                                    <p>${painterMsgVO.msg}</p>
 		                                </div><!-- / comment -->
 		                            </div><!-- / parent media-body -->
@@ -198,7 +210,7 @@
 	                            <div class="row">                         
 	                                <div class="col-xs-12">
 	                                    <div class="form-group">
-	                                        <textarea id="msg" name="msg" class="form-control" rows="5" placeholder="MESSAGE" required></textarea>
+	                                        <textarea id="msg" name="msg" class="form-control" rows="5" placeholder="MESSAGE" required maxlength="333"></textarea>
 	                                    	<input style="display:none" name="ptr_no" value="${painterVO.ptr_no}"></input>
 	                                    </div>
 <!-- 	                                    <button type="submit" name="action" value="insert" id="form-submit" class="btn btn-md btn-primary-filled btn-form-submit"><strong>送出</strong></button> -->
@@ -260,7 +272,7 @@
 			        	<div class="form-group">
 	                        <label>作品名稱</label>
 	                        <input type="text" class="form-control" id="ptr_nm" name="ptr_nm" placeholder="請輸入作品名稱" required="required" data-error="*請輸入作品名稱" 
-	                        	   value="${painterVO.ptr_nm}">
+	                        	   value="${painterVO.ptr_nm}" maxlength="33">
 	                    </div>
 
 	                    
@@ -271,7 +283,7 @@
 						
 			        	<div class="form-group">
 	                        <label>HashTag</label>
-	                        <input class="form-control" id="tag_desc" name="tag_desc" placeholder="請輸入作品tag" value="${tagString}">  
+	                        <input class="form-control" id="tag_desc" name="tag_desc" placeholder="請輸入作品tag" value="${tagString}" maxlength="33">  
 	                    </div>
 	                    
 	                    <div class="form-group">
@@ -280,6 +292,9 @@
 	                        <img class="img-fluid w-25 h-25" id="imgUpload"
 	                        	 src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${painterVO.ptr_no}">	
                     	</div>
+                    	
+                    	<input style="display:none" name="src" value="${src}">
+                    	<input style="display:none" name="sid" value="${sid}">
                     	
 	                     <div class="modal-footer">
 				        	<button type="submit" class="btn btn-primary btn-rounded" data-dismiss="modal">取消</button>

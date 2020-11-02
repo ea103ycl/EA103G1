@@ -280,7 +280,7 @@
 	                    
 			        	<div class="form-group">
 	                        <label>作品名稱</label>
-	                        <input type="text" class="form-control" id="ptr_nm" name="ptr_nm" placeholder="請輸入作品名稱" required="required" data-error="*請輸入作品名稱">
+	                        <input type="text" class="form-control" id="ptr_nm" name="ptr_nm" placeholder="請輸入作品名稱" required="required" data-error="*請輸入作品名稱"  maxlength="33">
 	                    </div>
 
 	                    
@@ -291,7 +291,7 @@
 						
 			        	<div class="form-group">
 	                        <label>HashTag</label>
-	                        <input class="form-control" id="tag_desc" name="tag_desc" placeholder="請輸入作品tag">  
+	                        <input class="form-control" id="tag_desc" name="tag_desc" placeholder="請輸入作品tag(需以#分開)" maxlength="33">  
 	                    </div>
 	                    <div class="form-group">
 	                        <label>選擇作品圖片</label>

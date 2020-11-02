@@ -44,7 +44,7 @@ public class PainterServlet extends HttpServlet {
 			try {
 				Integer ptr_no = Integer.valueOf(req.getParameter("ptr_no").trim());
 				PainterService painterSvc = new PainterService();
-				YclTools.readByteArrayFromDB(req, res, painterSvc.getPicByPtrNo(ptr_no));
+				YclTools.readByteArrayFromDB(req, res, YclTools.shrink(painterSvc.getPicByPtrNo(ptr_no), 300));
 			} catch (Exception e) {
 				System.out.println("===[PainterServlet]無法取得作品圖片");
 				InputStream in = getServletContext().getResourceAsStream("/backend/img/null.jpg");
@@ -77,22 +77,6 @@ public class PainterServlet extends HttpServlet {
 					out.write(buf, 0, len);
 				}
 				in.close();
-				
-				
-//				InputStream in = getServletContext().getResourceAsStream( "/frontend/template/YCL/img/fakeAcctPhoto.png");
-//				System.out.println("===1");
-//				
-//				byte[] b = new byte[in.available()];
-//				System.out.println("===2");
-//				
-//				in.read(b);
-//				System.out.println("===3");
-//				
-//				out.write(b);
-//				System.out.println("===4");
-//				
-//				in.close();
-//				System.out.println("===5");
 			}
 			
 		}else {
@@ -203,6 +187,8 @@ public class PainterServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			Integer ptr_no = Integer.valueOf(req.getParameter("ptr_no")); // 作品編號
+			String src = (String) req.getParameter("src");
+			String sid = (String) req.getParameter("sid");
 
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
@@ -241,7 +227,7 @@ public class PainterServlet extends HttpServlet {
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("painterVO", painterVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no" + ptr_no);
+					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no" + ptr_no + "&src=" + src+ "&sid=" + sid);
 					failureView.forward(req, res);
 					return;
 				}
@@ -251,14 +237,14 @@ public class PainterServlet extends HttpServlet {
 
 				/*************************** 3.新增完畢導回查詢頁 ***********/
 				System.out.println("====[PainterServlet]修改作品完畢====");
-				res.sendRedirect(req.getContextPath() + "/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no);
+				res.sendRedirect(req.getContextPath() + "/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no + "&src=" + src+ "&sid=" + sid);
 				return;
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				System.out.println("錯誤訊息:" + e.fillInStackTrace().getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no);
+						.getRequestDispatcher("/frontend/painter/onePainter.jsp?ptr_no=" + ptr_no + "&src=" + src+ "&sid=" + sid);
 				failureView.forward(req, res);
 			}
 		}

@@ -12,7 +12,7 @@
 }
 
 .ycl-main-follow-btn{
-	font-size:0.1em !important;
+	font-size:1em !important;
 	padding: 0px 9px;
 	vertical-align: middle;
 }
@@ -100,7 +100,9 @@ margin-right:20px;}
 .ycl-act-btn-fans,
 .ycl-act-btn-msg,
 .ycl-act-btn-like,
-.ycl-act-btn-col{
+.ycl-act-btn-col,
+.ycl-transparent-Btn
+{
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
@@ -155,7 +157,7 @@ vertical-align:baseline;
 .ycl-creator-acct{
 	color:#DBDBDB !important;
 	font-weight:lighter !important;
-	font-size:8px !important;
+	font-size:10px !important;
 }
 
 .ycl-creator-pic{
@@ -191,6 +193,28 @@ color:#B3B3B3;}
 	font-size:0.9em;
 }
 
+.ycl-painter-nm,
+.ycl-painter-desc{
+	width: 100%;
+    height: auto;
+    word-wrap:break-word;
+    word-break:break-all;
+    overflow: hidden;
+}
+
+.ycl-msg-comment{
+	width: 100%;
+    height: auto;
+    word-wrap:break-word;
+    word-break:break-all;
+    overflow: hidden;
+}
+
+.ycl-edit-btn{
+	margin:10px 20px;
+	font-size:16px;
+	color:#666666;
+}
 
 textarea{
 	resize:none;
