@@ -13,6 +13,9 @@
 			content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
+		
+		<!-- favicon -->
+		<link rel="icon" href="<%=request.getContextPath()%>/backend/template/img/favicon.png">
 	
 		<title>我是標題</title>
 	</head>

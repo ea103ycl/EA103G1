@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 
-
-<!-- E:\OneDrive\EA103\Docs\09_Servlet\SL275_第一次分享\03_Sample_part3_Java8\Java-8-New-API-02-Base64 -->
-
 <%@ page import="com.lv.model.*"%>
 <%
   LvVO lvVO = (LvVO) request.getAttribute("lvVO");
@@ -23,7 +20,10 @@
 			content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-	
+
+		<!-- favicon -->
+		<link rel="icon" href="<%=request.getContextPath()%>/backend/template/img/favicon.png">
+			
 		<title>我是標題</title>
 	</head>
 

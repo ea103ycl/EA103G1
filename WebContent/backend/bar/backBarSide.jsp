@@ -26,6 +26,10 @@
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath()%>/backend/template/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/backend/template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- favicon -->
+	<link rel="icon" href="<%=request.getContextPath()%>/backend/template/img/favicon.png">
+	
     <style type="text/css">/*瑞龍:此處為手動改CSS的地方*/
         .dataTables_wrapper label {
             
@@ -60,7 +64,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style=" background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), #EA7500); background-position: top left;  background-size: 100%;  background-repeat: repeat;">
                 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/backend/back-index.jsp">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-palette"></i>
                 </div>

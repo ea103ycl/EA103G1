@@ -24,9 +24,12 @@
 		<title>里程碑列表</title>
 		
 		<style>
- 			.img-responsive{max-width: 40px;}
- 			.img-responsive:hover{transform: scale(8);} /*放大*/
+ 			.img-responsive{max-width: 50px;}
+/*  			.img-responsive:hover{transform: scale(8);} /*放大*/ */
 		</style>
+		
+		<!-- favicon -->
+		<link rel="icon" href="<%=request.getContextPath()%>/backend/template/img/favicon.png">
 	
 	</head>
 

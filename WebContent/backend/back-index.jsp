@@ -61,8 +61,12 @@
 			content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title>ArtsBlock預購商品首頁</title>
+		<title>ArtsBlock首頁</title>
 		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+		
+		<!-- favicon -->
+		<link rel="icon" href="<%=request.getContextPath()%>/backend/template/img/favicon.png">
+	
 		<style>
 			/*------3D圖片輪播CSS-----*/
 			div.3D_body {
