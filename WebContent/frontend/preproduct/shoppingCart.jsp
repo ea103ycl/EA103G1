@@ -250,7 +250,7 @@
                 itemval.value = parseInt(itemval.value) + 1;
 
             }
-<%--         Calculate('<%="p"+ index %>'數量,'<%="a"+ index %>'價格,'<%= index %>'給小計用) --%>
+
         const Calculate = (incdec, itemprice,tmp) => {
         
          	var itemval = document.getElementById(incdec);
@@ -294,8 +294,97 @@
         
         
     </script>
-    <%}%>
+    <%}else{%>
     
+    <div class="container-fluid">
+    
+        <div class="row">
+            <div class="col-md-10 col-11 mx-auto">
+                <div class="row mt-5 gx-3">
+                    <div class="col-md-12 col-lg-8 col-11 mx-auto main_cart mb-lg-0 mb-5">
+                    <!-- 左側邊的 div -->
+						<div class="card p-4">
+						<h2 class="py-4 font-weight-bold">您尚未選購商品</h2>
+                            <div class="row" >
+                            <div style=>
+								<p><i class="fas fa-heart"></i><a href="frontindex.jsp">繼續選購</a></p>
+							</div>	
+                          </div>
+                      </div>
+                  </div>
+                        <hr>
+                    <!-- 右側邊的 div -->
+                    
+                    <div class="col-md-12 col-lg-4 col-11 mx-auto mt-lg-0 mt-md-5">
+                    <form name="checkoutForm" action="#" method="POST">
+                   
+                        <div class="right_side p-3 shadow bg-white">
+                            <h2 class="product_name mb-5">總計金額</h2>
+                            <div class="price_indiv d-flex justify-content-between">
+                                <p>商品小計</p>
+                               
+                            </div>
+                            <div class="price_indiv d-flex justify-content-between">
+                                <p>運費</p>
+                                
+                            </div>
+                            <hr>
+                            <div class="total-amt d-flex justify-content-between font-weight-bold">
+                                <p>總金額(含運費)</p>
+                                
+                                
+                                
+                            </div>
+                            <p class="space-bottom">
+							<span><strong>您目前的錢包餘額：${sessionScope.memVO.balance}</strong></span>
+						</p>
+                            
+                            <c:if test="${not empty sessionScope.memVO.m_accno}">
+								<input type="hidden" name="mem_id"  class="form-control font-weight-bold" value="${sessionScope.memVO.mem_id}">	
+                            	
+                            </c:if>
+                            	<input type="hidden" name="total_cart_amt"  id="total_cart_amt1" value="">
+                            	
+                                
+                            
+                        </div>
+                        <!-- 買方備註範圍 -->
+                        <div class="discount_code mt-3 shadow">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a class="d-flex justify-content-between" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                      	  我要下訂單
+                                        <span><i class="fas fa-chevron-down pt-1"></i></span>
+                                    </a>
+                                    <div class="collapse" id="collapseExample">
+                                        <div class="mt-3">
+                                        
+	                                        <input disabled="disabled" type="text" name="po_name"  class="form-control font-weight-bold" placeholder="收件名字" value="">
+	                                        <input disabled="disabled" type="text" name="po_phone"  class="form-control font-weight-bold" placeholder="連絡電話" value="">
+	                                        <input disabled="disabled" type="text" name="po_zip"  class="form-control font-weight-bold" placeholder="郵遞區號" value="">
+	                                        <input disabled="disabled" type="text" name="po_addr"  class="form-control font-weight-bold" placeholder="寄送地址" value="">
+                                            <input disabled="disabled" type="text" name="note"  class="form-control font-weight-bold" placeholder="請填寫備註" value="">
+                                            <br>
+                                            
+                                			<input type="submit" class="btn btn-primary" value="確認付款" class="button">
+                                        
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <%}%>
     
 </body>
 

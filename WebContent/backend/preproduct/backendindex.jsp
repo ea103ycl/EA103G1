@@ -10,6 +10,10 @@
     PreProductService preproductSvc = new PreProductService();
     List<PreProductVO> list = preproductSvc.getAll();
     pageContext.setAttribute("list",list);
+    
+    DiscountSettingService discountSvc = new DiscountSettingService();
+	List<DiscountSettingVO> list_dis = discountSvc.getAll();
+	pageContext.setAttribute("list_dis",list_dis);
 %>
 <%
 	PreProductVO preproductVO = (PreProductVO) request.getAttribute("preproductVO");
@@ -90,7 +94,6 @@
 							                    <th>預購開始時間</th>
 							                    <th>預購結束時間</th>
 							                    <th>原價</th>
-							                    
 							                    <th>狀態</th>
 							                    <th>切換</th>
 							                    <th>修改</th>
@@ -125,13 +128,16 @@
 												
 												
 												<td>
-													<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/preproduct/preproduct.do" style="margin-bottom: 0px;">
-														<input type="submit" value="折扣">
-														<input type="hidden" name="po_prod_no"  value="${preproductVO.po_prod_no}">
-														<input type="hidden" name="event_p_no"  value="${preproductVO.event_p_no}">
-														<input type="hidden" name="po_price" value="${preproductVO.getPo_price()}">
-														<input type="hidden" name="action" value="switchDiscount">
-													</FORM>
+													<c:forEach var="disVO" items="${list_dis}">
+													
+														<c:if test="${preproductVO.po_prod_no==disVO.po_prod_no}">
+														
+															${(disVO.reach_discount/10).intValue()}折/${disVO.reach_number}人<br>
+
+														</c:if>
+														
+													
+													</c:forEach>
 												</td>
 												
 												<td id="swich_btn">
