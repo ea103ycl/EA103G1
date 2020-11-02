@@ -73,7 +73,7 @@
             /* color: #fff; */
             font-size: 4em;
             margin: auto;
-            transition: all, 0.6s ease;
+            transition: all, 0.5s ease;
             font-family: auto;
             background-color: #FFF;
         }
@@ -185,6 +185,14 @@
 
         .bubble:hover {
             animation: a1;
+            animation-duration: 1.5s;
+            animation-fill-mode: forwards;
+        }
+
+        .bubble-active {
+            transition: none;
+            pointer-events: none;
+            animation: a2;
             animation-duration: 3s;
             animation-fill-mode: forwards;
         }
@@ -192,9 +200,23 @@
         @keyframes a1 {
             from {}
             to {
-                transform: scale(2, 2);
+                transform: scale(1.7, 1.7);
                 z-index: 5;
                 opacity: 0.8;
+            }
+        }
+
+        @keyframes a2 {
+            0% {
+                transform: scale(1, 1);
+            }
+            25% {
+                transform: scale(0.5, 0.5);
+            }
+            100% {
+                transform: scale(15, 15);
+                z-index: 5;
+                opacity: 0.1;
             }
         }
 
@@ -209,7 +231,7 @@
             width: 23em;
             font-size: 150%;
             border: solid darkgray;
-            transition: all, 2.5s ease;
+            transition: all, 0.5s ease;
             /* color: transparent; */
         }
 
@@ -414,7 +436,7 @@
             padding: 0px 30px;
             border: none;
             /*  margin-top: 50px;
-            margin-left:50px;*/
+                margin-left:50px;*/
         }
 
         .openbtn:hover {
@@ -478,7 +500,7 @@
             #logoBlock #rightHeader {
                 display: none;
                 /* border: solid yellow 2px;
-                */
+                    */
             }
             #searchBlock {
                 margin-top: -12px;
@@ -544,7 +566,7 @@
             #logoBlock #rightHeader {
                 display: none;
                 /* border: solid yellow 2px;
-                */
+                    */
             }
             #searchBlock {
                 margin-top: -12px;
@@ -589,7 +611,7 @@
             }
             #logoBlock {
                 /* position: relative;
-                display: inline-block; */
+                    display: inline-block; */
                 margin-top: 130px;
                 /* border: solid blue 2px; */
                 /* height: 360px ; */
@@ -610,7 +632,7 @@
             #logoBlock #rightHeader {
                 /* display: none; */
                 /* border: solid yellow 2px;
-                */
+                    */
 
             }
             #leftHeader {
@@ -643,7 +665,7 @@
 
         /*   @media screen and (min-width: 1200px) {
 
-            } */
+                } */
 
         /* customized scrollbar */
         ::-webkit-scrollbar {

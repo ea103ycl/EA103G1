@@ -324,7 +324,7 @@
 						<div class="grid" id="grid">
 							<c:forEach var="ptrno" items="${ptrnoList}">
 								<div class="grid-item draggableImg">
-									<img draggable='true' ondragstart="drag();" id='${ptrno}'
+									<img draggable='true' ondragstart="drag(event);" id='${ptrno}'
 										src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${ptrno}">
 								</div>
 							</c:forEach>
@@ -337,7 +337,7 @@
 						<div class="grid" id="grid">
 							<c:forEach var="pVO" items="${pSvc.getMostLiked(1,7)}">
 								<div class="grid-item">
-									<img draggable='true' ondragstart="drag();" id='${pVO.ptr_no}'
+									<img draggable='true' ondragstart="drag(event);" id='${pVO.ptr_no}'
 										src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${pVO.ptr_no}">
 								</div>
 							</c:forEach>

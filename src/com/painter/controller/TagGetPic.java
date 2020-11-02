@@ -101,6 +101,33 @@ public class TagGetPic extends HttpServlet {
 			}
 			out.println(jsonOb);
 		}
+		
+		if ("picGetTag".equals(action)) {
+			Integer ptrno = Integer.valueOf(req.getParameter("ptrno"));
+			PainterTagMapService ptmSvc= new PainterTagMapService();
+			PainterTagService ptSvc = new PainterTagService();
+			List<PainterTagMapVO> list = ptmSvc.getAllByPtrNo(ptrno);
+			
+			JSONObject jsonOb = new JSONObject();
+			for(PainterTagMapVO ptmVO: list) {
+				
+				int i = 0;
+				if (i < 12) {
+					i++;
+					Integer tagno=ptmVO.getTag_no();
+					String result=ptSvc.getPainterTagDesc(tagno);
+				
+					try {
+						jsonOb.put("bubble" + i, result);
+					} catch (JSONException e) {
+						throw new RuntimeException("(TagGetPic) searchByTag error:" + e.getMessage());
+					}
+				} else {
+					break;
+				}
+			}
+			out.println(jsonOb);
+		}
 
 		if ("msgUpdate".equals(action)) {
 
