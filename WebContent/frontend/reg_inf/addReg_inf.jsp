@@ -30,7 +30,6 @@
 function checkoutAmount()
 {
 /*計算總價格*/
-
 var max_num=document.getElementById("max_num").value;
 var mt_num=document.getElementById("mt_num").value;
 var ri_qty=document.getElementById("ri_qty").value;
@@ -39,35 +38,90 @@ document.getElementById("amount").innerHTML=ri_qty*ri_fee;
 document.getElementById("amount2").value=ri_qty*ri_fee;
 document.getElementById("amount3").value=max_num-mt_num;
 document.getElementById("amount4").innerHTML=max_num-mt_num;
-
 }
+
+
 </script>
 
 
 <style type="text/css">
-#imgtest {
-    position: absolute;
-    top: 100px;
-    left: 400px;
-    z-index: 1;
-}
 
 table {
-    left: 100px;
-    font-size: 20px;
+	width: 800px;
+	background-color: white;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  }
+  table, th, td {
+    border: 1px solid #CCCCFF;
+    text-align: center;
+  }
+  th, td {
+    padding: 5px;
+    text-align: center;
+  }
+  h4 {
+  padding: 5px;
+    text-align: center;
+  }
+  body {
+    color: #666666;
+    background: #fefefe;
+    font-family: "Rubik", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
 }
+table#table-1 {
+	background-color: #C4E1E1;
+    border: 2px #ECF5FF;
+    text-align: center;
+    
+  }
+  table#table-1 h4 {
+    color: #613030;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  h4 {
+    color: blue;
+    display: inline;
+  }
+  h3 {
+  color: blue;
+    display: inline;
+  }
 </style>
     </head>
-    <body onload="initialize()">
-        <div id="imgtest"></div>
+    <body onload="checkoutAmount()">
 </head>
 
 <body>
+<!-- header -->
 
+	<header>
+
+		<%@include file="/frontend/bar/frontBarTop.jsp"%>
+
+		    <!-- header-banner -->
+    <div id="header-banner">
+        <div class="banner-content single-page text-center">
+            <div class="banner-border">
+                <div class="banner-info" id="banner-info">
+                    <h1>Meeting</h1>
+                </div><!-- / banner-info -->
+            </div><!-- / banner-border -->
+        </div><!-- / banner-content -->
+    </div>
+    <!-- / header-banner -->
+	</header>
+	<!-- / header -->
 <table id="table-1">
 	<tr><td>
-		 <h3>報名見面會</h3></td><td>
-		 <h4><a href="/EA103G1/frontend/meeting/listAllMeeting_front.jsp">回首頁</a></h4>
+		 <h3>報名見面會_addReg_inf.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/frontend/meeting/listAllMeeting_front.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -129,10 +183,14 @@ table {
 			 value="<%= (reg_infVO==null)? "" : reg_infVO.getRi_note()%>" /></td>
 	</tr>
 	<tr>
-              <td>總計:<span id="amount">元</td>
-              </tr>
-              <td>剩餘名額<span id="amount4"></td>
-                       
+              <td>總計金額:</td>
+              <td><span id="amount"></td>
+              
+    </tr>
+    <tr>
+              <td>剩餘名額</td>
+             <td><span id="amount4"></td>
+   </tr>   
 </table>
 
 <br>
@@ -143,7 +201,11 @@ table {
 <input type="hidden" name="totalAmount" id="amount2" >
 <input type="hidden" name="check_num" id="amount3" >
 <input type="hidden" name="action" value="checkout_reg">
-<input type="submit" value="送出新增">
+<div style="text-align:center;"><input type="submit" value="送出新增"></div>
 </FORM>
+
+	<table id="table-1">
+<td></td>
+</table>
 </body>
 </html>
