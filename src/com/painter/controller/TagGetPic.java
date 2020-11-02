@@ -56,7 +56,7 @@ public class TagGetPic extends HttpServlet {
 				req.setAttribute("ptrnoList", list);
 			}
 
-			RequestDispatcher view = req.getRequestDispatcher("/frontend/front_index/front_index.jsp");
+			RequestDispatcher view = req.getRequestDispatcher("/frontend/front_index.jsp");
 			view.forward(req, res);
 			return;
 		}
@@ -74,7 +74,7 @@ public class TagGetPic extends HttpServlet {
 			List<PainterVO> list = pSvc.getMostLiked(rankBegin, rankBegin + 5);
 
 			for (PainterVO pVO : list) {
-				out.print("<div class=\"grid-item\">" + "<img src=\"/G1/painter/ShowImage?ptr_no=" + pVO.getPtr_no()
+				out.print("<div class=\"grid-item\">" + "<img src="+req.getContextPath()+"/painter/ShowImage?ptr_no=" + pVO.getPtr_no()
 						+ "\"/>" + "</div>");
 			}
 		}
@@ -89,7 +89,6 @@ public class TagGetPic extends HttpServlet {
 				if (i < 12) {
 					i++;
 					String result = ptVO.getTag_desc();
-
 					try {
 						jsonOb.put("bubble" + i, result);
 					} catch (JSONException e) {
@@ -107,16 +106,14 @@ public class TagGetPic extends HttpServlet {
 			PainterTagMapService ptmSvc= new PainterTagMapService();
 			PainterTagService ptSvc = new PainterTagService();
 			List<PainterTagMapVO> list = ptmSvc.getAllByPtrNo(ptrno);
-			
 			JSONObject jsonOb = new JSONObject();
-			for(PainterTagMapVO ptmVO: list) {
-				
-				int i = 0;
+			
+			int i = 0;
+			for(PainterTagMapVO ptmVO : list) {
 				if (i < 12) {
 					i++;
 					Integer tagno=ptmVO.getTag_no();
 					String result=ptSvc.getPainterTagDesc(tagno);
-				
 					try {
 						jsonOb.put("bubble" + i, result);
 					} catch (JSONException e) {

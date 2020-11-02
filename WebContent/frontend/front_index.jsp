@@ -62,7 +62,11 @@
 		class="com.painter_tag_map.model.PainterTagMapService" />
 	<jsp:useBean id="ptmsgSvc" scope="page"
 		class="com.painter_msg.model.PainterMsgService" />
-
+	
+	<input type="hidden" value="<%=request.getContextPath()%>" id="contextPath">
+<!-- 	<span>大源 點擊會員頭貼 進入會員葉面超連結 <a href=""><span> -->
+<!-- 	<span> 雙擊圖片 like+1 再次雙擊 like-1<span> -->
+	
 
 	<!-- ======= Mobile nav toggle button ======= -->
 	<button type="button" class="mobile-nav-toggle d-xl-none">
@@ -324,7 +328,7 @@
 						<div class="grid" id="grid">
 							<c:forEach var="ptrno" items="${ptrnoList}">
 								<div class="grid-item draggableImg">
-									<img draggable='true' ondragstart="drag();" id='${ptrno}'
+									<img draggable='true' ondragstart="drag(event);" id='${ptrno}'
 										src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${ptrno}">
 								</div>
 							</c:forEach>
@@ -337,7 +341,7 @@
 						<div class="grid" id="grid">
 							<c:forEach var="pVO" items="${pSvc.getMostLiked(1,7)}">
 								<div class="grid-item">
-									<img draggable='true' ondragstart="drag();" id='${pVO.ptr_no}'
+									<img draggable='true' ondragstart="drag(event);" id='${pVO.ptr_no}'
 										src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${pVO.ptr_no}">
 								</div>
 							</c:forEach>

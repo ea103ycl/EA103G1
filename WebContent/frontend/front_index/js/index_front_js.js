@@ -1,4 +1,7 @@
-        // When the user scrolls down 50px from the top of the document, resize the header's font size
+var contextPath=$('#contextPath').val();       
+
+
+ // When the user scrolls down 50px from the top of the document, resize the header's font size
         function init() {
             console.log('init');
             var timer = '';
@@ -97,7 +100,6 @@
             if ($('#lastDiv')) {
                 var grid = document.getElementById("grid");
                 for (var i = 1; i < 12; i++) {
-                    //                    var div = '<div class="grid-item"><img src="/G1/painter/ShowImage?ptr_no=' + random() + '></div>';
                     var div = '<div class="grid-item"><img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=' + random() + '></div>';
                     grid.append(div);
                 }
@@ -111,7 +113,7 @@
 
             $.ajax({
 
-                url: "/EA103G1/painter/TagGetPic",
+                url: contextPath+"/painter/TagGetPic",
                 method: "post",
                 data: { action: "getMostLiked", rank: rank },
                 success: function(data) {
@@ -171,7 +173,7 @@
             // var url ="/controller/Search";
             $.ajax({
                 method: "post",
-                url: "/EA103G1/painter/TagGetPic",
+                url: contextPath+"/painter/TagGetPic",
                 data: { srtag: srtag, action: "searchByTag" },
                 success: function(dataReceived) { //dataReceived=> out.println("<li> #"+result+"</li>")
                     // alert(dataReceived);
@@ -220,10 +222,9 @@
             let ptrno = e.dataTransfer.getData("text");
             $.ajax({
                 method: "post",
-                url: "/EA103G1/painter/TagGetPic",
+                url: contextPath+"/painter/TagGetPic",
                 data: { ptrno: ptrno, action: "picGetTag" },
-                success: function(dataReceived) { //dataReceived=> out.println("<li> #"+result+"</li>")
-                    // alert(dataReceived);
+                success: function(dataReceived) { 
                     var bubbleJson = JSON.parse(dataReceived);
                     for (let i = 0; i <= 12; i++) {
                         var bubblei = "#bubble" + i;
@@ -266,7 +267,7 @@
 
             $.ajax({
                 method: "post",
-                url: "/EA103G1/painter/TagGetPic",
+                url: contextPath+"/painter/TagGetPic",
                 data: { ptrno: ptrno, action: "msgUpdate" },
                 success: function(d) {
                     $('#msg-content').html(d);
@@ -295,12 +296,12 @@
             console.log("data" + data);
             $.ajax({
                 method: "post",
-                url: "/EA103G1/painter/TagGetPic",
+                url: contextPath+"/painter/TagGetPic",
                 data: data + "&ptrno=" + ptrno,
                 success: function(d) {
                     $.ajax({
                         method: "post",
-                        url: "/EA103G1/painter/TagGetPic",
+                        url: contextPath+"/painter/TagGetPic",
                         data: { ptrno: ptrno, action: "msgUpdate" },
                         success: function(d) {
                             $('#msg-content').html(d);
