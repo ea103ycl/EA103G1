@@ -40,7 +40,8 @@ import java.sql.*;
 		private static final String GET_ALL_PTR = "SELECT * FROM PAINTER ORDER BY PTR_NO";
 		private static final String GET_ALL_MA = "SELECT * FROM MATERIAL_DATA ORDER BY MA_NO";
 		private static final String GET_RELATED_PROD ="SELECT * FROM PRODUCT WHERE ptr_no =?  and PROD_STATUS = 1 and  ROWNUM <= 3 order by dbms_random.value()";
-		
+		private static final String GET_ONE_PTR = "SELECT * FROM PAINTER WHERE PTR_NO= ?";
+		private static final String GET_ONE_MA = "SELECT * FROM MATERIAL_DATA WHERE MA_NO= ?";
 		@Override
 		public void insert(ProdVO prodVO) {
 			Connection con = null;
@@ -646,6 +647,7 @@ import java.sql.*;
 						while (rs.next()) {
 							prodVO = new ProdVO();
 							prodVO.setPtr_no(rs.getInt("ptr_no"));
+							prodVO.setPtr_nm(rs.getString("ptr_nm"));
 							list.add(prodVO);
 						}
 						// Handle any SQL errors
@@ -789,6 +791,113 @@ import java.sql.*;
 				}
 				return list;
 			}
+
+			@Override
+			public ProdVO getOneByPtr_no(Integer ptr_no) {
+				ProdVO prodVO = null;
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+
+				try {
+					con = ds.getConnection();
+					pstmt = con.prepareStatement(GET_ONE_PTR);
+
+					pstmt.setInt(1, ptr_no);
+
+					rs = pstmt.executeQuery();
+
+					while (rs.next()) {
+						prodVO = new ProdVO();
+						prodVO.setPtr_nm(rs.getString("ptr_nm"));
+						prodVO.setPtr_no(rs.getInt("ptr_no"));	
+						
+					}
+
+					// Handle any SQL errors
+				} catch (SQLException se) {
+					throw new RuntimeException("A database error occured. " + se.getMessage());
+					// Clean up JDBC resources
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (pstmt != null) {
+						try {
+							pstmt.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (con != null) {
+						try {
+							con.close();
+						} catch (Exception e) {
+							e.printStackTrace(System.err);
+						}
+					}
+				}
+				return prodVO;
+			}
+
+			
+			@Override
+			public ProdVO getOneByMa_no(String ma_no) {
+				
+					ProdVO prodVO = null;
+					Connection con = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+
+					try {
+						con = ds.getConnection();
+						pstmt = con.prepareStatement(GET_ONE_MA);
+
+						pstmt.setString(1, ma_no);
+
+						rs = pstmt.executeQuery();
+
+						while (rs.next()) {
+							prodVO = new ProdVO();
+							prodVO.setMa_name(rs.getString("ma_name"));
+							prodVO.setMa_no(rs.getString("ma_no"));	
+							
+						}
+
+						// Handle any SQL errors
+					} catch (SQLException se) {
+						throw new RuntimeException("A database error occured. " + se.getMessage());
+						// Clean up JDBC resources
+					} finally {
+						if (rs != null) {
+							try {
+								rs.close();
+							} catch (SQLException se) {
+								se.printStackTrace(System.err);
+							}
+						}
+						if (pstmt != null) {
+							try {
+								pstmt.close();
+							} catch (SQLException se) {
+								se.printStackTrace(System.err);
+							}
+						}
+						if (con != null) {
+							try {
+								con.close();
+							} catch (Exception e) {
+								e.printStackTrace(System.err);
+							}
+						}
+					}
+					return prodVO;
+				}
+
 
 
 

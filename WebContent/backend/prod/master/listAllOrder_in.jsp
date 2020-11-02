@@ -78,11 +78,24 @@
 					<td>${orderVO.or_total}</td>
 					<td>${orderVO.or_note}</td>
 					<td><fmt:formatDate value="${orderVO.or_time}" pattern="yyyy-MM-dd HH:mm" /></td>
+					
 					<td> 
 					<c:if test="${orderVO.or_status==1}">處理中</c:if> 
 					<c:if test="${orderVO.or_status==2}">運送中</c:if> 
 					<c:if test="${orderVO.or_status==3}">已到貨</c:if> 
 					<c:if test="${orderVO.or_status==4}">訂單完成</c:if>
+					</td>
+					
+					<td>
+										
+											<input type="hidden" name="or_no" value="${orderVO.or_no}">
+											<button type="button" class="btn btn-primary btn-sm" onclick='openWindows("${orderVO.or_no}")' >查看訂單詳情</button>
+			<script>											
+			function openWindows(or_no){
+				window.open("<%=request.getContextPath()%>/frontend/shop/order/DetailSearch.jsp?or_no=" + or_no ,"Sample","fullscreen=no,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no, copyhistory=no,width=1000,height=430,left=750,top=150");
+			}
+	     </script>
+										
 					</td>
 					
 					<td>

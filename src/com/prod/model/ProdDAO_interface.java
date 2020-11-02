@@ -33,6 +33,9 @@ public interface ProdDAO_interface {
 
 	public ProdVO OthrMaSearch(Integer ptr_no, String ma_no);
 	
+	public ProdVO getOneByPtr_no(Integer ptr_no);
+	public ProdVO getOneByMa_no(String ma_no);
+	
 	
 	// 萬用複合查詢(傳入參數型態Map)(回傳 List)
 //	public List<ProdVO> getAll(Map<String, String[]> map);

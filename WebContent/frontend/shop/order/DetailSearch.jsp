@@ -13,10 +13,11 @@
 
 
 <% 
-  
-  List<DetailVO> list = (ArrayList<DetailVO>) request.getAttribute("detail_list");
-  pageContext.setAttribute("list", list);
-
+String or_no = request.getParameter("or_no").trim();
+DetailService detailSvc = new DetailService();
+List<DetailVO> detail_list = new ArrayList<DetailVO>();
+detail_list = detailSvc.detailSearch(or_no);
+pageContext.setAttribute("detail_list", detail_list);
 %>
 
 
@@ -96,8 +97,8 @@
 			<th>商品名稱</th>
 			<th>商品單價</th>
 			<th>購買數量</th>
-			<th>你的評價</th>
-			<th>你的回饋</th>
+			<th>評價</th>
+			<th>回饋</th>
 					
                         </tr>
                     </thead>
@@ -106,7 +107,7 @@
                     <tbody>
                         <jsp:useBean id="prodSvc" scope="page" class="com.prod.model.ProdService" />
           
-                        <c:forEach var="detailVO" items="${list}">
+                        <c:forEach var="detailVO" items="${detail_list}">
                             <tr>
    <td style="text-align:center; vertical-align:middel;">
                                 
@@ -114,7 +115,7 @@
   <form  action="<%=request.getContextPath()%>/frontend/shop/shopping" method="POST" enctype="multipart/form-data">
   <input type="hidden" name="prod_no" value="${detailVO.prod_no}">
   <input type="hidden" name="action" value="getOne_For_Detail">		
-  <input type="submit" name="Submit" value="再買一次"   style=" height: 20px; width:100px; color:deeppink; font-size:10px;">
+  <input type="submit" name="Submit" value="查看商品"   style=" height: 20px; width:100px; color:deeppink; font-size:10px;">
     
 </form>   
                                 

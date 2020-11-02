@@ -21,6 +21,7 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 	private static final String GET_FUZZY_QUERY = "SELECT * FROM PRODUCT WHERE PROD_NAME LIKE ?";
 	private static final String GET_ALL_STMT_STATUS = "SELECT * FROM PRODUCT WHERE PROD_STATUS = 1  ORDER BY PROD_NO";
 	private static final String GET_PTR_MA_PROD = "SELECT * FROM PRODUCT WHERE ptr_no = ? and  ma_no = ? AND PROD_STATUS = 1";
+	private static final String GET_ONE_MA = "SELECT * FROM MATERIAL_DATA WHERE MA_NO= ?";
 	@Override
 	public void insert(ProdVO prodVO) {
 		Connection con = null;
@@ -483,7 +484,65 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 		return prodVO;
 	}
 
-	
+	@Override
+	public ProdVO getOneByMa_no(String ma_no) {
+		ProdVO prodVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_MA);
+			
+			pstmt.setString(1, ma_no);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				prodVO = new ProdVO();
+				
+				prodVO.setMa_no(rs.getString("ma_no"));
+				prodVO.setMa_name(rs.getString("ma_name"));
+				
+				
+			}
+			
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return prodVO;
+	}
 	
 	
 	
@@ -591,17 +650,24 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 //			}
 			
 			//同作品不同素材
-			ProdVO prodVO3 = dao.OthrMaSearch(1,"L0005");
-			System.out.println("查詢單筆資料:");
-			System.out.println(prodVO3.getProd_no());
-			System.out.println(prodVO3.getPtr_no());
-			System.out.println(prodVO3.getMa_no());
-			System.out.println(prodVO3.getProd_name());
-			System.out.println(prodVO3.getProd_price());
-			System.out.println(prodVO3.getProd_detail());
-			System.out.println(prodVO3.getProd_status());
-			System.out.println(prodVO3.getProd_pic());
+//			ProdVO prodVO3 = dao.OthrMaSearch(1,"L0005");
+//			System.out.println("查詢單筆資料:");
+//			System.out.println(prodVO3.getProd_no());
+//			System.out.println(prodVO3.getPtr_no());
+//			System.out.println(prodVO3.getMa_no());
+//			System.out.println(prodVO3.getProd_name());
+//			System.out.println(prodVO3.getProd_price());
+//			System.out.println(prodVO3.getProd_detail());
+//			System.out.println(prodVO3.getProd_status());
+//			System.out.println(prodVO3.getProd_pic());
 			
+			
+			
+			//查詢單列
+			ProdVO prodVO3 = dao.getOneByMa_no("L0005");
+			System.out.println("查詢單筆資料:");
+			System.out.println(prodVO3.getMa_no());
+			System.out.println(prodVO3.getMa_name());
 			
 			
 			
@@ -609,6 +675,10 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 			
 		}
 
+		
+		
+		
+		
 		@Override
 		public List<ProdVO> MaSearch(String ma_no) {
 			// TODO Auto-generated method stub
@@ -638,6 +708,14 @@ public class ProdJDBCDAO implements ProdDAO_interface {
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+		@Override
+		public ProdVO getOneByPtr_no(Integer ptr_no) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		
 
 		
 

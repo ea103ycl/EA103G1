@@ -47,8 +47,8 @@
                         <tr>
             <th>商品照片</th>
             <th>商品編號</th>
-			<th>作品編號</th>
-			<th>素材編號</th>
+			<th>作品</th>
+			<th>素材</th>
 			<th>商品名稱</th>
 			<th>商品價格</th>
 			<th>商品描述</th>
@@ -60,14 +60,17 @@
                     <tfoot>                   
                     </tfoot>
                     <tbody>
+<jsp:useBean id="prodSvc2" scope="page" class="com.prod.model.ProdService" />
                         <c:forEach var="prodVO" items="${list}">
+                        
 				<tr>
 				<td>
 				<img src="<%=request.getContextPath()%>/backend/prod/prod.pic?action=getpic&prod_no=${prodVO.prod_no}" width="100" height="100">
 				</td>
+				
 					<td>${prodVO.prod_no}</td>
-					<td>${prodVO.ptr_no}</td>
-					<td>${prodVO.ma_no}</td>
+					<td>${prodVO.ptr_no}<br></br>${pageScope.prodSvc2.getOneByPtr_no(prodVO.ptr_no).ptr_nm}</td>
+					<td>${prodVO.ma_no} <br></br>${pageScope.prodSvc2.getOneByMa_no(prodVO.ma_no).ma_name}</td>
 					<td>${prodVO.prod_name}</td>
 					<td>${prodVO.prod_price}</td>
 					<td>${prodVO.prod_detail}</td>

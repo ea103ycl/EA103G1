@@ -228,7 +228,7 @@
                         	<div><label><span>*</span>商品名稱</label></div>
                         	<div><label><span>*</span>商品價格</label></div>
                         	<div><label><span>*</span>商品描述</label></div>
-                        	<div><label><span>*</span>作品編號</label></div>
+                        	<div><label><span>*</span>選擇作品</label></div>
                         	<div><label><span>*</span>選擇素材</label></div>
                         	<div><label><span>*</span>商品狀態</label></div>
                         	<div><label><span>*</span>上傳商品照片</label></div>                                                                                                                                                                                                                                                                                    
@@ -264,7 +264,7 @@
 <div class="input-div">
   <select size="1" name="ptr_no" style=" width:450px; height:30px; font-size: 15px;"  >
    <c:forEach var="prodVO2" items="${prodSvc.allptr}">
-     <option value="${prodVO2.ptr_no}" ${(prodVO2.ptr_no==prodVO.ptr_no)?'selected':'' }> ${prodVO2.ptr_no}</option>
+     <option value="${prodVO2.ptr_no}" ${(prodVO2.ptr_no==prodVO.ptr_no)?'selected':'' }> ${prodVO2.ptr_no} ${prodVO2.ptr_nm}</option>
    </c:forEach>
   </select>
 </div>
@@ -274,7 +274,7 @@
     <div class="input-div">
   <select size="1" name="ma_no" style=" width:450px; height:30px; font-size: 15px;  ">
    <c:forEach var="prodVO2" items="${prodSvc.allma}">
-    <option value="${prodVO2.ma_no}" ${(prodVO2.ma_no==prodVO.ma_no)?'selected':'' }> ${prodVO2.ma_name}</option>
+    <option value="${prodVO2.ma_no}" ${(prodVO2.ma_no==prodVO.ma_no)?'selected':'' }> ${prodVO2.ma_no} ${prodVO2.ma_name}</option>
    </c:forEach>
   </select>
 </div>

@@ -114,10 +114,20 @@ public class ProdService {
 		prodVO.setProd_no(prod_no);
 		prodVO.setProd_status(prod_status);
 		dao.changeStatus(prodVO);
-		
 		return prodVO;
 	}
-
+	
+	
+	public ProdVO getOneByMa_no(String ma_no) {
+		return dao.getOneByMa_no(ma_no);
+	}
+	
+	public ProdVO getOneByPtr_no(Integer ptr_no) {
+		return dao.getOneByPtr_no(ptr_no);
+	}
+	
+	
+	
 	
 	
 	

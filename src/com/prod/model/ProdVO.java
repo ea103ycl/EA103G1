@@ -16,7 +16,13 @@ public class ProdVO implements java.io.Serializable{
 
 	private Integer  prod_no;
 	private Integer  ptr_no;
-	private String  ma_no;
+	private String   ma_no;
+	
+
+
+
+
+
 	private String   prod_name;
 	private Integer  prod_price;
 	private String   prod_detail;
@@ -26,6 +32,9 @@ public class ProdVO implements java.io.Serializable{
 	
 	private Integer  prod_qty;
 	private String  ma_name;
+	private String  ptr_nm;
+	
+	
 	
 	
 	public String getMa_name() {
@@ -36,6 +45,18 @@ public class ProdVO implements java.io.Serializable{
 	public void setMa_name(String ma_name) {
 		this.ma_name = ma_name;
 	}
+	
+	public String getPtr_nm() {
+		return ptr_nm;
+	}
+
+
+	public void setPtr_nm(String ptr_nm) {
+		this.ptr_nm = ptr_nm;
+	}
+
+
+	
 
 
 	public Integer getProd_qty() {
