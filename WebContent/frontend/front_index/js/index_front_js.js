@@ -1,293 +1,322 @@
-// When the user scrolls down 50px from the top of the document, resize the header's font size
-function init() {
-	console.log('init');
-	var timer = '';
-	window.onscroll = function() {
-		//     if (timer !== '') {
-		//         clearTimeout(timer);
-		//         timer = '';
-		//     }
-		//     timer = setTimeout(function() {
-		//         scrollFunction();
-		//         scrollBottom();
-		//     }, 50);
-		// };
-		searchBarUnfocus();
-		scrollFunction();
-		scrollBottom();
-	}
-	scrollAfterSearch();
-}
-//scroll top animation 
-function scrollFunction() {
-	// console.log(document.body.scrollTop > 50 || document.documentElement.scrollTop > 50);
-	if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-		document.getElementById("logoBlock").style.visibility = "hidden";
-		document.getElementById("logoBlock").style.color = "rgba(255, 255, 255, 0)";
-		document.getElementById("logoBlock").style.fontSize = "0px";
-		document.getElementById("logoBlock").style.height = "0px";
-		document.getElementById("rightHeader").style.display = "none";
-		document.getElementById("leftHeader").style.display = "none";
-		document.getElementById("searchBlock").style.boxShadow = "rgb(162 162 162 / 31%) 0px 3px 4px 0px";
-		document.getElementById("searchBlock").style.boxShadow = "rgb(162 162 162 / 31%) 0px 3px 4px 0px";
-		document.getElementById("searchBar1").style.width = "225px";
-		document.getElementById("fixedTop").style.position = "fixed";
+        // When the user scrolls down 50px from the top of the document, resize the header's font size
+        function init() {
+            console.log('init');
+            var timer = '';
+            window.onscroll = function() {
+                //     if (timer !== '') {
+                //         clearTimeout(timer);
+                //         timer = '';
+                //     }
+                //     timer = setTimeout(function() {
+                //         scrollFunction();
+                //         scrollBottom();
+                //     }, 50);
+                // };
+                searchBarUnfocus();
+                scrollFunction();
+                scrollBottom();
+            }
+            scrollAfterSearch();
+        }
+        //scroll top animation 
+        function scrollFunction() {
+            // console.log(document.body.scrollTop > 50 || document.documentElement.scrollTop > 50);
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                document.getElementById("logoBlock").style.visibility = "hidden";
+                document.getElementById("logoBlock").style.color = "rgba(255, 255, 255, 0)";
+                document.getElementById("logoBlock").style.fontSize = "0px";
+                document.getElementById("logoBlock").style.height = "0px";
+                document.getElementById("rightHeader").style.display = "none";
+                document.getElementById("leftHeader").style.display = "none";
+                document.getElementById("searchBlock").style.boxShadow = "rgb(162 162 162 / 31%) 0px 3px 4px 0px";
+                document.getElementById("searchBlock").style.boxShadow = "rgb(162 162 162 / 31%) 0px 3px 4px 0px";
+                document.getElementById("searchBar1").style.width = "225px";
+                document.getElementById("fixedTop").style.position = "fixed";
 
 
-	} else {
-		document.getElementById("logoBlock").style.visibility = null;
-		document.getElementById("logoBlock").style.fontSize = null;
-		document.getElementById("logoBlock").style.color = null;
-		document.getElementById("logoBlock").style.height = null;
-		document.getElementById("leftHeader").style.display = null;
-		document.getElementById("rightHeader").style.display = null;
-		document.getElementById("searchBlock").style.boxShadow = null;
-		document.getElementById("searchBlock").style.transition = null;
-		document.getElementById("searchBar1").style.width = null;
-		document.getElementById("searchBlock").style.marginTop = null;
-		document.getElementById("fixedTop").style = null;
+            } else {
+                document.getElementById("logoBlock").style.visibility = null;
+                document.getElementById("logoBlock").style.fontSize = null;
+                document.getElementById("logoBlock").style.color = null;
+                document.getElementById("logoBlock").style.height = null;
+                document.getElementById("leftHeader").style.display = null;
+                document.getElementById("rightHeader").style.display = null;
+                document.getElementById("searchBlock").style.boxShadow = null;
+                document.getElementById("searchBlock").style.transition = null;
+                document.getElementById("searchBar1").style.width = null;
+                document.getElementById("searchBlock").style.marginTop = null;
+                document.getElementById("fixedTop").style = null;
 
-	}
-}
-//scroll loading function
+            }
+        }
+        //scroll loading function
 
-console.log("window.innerHeight" + window.innerHeight);
-console.log("document.body.offsetHeight" + document.body.offsetHeight);
-
-
-function scrollAfterSearch() {
-
-	if ($("#getPicResult").length !== 0) {
-		$('html, body').animate({
-			scrollTop: $("#getPicResult").offset().top,
-		}, 2000, 'swing');
-	} else if ($("#errorMsgs").length !== 0) {
-		console.log($("#errorMsgs").offset().top);
-		$('html, body').animate({
-			// scrollTop: $("#errorMsgs").offset().top,
-			scrollTop: 650,
-
-		}, 1300, 'swing');
-	}
-}
+        console.log("window.innerHeight" + window.innerHeight);
+        console.log("document.body.offsetHeight" + document.body.offsetHeight);
 
 
-function scrollBottom() {
+        function scrollAfterSearch() {
 
-	// console.log('window.scrollY:' + window.scrollY);
-	// if ((window.innerHeight + window.scrollY) > document.body.offsetHeight) {
+            if ($("#getPicResult").length !== 0) {
+                $('html, body').animate({
+                    scrollTop: $("#getPicResult").offset().top,
+                }, 2000, 'swing');
+            } else if ($("#errorMsgs").length !== 0) {
+                console.log($("#errorMsgs").offset().top);
+                $('html, body').animate({
+                    // scrollTop: $("#errorMsgs").offset().top,
+                    scrollTop: 650,
 
-	//     console.log('to bottom');
-	//     // loadImg();
-	//     // loadImg10();
-	//     loadMasonry();
+                }, 1300, 'swing');
+            }
+        }
 
-	// }
 
-	$(window).scroll(function() {
-		if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-			// loadImg();
-			loadMasonry();
-		}
-	});
-}
+        function scrollBottom() {
 
-// scroll down reload function=========================
-function loadImg() {
-	if ($('#lastDiv')) {
-		var grid = document.getElementById("grid");
-		for (var i = 1; i < 12; i++) {
-			//                    var div = '<div class="grid-item"><img src="/G1/painter/ShowImage?ptr_no=' + random() + '></div>';
-			var div = '<div class="grid-item"><img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=' + random() + '></div>';
-			grid.append(div);
-		}
-	}
-}
+            // console.log('window.scrollY:' + window.scrollY);
+            // if ((window.innerHeight + window.scrollY) > document.body.offsetHeight) {
 
-// ====================================================
-var rank = 5;
+            //     console.log('to bottom');
+            //     // loadImg();
+            //     // loadImg10();
+            //     loadMasonry();
 
-function loadImg10() {
+            // }
 
-	$.ajax({
+            $(window).scroll(function() {
+                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                    // loadImg();
+                    loadMasonry();
+                }
+            });
+        }
 
-		url: "/EA103G1/painter/TagGetPic",
-		method: "post",
-		data: { action: "getMostLiked", rank: rank },
-		success: function(data) {
-			$(".grid").append(data);
-			rank += 5;
-		},
-		error: function() {
-			console.log('(index_front_js)LoadImg100 error');
-		}
+        // scroll down reload function=========================
+        function loadImg() {
+            if ($('#lastDiv')) {
+                var grid = document.getElementById("grid");
+                for (var i = 1; i < 12; i++) {
+                    //                    var div = '<div class="grid-item"><img src="/G1/painter/ShowImage?ptr_no=' + random() + '></div>';
+                    var div = '<div class="grid-item"><img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=' + random() + '></div>';
+                    grid.append(div);
+                }
+            }
+        }
 
-	})
-}
-//==========================================
-$(document).on("change", function(e) {
-	loadMasonry();
-});
+        // ====================================================
+        var rank = 5;
 
-//===========================================
+        function loadImg10() {
 
-window.onload = () => {
-	init();
-	loadMasonry();
-}
+            $.ajax({
 
-function random() {
-	// var totalPic = $('#totalPic').html();
-	return Math.floor(Math.random() * 7) + 1;
-}
+                url: "/EA103G1/painter/TagGetPic",
+                method: "post",
+                data: { action: "getMostLiked", rank: rank },
+                success: function(data) {
+                    $(".grid").append(data);
+                    rank += 5;
+                },
+                error: function() {
+                    console.log('(index_front_js)LoadImg100 error');
+                }
 
-function loadMasonry() {
-	var elem = document.querySelector('.grid');
-	var msnry = new Masonry(elem, {
-		// options
-		itemSelector: '.grid-item',
-		// columnWidth: 400,
-		gutter: 25,
-		fitWidth: true,
+            })
+        }
+        //==========================================
+        $(document).on("change", function(e) {
+            loadMasonry();
+        });
 
-	});
-	msnry.on('layoutComplete', () => {
-		console.log('LayoutComplete');
-	})
-}
+        //===========================================
 
-function toTop() {
-	window.scrollTo(0, 0);
-}
+        window.onload = () => {
+            init();
+            loadMasonry();
+        }
 
-function searchBarUnfocus() {
-	document.getElementById("searchBar1").blur();
-}
-// =================================================
-//=================ajax搜尋輸入模糊查詢返回推薦搜尋結果 ajax =====================
-$('#searchBar1').on("keyup", function() {
-	var srtag = $(this).val();
-	// alert($(this).val());
-	// var url ="/controller/Search";
-	$.ajax({
-		method: "post",
-		url: "/EA103G1/painter/TagGetPic",
-		data: { srtag: srtag, action: "searchByTag" },
-		success: function(dataReceived) { //dataReceived=> out.println("<li> #"+result+"</li>")
-			// alert(dataReceived);
-			var bubbleJson = JSON.parse(dataReceived);
-			for (let i = 0; i <= 12; i++) {
-				var bubblei = "#bubble" + i;
-				var jsonBubblei = "bubble" + i;
-				if (bubbleJson[jsonBubblei]) {
-					$(bubblei + ">span").html(bubbleJson[jsonBubblei]);
-				} else {
-					$(bubblei + ">span").html("");
-				}
-			}
-			$("#searchList> div").html(dataReceived);
-		},
-		error: function() {
-			alert("(searchByTag)failed");
-		}
-	});
-});
+        function random() {
+            // var totalPic = $('#totalPic').html();
+            return Math.floor(Math.random() * 7) + 1;
+        }
 
-//===========bubble funciton==============================
-$('.bubble').on("click", function() {
-	$('#searchBar1').val($(this).children().html());
-	$('#searchForm1').submit();
-});
-//==================================================
-['dragover', 'dragleave', 'dragenter', 'drop'].forEach(ev => {
-	window.addEventListener(ev, function(e) {
-		e.preventDefault();
-	})
-});
+        function loadMasonry() {
+            var elem = document.querySelector('.grid');
+            var msnry = new Masonry(elem, {
+                // options
+                itemSelector: '.grid-item',
+                // columnWidth: 400,
+                gutter: 25,
+                fitWidth: true,
 
-function drag(event) {
+            });
+            msnry.on('layoutComplete', () => {
+                console.log('LayoutComplete');
+            })
+        }
 
-	console.log(event.currentTarget);
-	event.dataTransfer.setData("text", e.target.id);
-}
+        function toTop() {
+            window.scrollTo(0, 0);
+        }
 
-function drop(event) {
-	let Id = event.dataTransfer.getData("text");
-	console.log(document.getElementById(Id));
-}
+        function searchBarUnfocus() {
+            document.getElementById("searchBar1").blur();
+        }
+        // =================================================
+        //=================ajax搜尋輸入模糊查詢返回推薦搜尋結果 ajax =====================
+        $('#searchBar1').on("keyup", function() {
+            var srtag = $(this).val();
+            // alert($(this).val());
+            // var url ="/controller/Search";
+            $.ajax({
+                method: "post",
+                url: "/EA103G1/painter/TagGetPic",
+                data: { srtag: srtag, action: "searchByTag" },
+                success: function(dataReceived) { //dataReceived=> out.println("<li> #"+result+"</li>")
+                    // alert(dataReceived);
+                    var bubbleJson = JSON.parse(dataReceived);
+                    for (let i = 0; i <= 12; i++) {
+                        var bubblei = "#bubble" + i;
+                        var jsonBubblei = "bubble" + i;
+                        if (bubbleJson[jsonBubblei]) {
+                            $(bubblei + ">span").html(bubbleJson[jsonBubblei]);
+                        } else {
+                            $(bubblei + ">span").html("");
+                        }
+                    }
+                    $("#searchList> div").html(dataReceived);
+                },
+                error: function() {
+                    alert("(searchByTag)failed");
+                }
+            });
+        });
 
-function allowDrop(event) {
-	event.preventDefault();
-}
-//================================
-// $('.grid-item').on('click', function(e) {
+        //===========bubble funciton==============================
+        $('.bubble').on("click", function() {
 
-//     $('#modalButton').click();
-// })
+            $(this).addClass("bubble-active");
+            var BubClick = $(this).children().html();
+            setTimeout(function() {
+                $('#searchBar1').val(BubClick);
+                console.log($('#searchBar1').val());
+                $('#searchForm1').submit();
+            }, 1800);
 
-// Get the modal
+        });
+        //==================================================
+        ['dragover', 'dragleave', 'dragenter', 'drop'].forEach(ev => {
+            window.addEventListener(ev, function(e) {
+                e.preventDefault();
+            })
+        });
 
-// Get the image and insert it inside the modal - use its "alt" text as a caption
+        function drag(e) {
+            e.dataTransfer.setData("text", e.target.id);
+        }
 
-$('.grid-item').on('click', function(e) {
-	$("#myModal").css('display', 'block');
-	$("#img01").attr('src', e.target.src);
-	$("#img01").after('<input type="hidden" name="ptrno" value="' + e.target.id + '">');
-	let ptrno = e.target.id;
+        function drop(e) {
+            let ptrno = e.dataTransfer.getData("text");
+            $.ajax({
+                method: "post",
+                url: "/EA103G1/painter/TagGetPic",
+                data: { ptrno: ptrno, action: "picGetTag" },
+                success: function(dataReceived) { //dataReceived=> out.println("<li> #"+result+"</li>")
+                    // alert(dataReceived);
+                    var bubbleJson = JSON.parse(dataReceived);
+                    for (let i = 0; i <= 12; i++) {
+                        var bubblei = "#bubble" + i;
+                        var jsonBubblei = "bubble" + i;
+                        if (bubbleJson[jsonBubblei]) {
+                            $(bubblei + ">span").html(bubbleJson[jsonBubblei]);
+                        } else {
+                            $(bubblei + ">span").html("");
+                        }
+                    }
+                    $("#searchList> div").html(dataReceived);
+                    $('html, body').animate({
+                        scrollTop: $('#BigWhiteDot').offset().top
+                    }, 800);
+                },
+                error: function() {
+                    alert("(searchByTag)failed");
+                }
+            });
+        }
 
-	$.ajax({
-		method: "post",
-		url: "/EA103G1/painter/TagGetPic",
-		data: { ptrno: ptrno, action: "msgUpdate" },
-		success: function(d) {
-			$('#msg-content').html(d);
-			$('.comment-textarea').before('<input type="hidden" name="ptrno" value="' + ptrno + '"');
+        function allowDrop(e) {
+            e.preventDefault();
+        }
+        //================================
+        // $('.grid-item').on('click', function(e) {
 
-		},
-		error: function() {
-			alert("(msgUpdate)failed");
-		}
-	});
-});
+        //     $('#modalButton').click();
+        // })
 
-$('#myModal').on('click', function(e) {
-	var target = $(e.target);
-	if (!target.parents('.myContainer').length) {
-		$('#myModal').css('display', 'none');
-	}
-});
-// ============================================================
+        // Get the modal
 
-$('.comment-send').on('click', function(e) {
-	e.preventDefault();
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
 
-	var data = $('#writeComment').serialize();
-	var ptrno = $('#img01').next().val();
-	console.log("data" + data);
-	$.ajax({
-		method: "post",
-		url: "/EA103G1/painter/TagGetPic",
-		data: data + "&ptrno=" + ptrno,
-		success: function(d) {
-			$.ajax({
-				method: "post",
-				url: "/EA103G1/painter/TagGetPic",
-				data: { ptrno: ptrno, action: "msgUpdate" },
-				success: function(d) {
-					$('#msg-content').html(d);
-					$('.comment-textarea').before('<input type="hidden" name="ptrno" value="' + ptrno + '"');
-					$('#commentInput').val('');
-					$('#msg-content').animate({
-						scrollTop: $('#msg-content')[0].scrollHeight
-					},0);
-				},
-				error: function() {
-					alert("(msgUpdate)failed");
-				}
-			});
-		},
-		error: function() {
-			alert("(msgUpdate)failed");
-		}
-	});
-})
+        $('.grid-item').on('click', function(e) {
+            $("#myModal").css('display', 'block');
+            $("#img01").attr('src', e.target.src);
+            $("#img01").after('<input type="hidden" name="ptrno" value="' + e.target.id + '">');
+            let ptrno = e.target.id;
+
+            $.ajax({
+                method: "post",
+                url: "/EA103G1/painter/TagGetPic",
+                data: { ptrno: ptrno, action: "msgUpdate" },
+                success: function(d) {
+                    $('#msg-content').html(d);
+                    $('.comment-textarea').before('<input type="hidden" name="ptrno" value="' + ptrno + '"');
+
+                },
+                error: function() {
+                    alert("(msgUpdate)failed");
+                }
+            });
+        });
+
+        $('#myModal').on('click', function(e) {
+            var target = $(e.target);
+            if (!target.parents('.myContainer').length) {
+                $('#myModal').css('display', 'none');
+            }
+        });
+        // ============================================================
+
+        $('.comment-send').on('click', function(e) {
+            e.preventDefault();
+
+            var data = $('#writeComment').serialize();
+            var ptrno = $('#img01').next().val();
+            console.log("data" + data);
+            $.ajax({
+                method: "post",
+                url: "/EA103G1/painter/TagGetPic",
+                data: data + "&ptrno=" + ptrno,
+                success: function(d) {
+                    $.ajax({
+                        method: "post",
+                        url: "/EA103G1/painter/TagGetPic",
+                        data: { ptrno: ptrno, action: "msgUpdate" },
+                        success: function(d) {
+                            $('#msg-content').html(d);
+                            $('.comment-textarea').before('<input type="hidden" name="ptrno" value="' + ptrno + '"');
+                            $('#commentInput').val('');
+                            $('#msg-content').animate({
+                                scrollTop: $('#msg-content')[0].scrollHeight
+                            }, 0);
+                        },
+                        error: function() {
+                            alert("(msgUpdate)failed");
+                        }
+                    });
+                },
+                error: function() {
+                    alert("(msgUpdate)failed");
+                }
+            });
+        })
