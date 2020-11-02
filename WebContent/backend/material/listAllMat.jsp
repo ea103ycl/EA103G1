@@ -140,6 +140,8 @@
                       <td>
 			  			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/material/mat.do" style="margin-bottom: 0px;">
    					    <input type="hidden" name="ma_no" value="${matVO.maNo}">
+    					 <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
+			  			 <input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller-->
                         <input type="hidden" name="action"	value="getOne_For_Update">
                         <button class="btn btn-primary" type="submit">修改</button></FORM>
 					 </td>				 
