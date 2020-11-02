@@ -477,7 +477,7 @@ public class PreProductDAO implements PreProductDAO_interface{
 				preproductVO.setPo_price(rs.getInt("po_price"));
 				preproductVO.setPo_detail(rs.getString("po_detail"));
 				list.add(preproductVO);
-				System.out.println("********count********");
+				
 			}
 			System.out.println("********DAO - (жие\)while(rs.next())********");
 
@@ -539,7 +539,7 @@ public class PreProductDAO implements PreProductDAO_interface{
 				preproductVO.setPo_end(rs.getTimestamp("po_end"));
 				preproductVO.setPo_price(rs.getInt("po_price"));
 				preproductVO.setPo_detail(rs.getString("po_detail"));
-				System.out.println("count--");
+				
 				list.add(preproductVO);
 				cnt++;
 			}

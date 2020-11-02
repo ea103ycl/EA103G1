@@ -208,13 +208,13 @@ public class PreProductServlet extends HttpServlet{
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				String str = req.getParameter("po_prod_no");/*用預購商品編號搜尋*/
 				if(str==null||(str.trim()).length()==0) {
-					errorMsgs.add("請輸入員工編號");
+					errorMsgs.add("請輸入預購商品編號");
 				}
 				String po_prod_no=null;
 				try {
 					po_prod_no = new  String(str);
 				}catch (Exception e) {
-					errorMsgs.add("員工編號格式不正確");
+					errorMsgs.add("商品編號格式不正確");
 				}
 				/*********************************************************************************/
 				if(!errorMsgs.isEmpty()) {

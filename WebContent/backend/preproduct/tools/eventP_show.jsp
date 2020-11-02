@@ -26,6 +26,9 @@ try{
 	ResultSet rs = stmt.executeQuery(sql);
 	if (rs.next()) {
 	Blob b = rs.getBlob("EVENT_P_IMG");
+	if(b==null){
+		response.sendRedirect("./error.jpg");
+	}
 	long size = b.length();
 	//out.print(size);
 	byte[] bs = b.getBytes(1, (int)size);

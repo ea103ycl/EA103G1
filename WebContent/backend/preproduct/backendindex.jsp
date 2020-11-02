@@ -48,10 +48,11 @@
 						<h1 class="h3 mb-2 text-gray-800" id="text_h3"><br>預購商品</h1>
 						<div>
 					        <c:if test="${not empty errorMsgs}">
-								<font style="color:red">請修正以下錯誤:</font>
+								
 								<ul>
 									<c:forEach var="message" items="${errorMsgs}">
-										<li style="color:red">${message}</li>
+									<div class="alert alert-danger" role="alert">
+										${message}</div>
 									</c:forEach>
 								</ul>
 							</c:if>
@@ -89,7 +90,7 @@
 							                    <th>預購開始時間</th>
 							                    <th>預購結束時間</th>
 							                    <th>原價</th>
-							                    <th>到貨銷售數</th>
+							                    
 							                    <th>狀態</th>
 							                    <th>切換</th>
 							                    <th>修改</th>
@@ -104,7 +105,7 @@
 							                    <th>預購開始時間</th>
 							                    <th>預購結束時間</th>
 							                    <th>原價</th>
-							                    <th>到貨銷售數</th>
+							                    
 							                    <th>狀態</th>
 							                    <th>切換</th>
 							                    <th>修改</th>
@@ -121,13 +122,7 @@
 												<td id="po_dateS"><fmt:formatDate value="${preproductVO.po_start}" pattern="yyyy/MM/dd"/></td>
 												<td id="po_dateE"><fmt:formatDate value="${preproductVO.po_end}" pattern="yyyy/MM/dd"/></td>
 												<td>${preproductVO.po_price}</td>
-												<td>
-													<c:forEach var="preorderdetailVO" items="${preorderdetailSvc.all}">
-										                <c:if test="${preproductVO.po_prod_no==preorderdetailVO.po_prod_no}">
-											                銷量：${preorderdetailVO.po_qty}
-										                </c:if>
-										            </c:forEach>
-												</td>
+												
 												
 												<td>
 													<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/preproduct/preproduct.do" style="margin-bottom: 0px;">
