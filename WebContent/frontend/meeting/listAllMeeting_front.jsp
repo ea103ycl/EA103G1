@@ -28,49 +28,91 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 <html>
 <head>
+
+<!-- page title -->
 <title>所有員工資料 - listAllMeeting_front.jsp</title>
 
 <style>
   table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
+	background-color: #C4E1E1;
+    border: 2px #ECF5FF;
     text-align: center;
+    
   }
   table#table-1 h4 {
-    color: red;
+    color: #613030;
     display: block;
-    margin-bottom: 1px;
+    margin-bottom: 10px;
   }
+  
   h4 {
     color: blue;
+    display: inline;
+  }
+  h3 {
+  color: blue;
     display: inline;
   }
 </style>
 
 <style>
   table {
-	width: 1600px;
+	width: 800px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
   table, th, td {
     border: 1px solid #CCCCFF;
+    text-align: center;
   }
   th, td {
     padding: 5px;
     text-align: center;
+       height:100px;
+    font-size:20px;
   }
+  h4 {
+  padding: 5px;
+    text-align: center;
+  }
+  body {
+    color: #666666;
+    background: #fefefe;
+    font-family: "Rubik", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+}
 </style>
 
 </head>
-<body bgcolor='white'>
+<body>
 
+	<!-- header -->
 
+	<header>
+
+		<%@include file="/frontend/bar/frontBarTop.jsp"%>
+
+		    <!-- header-banner -->
+    <div id="header-banner">
+        <div class="banner-content single-page text-center">
+            <div class="banner-border">
+                <div class="banner-info" id="banner-info">
+                    <h1>Meeting</h1>
+                </div><!-- / banner-info -->
+            </div><!-- / banner-border -->
+        </div><!-- / banner-content -->
+    </div>
+    <!-- / header-banner -->
+	</header>
+	<!-- / header -->
 <table id="table-1">
 	<tr><td>
 		 <h3>所有見面會資料 - listAllMeeting.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/frontend/meeting/listAllMeeting_front.jsp">回首頁</a></h4>
+		 <h4><a href="<%=request.getContextPath()%>/frontend/meeting/listAllMeeting_front.jsp">回首頁</a></h4>	 
 	</td></tr>
 </table>
 
@@ -83,15 +125,15 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		</c:forEach>
 	</ul>
 </c:if>
-
+	 
 <table>
 	<tr>
 	    <th>報名狀態</th>
-	     <th>活動名稱</th>
+	    <th>活動名稱</th>
 	    <th>日期</th>
 		<th>地點</th>
-		
 		<th>報名期間</th>
+		<th>目前人數</th>
         <th>查詢</th>
         
 	</tr>
@@ -129,42 +171,40 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 </c:choose>   
 </td>	 		      
 <td>${meetingVO.mt_id}</td>    
-		    <td>${meetingVO.mt_time}</td> 
+		    <td><fmt:formatDate value="${meetingVO.mt_time}" pattern="yyyy-MM-dd" /></td> 
 		    <td>${meetingVO.mt_place}</td>	    
 		     
-		    <td>${meetingVO.mt_start_time}~${meetingVO.mt_end_time}</td>		 
+		    <td><fmt:formatDate value="${meetingVO.mt_start_time}" pattern="yyyy-MM-dd" />~<fmt:formatDate value="${meetingVO.mt_end_time}" pattern="yyyy-MM-dd" /></td>		 
+<td>${meetingVO.mt_num}/${meetingVO.max_num}</td>    
+
+
 <td>
            <form action="<%=request.getContextPath()%>/frontend/meeting/meeting.do" " method="get"><!-- action值填你的api url -->
 		  <input type="hidden" name="mt_no" value="${meetingVO.mt_no}" />
 		<input type="submit" value="查詢" />
 		<input type="hidden" name="action" value="getOne_For_Display">
 		  </form>
-		    </td>
-		    
-		    
-		   
-		    
-		    
+		    </td>		    
 		</tr>
 	</c:forEach>
 </table>
+<table id="table-1">
+	<tr><td>
+		 <h4>
+<a href='<%=request.getContextPath()%>/frontend/meeting/addMeeting.jsp'>「舉辦」</a> 見面會
 
-<ul>
-  <li><a href='<%=request.getContextPath()%>/frontend/meeting/addMeeting.jsp'>「舉辦」</a> 見面會</li>
-</ul>
+  <a href='<%=request.getContextPath()%>/frontend/meeting/search_mem_meeting.jsp'>「我舉辦的」</a> 見面會
 
-<ul>
-  <li><a href='<%=request.getContextPath()%>/frontend/meeting/search_mem_meeting.jsp'>「我舉辦的」</a> 見面會</li>
-</ul>
+ <a href='<%=request.getContextPath()%>/frontend/reg_inf/listAllReg_inf.jsp'>「我報名的」</a> 見面會
+</h4>
+	</td></tr>
+</table>
 
-<ul>
-  <li><a href='<%=request.getContextPath()%>/frontend/reg_inf/listAllReg_inf.jsp'>「我報名的」</a> 見面會</li>
-</ul>
+<!-- footer -->
 
-  
+	<%@include file="/frontend/bar/frontBarFooter.jsp"%>
 
-
-<%@ include file="page2.file" %>
+	<!-- / footer -->
 
 </body>
 </html>
