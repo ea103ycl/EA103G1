@@ -58,7 +58,7 @@ public class Event_PDAO implements Event_PDAO_interface {
 	private static final String FINDFIVEPICBYEVENTNO="select*from event_p where event_no=? and event_p_stat=1 and rownum<=5";
 
 	//by ·çÀs
-	private static final String GET_ALL_STMT = "SELECT * FROM EVENT_P WHERE EVENT_NO = (SELECT LAST_VALUE (EVENT_NO) OVER (ORDER BY EVENT_NO)  as LastValue FROM EVENT WHERE EVENT_STAT = 3 and rownum<2) ";
+	private static final String GET_ALL_STMT = "SELECT * FROM EVENT_P WHERE EVENT_NO = (SELECT LAST_VALUE (EVENT_NO) OVER (ORDER BY EVENT_NO)  as LastValue FROM EVENT WHERE EVENT_STAT = 3 and rownum<2) and EVENT_P_STAT != 2";
 
 	
 	
