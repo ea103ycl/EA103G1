@@ -3,8 +3,8 @@ var bdNo = $("#bdNo").val();
 
 var bidOver = true;
 
-(function NotgettingBdNo(){
-	if(bdNo.trim().length===0){
+(function NotgettingBdNo() {
+	if (bdNo.trim().length === 0) {
 		window.location.href = $('#biddingIndexUrl').val();
 	}
 })();
@@ -440,7 +440,7 @@ $(".checkout").on("click", function(e) {
 				success: function(d) {
 					if (d === "complete") {
 						//==================sweetAlert==============
-						$('.modal-body').html('<div style="height:'+ window.height()+'">Pending...</div>');
+						$('.modal-body').html('<div style="height:100vh;">Pending...</div>');
 						var temp = $('.modal-body').html();
 						setTimeout(function() {
 							$('.modal-body').html(temp);
@@ -452,10 +452,9 @@ $(".checkout").on("click", function(e) {
 								confirmButtonColor: '#3085d6',
 								cancelButtonColor: '#d33',
 								confirmButtonText: '確認'
-							}).then((result) => {
-								console.log("result2 confirmed");
-								if (result.isConfirmed) {
-									$('#modalButton').click();
+							}).then((result2) => {
+								if (result2.isConfirmed) {
+									$('#myModal').modal('toggle');
 									location.reload();
 								}
 							})

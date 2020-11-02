@@ -69,7 +69,7 @@ public class BdRedis {
 		jedis.set("startTime", startTime.toString());
 
 //		Long endTime = startTime + (60 * 60 * 24 * 30 * 1000L);// millis
-		Long endTime = startTime + (60 * 5 * 1000L);// millis
+		Long endTime = startTime + (60 * 1 * 1000L);// millis
 		jedis.set("endTime", endTime.toString());
 
 		BiddingService bdSvc = new BiddingService();
