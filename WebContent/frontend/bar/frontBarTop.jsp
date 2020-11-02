@@ -107,45 +107,6 @@
                 <a class="navbar-brand" href="<%=request.getContextPath()%>/frontend/front_index.jsp"><h2 class="ycl-topbar-logoNm">ArtsBlock</h2></a>
             </div><!-- / navbar-header -->
             	
-            <div class="secondary-nav" style="display:inline-block;">
-
-            	<!-- 購物車 -->
-            	<li class="dropdown ycl-topBar-second">
-                    <a href="#" class="shopping-cart space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart"></i><span class="cart-badge">${tBarCartTotal}</span></a>
-                    <ul class="dropdown-menu animated zoomIn fast">
-                        <li><a href="<%=request.getContextPath()%>/frontend/shop/Cart.jsp"><span>一般商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt1">${tBarCart1Cnt}</span></a></li>
-                        <li><a href="<%=request.getContextPath()%>/frontend/preproduct/shoppingCart.jsp"><span>預購商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt2">${tBarCart2Cnt}</span></a></li>
-                    </ul>
-                </li>
-
-            	<!-- 會員 -->
-            	<li class="dropdown ycl-topBar-second">
-                    <a href="#" class="my-account space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<c:choose>
-							<c:when test="${not empty sessionScope.memVO}">
-								<img class="ycl-topbar-memPhoto" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${sessionScope.memVO.mem_id}">
-						    </c:when>      	
-	                    	<c:otherwise>
-	                    		<i class="fa fa-user"></i>
-	                    	</c:otherwise>
-                    	</c:choose>     
-                    </a>
-                    <ul class="dropdown-menu animated zoomIn fast">
-                    	<c:choose>
-                    		<c:when test="${empty sessionScope.memVO}">
-                    			<li><a href="<%=request.getContextPath()%>/frontend/members/memLogin.jsp"><span>登入</span></a></li>
-                    		</c:when>
-                    		<c:otherwise>
-                    			<li><a href="<%=request.getContextPath()%>/frontend/members/memArea.jsp"><span>設定</span></a></li>
-                        		<li><a href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout"><span>登出</span><i class="lnr lnr-exit ycl-topbar-icon"></i></a></li>
-                        	</c:otherwise>
-                    	</c:choose>
-
-                    </ul>
-                </li>
-                
-            </div>
-            
             <div class="navbar-collapse collapse text-center">
                 <ul class="nav navbar-nav">
                 	
@@ -167,10 +128,45 @@
                     <li><a href="<%=request.getContextPath()%>/frontend/biddingFront/biddingIndex.jsp"><span>競標</span></a></li>
 
                     <!-- 見面會 -->
-                    <li><a href="<%=request.getContextPath()%>/frontend/front_index.jsp"><span>見面會</span></a></li>
-
-                    
+                    <li><a href="<%=request.getContextPath()%>/frontend/meeting/listAllMeeting_front.jsp"><span>見面會</span></a></li>
+					
+					<div class="secondary-nav" style="display:inline-block;">
+						<!-- 購物車 -->
+		            	<li class="dropdown ycl-topBar-second">
+		                    <a href="#" class="shopping-cart space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart"></i><span class="cart-badge">${tBarCartTotal}</span></a>
+		                    <ul class="dropdown-menu animated zoomIn fast">
+		                        <li><a href="<%=request.getContextPath()%>/frontend/shop/Cart.jsp"><span>一般商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt1">${tBarCart1Cnt}</span></a></li>
+		                        <li><a href="<%=request.getContextPath()%>/frontend/preproduct/shoppingCart.jsp"><span>預購商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt2">${tBarCart2Cnt}</span></a></li>
+		                    </ul>
+		                </li>
+		
+						<!--會員 -->
+		            	<li class="dropdown ycl-topBar-second">
+		                    <a href="#" class="my-account space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<c:choose>
+									<c:when test="${not empty sessionScope.memVO}">
+										<img class="ycl-topbar-memPhoto" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${sessionScope.memVO.mem_id}">
+								    </c:when>      	
+			                    	<c:otherwise>
+			                    		<i class="fa fa-user"></i>
+			                    	</c:otherwise>
+		                    	</c:choose>     
+		                    </a>
+		                    <ul class="dropdown-menu animated zoomIn fast">
+		                    	<c:choose>
+		                    		<c:when test="${empty sessionScope.memVO}">
+		                    			<li><a href="<%=request.getContextPath()%>/frontend/members/memLogin.jsp"><span>登入</span></a></li>
+		                    		</c:when>
+		                    		<c:otherwise>
+		                    			<li><a href="<%=request.getContextPath()%>/frontend/members/memArea.jsp"><span>設定</span></a></li>
+		                        		<li><a href="<%=request.getContextPath()%>/frontend/members/memLoginHandler.do?action=logout"><span>登出</span><i class="lnr lnr-exit ycl-topbar-icon"></i></a></li>
+		                        	</c:otherwise>
+		                    	</c:choose>
+		                    </ul>
+		                </li>
+		            </div>
                 </ul>
+                
             </div><!--/ nav-collapse -->
         </div><!-- / container -->
     </nav>

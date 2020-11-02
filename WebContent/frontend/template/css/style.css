@@ -4433,7 +4433,13 @@ footer #newsletter .form-control {
   }
 
   .secondary-nav {
-    display: none !important;
+    display: block !important;
+  }
+  
+  .secondary-nav li{
+    display: block !important;
+    margin: 7px 0 20px 0;
+    line-height: 50px;
   }
 
   .footer-info {
