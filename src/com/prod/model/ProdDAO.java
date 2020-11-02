@@ -16,7 +16,7 @@ import java.sql.*;
 		static {
 			try {
 				Context ctx = new InitialContext();
-				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/G1");
+				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/EA103G1");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}

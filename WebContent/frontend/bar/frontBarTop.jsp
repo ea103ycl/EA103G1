@@ -23,8 +23,6 @@
     pageContext.setAttribute("tBarCart1Cnt", tBarCart1Cnt);
     pageContext.setAttribute("tBarCart2Cnt", tBarCart2Cnt);
     pageContext.setAttribute("tBarCartTotal", tBarCartTotal);
-
-    
 %>
 
 <!DOCTYPE html>

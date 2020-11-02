@@ -7,7 +7,6 @@
 </head>
 <body>
 
-
 	<!-- javascript -->
 	<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.min.js"></script>
 	<script src="<%=request.getContextPath()%>/frontend/template/js/bootstrap.min.js"></script>

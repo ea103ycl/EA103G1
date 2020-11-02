@@ -61,7 +61,7 @@
 <body id="page-top" style=" background-image: linear-gradient(to bottom, #D0D0D0, #D0D0D0); background-position: top left;  background-size: 100%;  background-repeat: repeat;">
    
         <!-- =========================================== Sidebar START ===========================================  -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style=" background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), #EA7500); background-position: top left;  background-size: 100%;  background-repeat: repeat;">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
                 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/backend/back-index.jsp">
