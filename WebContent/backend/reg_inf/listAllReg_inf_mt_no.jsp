@@ -26,23 +26,6 @@
 <title>報名表清單 -listAllReg_inf_mt_no.jsp</title>
 
 <style>
-  table#table-2 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-2 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
   table {
 	width: 800px;
 	background-color: white;
@@ -51,18 +34,70 @@
   }
   table, th, td {
     border: 1px solid #CCCCFF;
+    text-align: center;
   }
   th, td {
     padding: 5px;
     text-align: center;
   }
+  h4 {
+  padding: 5px;
+    text-align: center;
+  }
+  body {
+    color: #666666;
+    background: #fefefe;
+    font-family: "Rubik", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+}
+table#table-1 {
+	background-color: #C4E1E1;
+    border: 2px #ECF5FF;
+    text-align: center;
+    
+  }
+  table#table-1 h4 {
+    color: #613030;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  h4 {
+    color: blue;
+    display: inline;
+  }
+  h3 {
+  color: blue;
+    display: inline;
+  }
 </style>
 
 </head>
 <body onload="checkoutAmount();" bgcolor='white'>
+<!-- header -->
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-2">
+	<header>
+
+		<%@include file="/frontend/bar/frontBarTop.jsp"%>
+
+		    <!-- header-banner -->
+    <div id="header-banner">
+        <div class="banner-content single-page text-center">
+            <div class="banner-border">
+                <div class="banner-info" id="banner-info">
+                    <h1>Meeting</h1>
+                </div><!-- / banner-info -->
+            </div><!-- / banner-border -->
+        </div><!-- / banner-content -->
+    </div>
+    <!-- / header-banner -->
+	</header>
+	<!-- / header -->
+
+<table id="table-1">
 	<tr><td>
 		 <h3>報名表清單 -listAllReg_inf_mt_no.jsp</h3>
 		 <h4><a href="<%=request.getContextPath()%>/backend/meeting/listAllMeeting_back.jsp">回首頁</a></h4>
@@ -136,7 +171,9 @@
 	</c:forEach>
 </table>
 <%@ include file="page2.file" %>
-
+	<table id="table-1">
+<td></td>
+</table>
 </body>
 <script>
 

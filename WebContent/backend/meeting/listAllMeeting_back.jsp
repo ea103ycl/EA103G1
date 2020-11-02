@@ -25,46 +25,79 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 <html>
 <head>
 <title>見面會_後台 - listAllMeeting_back.jsp</title>
-
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 1600px;
+ table {
+	width: 1550px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
   table, th, td {
     border: 1px solid #CCCCFF;
+    text-align: center;
   }
   th, td {
     padding: 5px;
     text-align: center;
   }
+  h4 {
+  padding: 5px;
+    text-align: center;
+  }
+  body {
+    color: #666666;
+    background: #fefefe;
+    font-family: "Rubik", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+}
+table#table-1 {
+	background-color: #C4E1E1;
+    border: 2px #ECF5FF;
+    text-align: center;
+    
+  }
+  table#table-1 h4 {
+    color: #613030;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  h4 {
+    color: blue;
+    display: inline;
+  }
+  h3 {
+  color: blue;
+    display: inline;
 </style>
 
 
 
 </head>
-<body bgcolor='white'>
-
-
+<body id="page-top">
+	
+		<div id="wrapper">
+	
+			<%@include file="/backend/bar/backBarSide.jsp"%>
+	
+			<div id="content-wrapper" class="d-flex flex-column">		
+	
+				<div id="content">
+	
+					<!-- Topbar -->
+					<%@include file="/backend/bar/backBarTop.jsp"%>
+	
+					<div class="container-fluid">				
+						<!--=====自定義內容start ================================================== -->
+			
 <table id="table-1">
 	<tr><td>
 		 <h3>見面會_後台 - listAllMeeting_back.jsp</h3>
@@ -98,6 +131,8 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
       
 	</tr>
 	<%@ include file="page1.file" %> 
+	<div style="text-align:right;font-size:26px; font-color:red;"><a href='<%=request.getContextPath()%>/backend/meeting/cancel_meeting_search.jsp'>「取消的」</a> 見面會</div>
+	
 	<c:forEach var="meetingVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
@@ -150,17 +185,21 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	</c:forEach>
 </table>
 
-
-<ul>
-  <li><a href='<%=request.getContextPath()%>/backend/meeting/cancel_meeting_search.jsp'>「取消的」</a> 見面會</li>
-</ul>
-
-
-
-  
-
-
 <%@ include file="page2.file" %>
+<%@include file="/backend/bar/footer.jsp"%>
+
+<!--===== 自定義內容end ================================================== -->
+					</div> <!--END OF container-fluid-->
+					
+				</div> <!--END OF content-->
+				
+				<%@include file="/backend/bar/footer.jsp"%>
+				
+			</div><!--END OF content-wrapper -->
+		</div><!--END OF wrapper -->
+
+
+
 
 </body>
 </html>

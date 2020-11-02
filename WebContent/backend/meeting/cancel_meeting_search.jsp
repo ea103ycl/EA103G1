@@ -28,36 +28,52 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 <title>取消的見面會 -cancel_meeting_search.jsp</title>
 
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
   table {
-	width: 1600px;
+	width: 1550px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
   table, th, td {
     border: 1px solid #CCCCFF;
+    text-align: center;
   }
   th, td {
     padding: 5px;
     text-align: center;
   }
+  h4 {
+  padding: 5px;
+    text-align: center;
+  }
+  body {
+    color: #666666;
+    background: #fefefe;
+    font-family: "Rubik", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+}
+table#table-1 {
+	background-color: #C4E1E1;
+    border: 2px #ECF5FF;
+    text-align: center;
+    
+  }
+  table#table-1 h4 {
+    color: #613030;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  h4 {
+    color: blue;
+    display: inline;
+  }
+  h3 {
+  color: blue;
+    display: inline;
 </style>
 
 
