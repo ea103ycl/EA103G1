@@ -10,6 +10,7 @@
 	WelRecordService welRecordSvc = new WelRecordService();
 	List<WelRecordVO> list = welRecordSvc.getWelRecordByMemID(memVO.getMem_id());
 	pageContext.setAttribute("list", list);
+	
 %>
 
 <!DOCTYPE html>
@@ -716,11 +717,11 @@
 
 
 										</div>
-										<div class="modal-footer">
+										<div class="modal-footer" style="">
 											<p class="space-button">
 												<button type="button" class="btn btn-default"
 													data-dismiss="modal">返回</button>
-												<button type="submit" class="btn btn-primary-filled">送出</button>
+												<button type="submit" class="btn btn-primary-filled" style="margin:5px">送出</button>
 												<input type="hidden" name="action" value="deposit">
 										</div>
 									</FORM>
@@ -759,9 +760,9 @@
 
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-primary "
+											<button type="button" class="btn btn-default"
 												data-dismiss="modal">取消</button>
-											<button type="submit" class="btn btn-primary">送出</button>
+											<button type="submit" class="btn btn-primary-filled" style="margin:5px">送出</button>
 										</div>
 										<input type="hidden" name="action" value="withdraw">
 									</FORM>
@@ -839,6 +840,55 @@
 				</div>
 			</div>
 		</div>
+	
+		<button type="button" id="depositSuccessBtn" class="btn btn-primary btn-lg"
+			data-toggle="modal" data-target="#myModal4" style="display: none;">
+			</button>
+		<div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">儲值結果通知</h4>
+					</div>
+					<div class="modal-body" style="text-align: center;">
+						<h6>儲值成功！<br><br>您的錢包餘額：NT$${sessionScope.memVO.balance} </h6></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	
+	
+		<button type="button" id="withdrawSuccessBtn" class="btn btn-primary btn-lg"
+			data-toggle="modal" data-target="#myModal5" style="display: none;">
+			</button>
+		<div class="modal fade" id="myModal5" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">提領成功通知</h4>
+					</div>
+					<div class="modal-body" style="text-align: center">
+					<h6>提領成功！<br><br>您的錢包餘額：NT$${sessionScope.memVO.balance} </h6></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	
 	
 			<!-- photoModal -->
 		<div class="modal fade" id="photoModal" tabindex="-1" role="dialog"
@@ -952,6 +1002,20 @@
 				$('#contactZip option[value=\''+zip+' '+city+'\']').attr('selected', true);	
 			}
 		});
+
+		
+		var Ecpaystatus = ${EcpaySuccess};
+		
+    	if (Ecpaystatus === true){
+    		$('#depositSuccessBtn').trigger('click');
+    	}
+	
+    	var withdrawStatus = ${withdrawSuccess};
+		
+    	if (withdrawStatus === true){
+    		$('#withdrawSuccessBtn').trigger('click');
+    	}
+  
 	});		
 
 	$("#sameAsContactBtn").click(function() {

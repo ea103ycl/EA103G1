@@ -8,8 +8,7 @@ import ecpay.payment.integration.ecpayOperator.EcpayFunction;
 import ecpay.payment.integration.errorMsg.ErrorMessage;
 import ecpay.payment.integration.exception.EcpayException;
 
-public class AllInOneBase
-{
+public class AllInOneBase {
 	protected static String operatingMode;
 	protected static String mercProfile;
 	protected static String isProjectContractor;
@@ -29,8 +28,7 @@ public class AllInOneBase
 	protected static Document verifyDoc;
 	protected static String[] ignorePayment;
 
-	public AllInOneBase()
-	{
+	public AllInOneBase(String paymentConfPath) {
 //		try{
 		Document doc;
 		/* when using web project */
@@ -38,7 +36,6 @@ public class AllInOneBase
 //			String configPath = URLDecoder.decode(classLoader.getResource("/payment_conf.xml").getPath(), "UTF-8");
 //			doc = EcpayFunction.xmlParser(configPath);
 		/* when using testing code */
-		String paymentConfPath = "./src/payment_conf.xml";
 		doc = EcpayFunction.xmlParser(paymentConfPath);
 
 		doc.getDocumentElement().normalize();
@@ -53,29 +50,25 @@ public class AllInOneBase
 		isProjectContractor = ele.getTextContent();
 		// MID, HashKey, HashIV, PlatformID
 		NodeList nodeList = doc.getElementsByTagName("MInfo");
-		for (int i = 0; i < nodeList.getLength(); i++)
-			{
-				ele = (Element) nodeList.item(i);
-				if (ele.getAttribute("name").equalsIgnoreCase(mercProfile))
-					{
-						MerchantID = ele.getElementsByTagName("MerchantID").item(0).getTextContent();
-						HashKey = ele.getElementsByTagName("HashKey").item(0).getTextContent();
-						HashIV = ele.getElementsByTagName("HashIV").item(0).getTextContent();
-						PlatformID = isProjectContractor.equalsIgnoreCase("N") ? "" : MerchantID;
-					}
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			ele = (Element) nodeList.item(i);
+			if (ele.getAttribute("name").equalsIgnoreCase(mercProfile)) {
+				MerchantID = ele.getElementsByTagName("MerchantID").item(0).getTextContent();
+				HashKey = ele.getElementsByTagName("HashKey").item(0).getTextContent();
+				HashIV = ele.getElementsByTagName("HashIV").item(0).getTextContent();
+				PlatformID = isProjectContractor.equalsIgnoreCase("N") ? "" : MerchantID;
 			}
+		}
 		// IgnorePayment
 		ele = (Element) doc.getElementsByTagName("IgnorePayment").item(0);
 		nodeList = ele.getElementsByTagName("Method");
 		ignorePayment = new String[nodeList.getLength()];
-		for (int i = 0; i < nodeList.getLength(); i++)
-			{
-				ignorePayment[i] = nodeList.item(i).getTextContent();
-			}
-		if (HashKey == null)
-			{
-				throw new EcpayException(ErrorMessage.MInfo_NOT_SETTING);
-			}
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			ignorePayment[i] = nodeList.item(i).getTextContent();
+		}
+		if (HashKey == null) {
+			throw new EcpayException(ErrorMessage.MInfo_NOT_SETTING);
+		}
 //		} catch(UnsupportedEncodingException e){
 //			e.printStackTrace();
 //		}

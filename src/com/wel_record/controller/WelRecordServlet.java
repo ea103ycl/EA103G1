@@ -15,10 +15,12 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.mem.model.MemService;
 import com.mem.model.MemVO;
 import com.wel_record.model.WelRecordService;
 import com.wel_record.model.WelRecordVO;
 
+import ecpay.example.EcpayAllInOne;
 import tools.MoneyTool;
 
 //@WebServlet("/welRecord/welRecord.do") //mark by YCL
@@ -30,18 +32,23 @@ public class WelRecordServlet extends HttpServlet {
 	public static final int WITHDRAW_LIMIT = 300000; // 單日提領上限三十萬
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("有跑到get");
+
 		doPost(req, res);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("有跑到post");
+
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
 
 		WelRecordService welRecordSvc = new WelRecordService();
+
+		// 是否為綠界刷卡成功後轉回
+		req.setAttribute("EcpaySuccess", false);
+		// 是否為提款成功
+		req.setAttribute("withdrawSuccess", false);
 
 		if ("deposit".equals(action)) {
 
@@ -73,58 +80,29 @@ public class WelRecordServlet extends HttpServlet {
 					return;
 				}
 
-//				//********************2.開始新增資料(舊的code待確認)******************
-//
-//						WelRecordService wrSrc = new WelRecordService();
-//						WelRecordVO welRecordVO = new WelRecordVO();
-//						MemVO updatedMemVO = new MemVO();
-//						System.out.println("memVO.getMem_id():" + memVO.getMem_id());
-//						System.out.println("amount:" + amount);
-//
-//						MemService memSrc = new MemService();
-//
-//						welRecordVO = wrSrc.addWelRecord(memVO.getMem_id(), 10, null, amount); // 儲值之交易來源代號為10
-//
-//						updatedMemVO = memSrc.findByPrimaryKey(memVO.getMem_id());
-//
-//						System.out.println("儲值成功");
-//
-//						session.setAttribute("memVO", updatedMemVO);// 更新session之memVO
-//
-//						/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-//
-//						String url = "/frontend/members/memArea.jsp";
-//						RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-//						successView.forward(req, res);
-//
-//					} catch (Exception e)
-//					{
-//						errorMsgsForMoney.add("無法取得資料:" + e.getMessage());
-//						RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
-//						failureView.forward(req, res);
-//					}
-//				
-
 //				********************2.開始結帳******************
 
 				Boolean ifCheckOutSucess = MoneyTool.checkOut(session, 10, null, amount);// 儲值傳入正數
 
 				if (ifCheckOutSucess) {
-//					String request2Ecpay = EcpayTool.genAioCheckOutALL(amount, action, req);
-//
-//					URL url = new URL(request2Ecpay);
-//					HttpURLConnection http = (HttpURLConnection) url.openConnection();
-//					http.setRequestMethod("POST");
-//					InputStream input = http.getInputStream();
-//					http.disconnect();
-//					byte[] data = new byte[1024];
-//					int idx = input.read(data);
-//					String str = new String(data, 0, idx);
-//					out.println(str);
-//					input.close();
 
-					System.out.println("結帳成功");
-					String returnUrl = "/frontend/members/memArea.jsp";// 結帳成功後轉交回原會員頁面
+					// 綠界設定檔路徑
+					String paymentConDirectory = "/WEB-INF/payment_conf.xml";
+					String paymentConfPath = getServletContext().getRealPath(paymentConDirectory);
+
+					// 綠界返回會員專區之url
+					StringBuffer url = req.getRequestURL();
+					url.append("?action=transfer2memArea&memid=");
+					url.append(memVO.getMem_id());
+					System.out.println(url.toString());
+
+					// 產生綠界form並存入request中
+					String form = EcpayAllInOne.getForm(amount, paymentConfPath, url.toString());
+					req.setAttribute("form", form);
+
+					// 結帳成功後轉交至轉綠界頁面
+					System.out.println("準備轉至綠界");
+					String returnUrl = "/frontend/members/memforward2Ecpay.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(returnUrl);
 					successView.forward(req, res);
 
@@ -138,6 +116,30 @@ public class WelRecordServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
 				failureView.forward(req, res);
 			}
+
+		}
+
+		// 從綠界刷卡結束後轉回會員專區
+		if ("transfer2memArea".equals(action)) {
+
+			// 更新session之memVO
+
+			String mem_id = req.getParameter("memid");
+
+			MemService memSrc = new MemService();
+
+			MemVO updatedMemVO = memSrc.findByPrimaryKey(mem_id);
+
+			HttpSession session = req.getSession();
+
+			session.setAttribute("memVO", updatedMemVO);
+
+			String url = "/frontend/members/memArea.jsp";
+			RequestDispatcher forwardView = req.getRequestDispatcher(url);
+
+			req.setAttribute("EcpaySuccess", true);
+
+			forwardView.forward(req, res);
 
 		}
 
@@ -185,10 +187,12 @@ public class WelRecordServlet extends HttpServlet {
 
 					String returnUrl = "/frontend/members/memArea.jsp";// 結帳成功後轉交回原會員頁面
 					RequestDispatcher successView = req.getRequestDispatcher(returnUrl);
+					req.setAttribute("withdrawSuccess", true);
 					successView.forward(req, res);
 
 				} else {
 					errorMsgsForMoney.add("提領失敗,請檢查餘額是否充足或格式正確"); // 結帳失敗後的處理
+
 				}
 
 				if (!errorMsgsForMoney.isEmpty()) {
