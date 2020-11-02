@@ -32,6 +32,7 @@ public class MoneyTool
 
 				// 再從DB取出並更新目前session之MemVO
 				MemVO updatedMemVO = memSrc.findByPrimaryKey(mem_id);
+				
 				session.setAttribute("memVO", updatedMemVO);
 				return true;
 			}
