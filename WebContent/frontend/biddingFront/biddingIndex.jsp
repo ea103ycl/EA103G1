@@ -63,6 +63,10 @@
 	<jsp:useBean id="epSvc" scope="page"
 		class="com.event_p.model.Event_PService" />
 
+	<c:if test="${empty event_no}">
+		<c:set var="event_no" value="E000001" scope="application" />
+	</c:if>
+	
 	<c:set var="bdNo" value="${event_no}" />
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
 	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
@@ -97,8 +101,8 @@
 			<div class="section-w-image space-top-2x">
 				<div class="row biddingPage"
 					style="background-color: #f8f8f8; cursor: pointer">
-					<h1 style="display:none;">${event_no}</h1>
-					<span style="display:none;">${event_no}</span>
+					<h1 style="display: none;">${event_no}</h1>
+					<span style="display: none;">${event_no}</span>
 					<div class="col-sm-7 ">
 						<img
 							onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (1).jpg'"

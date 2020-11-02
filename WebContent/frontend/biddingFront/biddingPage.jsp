@@ -52,6 +52,11 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 <style>
+
+button:disabled {
+  cursor: not-allowed;
+}
+
 .memAvatar {
 	width: 8%;
 	display: inline-block;
