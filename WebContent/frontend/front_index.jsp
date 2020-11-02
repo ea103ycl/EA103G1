@@ -360,7 +360,7 @@
 	</main>
 	<!-- End #main -->
 	<a href="#" class="back-to-top"><img
-		src="<%=request.getContextPath()%>/frontend/front_index/assets/img/up-chevron.svg"></a>
+		src="<%=request.getContextPath()%>/frontend/front_index/assets/img/up-chevron-white.svg"></a>
 	<!-- Vendor JS Files -->
 	<script
 		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/jquery/jquery.min.js"></script>
