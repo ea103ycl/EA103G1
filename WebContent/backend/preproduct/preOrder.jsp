@@ -16,9 +16,6 @@
 %>
 <%
 	PreOrderVO preorderVO = (PreOrderVO) request.getAttribute("preorderVO"); 
-
-	
-
 %>
 
 <!DOCTYPE html>
@@ -46,12 +43,9 @@
 			          <h1 class="h3 mb-2 text-gray-800">預購商品訂單總表</h1>
 					  <div>
 				          <c:if test="${not empty errorMsgs}">
-							  <font style="color:red">請修正以下錯誤:</font>
-							  <ul>
-								  <c:forEach var="message" items="${errorMsgs}">
-									  <li style="color:red">${message}</li>
-								  </c:forEach>
-							  </ul>
+							<script type="text/javascript">
+								alert("請修正以下錯誤:${errorMsgs}");
+							</script>
 						  </c:if>
 			          </div>
 			          <!-- DataTales Example -->
@@ -94,16 +88,13 @@
 											<button type="button" id="${preorderVO.po_no}" class="btn btn-primary float-right ${preorderVO.po_no}" data-toggle="modal" data-target="#exampleModalCenter${preorderVO.po_no}">
 											 查看
 											</button>
-									
 											<!-- Modal -->
-
 											<div class="modal fade" id="exampleModalCenter${preorderVO.po_no}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 											  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 											    <div class="modal-content">
 											      <div class="modal-header">
 											        <h5 class="modal-title" id="exampleModalLongTitle">訂單明細</h5>
 											        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											        
 											          <span aria-hidden="true">&times;</span>
 											        </button>
 											      </div>
