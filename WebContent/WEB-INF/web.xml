@@ -478,6 +478,8 @@
 		<url-pattern>/frontend/members/select_page_frontend.jsp</url-pattern>
 		<url-pattern>/frontend/preproduct/shoppingCart.jsp</url-pattern>
 		<url-pattern>/frontend/preproduct/order_Success_List.jsp</url-pattern>
+		<url-pattern>/frontend/shop/Checkout.jsp</url-pattern>
+		<url-pattern>/frontend/shop/order/OrderSearch.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 
