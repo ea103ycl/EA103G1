@@ -156,7 +156,7 @@
 
 										<!-- 作品圖片 -->				
 										<a class="testPainter" href="<%=request.getContextPath()%>/frontend/painter/onePainter.jsp?ptr_no=${painterVO.ptr_no}&sid=${sid}&src=2&spg=<%=whichPageCol%>&sid=${sid}">
-											<img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${painterVO.ptr_no}">
+											<img src="<%=request.getContextPath()%>/painter/getShrinkPtr.do?px=400&ptr_no=${painterVO.ptr_no}">
 										</a>
 
 										<div class="ycl-painter-content">

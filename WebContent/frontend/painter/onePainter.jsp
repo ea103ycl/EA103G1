@@ -85,7 +85,7 @@
 	            <!-- post content area -->
 	            <div class="col-xs-12 col-sm-6">
 	            	<!-- 作品圖片 -->
-					<img id="ycl-painter-pic" src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${painterVO.ptr_no}" alt="">
+					<img src="<%=request.getContextPath()%>/painter/getOrigPtr.do?ptr_no=${painterVO.ptr_no}">
 	            </div>
 	            <div class="col-xs-12  col-sm-6">
 	                <div class="blog block post-content-area">
@@ -290,7 +290,7 @@
 	                        <label>選擇作品圖片</label>
 	                        <input type="file" id="imgPath" name="imgPath" onchange="readURL(this);">
 	                        <img class="img-fluid w-25 h-25" id="imgUpload"
-	                        	 src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${painterVO.ptr_no}">	
+	                        	 src="<%=request.getContextPath()%>/painter/getOrigPtr.do?ptr_no=${painterVO.ptr_no}">	
                     	</div>
                     	
                     	<input style="display:none" name="src" value="${src}">

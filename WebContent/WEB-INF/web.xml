@@ -365,8 +365,28 @@
 		<url-pattern>/follow/follow.do</url-pattern>
 	</servlet-mapping>
 
+
+	<servlet>
+		<servlet-name>GetShrinkPtr</servlet-name>
+		<servlet-class>com.painter.controller.GetShrinkPtr</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetShrinkPtr</servlet-name>
+		<url-pattern>/painter/getShrinkPtr.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>GetOrigPtr</servlet-name>
+		<servlet-class>com.painter.controller.GetOrigPtr</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetOrigPtr</servlet-name>
+		<url-pattern>/painter/getOrigPtr.do</url-pattern>
+	</servlet-mapping>
+	
 	<!--== ROGER=========================================== -->
-<servlet>
+	<servlet>
 		<servlet-name>MeetingServlet</servlet-name>
 		<servlet-class>com.meeting.controller.MeetingServlet</servlet-class>
 	</servlet>
