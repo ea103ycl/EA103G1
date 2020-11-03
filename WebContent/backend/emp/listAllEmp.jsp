@@ -77,7 +77,7 @@
        </select>
    
        <b>&nbsp&nbsp選擇員工姓名:&nbsp&nbsp</b>
-       <select class="form-control " id="exampleFormControlSelect1"  style="max-width:100px" name="emp_no3">
+       <select class="form-control " id="exampleFormControlSelect1"  style="max-width:170px" name="emp_no3">
           <option value="">
          <c:forEach var="empVO" items="${list}" > 
           <option value="${empVO.empNo}">${empVO.empName}

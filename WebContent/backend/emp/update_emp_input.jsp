@@ -235,8 +235,8 @@
       
       
       $("#click").click(function(){
-      	  $("#emp_name").val("李嘉誠");
-      	  $("#emp_pos").val("董事長");
+      	  $("#emp_name").val("THANOS");
+      	  $("#emp_pos").val("倉儲經理");
       	  $("#emp_mail").val("farmer7382@gmail.com");
         });
       

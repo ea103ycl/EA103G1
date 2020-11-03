@@ -108,11 +108,11 @@
   <input type="text" class="form-control"  name="ma_price_down" id="ma_price_down" value=""  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 </div>
 
-<div style = "margin-left:70px">
-<button class="btn btn-primary" type="button" id="click2">Clean</button> 
-&nbsp
-<button class="btn btn-primary" type="button" id="click1">Click Me</button> 
-</div>
+<!-- <div style = "margin-left:70px"> -->
+<!-- <button class="btn btn-primary" type="button" id="click2">Clean</button>  -->
+<!-- &nbsp -->
+<!-- <button class="btn btn-primary" type="button" id="click1">Click Me</button>  -->
+<!-- </div> -->
 
 
 <div class="mt-2" style = "margin-left:40px" >
@@ -147,10 +147,10 @@
      <script type="text/javascript">
      
      $("#click1").click(function(){
-     	  $("#ma_no").val("L0002");
-     	  $("#ma_name").val("墊");
-     	  $("#ma_price_up").val("1000");
-     	  $("#ma_price_down").val("100");     	  
+     	  $("#ma_no").val("");
+     	  $("#ma_name").val("");
+     	  $("#ma_price_up").val("");
+     	  $("#ma_price_down").val("");     	  
        });
      
      $("#click2").click(function(){

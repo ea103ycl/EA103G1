@@ -238,8 +238,8 @@
         window.onload = init;
 
         $("#click").click(function(){
-      	  $("#emp_name").val("李嘉誠");
-      	  $("#emp_pos").val("打掃阿伯");
+      	  $("#emp_name").val("THANOS");
+      	  $("#emp_pos").val("倉儲人員");
       	  $("#emp_mail").val("farmer7382@gmail.com");
         });
              

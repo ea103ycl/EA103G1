@@ -248,9 +248,9 @@
         window.onload = init;
         
         $("#click1").click(function(){
-       	  $("#ma_ty_nam").val("廚房用品");
-       	  $("#ma_name").val("平底鍋");
-       	  $("#ma_price").val("9999");   	  
+       	  $("#ma_ty_nam").val("燈飾");
+       	  $("#ma_name").val("落地燈");
+       	  $("#ma_price").val("3500");   	  
          });
        
        $("#click2").click(function(){
