@@ -224,5 +224,7 @@ textarea{
 .ycl-painter-pic{
 	max-width:500px !important;
 }
-		
+
+pre {border: 0; background-color: transparent;}
+
 </style>

@@ -9,6 +9,7 @@
 <%@ page import="com.painter_msg.model.*"%>
 <%@ page import="com.follow.model.*"%>
 <%@ page import="com.mem.model.*"%>
+<%@ page import="com.painter_act.model.*"%>
 
 <%-- <%@include file="/frontend/bar/testLogin.jsp"%> --%>
 
@@ -59,7 +60,8 @@
 	}
 	pageContext.setAttribute("tagString", tagString);
 
-	
+	PainterActService painterActSvc = new PainterActService();
+	pageContext.setAttribute("painterActSvc", painterActSvc);
 %>
 
 <!DOCTYPE html>
@@ -72,8 +74,6 @@
 	<%@include file="/frontend/bar/frontBarTop.jsp"%>
 	<%@include file="/frontend/template/YCL/YCL.css"%>
 		
-		
-	<link href="<%=request.getContextPath()%>/frontend/template/YCL/YCL.css" rel="stylesheet">
 </head>
 <body>
 
@@ -91,15 +91,15 @@
 	                <div class="blog block post-content-area">
 	                
                     <c:if test="${loginMemVO.mem_id == painterVO.mem_id}">
-							<div class="btn-group ycl-edit-btn pull-right" role="group">
-							    <button type="button" class="ycl-transparent-Btn ycl-square-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							      <i class="fa fa-ellipsis-h"></i>
-							    </button>
-							    <ul class="dropdown-menu">
-								    <li><a><button class="ycl-transparent-Btn mt-5" id="deletePtrBtn"><i class="lnr lnr-trash"></i>&nbsp;刪除</button></a></li>
-								    <li><a><button class="ycl-transparent-Btn" data-target="#updateModal" onclick="$('#updateModal').modal('show')"><i class="lnr lnr-pencil"></i>&nbsp;修改</button></a></li>
-							    </ul>
-							  </div>
+						<div class="btn-group ycl-edit-btn pull-right" role="group">
+						    <button type="button" class="ycl-transparent-Btn ycl-square-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						      <i class="fa fa-ellipsis-h"></i>
+						    </button>
+						    <ul class="dropdown-menu">
+							    <li><a><button class="ycl-transparent-Btn mt-100" data-target="#updateModal" onclick="$('#updateModal').modal('show')"><i class="lnr lnr-pencil"></i>&nbsp;修改</button></a></li>
+							    <li><a><button class="ycl-transparent-Btn" id="deletePtrBtn"><i class="lnr lnr-trash"></i>&nbsp;刪除</button></a></li>
+						    </ul>
+						  </div>
 					</c:if>
 							
 	                    <div class="post-info-box">
@@ -124,16 +124,66 @@
 						    	
 						    	<!-- 作品說明 -->
 						    	<div class="ycl-painter-desc">
-							    	<c:forTokens var="str" items="${painterVO.intro}" delims="&#13;&#10;">
-							    		<p>${str}</p>
-							    	</c:forTokens>
+<%-- 							    	<c:forTokens var="str" items="${painterVO.intro}" delims="&#13;&#10;"> --%>
+<%-- 							    		<p>${str}</p> --%>
+<%-- 							    	</c:forTokens> --%>
+							    	
+							    	<pre>${painterVO.intro}</pre>
 						    	</div>
 						    	
 						    	<!-- 作品tag -->
 						   		<c:forEach var="painterTagMapVO" items="${tagList}">
 						    		<a href="#" class="ycl-hashtag"># ${painterTagSvc.getOneByTagNo(painterTagMapVO.tag_no).tag_desc}&nbsp</a>
 						    	</c:forEach>
-	                    </div><!-- / post-info-box -->
+						    	
+						    	<hr>
+						    	<!-- 互動行為 -->
+						    	<div>
+						    		<!-- like -->
+									<span class="post-icons ycl-post-icons">
+									   <button class="ycl-act-btn-like " value="${painterVO.ptr_no}">
+										   <c:choose>
+										   		<c:when test="${empty painterActSvc.getOneByActType(painterVO.ptr_no, 1, loginMemVO.mem_id)}">
+										   			<i class="lnr lnr-heart" id="likeIcon${painterVO.ptr_no}">
+										   				<span class="ycl-act-cnt" id="likeCnt${painterVO.ptr_no}">${painterVO.like_cnt}</span>
+										   			</i>
+										   		</c:when>
+										   		
+										   		<c:otherwise>
+										   			<i class="fa fa-heart ycl-act-active" id="likeIcon${painterVO.ptr_no}">
+										   				<span class="ycl-act-cnt ycl-act-active" id="likeCnt${painterVO.ptr_no}">${painterVO.like_cnt}</span>
+										   			</i>
+										   		</c:otherwise>
+										   </c:choose>
+									   </button>
+									</span>
+									
+									<!-- 加入收藏 -->
+									<span class="post-icons ycl-post-icons">
+										<button class="ycl-act-btn-col " value="${painterVO.ptr_no}">												
+											<c:choose>
+										   		<c:when test="${empty painterActSvc.getOneByActType(painterVO.ptr_no, 2, loginMemVO.mem_id)}">
+										   			<i class="lnr lnr-inbox" id="colIcon${painterVO.ptr_no}">
+										   				<span class="ycl-act-cnt" id="colCnt${painterVO.ptr_no}">${painterVO.col_cnt}</span>
+										   			</i>
+										   		</c:when>
+										   		
+										   		<c:otherwise>
+										   			<i class="fa fa-inbox ycl-act-active" id="colIcon${painterVO.ptr_no}">
+										   				<span class="ycl-act-cnt ycl-act-active" id="colCnt${painterVO.ptr_no}">${painterVO.col_cnt}</span>
+										   			</i>
+										   		</c:otherwise>												   	 
+										   </c:choose>
+									   </button>
+									</span>
+									
+									<span class="post-icons ycl-post-icons  pull-right">
+										<button class="ycl-act-btn-msg">
+										 	<a href="<%=request.getContextPath()%>/frontend/shop/forPrinter.jsp?ptr_no=${painterVO.ptr_no}"><i class="lnr lnr-cart"></i></a>
+										</button>											
+									</span>
+						    	</div>
+						    	
 	                </div><!-- / blog-block -->
 	
 	                <div class="comments">
@@ -210,10 +260,10 @@
 	                            <div class="row">                         
 	                                <div class="col-xs-12">
 	                                    <div class="form-group">
+	                                        <span class="btn btn-xs btn-danger-filled btn-rounded" id="ptrMsgMsg" style="display:none;"><i class="fa fa-times"></i><span>請輸入留言</span></span>
 	                                        <textarea id="msg" name="msg" class="form-control" rows="5" placeholder="MESSAGE" required maxlength="333"></textarea>
 	                                    	<input style="display:none" name="ptr_no" value="${painterVO.ptr_no}"></input>
 	                                    </div>
-<!-- 	                                    <button type="submit" name="action" value="insert" id="form-submit" class="btn btn-md btn-primary-filled btn-form-submit"><strong>送出</strong></button> -->
 	                                </div>
 	                            </div><!-- / row -->
 	                            
@@ -318,6 +368,7 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
 	<script>
+	
 		function readURL(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
@@ -390,6 +441,87 @@
 			    }
 		}
 
+		$('.ycl-act-btn-like').click(function(){
+			
+			let xhr = new XMLHttpRequest();
+			let ptr_no = $(this).val();
+			
+			//先準備call servlet的function
+			xhr.onload = function (){
+				
+			      if(xhr.status == 200){		    	  
+			        console.log('======= 1 OK =======' + xhr.status);
+			        let result = JSON.parse(xhr.responseText);
+			        let likeIID = '#likeIcon' + result[0].ptr_no;
+			        let likeCntID = '#likeCnt' + result[0].ptr_no;
+					$(likeIID).toggleClass('lnr lnr-heart fa fa-heart ycl-act-active');
+					$(likeCntID).toggleClass('ycl-act-active');
+			  	    $(likeCntID).text(result[0].newCnt);
+			      }else{
+			    	console.log('======= 1 ERROR =======' + xhr.status);
+			      }
+			      
+			  }
+			
+	    	//建立好Post連接
+			xhr.open("post", "<%=request.getContextPath()%>/painter/painter_act.do", true);
+			xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+			
+			//設定請求
+			let data_info = "action=updatePainterActCnt&ptr_no=" + ptr_no + "&act_type=1";
+			
+			//送出請求
+			xhr.send(data_info);
+			
+		});
+
+		
+		$('.ycl-act-btn-col').click(function(){
+			
+			let xhr = new XMLHttpRequest();
+			let ptr_no = $(this).val();
+			
+			//先準備call servlet的function
+			xhr.onload = function (){
+			      if(xhr.status == 200){		    	  
+			        console.log('======= 1 OK =======' + xhr.status);
+			        let result = JSON.parse(xhr.responseText);
+			        let likeIID = '#colIcon' + result[0].ptr_no;
+			        let likeCntID = '#colCnt' + result[0].ptr_no;
+			        let PainterBlockID = '#painterBlock' + result[0].ptr_no;
+					$(likeIID).toggleClass('lnr lnr-inbox fa fa-inbox ycl-act-active');
+					$(likeCntID).toggleClass('ycl-act-active');
+			  	    $(likeCntID).text(result[0].newCnt);
+			  	    
+			  	    if( ${loginMemVO.mem_id == pageScope.sid}){
+			  	    	$(PainterBlockID).remove();
+// 			  	    	location.reload(true); //重新載入頁面(單作品頁不作此事)
+			  	    }
+			      }else{
+			    	console.log('======= 1 ERROR =======' + xhr.status);
+			      }
+			  }
+			
+	    	//建立好Post連接
+			xhr.open("post", "<%=request.getContextPath()%>/painter/painter_act.do", true);
+			xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+			
+			//設定請求
+			let data_info = "action=updatePainterActCnt&ptr_no=" + ptr_no + "&act_type=2";
+			
+			//送出請求
+			xhr.send(data_info);
+			
+		});
+		
+		$('#form-submit').click(function(){
+			let msg = ($("#msg").val()).trim();
+			if( msg==null || msg.length==0 ){
+				$('#ptrMsgMsg').css('display', '');
+				$('#msg').focus();
+				event.preventDefault();
+			}
+		});
 		
 	</script>
 	
