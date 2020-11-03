@@ -78,10 +78,11 @@ public class CartServlet extends HttpServlet {
 			}
 
 			session.setAttribute("shoppingcart", buylist);	
-			String url = "/frontend/shop/EShop.jsp";
-			RequestDispatcher rd = req.getRequestDispatcher(url);
-			rd.forward(req, res);
-			return;
+			res.getWriter().println(buylist.size());
+//			String url = "/frontend/shop/EShop.jsp";
+//			RequestDispatcher rd = req.getRequestDispatcher(url);
+//			rd.forward(req, res);
+//			return;
 		}
 
 	
