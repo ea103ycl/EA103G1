@@ -32,7 +32,7 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("Shopping - Servlet的action被觸發!");
 		
 		if(!action.equals("CHECKOUT")) {
-			System.out.println("觸發>>action != CHECKOUT");
+			System.out.println("觸發結帳>>sevlet != CHECKOUT");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -79,16 +79,13 @@ public class ShoppingServlet extends HttpServlet {
 			System.out.println("執行rd.forward(req, res);");
 		}
 		else if (action.equals("CHECKOUT")) {
-			
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
-				
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String po_no = null;
-				
 				String mem_id = req.getParameter("mem_id");
 				System.out.println("接收-會員編號 = " + mem_id);
 				Integer po_zip = (new Integer(req.getParameter("po_zip").trim()));
@@ -103,17 +100,13 @@ public class ShoppingServlet extends HttpServlet {
 				System.out.println("接收-總金額 = " + po_total);
 				String po_note = req.getParameter("po_note");
 				System.out.println("接收-買方備註 = " + po_note);
-//				String po_prod_no = req.getParameter("po_prod_no");
 				String[] po_prod_no = req.getParameterValues("po_prod_no");
-				System.out.println(po_prod_no[0]+","+po_prod_no[1]);
 				System.out.println("接收-商品編號 = " + po_prod_no);
 				String[] po_qty = req.getParameterValues("po_qty");
-//				Integer po_qty = (new Integer(req.getParameter("po_qty").trim()));
 				System.out.println("接收-商品數量 = " + po_qty);
 				String[] po_price = req.getParameterValues("po_price");
 				System.out.println("接收-商品價格 = " + po_price);
 				
-
 				PreOrderVO preorderVO = new PreOrderVO();
 				preorderVO.setMem_id(mem_id);
 				preorderVO.setPo_zip(po_zip);
@@ -122,9 +115,7 @@ public class ShoppingServlet extends HttpServlet {
 				preorderVO.setPo_addr(po_addr);
 				preorderVO.setPo_total(po_total);
 				preorderVO.setPo_note(po_note);
-				
 
-				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("preorderVO", preorderVO);
 					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/preproduct/shoppingCart.jsp");
@@ -138,16 +129,12 @@ public class ShoppingServlet extends HttpServlet {
 				if(ifCheckOutSucess) {
 					List<PreOrderDetailVO> list = new ArrayList<>();
 					
-					
 					for(int i = 0;i<buylist.size();i++) {
 						System.out.println("start insert 第"+(i+1)+"件商品");
-//						PreProductVO order = buylist.get(i);
 						Integer po_qty1 = new Integer(po_qty[i]);;
 						System.out.println(po_qty1);
 						Integer po_price1 = new Integer(po_price[i]);
-//						String po_prod_no1 = order.getPo_prod_no();
 						String po_prod_no1 = po_prod_no[i];
-						
 						System.out.println("商品數量 = "+po_qty1);
 						System.out.println("商品價格 = "+po_price1);
 						System.out.println("商品編號 = "+po_prod_no1);
@@ -175,6 +162,7 @@ public class ShoppingServlet extends HttpServlet {
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				String url = "/frontend/preproduct/order_Success_List.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
+				buylist.removeAll(buylist);
 				System.out.println("準備forward");
 				successView.forward(req, res);
 
@@ -185,9 +173,7 @@ public class ShoppingServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/preproduct/shoppingCart.jsp");
 				failureView.forward(req, res);
 			}
-			
 		}
-	
 	}
 
 	private PreProductVO getPreProductVO(HttpServletRequest req) {
@@ -205,7 +191,6 @@ public class ShoppingServlet extends HttpServlet {
 		 preproductVO.setPo_prod_no(po_prod_no);
 		 preproductVO.setEvent_p_no(new Integer(event_p_no));
 		 preproductVO.setMa_no(ma_no);
-		 
 		 preproductVO.setPo_price(new Integer(po_price));
 		 preproductVO.setPo_detail(po_detail);
 		 System.out.println("set完preproductVO所有屬性>>return");

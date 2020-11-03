@@ -41,19 +41,18 @@
 <html>
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport"
-			content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<title>ArtsBlock預購商品銷售量</title>
 		<style>
-			#addcartbtn{
-		      display: none;
-		    }
-
+			#addcartbtn{display: none;}
 		</style>
 	</head>
 	<body id="page-top">
+	<%
+		if (preorderlist != null && (preorderlist.size() > 0)) {
+	%>
 		<div id="wrapper">
 			<%@include file="/backend/bar/backBarSide.jsp"%>
 			<div id="content-wrapper" class="d-flex flex-column">		
@@ -65,12 +64,9 @@
 						<!-- Page Heading -->
 						<div>
 					        <c:if test="${not empty errorMsgs}">
-								<font style="color:red">請修正以下錯誤:</font>
-								<ul>
-									<c:forEach var="message" items="${errorMsgs}">
-										<li style="color:red">${message}</li>
-									</c:forEach>
-								</ul>
+								<script type="text/javascript">
+							        alert("${errorMsgs}");
+							    </script>
 							</c:if>
 						</div>
 						<!-- DataTales Example -->
@@ -78,18 +74,9 @@
 							<div class="card-header py-3" id="add_bottom_area">
 								<h6 class="m-0 font-weight-bold text-primary">預購商品清單</h6>
 								<div class="card-body  mw-100">
-									<div class="float-right ">
-<%-- 										<a href="<%=request.getContextPath()%>/backend/preproduct/addPreProduct.jsp" id="add_bottom" class="btn btn-primary btn-lg active ml-2" role="button" aria-pressed="true">折讓金發放</a> --%>
-										
-<%-- 										<a href="<%=request.getContextPath()%>/backend/preproduct/addPreProduct_ByMano.jsp?EVENT_NO=${list01[0].event_no}" id="add_bottom" class="btn btn-primary btn-lg active ml-2" role="button" aria-pressed="true">新增系列商品</a> --%>
-										
-<%-- 										<a href="<%=request.getContextPath()%>/backend/preproduct/addDiscount.jsp" id="add_bottom" class="btn btn-primary btn-lg active ml-2" role="button" aria-pressed="true">新增折扣</a> --%>
-									</div>
+									<div class="float-right "></div>
 									<div class="float-left align-bottom">
-										
-											<h4>預購商品編號 :${preorderlist[0].po_prod_no}</h4>
-											
-										
+										<h4>預購商品編號 :${preorderlist[0].po_prod_no}</h4>
 									</div>
 								</div>
 							</div>
@@ -123,15 +110,10 @@
 					                    <c:forEach var="preorderVO" items="${preorderlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="status">
 					                   
 											<tr>
-												<td>${preorderVO.po_no}
-													
-												</td>
+												<td>${preorderVO.po_no}</td>
 												<td>${preorderVO.mem_id} / ${preorderVO.po_name}</td>
 												<td>${preorderVO.po_qty}</td>
-												<td>
-													
-													                       
-													$ ${(preorderVO.po_price*0.9).intValue()}</td>
+												<td>$ ${(preorderVO.po_price*0.9).intValue()}</td>
 												<td>
 													<c:forEach var="memVO" items="${list_mem}">
 														<c:if test="${preorderVO.mem_id==memVO.mem_id}">
@@ -164,16 +146,21 @@
 													<c:if test="${preorderVO.po_status==2}">出貨中</c:if>
 													<c:if test="${preorderVO.po_status==3}">已到貨</c:if>
 													<c:if test="${preorderVO.po_status==4}">已結案</c:if>
+													<c:if test="${preorderVO.po_status==5}">結案(已折讓)</c:if>
 												</td>
 											</tr>
 											</c:forEach>
-					                    
-<%-- 					                    <%@ include file="pages/page2.file" %> --%>
 					                   </tbody>
 					                </table>
 								</div>
 							</div>
 						</div>
+						<%}else{%>
+							<script type="text/javascript">
+						        alert("本商品尚未符合折扣標準，故無法顯示清單");
+						    </script>
+						    <a href="<%=request.getContextPath()%>/backend/preproduct/quantityOfSale.jsp">回銷售總表</a>
+						<%}%>
 					<!--===== 自定義內容end ================================================== -->
 					</div> <!--END OF container-fluid-->
 					<%@include file="/backend/bar/footer.jsp"%>

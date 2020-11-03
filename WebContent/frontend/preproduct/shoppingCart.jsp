@@ -9,20 +9,15 @@
 	WelRecordVO welRecordVO = (WelRecordVO) request.getAttribute("welRecordVO");
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
 
-%>
-<%
     WelRecordService welRecordSvc = new WelRecordService();
     List<WelRecordVO> set = welRecordSvc.getWelRecordByMemID(memVO.getMem_id());
     pageContext.setAttribute("set",set);
-%>
-<%
-	PreProductVO preproductVO = (PreProductVO) request.getAttribute("preproductVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 
+	PreProductVO preproductVO = (PreProductVO) request.getAttribute("preproductVO");
 %>
 
 <!doctype html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -41,11 +36,14 @@
     	}
     </style>
 </head>
-
 <body class="bg-light">
-		<% @SuppressWarnings("unchecked")
-		List<PreProductVO> buylist = (Vector<PreProductVO>) session.getAttribute("preshoppingcart"); %>
-		<%if (buylist != null && (buylist.size() > 0)) {%>
+<%
+	@SuppressWarnings("unchecked")
+	List<PreProductVO> buylist = (Vector<PreProductVO>) session.getAttribute("preshoppingcart");
+%>
+<%
+	if (buylist != null && (buylist.size() > 0)) {
+%>
                             
     <div class="container-fluid">
     

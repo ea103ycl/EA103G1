@@ -214,7 +214,7 @@ public class PreOrderServlet extends HttpServlet{
 				failureView.forward(req,res);
 			}
 		}
-		if ("update_status".equals(action)) { // 來自getOne_For_Update之後的請求
+		if ("update_status".equals(action)) {
 			System.out.println("-----Servlet觸發update_status-----");
 			
 			List<String> errorMsgs = new LinkedList<String>();
@@ -278,7 +278,7 @@ public class PreOrderServlet extends HttpServlet{
 				System.out.println("拿到session里面的集合 = "+formhashSession);
 				
 				if(formhashSession == null || !formhashSession.contains(formhash)) {
-					formhashSession.remove(formhash);
+//					formhashSession.remove(formhash);
 					session.setAttribute("formhashSession", formhashSession);
 					RequestDispatcher failureView = req.getRequestDispatcher
 							("/backend/preproduct/PonoByReachDiscount.jsp");
@@ -292,7 +292,7 @@ public class PreOrderServlet extends HttpServlet{
 			System.out.println("取值po_no = "+po_no);
 			//--------------------------------------------------------------------------------
 			Integer po_status = new Integer(req.getParameter("po_status"));
-			if(po_status == 4) {
+			if(po_status == 5) {
 				errorMsgs.add("本訂單已結案不得發送折讓金!");
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/backend/preproduct/PonoByReachDiscount.jsp");
@@ -300,9 +300,9 @@ public class PreOrderServlet extends HttpServlet{
 				return;
 			}else
 			{
-				po_status = 4;
+				po_status = 5;
 			}
-			po_status = 4;
+			po_status = 5;
 			System.out.println("取值po_status = "+po_status);
 			//--------------------------------------------------------------------------------
 			String mem_id = req.getParameter("mem_id");
@@ -343,21 +343,14 @@ public class PreOrderServlet extends HttpServlet{
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			System.out.println("***************************************************");
 			successView.forward(req, res);
-			
-			
-			
+
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/backend/preproduct/PonoByReachDiscount.jsp");
 				failureView.forward(req, res);
 			}
-
 		}
-		
-		
-		
-		
-		
+
 	}
 }
