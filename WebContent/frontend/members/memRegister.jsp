@@ -139,7 +139,7 @@
 				</div>
 				<div class="form-wrapper">
 					<input id="account" style="width: 70%; display: inline-block;"
-						type="text" placeholder="帳號(6-10個英文數字)" class="form-control"
+						type="text" placeholder="帳號(6-20個英文數字)" class="form-control"
 						name="usrid"
 						value="<%=(memVO == null) ? "" : memVO.getM_accno()%>">
 
@@ -148,7 +148,7 @@
 
 				</div>
 				<div class="form-wrapper">
-					<input type="password" placeholder="密碼(6-10個英文數字)"
+					<input type="password" placeholder="密碼(6-20個英文數字)"
 						class="form-control" name="psw"> <i class="zmdi zmdi-lock"></i>
 				</div>
 				<div class="form-wrapper">

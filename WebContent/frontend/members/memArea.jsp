@@ -1003,18 +1003,25 @@
 			}
 		});
 
-		
-		var Ecpaystatus = ${EcpaySuccess};
+// 		檢驗是否為綠界刷卡付款後轉回此頁面
+        <c:if test="${not empty EcpaySuccess}">
+         var Ecpaystatus = ${EcpaySuccess};
 		
     	if (Ecpaystatus === true){
     		$('#depositSuccessBtn').trigger('click');
     	}
-	
-    	var withdrawStatus = ${withdrawSuccess};
+        </c:if>
+        
+// 		檢驗是否剛提領成功		
+        <c:if test="${not empty withdrawSuccess}">
+            
+        var withdrawStatus = ${withdrawSuccess};
 		
     	if (withdrawStatus === true){
     		$('#withdrawSuccessBtn').trigger('click');
     	}
+       </c:if>
+    	
   
 	});		
 

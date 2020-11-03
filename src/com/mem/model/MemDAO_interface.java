@@ -29,6 +29,8 @@ public interface MemDAO_interface
 
 	public List<MemVO> getAll();
 
+	public List<MemVO> getAllDESC();
+
 	public byte[] getPhoto(String mem_id);
 
 	public MemVO updateBalance(int amount, MemVO memVO, Connection con);
