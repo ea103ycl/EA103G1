@@ -76,7 +76,7 @@
             
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<%=request.getContextPath()%>/backend/back-index.jsp">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>控制台</span></a>
             </li>
@@ -136,7 +136,7 @@
      	<c:choose>
      	 <c:when test="${fn:contains(funcList, 'D')}">
      	 <li class="nav-item">
-     	 <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+     	 <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
      	 </c:when>
      	 <c:otherwise>
      	 <li class="nav-item jeff-non-active">
@@ -165,7 +165,7 @@
     	 <c:choose>
     	  <c:when test="${fn:contains(funcList, 'E')}">
     	  <li class="nav-item">
-    	  <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+    	  <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
     	  </c:when>
     	  <c:otherwise>
     	  <li class="nav-item jeff-non-active">    	  
@@ -188,7 +188,7 @@
         <c:choose>
      	 <c:when test="${fn:contains(funcList, 'F')}"> 
      	 <li class="nav-item">
-     	 <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp" data-toggle="collapse" data-target="#collapseI" aria-expanded="true" aria-controls="collapseI">
+     	 <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseI" aria-expanded="true" aria-controls="collapseI">
      	 </c:when>
      	 <c:otherwise>
      	 <li class="nav-item jeff-non-active">
@@ -236,7 +236,7 @@
         <c:choose>
       	 <c:when test="${fn:contains(funcList, 'H')}">
       	 <li class="nav-item">
-      	 <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/material/listAllMat.jsp" data-toggle="collapse" data-target="#collapseXI" aria-expanded="true" aria-controls="collapseXI">
+      	 <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseXI" aria-expanded="true" aria-controls="collapseXI">
       	 </c:when>
      	 <c:otherwise>
      	 <li class="nav-item jeff-non-active">
@@ -272,7 +272,7 @@
       	<c:choose>
      	 <c:when test="${fn:contains(funcList, 'J')}">
      	 <li class="nav-item">
-     	 <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/emp/test_power.jsp" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+     	 <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
      	 </c:when>
          <c:otherwise>
          <li class="nav-item jeff-non-active">
@@ -336,7 +336,7 @@
       	<c:choose>
       	 <c:when test="${fn:contains(funcList, 'K')}">
       	 <li class="nav-item">
-      	  <a class="nav-link collapsed" href="<%=request.getContextPath()%>/backend/emp/listAllEmp.jsp" data-toggle="collapse" data-target="#collapseX" aria-expanded="true" aria-controls="collapseX">
+      	  <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseX" aria-expanded="true" aria-controls="collapseX">
       	 </c:when>
       	 <c:otherwise>
       	 <li class="nav-item jeff-non-active">

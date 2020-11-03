@@ -1,12 +1,10 @@
 package com.emp.controller;
 
 import java.io.*;
-import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import com.emp.model.Available_Func_Service;
-import com.emp.model.Available_Func_VO;
+
 
 public class AuthorityFilter implements Filter {
 
