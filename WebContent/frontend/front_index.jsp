@@ -74,40 +74,7 @@
 	</button>
 	<!-- ======= Header ======= -->
 	<header id="header">
-		<div class="d-flex flex-column">
-			<div class="profile">
-				<img
-					src="<%=request.getContextPath()%>/frontend/front_index/imgData/img (12).jpg"
-					alt="" class="img-fluid rounded-circle">
-				<h1 class="text-light">
-					<a href="index.html">Alex Smith</a>
-				</h1>
-				<div class="social-links mt-3 text-center">
-					<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a> <a
-						href="#" class="facebook"><i class="bx bxl-facebook"></i></a> <a
-						href="#" class="instagram"><i class="bx bxl-instagram"></i></a> <a
-						href="#" class="google-plus"><i class="bx bxl-skype"></i></a> <a
-						href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-				</div>
-			</div>
-			<nav class="nav-menu">
-				<ul>
-					<li><a href="index.html"><i class="bx bx-home"></i> <span>Home</span></a></li>
-					<li><a href="#about"><i class="bx bx-user"></i> <span>About</span></a></li>
-					<li><a href="#resume"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
-					<li><a href="#portfolio"><i class="bx bx-book-content"></i>
-							Portfolio</a></li>
-					<li><a href="#services"><i class="bx bx-server"></i>
-							Services</a></li>
-					<li><a href="#contact"><i class="bx bx-envelope"></i>
-							Contact</a></li>
-				</ul>
-			</nav>
-			<!-- .nav-menu -->
-			<button type="button" class="mobile-nav-toggle ">
-				<i class="icofont-navigation-menu"></i>
-			</button>
-		</div>
+		
 	</header>
 	<!-- End Header -->
 	<main id="main">
@@ -183,6 +150,7 @@
 					<!-- ====searchBlcok================== -->
 					<div id="searchBlock" ondrop="drop(event)"
 						ondragover="allowDrop(event)">
+						<h2 id="searchBlock-icon" style="display:none; color: #ad8b60; margin: 0 0 0 -3px;">ArtsBlock</h2>
 						<div id="searchBlockMid">
 							<form id="searchForm1" method="post"
 								action="<%=request.getContextPath()%>/painter/TagGetPic"
@@ -193,20 +161,6 @@
 										placeholder="Search">
 								</div>
 							</form>
-							<ul id="searchlistBox">
-								<li class="searchList">
-									<div>
-										<div>#</div>
-										<span> words here</span>
-									</div>
-								</li>
-								<li class="searchList">
-									<div>
-										<div>#</div>
-										<span> words here2</span>
-									</div>
-								</li>
-							</ul>
 						</div>
 					</div>
 					<!-- ====searchBlcok================== -->
@@ -384,8 +338,8 @@
 		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/typed.js/typed.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/aos/aos.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/frontend/front_index/js/masonry.js"></script>
+<!-- 	<script -->
+<%-- 		src="<%=request.getContextPath()%>/frontend/front_index/js/masonry.js"></script> --%>
 
 	<!-- Template Main JS File -->
 	<script
