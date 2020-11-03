@@ -283,7 +283,7 @@
 							<c:forEach var="ptrno" items="${ptrnoList}">
 								<div class="grid-item draggableImg">
 									<img draggable='true' ondragstart="drag(event);" id='${ptrno}'
-										src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${ptrno}">
+										src="<%=request.getContextPath()%>/painter/getOrigPtr.do?ptr_no=${ptrno}">
 								</div>
 							</c:forEach>
 						</div>
@@ -296,7 +296,7 @@
 							<c:forEach var="pVO" items="${pSvc.getMostLiked(1,7)}">
 								<div class="grid-item">
 									<img draggable='true' ondragstart="drag(event);" id='${pVO.ptr_no}'
-										src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${pVO.ptr_no}">
+										src="<%=request.getContextPath()%>/painter/getOrigPtr.do?ptr_no=${pVO.ptr_no}">
 								</div>
 							</c:forEach>
 						</div>

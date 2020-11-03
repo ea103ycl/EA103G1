@@ -222,6 +222,7 @@ function drag(e) {
 
 function drop(e) {
 	let ptrno = e.dataTransfer.getData("text");
+	$('#searchBar1').css('border','');
 	$.ajax({
 		method: "post",
 		url: contextPath + "/painter/TagGetPic",
