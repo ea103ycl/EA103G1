@@ -106,7 +106,7 @@
    <option value="100">查看全部</option> 
    <option value="1">尚未出貨</option> 
    <option value="2">運送中</option> 
-   <option value="3">已到貨</option>
+   <option value="3">我已收到貨</option>
    <option value="4">訂單完成</option>  
    </select>
    <input type="hidden" name="mem_id" value="<%=memVO.getMem_id()%>"> 
@@ -148,7 +148,7 @@
 									<td>${orderVO.or_note}</td>
 									<td><c:if test="${orderVO.or_status==1}"><font color="deeppink">處理中</font></c:if> <c:if
 											test="${orderVO.or_status==2}"><font color="blue">出貨中</font></c:if> <c:if
-											test="${orderVO.or_status==3}"><font color="deeppink">已到貨</font></c:if> <c:if
+											test="${orderVO.or_status==3}"><font color="deeppink">我已收到貨</font></c:if> <c:if
 											test="${orderVO.or_status==4}"><font color="blue">訂單完成</font></c:if></td>
 											
 									<td>

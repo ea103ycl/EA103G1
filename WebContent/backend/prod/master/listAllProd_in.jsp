@@ -88,13 +88,27 @@
 					</td>
 					
 					<td>
-						<FORM METHOD="post"  action="<%=request.getContextPath()%>/backend/prod/prod.do"
+					<c:if test="${prodVO.prod_status==0}">
+						<FORM METHOD="post"  action="<%=request.getContextPath()%>/backend/prod/prod.do"  onclick="javascript:alert('商品上架!!')"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="上架/下架"> 
 							<input type="hidden" name="prod_no" value="${prodVO.prod_no}">
 							 <input type="hidden" name="prod_status" value="${prodVO.prod_status}">
-							<input type="hidden" name="action" value="getOne_For_Status">
+							<input type="hidden" name="action" value="getOne_For_Status"> 
 						</FORM>
+						</c:if>
+						
+						<c:if test="${prodVO.prod_status==1}">
+						<FORM METHOD="post"  action="<%=request.getContextPath()%>/backend/prod/prod.do"  onclick="javascript:alert('商品下架!!')"
+							style="margin-bottom: 0px;">
+							<input type="submit" value="上架/下架"> 
+							<input type="hidden" name="prod_no" value="${prodVO.prod_no}">
+							 <input type="hidden" name="prod_status" value="${prodVO.prod_status}">
+							<input type="hidden" name="action" value="getOne_For_Status"> 
+						</FORM>
+						</c:if>
+						
+						
 					</td>
 				</tr>
 			</c:forEach>

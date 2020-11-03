@@ -93,7 +93,7 @@ pageContext.setAttribute("order_list", order_list);
    <option value="100">查看全部</option> 
    <option value="1">尚未出貨</option> 
    <option value="2">運送中</option> 
-   <option value="3">已到貨</option>
+   <option value="3">我已收到貨</option>
    <option value="4">訂單完成</option>  
    </select>
    <input type="hidden" name="mem_id" value="<%=memVO.getMem_id()%>"> 
@@ -134,7 +134,7 @@ pageContext.setAttribute("order_list", order_list);
 									<td>${orderVO.or_note}</td>
 									<td><c:if test="${orderVO.or_status==1}">處理中</c:if> <c:if
 											test="${orderVO.or_status==2}">出貨中</c:if> <c:if
-											test="${orderVO.or_status==3}">已到貨</c:if> <c:if
+											test="${orderVO.or_status==3}">我已收貨</c:if> <c:if
 											test="${orderVO.or_status==4}">訂單完成</c:if></td>
 											
 									<td>

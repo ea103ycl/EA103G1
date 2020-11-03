@@ -110,7 +110,7 @@ pageContext.setAttribute("list", list);
             
             <ul class="row shop list-unstyled" id="grid">
                 <!---------------------------------------------- product ------------------------------------------->
-<c:forEach var="prodVO" items="${list}" >
+<c:forEach var="prodVO" items="${list}" varStatus="counter" >
                 <li class="col-xs-6 col-md-4 product m-product" data-groups='["mens"]'>
                     <div class="img-bg-color primary">
                         <h5 class="product-price">${prodVO.prod_price}</h5>
@@ -135,15 +135,34 @@ pageContext.setAttribute("list", list);
 
 
 <form name="shoppingForm" action="<%=request.getContextPath()%>/frontend/shop/cart" method="POST" enctype="multipart/form-data">
-       <input type="hidden" name="prod_no" value="${prodVO.prod_no}">
-      <input type="hidden" name="prod_name" value="${prodVO.prod_name}">
-      <input type="hidden" name="prod_price" value="${prodVO.prod_price}">
-       <input type="hidden" name="prod_qty" value= 1 >
+      <input type="hidden" name="prod_no" value="${prodVO.prod_no}"       id="prod_no${counter.count}">
+      <input type="hidden" name="prod_name" value="${prodVO.prod_name}"   id="prod_name${counter.count}">
+      <input type="hidden" name="prod_price" value="${prodVO.prod_price}" id="prod_price${counter.count}">
+      <input type="hidden" name="prod_qty" value= 1                       id="prod_qty${counter.count}" >
       <input type="hidden" name="action" value="ADD">	
-        <button type="submit" name="Submit" value="放入購物車"   class="cart-btn" data-toggle="tooltip" title="Add to Cart">
-        <i class="lnr lnr-cart"></i>
-        </button>   
+      <button type="submit" name="Submit" value="放入購物車"  id="addcart${counter.count}" class="cart-btn" data-toggle="tooltip" title="Add to Cart">
+      <i class="lnr lnr-cart"></i>
+       </button>   
 </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  </div>
                                                                    
                             
@@ -197,6 +216,51 @@ pageContext.setAttribute("list", list);
     <script src="js/preloader.js"></script>
     <!-- / preloader -->
     <!-- / javascript -->
+    
+<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.min.js"></script>
+<script  src="<%=request.getContextPath()%>/frontend/template/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/frontend/template/neoTools/sweetAlert/sweetalert.min.js"></script>    
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script>
+
+$(document).ready(function(){
+ 
+ for(let i = 1 ; i < '${list}.size()' ; i++){
+  
+  $("#addcart" + i).click(function(){
+    var prod_no = $("#prod_no" + i ).val();
+    var prod_name = $("#prod_name" + i ).val();
+    var prod_price = $("#prod_price" + i ).val();
+    var prod_qty = $("#prod_qty" + i ).val();
+    console.log(prod_no);
+    console.log(prod_name);
+    console.log(prod_price);
+    console.log(prod_qty);
+   $.ajax({
+    type:"POST",
+    url:"<%=request.getContextPath()%>/frontend/shop/cart",
+    data:{
+    	prod_no : prod_no,
+    	prod_name : prod_name,
+    	prod_price : prod_price,
+    	prod_qty : prod_qty,
+        action:"ADD"
+    },
+    
+    success:function(data){
+     console.log("OK");
+     swal("加入購物車!!");
+    }
+   })
+  })
+  
+ }
+});
+ 
+</script>
+    
+    
+    
 </body>
 
 </html>

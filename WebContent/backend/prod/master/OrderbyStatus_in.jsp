@@ -86,7 +86,7 @@ pageContext.setAttribute("list", list);
 					
 					<td>
 					<c:if test="${orderVO.or_status==1}">
-				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;">
+				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;" onclick="javascript:alert('¥X³fÅo!!')">
 							<input  style="color:deeppink"   type="submit" value="¥X³f">
 							<input type="hidden" name="or_status" value="${orderVO.or_status}">
 							<input type="hidden" name="or_no" value="${orderVO.or_no}">
