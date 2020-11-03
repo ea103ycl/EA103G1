@@ -17,19 +17,23 @@ import com.mem.model.MemVO;
 
 import tools.DateTool;
 
-public class WelRecordJNDIDAO implements WelRecordDAO_interface {
+public class WelRecordJNDIDAO implements WelRecordDAO_interface
+{
 
 	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/EA103G1");
+	static
+		{
+			try
+				{
+					Context ctx = new InitialContext();
+					ds = (DataSource) ctx.lookup("java:comp/env/jdbc/EA103G1");
 
-		} catch (NamingException e) {
-			e.printStackTrace();
+				} catch (NamingException e)
+				{
+					e.printStackTrace();
+				}
+
 		}
-
-	}
 
 	private static final String INSERT_STMT = "INSERT INTO wel_record VALUES(tns_seq.NEXTVAL,?,?,?,?,CURRENT_TIMESTAMP)";
 	private static final String GET_ONE_STMT = "SELECT tns_id, mem_id,tns_src,order_id,tns_amount,tns_time FROM wel_record WHERE tns_id = ?";
@@ -41,177 +45,215 @@ public class WelRecordJNDIDAO implements WelRecordDAO_interface {
 
 //新增一筆交易紀錄
 	@Override
-	public void insert(WelRecordVO welRecordVO) {
+	public void insert(WelRecordVO welRecordVO)
+	{
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		MemJNDIDAO memDao = new MemJNDIDAO();
 
-		try {
-			con = ds.getConnection();
-			con.setAutoCommit(false);
+		try
+			{
+				con = ds.getConnection();
+				con.setAutoCommit(false);
 
-			pstmt = con.prepareStatement(INSERT_STMT);
+				pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, welRecordVO.getMem_id());
-			pstmt.setInt(2, welRecordVO.getTns_src());
-			pstmt.setString(3, welRecordVO.getOrder_id());
-			pstmt.setInt(4, welRecordVO.getTns_amount());
+				pstmt.setString(1, welRecordVO.getMem_id());
+				pstmt.setInt(2, welRecordVO.getTns_src());
+				pstmt.setString(3, welRecordVO.getOrder_id());
+				pstmt.setInt(4, welRecordVO.getTns_amount());
 
-			pstmt.executeUpdate();
+				pstmt.executeUpdate();
 
-			MemVO memVO = new MemVO();
-			memVO = memDao.findByPrimaryKey(welRecordVO.getMem_id());
-			memDao.updateBalance(welRecordVO.getTns_amount(), memVO, con);
+				MemVO memVO = new MemVO();
+				memVO = memDao.findByPrimaryKey(welRecordVO.getMem_id());
+				memDao.updateBalance(welRecordVO.getTns_amount(), memVO, con);
 
-			con.commit();
-			con.setAutoCommit(true);
+				con.commit();
+				con.setAutoCommit(true);
 
 //		} catch (ClassNotFoundException e) {
 //			e.printStackTrace();
-		} catch (SQLException e) {
-			if (con != null) {
-				try {
-					// 3●設定於當有exception發生時之catch區塊內
-					con.rollback();
+			} catch (SQLException e)
+			{
+				if (con != null)
+					{
+						try
+							{
+								// 3●設定於當有exception發生時之catch區塊內
+								con.rollback();
 
-				} catch (SQLException excep) {
-					throw new RuntimeException("rollback error occured. " + excep.getMessage());
-				}
+							} catch (SQLException excep)
+							{
+								throw new RuntimeException("rollback error occured. " + excep.getMessage());
+							}
+					}
+				throw new RuntimeException("A database error occured. " + e.getMessage());
+
+			} finally
+			{
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
 			}
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-
-				try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
 
 	}
 
 	// 修改單一會員最新一筆訂單編號
 	@Override
-	public WelRecordVO updateOrderId(String order_id, String mem_id) {
+	public WelRecordVO updateOrderId(String order_id, String mem_id)
+	{
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		WelRecordVO welRecordVO = null;
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_ORDERID);
+		try
+			{
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(UPDATE_ORDERID);
 
-			pstmt.setString(1, order_id);
-			pstmt.setString(2, mem_id);
-			pstmt.setString(3, mem_id);
+				pstmt.setString(1, order_id);
+				pstmt.setString(2, mem_id);
+				pstmt.setString(3, mem_id);
 
-			pstmt.executeUpdate();
+				pstmt.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
 
-		} finally {
+			} finally
+			{
 
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
 
-					e.printStackTrace();
-				}
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (Exception e)
+							{
+								e.printStackTrace();
+							}
+					}
+
 			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
 		return welRecordVO;
 
 	}
 
 //查詢by交易流水號
 	@Override
-	public WelRecordVO findByPrimaryKey(Integer tns_id) {
+	public WelRecordVO findByPrimaryKey(Integer tns_id)
+	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		WelRecordVO welRecordVO = null;
 
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_STMT);
+		try
+			{
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, tns_id);
-			rs = pstmt.executeQuery();
+				pstmt.setInt(1, tns_id);
+				rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				welRecordVO = new WelRecordVO();
-				welRecordVO.setTns_id(rs.getInt("tns_id"));
-				welRecordVO.setMem_id(rs.getString("mem_id"));
-				welRecordVO.setTns_src(rs.getInt("tns_src"));
-				welRecordVO.setOrder_id(rs.getString("order_id"));
-				welRecordVO.setTns_amount(rs.getInt("tns_amount"));
-				welRecordVO.setTns_time(DateTool.timestamp2StringSec(rs.getTimestamp("tns_time")));
+				while (rs.next())
+					{
+						welRecordVO = new WelRecordVO();
+						welRecordVO.setTns_id(rs.getInt("tns_id"));
+						welRecordVO.setMem_id(rs.getString("mem_id"));
+						welRecordVO.setTns_src(rs.getInt("tns_src"));
+						welRecordVO.setOrder_id(rs.getString("order_id"));
+						welRecordVO.setTns_amount(rs.getInt("tns_amount"));
+						welRecordVO.setTns_time(DateTool.timestamp2StringSec(rs.getTimestamp("tns_time")));
+					}
+
+			} catch (SQLException e)
+			{
+
+				e.printStackTrace();
+			} finally
+			{
+
+				if (rs != null)
+					{
+						try
+							{
+								rs.close();
+							} catch (SQLException e)
+							{
+								e.printStackTrace();
+							}
+					}
+
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
 			}
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-		}
 
 		return welRecordVO;
 	}
 
 	// 查詢單一會員交易紀錄
 	@Override
-	public List<WelRecordVO> getWelRecordByMemID(String mem_id) {
+	public List<WelRecordVO> getWelRecordByMemID(String mem_id)
+	{
 
 		List<WelRecordVO> list = new ArrayList<WelRecordVO>();
 		WelRecordVO welRecordVO = null;
@@ -220,120 +262,147 @@ public class WelRecordJNDIDAO implements WelRecordDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_WELRECORDS_BY_MEMID);
-			pstmt.setString(1, mem_id);
-			rs = pstmt.executeQuery();
+		try
+			{
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_WELRECORDS_BY_MEMID);
+				pstmt.setString(1, mem_id);
+				rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				welRecordVO = new WelRecordVO();
-				welRecordVO.setTns_id(rs.getInt("tns_id"));
-				welRecordVO.setMem_id(rs.getString("mem_id"));
-				welRecordVO.setTns_src(rs.getInt("tns_src"));
-				welRecordVO.setOrder_id(rs.getString("order_id"));
-				welRecordVO.setTns_amount(rs.getInt("tns_amount"));
-				welRecordVO.setTns_time(DateTool.timestamp2StringSec(rs.getTimestamp("tns_time")));
-				list.add(welRecordVO);
+				while (rs.next())
+					{
+						welRecordVO = new WelRecordVO();
+						welRecordVO.setTns_id(rs.getInt("tns_id"));
+						welRecordVO.setMem_id(rs.getString("mem_id"));
+						welRecordVO.setTns_src(rs.getInt("tns_src"));
+						welRecordVO.setOrder_id(rs.getString("order_id"));
+						welRecordVO.setTns_amount(rs.getInt("tns_amount"));
+						welRecordVO.setTns_time(DateTool.timestamp2StringSec(rs.getTimestamp("tns_time")));
+						list.add(welRecordVO);
+					}
+
+			} catch (SQLException e)
+			{
+
+				e.printStackTrace();
+			} finally
+			{
+
+				if (rs != null)
+					{
+						try
+							{
+								rs.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
 			}
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-		}
 
 		return list;
 	}
 
 	// 查詢指定來源交易紀錄
 	@Override
-	public List<WelRecordVO> getWelRecordBySrc(int tns_src) {
+	public List<WelRecordVO> getWelRecordBySrc(int tns_src)
+	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		WelRecordVO welRecordVO = null;
 		List<WelRecordVO> list = new ArrayList<WelRecordVO>();
 
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_RECORDS_BY_SRC);
-			pstmt.setInt(1, tns_src);
+		try
+			{
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_RECORDS_BY_SRC);
+				pstmt.setInt(1, tns_src);
 
-			rs = pstmt.executeQuery();
+				rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				welRecordVO = new WelRecordVO();
-				welRecordVO.setTns_id(rs.getInt("tns_id"));
-				welRecordVO.setMem_id(rs.getString("mem_id"));
-				welRecordVO.setTns_src(rs.getInt("tns_src"));
-				welRecordVO.setOrder_id(rs.getString("order_id"));
-				welRecordVO.setTns_amount(rs.getInt("tns_amount"));
-				welRecordVO.setTns_time(DateTool.timestamp2StringSec(rs.getTimestamp("tns_time")));
-				list.add(welRecordVO);
+				while (rs.next())
+					{
+						welRecordVO = new WelRecordVO();
+						welRecordVO.setTns_id(rs.getInt("tns_id"));
+						welRecordVO.setMem_id(rs.getString("mem_id"));
+						welRecordVO.setTns_src(rs.getInt("tns_src"));
+						welRecordVO.setOrder_id(rs.getString("order_id"));
+						welRecordVO.setTns_amount(rs.getInt("tns_amount"));
+						welRecordVO.setTns_time(DateTool.timestamp2StringSec(rs.getTimestamp("tns_time")));
+						list.add(welRecordVO);
+					}
+
+			} catch (SQLException e)
+			{
+
+				e.printStackTrace();
+			} finally
+			{
+
+				if (rs != null)
+					{
+						try
+							{
+								rs.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
 			}
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-		}
 
 		return list;
 
@@ -341,133 +410,169 @@ public class WelRecordJNDIDAO implements WelRecordDAO_interface {
 
 	// 查詢指定來源區間交易紀錄
 	@Override
-	public List<WelRecordVO> getWelRecordAmongSrc(int tns_srcStart, int tns_srcEnd) {
+	public List<WelRecordVO> getWelRecordAmongSrc(int tns_srcStart, int tns_srcEnd)
+	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		WelRecordVO welRecordVO = null;
 		List<WelRecordVO> list = new ArrayList<WelRecordVO>();
 
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_RECORDS_AMONG_SRC);
-			pstmt.setInt(1, tns_srcStart);
-			pstmt.setInt(2, tns_srcEnd);
+		try
+			{
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_RECORDS_AMONG_SRC);
+				pstmt.setInt(1, tns_srcStart);
+				pstmt.setInt(2, tns_srcEnd);
 
-			rs = pstmt.executeQuery();
+				rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				welRecordVO = new WelRecordVO();
-				welRecordVO.setTns_id(rs.getInt("tns_id"));
-				welRecordVO.setMem_id(rs.getString("mem_id"));
-				welRecordVO.setTns_src(rs.getInt("tns_src"));
-				welRecordVO.setOrder_id(rs.getString("order_id"));
-				welRecordVO.setTns_amount(rs.getInt("tns_amount"));
-				welRecordVO.setTns_time(DateTool.timestamp2StringSec(rs.getTimestamp("tns_time")));
-				list.add(welRecordVO);
+				while (rs.next())
+					{
+						welRecordVO = new WelRecordVO();
+						welRecordVO.setTns_id(rs.getInt("tns_id"));
+						welRecordVO.setMem_id(rs.getString("mem_id"));
+						welRecordVO.setTns_src(rs.getInt("tns_src"));
+						welRecordVO.setOrder_id(rs.getString("order_id"));
+						welRecordVO.setTns_amount(rs.getInt("tns_amount"));
+						welRecordVO.setTns_time(DateTool.timestamp2StringSec(rs.getTimestamp("tns_time")));
+						list.add(welRecordVO);
+					}
+
+			} catch (SQLException e)
+			{
+
+				e.printStackTrace();
+			} finally
+			{
+
+				if (rs != null)
+					{
+						try
+							{
+								rs.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
 			}
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-		}
 
 		return list;
 	}
 
 	// 查詢全部交易紀錄
 	@Override
-	public List<WelRecordVO> getAll() {
+	public List<WelRecordVO> getAll()
+	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		WelRecordVO welRecordVO = null;
 		List<WelRecordVO> list = new ArrayList<WelRecordVO>();
 
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ALL_STMT);
+		try
+			{
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ALL_STMT);
 
-			rs = pstmt.executeQuery();
+				rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				welRecordVO = new WelRecordVO();
-				welRecordVO.setTns_id(rs.getInt("tns_id"));
-				welRecordVO.setMem_id(rs.getString("mem_id"));
-				welRecordVO.setTns_src(rs.getInt("tns_src"));
-				welRecordVO.setOrder_id(rs.getString("order_id"));
-				welRecordVO.setTns_amount(rs.getInt("tns_amount"));
-				welRecordVO.setTns_time(DateTool.timestamp2StringSec(rs.getTimestamp("tns_time")));
-				list.add(welRecordVO);
+				while (rs.next())
+					{
+						welRecordVO = new WelRecordVO();
+						welRecordVO.setTns_id(rs.getInt("tns_id"));
+						welRecordVO.setMem_id(rs.getString("mem_id"));
+						welRecordVO.setTns_src(rs.getInt("tns_src"));
+						welRecordVO.setOrder_id(rs.getString("order_id"));
+						welRecordVO.setTns_amount(rs.getInt("tns_amount"));
+						welRecordVO.setTns_time(DateTool.timestamp2StringSec(rs.getTimestamp("tns_time")));
+						list.add(welRecordVO);
+					}
+
+			} catch (SQLException e)
+			{
+
+				e.printStackTrace();
+			} finally
+			{
+
+				if (rs != null)
+					{
+						try
+							{
+								rs.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+
+								e.printStackTrace();
+							}
+					}
+
 			}
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-
-		}
 
 		return list;
 	}
 
-	public static void main(String[] args) {
+	@Override
+	public void insert4FakeData(WelRecordVO welRecordVO)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	public static void main(String[] args)
+	{
 		// TODO Auto-generated method stub
 		WelRecordJNDIDAO welRecordDAO = new WelRecordJNDIDAO();
 		// 新增
@@ -498,20 +603,21 @@ public class WelRecordJNDIDAO implements WelRecordDAO_interface {
 
 		List<WelRecordVO> list = welRecordDAO.getWelRecordByMemID("M000002");
 
-		for (WelRecordVO welRecordVO1 : list) {
+		for (WelRecordVO welRecordVO1 : list)
+			{
 
-			System.out.println(welRecordVO1.getTns_id());
-			System.out.println(welRecordVO1.getMem_id());
+				System.out.println(welRecordVO1.getTns_id());
+				System.out.println(welRecordVO1.getMem_id());
 
-			int src = welRecordVO1.getTns_src();
-			System.out.println(checkTnsSrc(src));
+				int src = welRecordVO1.getTns_src();
+				System.out.println(checkTnsSrc(src));
 
-			System.out.println("來源訂單號:" + welRecordVO1.getOrder_id());
-			System.out.println("交易金額:" + welRecordVO1.getTns_amount());
-			System.out.println("交易時間" + welRecordVO1.getTns_time());
-			System.out.println("---------------------");
+				System.out.println("來源訂單號:" + welRecordVO1.getOrder_id());
+				System.out.println("交易金額:" + welRecordVO1.getTns_amount());
+				System.out.println("交易時間" + welRecordVO1.getTns_time());
+				System.out.println("---------------------");
 
-		}
+			}
 
 		// 查詢特定交易來源錢包紀錄
 
@@ -570,9 +676,11 @@ public class WelRecordJNDIDAO implements WelRecordDAO_interface {
 	}
 
 	// 可考慮用map來寫
-	public static String checkTnsSrc(int src) {
+	public static String checkTnsSrc(int src)
+	{
 		String str = "";
-		switch (src) {
+		switch (src)
+		{
 		case 10:
 			str = "會員儲值";
 			break;
