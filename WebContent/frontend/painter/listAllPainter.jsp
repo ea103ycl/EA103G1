@@ -8,7 +8,7 @@
 <%@ page import="com.painter_act.model.*"%>
 <%@ page import="com.mem.model.*"%>
 
-<%-- <%@include file="/frontend/bar/testLogin.jsp"%> --%>
+<%@include file="/frontend/bar/testLogin.jsp"%>
 
 <%
 	MemVO loginMemVO = (MemVO)session.getAttribute("memVO");
@@ -172,7 +172,7 @@
 									<div class="post-block ycl-post-block">
 										<!-- 作品圖片 -->				
 										<a href="<%=request.getContextPath()%>/frontend/painter/onePainter.jsp?ptr_no=${painterVO.ptr_no}&sid=${sid}&src=1&spg=<%=whichPage%>">
-											<img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${painterVO.ptr_no}">
+											<img src="<%=request.getContextPath()%>/painter/getShrinkPtr.do?px=400&ptr_no=${painterVO.ptr_no}">
 										</a>
 
 										<div class="ycl-painter-content">
@@ -269,6 +269,17 @@
 			      
 			        <form method="post" action="<%=request.getContextPath()%>/painter/painter.do" enctype="multipart/form-data">
 			        	
+			        	<%-- 錯誤表列 --%>
+						<c:if test="${not empty errorMsgs}">
+							<font style="color: red">請修正以下錯誤:</font>
+							<ul>
+								<c:forEach var="message" items="${errorMsgs}">
+									<li style="color: red">${message}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
+			        	
+			        	
 	                    <div class="form-group">
 	                        <label>作品能見度</label>
 	                        <select class="form-control" id="priv_stat" name="priv_stat">
@@ -279,7 +290,7 @@
 	                    </div>
 	                    
 			        	<div class="form-group">
-	                        <label>作品名稱</label>
+	                        <label>作品名稱<span class="btn btn-xs btn-danger-filled btn-rounded" id="ptr_nm_msg" style="display:none;"><i class="fa fa-times"></i><span>請輸入作品名稱</span></span></label>
 	                        <input type="text" class="form-control" id="ptr_nm" name="ptr_nm" placeholder="請輸入作品名稱" required="required" data-error="*請輸入作品名稱"  maxlength="33">
 	                    </div>
 
@@ -294,14 +305,14 @@
 	                        <input class="form-control" id="tag_desc" name="tag_desc" placeholder="請輸入作品tag(需以#分開)" maxlength="33">  
 	                    </div>
 	                    <div class="form-group">
-	                        <label>選擇作品圖片</label>
-	                        <input type="file" id="imgPath" name="imgPath" onchange="readURL(this);"  required="required" data-error="*請輸入作品名稱">
+	                        <label>選擇作品圖片<span class="btn btn-xs btn-danger-filled btn-rounded" id="imgPath_msg" style="display:none;"><i class="fa fa-times"></i><span>請輸入作品名稱</span></span></label>
+	                        <input type="file" id="imgPath" name="imgPath" onchange="readURL(this);"  required="required" data-error="*請輸入作品圖片">
 	                        <img class="img-fluid w-25 h-25" id="imgUpload">	
                     	</div>
                     	
-	                     <div class="modal-footer">
+	                     <div class="modal-footer">	                        
 				        	<button type="submit" class="btn btn-primary btn-rounded" data-dismiss="modal">取消</button>
-				        	<button type="submit" class="btn btn-primary-filled btn-rounded" name="action" value="insert">上傳</button>
+				        	<button type="submit" class="btn btn-primary-filled btn-rounded" name="action" value="insert" id="submitBtn">上傳</button>
 				      	 </div>
 
 			        </form>			      
@@ -436,6 +447,44 @@
 	    }
 	}
 
+	
+// 	window.onload=function (){
+// 		var isErr = ${not empty errorMsgs};
+// 		console.log('新增作品時是否有錯誤?', isErr);
+// 		$('#uploadModal').modal('show');
+		
+// 	}
+
+	
+    $("#submitBtn").click(function(){
+    	let check = true;
+    	
+    	//先將已修改的內容去除提示文字
+        if($("#imgPath").val().trim() != ""){
+        	document.getElementById("imgPath_msg").style.display="none;";
+        }
+    	
+        if($("#ptr_nm").val().trim() != ""){
+        	document.getElementById("ptr_nm_msg").style.display="none;";
+        }
+    	
+        //錯誤處理
+        if($("#imgPath").val().trim() == ""){
+        	document.getElementById("imgPath_msg").style.display="";
+        	check = false;
+        }
+    	
+    	if($("#ptr_nm").val().trim()==""){
+        	document.getElementById("ptr_nm_msg").style.display="";
+        	check = false;
+        }
+        
+        if(check = false){
+        	event.preventDefault();
+        }
+        	
+    })
+	
 	
 	<%@include file="/frontend/painter/followScript.file"%>
 	

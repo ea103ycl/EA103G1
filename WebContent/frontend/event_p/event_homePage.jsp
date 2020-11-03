@@ -221,11 +221,11 @@ background-color:#fff;
                 <!-- media-alignment -->
                 <div class="media-body">
                     <h4 class="media-heading">得票最高的作品編號:${event_p_top.event_p_no}</h4>
-					 event_name:${eventVOs[status.index].event_name}
+					 活動名稱:${eventVOs[status.index].event_name}
                     <p>
-                    	本次活動五張圖event_pVOs(五張圖的event_pVO5s)
-                    	<%=i %>
-                    	<%=event_nos.get(i)%>
+<!--                     	本次活動五張圖event_pVOs(五張圖的event_pVO5s) -->
+<%--                     	<%=i %> --%>
+<%--                     	<%=event_nos.get(i)%> --%>
                     	<% 
                     		List<Event_PVO> event_pVO5s=pSvc.find5PicByEventNo(event_nos.get(i));
                     		pageContext.setAttribute("event_pVO5s", event_pVO5s);
@@ -233,20 +233,20 @@ background-color:#fff;
                     	<div class="row">
 	                    		<c:forEach var="event_pVO5" items="${event_pVO5s}">
 	                    			<div class="col-sm-2">
-	                    				<img src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${event_pVO5.event_p_no}" style="width:80px">
+	                    				<img src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${event_pVO5.event_p_no}" style="width:80px;height:80px">
 	                    			</div>	
 	                    		</c:forEach>
                     	</div>
                     	<c:if test="${eventVOs[status.index].event_stat==1}"><!-- 狀態為投稿藍色 -->
 							<form action="<%=request.getContextPath()%>/frontend/event_p/Event_pServlet" method="post">
-	                    		<input type="submit" class="btn btn-info" value="去投稿"><!-- 投稿藍色，投票土黃色 -->
+	                    		<input type="submit" class="btn btn-info" value="去投稿" style="margin-left:30px;"><!-- 投稿藍色，投票土黃色 -->
 	                    		<input type="hidden" name="event_no" value="${event_nos[status.index]}" >
 	                    		<input type="hidden" name="action" value="to_event_sepc">
                     		</form>
                     	</c:if>
                     	<c:if test="${eventVOs[status.index].event_stat==2}"><!-- 狀態為投票土黃色-->
                     		<form action="<%=request.getContextPath()%>/frontend/event_p/Event_pServlet" method="post">
-	                    		<input type="submit" class="btn btn-warning" value="去投票"><!-- 投票土黃色 -->
+	                    		<input type="submit" class="btn btn-warning" value="去投票" style="margin-left:30px;"><!-- 投票土黃色 -->
 	                    		<input type="hidden" name="event_no" value="${event_nos[status.index]}" >
 	                    		<input type="hidden" name="action" value="to_event_sepc">
                     		</form>

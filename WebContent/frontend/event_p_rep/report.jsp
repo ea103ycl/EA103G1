@@ -22,7 +22,7 @@
 </head>
 <body>
 <%@include  file="/frontend/bar/frontBarTop.jsp"%>
-<div style="margin-top:80px;"></div>
+<div style="margin-top:120px;"></div>
 <a href="<%=request.getContextPath() %>/frontend/event_p/event_spec.jsp">回到主題競賽</a>
 
 

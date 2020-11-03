@@ -169,7 +169,7 @@
 									<div class="post-block ycl-post-block">
 										<!-- 作品圖片 -->				
 										<a href="<%=request.getContextPath()%>/frontend/painter/onePainter.jsp?ptr_no=${painterVO.ptr_no}&sid=${sid}&src=3&spg=<%=whichPage%>">
-											<img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=${painterVO.ptr_no}">
+											<img src="<%=request.getContextPath()%>/painter/getShrinkPtr.do?px=400&ptr_no=${painterVO.ptr_no}">
 										</a>
 										
 										

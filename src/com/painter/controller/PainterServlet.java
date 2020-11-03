@@ -37,6 +37,9 @@ public class PainterServlet extends HttpServlet {
 
 		String action = req.getParameter("action");
 		
+		//20201103 by YCL
+		//action=showPic已廢棄，請改用GetOrigPtr.java(取得原始圖片大小版本)、GetShrinkPtr.java(取得指定pixel版本)
+		//為避免影響已使用的人，此段暫時不mark
 		if ("showPic".contentEquals(action)) {
 
 			res.setContentType("image/gif");
@@ -44,7 +47,7 @@ public class PainterServlet extends HttpServlet {
 			try {
 				Integer ptr_no = Integer.valueOf(req.getParameter("ptr_no").trim());
 				PainterService painterSvc = new PainterService();
-				YclTools.readByteArrayFromDB(req, res, YclTools.shrink(painterSvc.getPicByPtrNo(ptr_no), 300));
+				YclTools.readByteArrayFromDB(req, res, painterSvc.getPicByPtrNo(ptr_no));
 			} catch (Exception e) {
 				System.out.println("===[PainterServlet]無法取得作品圖片");
 				InputStream in = getServletContext().getResourceAsStream("/backend/img/null.jpg");
@@ -89,6 +92,7 @@ public class PainterServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		System.out.println("PainterServlet, action = " + action);
 
 		// ======================================================================
 		// 新增
