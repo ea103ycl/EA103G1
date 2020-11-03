@@ -9,10 +9,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,8 +46,11 @@ public class Event_pServlet extends HttpServlet {
 
 
 		if("insert".equals(action)) {			
-			List<String> errMsgs=new ArrayList<String>();
+			Map<String,String> errMsgs=new HashMap<String,String>();
 			req.setAttribute("errMsgs", errMsgs);
+			HttpSession sess=req.getSession();
+System.out.println("");
+System.out.println("imgBytes is null?"+(((byte[])sess.getAttribute("imgBytes"))==null));
 			try {
 
 				//會員編號
@@ -66,16 +67,16 @@ public class Event_pServlet extends HttpServlet {
 				String regex="^[E]{1}[0-9]{6}$";
 				System.out.println(event_no);
 				if(event_no==null||event_no.trim().length()==0) {
-					errMsgs.add("請勿空白");
+					errMsgs.put("event_no","請勿空白");
 					event_no="活動編號";
 				}else if(!event_no.trim().matches(regex)){
-					errMsgs.add("請輸入開頭為E總共6個數字");
+					errMsgs.put(event_no,"請輸入開頭為E總共6個數字");
 					event_no="活動編號";
 				}
 				//作品名稱
 				String event_p_name=req.getParameter("event_p_name");
 				if(event_p_name==null||event_p_name.trim().length()==0) {
-					errMsgs.add("請勿空白");
+					errMsgs.put("event_p_name","請勿空白");
 					event_p_name="作品名稱";
 				}
 				
@@ -96,7 +97,7 @@ public class Event_pServlet extends HttpServlet {
 				//投稿作品狀態
 				String event_p_stat=req.getParameter("event_p_stat");
 				if(event_p_stat==null||event_p_stat.trim().length()==0) {				
-					event_p_stat="1";//為零時代表沒被投票
+					event_p_stat="1";//為零時代表可以被投票
 				}
 				
 				
@@ -114,7 +115,13 @@ public class Event_pServlet extends HttpServlet {
 				byte[] img=null;
 				img=baos.toByteArray();//資料已byte陣列回傳
 				if(img.length==0) {
-					errMsgs.add("請上傳圖片");
+					if((byte[])sess.getAttribute("imgBytes")!=null) {
+						img=(byte[])sess.getAttribute("imgBytes");
+						sess.setAttribute("imgBytes",null);//刷掉圖片byte
+					}else {
+						errMsgs.put("img","請上傳圖片");
+					}
+					
 				}
 				Event_PVO event_pVO=new Event_PVO();
 				event_pVO.setMem_id(mem_id);
@@ -128,6 +135,8 @@ public class Event_pServlet extends HttpServlet {
 				
 				if(!errMsgs.isEmpty()) {
 					req.setAttribute("event_pVO", event_pVO);
+					//先把圖片byte[]
+					
 					String path="/frontend/event_p/TestInsert.jsp";
 					RequestDispatcher fail=req.getRequestDispatcher(path);
 					fail.forward(req, res);
@@ -136,7 +145,7 @@ public class Event_pServlet extends HttpServlet {
 				Event_PService svc=new Event_PService();
 				svc.insert(mem_id,event_no,event_p_name, ts,new Integer(event_vote_num),new Integer(vote_rank),new Integer(event_p_stat), img);
 				List<Event_PVO> event_pVOs=svc.findAllNoReport(event_no);
-				HttpSession sess=req.getSession();
+				
 				sess.setAttribute("event_pVOs", event_pVOs);
 				System.out.println("event_pServlet action insert start forward");
 				String path="/frontend/event_p/event_spec.jsp";
@@ -145,7 +154,7 @@ public class Event_pServlet extends HttpServlet {
 			
 			}catch(Exception e) {
 				e.printStackTrace();				
-				errMsgs.add("未知錯誤");
+				errMsgs.put("another","未知錯誤");
 				String path="/frontend/event_p/TestInsert.jsp";
 				RequestDispatcher fail=req.getRequestDispatcher(path);
 				fail.forward(req, res);

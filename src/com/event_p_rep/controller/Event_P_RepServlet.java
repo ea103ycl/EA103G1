@@ -101,12 +101,14 @@ System.out.println("get reportEvent_P");
 			List<String> errMsgs=new ArrayList<String>();
 			req.setAttribute("errMsgs",errMsgs);
 			
+			
 			String event_p_no= req.getParameter("event_p_no");						
 			String mem_id= req.getParameter("mem_id");
 			Timestamp rep_time= new Timestamp(System.currentTimeMillis());//時間寫系統時間
 			String rep_reason= req.getParameter("rep_reason");
 			if(rep_reason==null||rep_reason.trim().length()==0) {
 				errMsgs.add("檢舉內容不可空白");
+				
 			}
 			Integer rep_stat=1;//檢舉狀態預設1(未處裡)
 			if(!errMsgs.isEmpty()) {

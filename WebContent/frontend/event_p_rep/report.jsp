@@ -62,7 +62,7 @@
                 <c:if test="${not empty errMsgs }">
 					<c:forEach var="err" items="${errMsgs}">
 						<ul>
-							<li>${err}</li>
+							<li style="color:red;">${err}</li>
 						</ul>		
 						
 					</c:forEach>

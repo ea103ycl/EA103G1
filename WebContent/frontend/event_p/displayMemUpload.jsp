@@ -20,7 +20,6 @@
 	EventService eventService=new EventService();
 	EventVO eventMemVO=eventService.findByPrimaryKey(event_pVO.getEvent_no());
 %>
-<%=event_pVO==null %>
 
 
 <c:if test="<%=event_pVO!=null %>">
@@ -52,10 +51,9 @@
 		<ul>
 			<li>${err}</li>
 		</ul>		
-		
 	</c:forEach>
 </c:if>
-<a href="event_spec.jsp">回到主題競賽</a>
+<!-- <a href="event_spec.jsp">回到主題競賽</a> -->
 
 
 	<div class="container " id="displayMemUploadMain">

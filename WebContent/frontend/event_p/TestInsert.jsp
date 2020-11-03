@@ -30,6 +30,7 @@
 	  final Base64.Encoder encoder = Base64.getEncoder();
 	  String data=encoder.encodeToString(imgBytes);
 	  request.setAttribute("data", data);
+	  sess.setAttribute("imgBytes",imgBytes);	  
 	%>	
 </c:if>
   
@@ -47,19 +48,21 @@
 </head>
 <body>
 <%@include  file="/frontend/bar/frontBarTop.jsp"%>
-${event_pVO==null }
-<c:if test="${not empty errMsgs }">
-	<c:forEach var="err" items="${errMsgs}">
-		<ul>
-			<li>${err}</li>
-		</ul>		
+<div style="margin-top:80px;"></div>
+<%-- ${event_pVO==null } --%>
+<%-- <c:if test="${not empty errMsgs }"> --%>
+<%-- 	<c:forEach var="err" items="${errMsgs}"> --%>
+<!-- 		<ul> -->
+<%-- 			<li>${err}</li> --%>
+<!-- 		</ul>		 -->
 		
-	</c:forEach>
-</c:if>
+<%-- 	</c:forEach> --%>
+<%-- </c:if> --%>
 <a href="event_spec.jsp">回到主題競賽</a>
 
 
 	<div class="container">
+	<button id="contentInsert">按鈕</button>
 	<form action="Event_pServlet" method="post" enctype="multipart/form-data">
 		
 <!-- 			 <div class="form-group row"> -->
@@ -112,8 +115,13 @@ ${event_pVO==null }
              <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品名稱</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control " name="event_p_name" >
+                    <input type="text" class="form-control " name="event_p_name" value="<%=event_pVO!=null?event_pVO.getEvent_p_name():""%>">
                 </div>
+                	<c:if test="${not empty errMsgs['event_p_name']}">
+                		<div style="color:red;">	
+                		${errMsgs['event_p_name']}
+                		</div>
+                	</c:if>
             </div>
             
              <div class="form-group row">
@@ -140,12 +148,16 @@ ${event_pVO==null }
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">上傳圖片(待修)</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">上傳圖片</label>
                 <div class="col-sm-3">
 <%--                    <input type="text" class="form-control " name="event_vote_end" value=<%=(event_pVO==null)?"":event_pVO.getEvent_vote_end().toString() %> > --%>
 						<input type="file" name="pic01" id="myFile" onchange="upload()">
 						<img id="demo" <%=event_pVO==null?"":"src=data:image/jepg;base64,"+request.getAttribute("data") %>>
-						
+						<c:if test="${not empty errMsgs['img'] }">
+							<div style="color:red;">
+								${errMsgs['img']}
+							</div>
+						</c:if>
                 </div>
             </div>
      

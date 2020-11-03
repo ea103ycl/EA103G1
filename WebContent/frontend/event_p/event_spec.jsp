@@ -324,7 +324,7 @@
 									<input type="hidden" name="whichPage" value="<%=whichPage%>">
 									
 								</form>
-								<button class="vote btn btn-primary btn-pill" >投票</button>
+								<button class="vote btn btn-primary btn-pill" ${eventVO.getEvent_stat()!=2?"disabled":"" }>投票</button>
 							</div>
 						<small class="text-muted col-md-5 col-md-offset-1" id="error">
 							<c:if test="${not empty errMsgs&&event_p_no==event_pVO.event_p_no}">
@@ -350,7 +350,7 @@
 										<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 										<input type="hidden" name="whichPage" value="<%=whichPage%>">
 								</form>
-								<button class="deleteVoteBtn btn btn-default btn-pill">取消投票</button>
+								<button class="deleteVoteBtn btn btn-default btn-pill" <%=eventVO.getEvent_stat()!=2?"disabled":""%>>取消投票</button>
 								
 							</div>
 
