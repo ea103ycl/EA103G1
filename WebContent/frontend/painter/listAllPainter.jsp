@@ -8,7 +8,7 @@
 <%@ page import="com.painter_act.model.*"%>
 <%@ page import="com.mem.model.*"%>
 
-<%@include file="/frontend/bar/testLogin.jsp"%>
+<%-- <%@include file="/frontend/bar/testLogin.jsp"%> --%>
 
 <%
 	MemVO loginMemVO = (MemVO)session.getAttribute("memVO");
@@ -172,7 +172,7 @@
 									<div class="post-block ycl-post-block">
 										<!-- 作品圖片 -->				
 										<a href="<%=request.getContextPath()%>/frontend/painter/onePainter.jsp?ptr_no=${painterVO.ptr_no}&sid=${sid}&src=1&spg=<%=whichPage%>">
-											<img src="<%=request.getContextPath()%>/painter/getShrinkPtr.do?px=400&ptr_no=${painterVO.ptr_no}">
+											<img src="<%=request.getContextPath()%>/painter/getShrinkPtr.do?px=500&ptr_no=${painterVO.ptr_no}">
 										</a>
 
 										<div class="ycl-painter-content">
