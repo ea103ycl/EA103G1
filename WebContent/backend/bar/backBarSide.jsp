@@ -285,10 +285,8 @@
                 <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">所有訂單系統:</h6>
-                        <a class="collapse-item" href="#">競標訂單管理</a>
                         <a class="collapse-item" href="<%=request.getContextPath()%>/backend/preproduct/preOrder.jsp">預購訂單管理</a>
                         <a class="collapse-item" href="<%=request.getContextPath()%>/backend/prod/listAllOrder.jsp">一般訂單管理</a>
-                        <a class="collapse-item" href="#">見面會訂單管理</a>
                     </div>
                 </div>
             </li>

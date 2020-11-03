@@ -365,28 +365,8 @@
 		<url-pattern>/follow/follow.do</url-pattern>
 	</servlet-mapping>
 
-
-	<servlet>
-		<servlet-name>GetShrinkPtr</servlet-name>
-		<servlet-class>com.painter.controller.GetShrinkPtr</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GetShrinkPtr</servlet-name>
-		<url-pattern>/painter/getShrinkPtr.do</url-pattern>
-	</servlet-mapping>
-	
-	
-	<servlet>
-		<servlet-name>GetOrigPtr</servlet-name>
-		<servlet-class>com.painter.controller.GetOrigPtr</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GetOrigPtr</servlet-name>
-		<url-pattern>/painter/getOrigPtr.do</url-pattern>
-	</servlet-mapping>
-	
 	<!--== ROGER=========================================== -->
-	<servlet>
+<servlet>
 		<servlet-name>MeetingServlet</servlet-name>
 		<servlet-class>com.meeting.controller.MeetingServlet</servlet-class>
 	</servlet>
@@ -441,17 +421,20 @@
 		<url-pattern>/backend/bidding/select_page.jsp</url-pattern>
 		<url-pattern>/backend/preproduct/addDiscount.jsp</url-pattern>
 		<url-pattern>/backend/preproduct/addPreProduct_ByMano.jsp</url-pattern>
-		<url-pattern>/backend/preproduct/addPreProduct.jsp</url-pattern>
-		<url-pattern>/backend/preproduct/PonoByReachDiscount.jsp</url-pattern>
-		<url-pattern>/backend/preproduct/preOrderDetail.jsp</url-pattern>
+		<url-pattern>/backend/preproduct/addPreProduct.jsp</url-pattern>		
+		<url-pattern>/backend/preproduct/backendindex.jsp</url-pattern>
+		<url-pattern>/backend/preproduct/PonoByReachDiscount.jsp</url-pattern>	
+		<url-pattern>/backend/preproduct/quantityOfSale.jsp</url-pattern>
 		<url-pattern>/backend/prod/listAllProd.jsp</url-pattern>
 		<url-pattern>/backend/prod/addProd.jsp</url-pattern>
 		<url-pattern>/backend/material/addMat.jsp</url-pattern>	
 		<url-pattern>/backend/material/listAllMat.jsp</url-pattern>	
 		<url-pattern>/backend/material/listAllMatype.jsp</url-pattern>	
 		<url-pattern>/backend/material/listMat_ByCompositeQuery.jsp</url-pattern>
-		<url-pattern>/backend/material/selectMat.jsp</url-pattern>					
+		<url-pattern>/backend/material/selectMat.jsp</url-pattern>		
+		<url-pattern>/backend/meeting/listAllMeeting_back.jsp</url-pattern>						
 		<url-pattern>/backend/preproduct/preOrder.jsp</url-pattern>
+		<url-pattern>/backend/preproduct/preOrderDetail.jsp</url-pattern>	
 		<url-pattern>/backend/prod/listAllOrder.jsp</url-pattern>
 		<url-pattern>/backend/emp/addEmp.jsp</url-pattern>
 		<url-pattern>/backend/emp/listAllEmp.jsp</url-pattern>
