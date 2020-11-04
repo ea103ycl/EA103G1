@@ -128,7 +128,6 @@
                     }
                     $(".grid").append(data);
                     rank += 15;
-                    console.log('rank' + rank);
                 },
                 error: function() {
                     console.log('(index_front_js)LoadImg100 error');

@@ -313,7 +313,9 @@ img {
 										<!-- Modal -->
 
 									</c:when>
+									
 									<c:when test="${memId eq topBidder}">
+									${memId}${topBidder}
 										<h2 Style="margin-top: 2%">
 											<a>查看我的訂單!</a>
 										</h2>

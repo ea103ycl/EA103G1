@@ -75,7 +75,6 @@ public class TagGetPic extends HttpServlet {
 			String rank = req.getParameter("rank");
 			PainterService pSvc = new PainterService();
 			Integer totalPic = pSvc.getPicCount();
-			System.out.println("rank: "+rank);
 			Integer rankBegin = Integer.valueOf(rank);
 			if (rankBegin > totalPic) {
 				return;
