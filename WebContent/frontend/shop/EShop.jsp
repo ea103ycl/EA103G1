@@ -106,11 +106,11 @@ pageContext.setAttribute("list", list);
 </FORM>	
 </strong> 
 
-                
-            
+               
+ <div style="margin:5px 0 0 0;"><%@ include file="page1.file" %></div>            
             <ul class="row shop list-unstyled" id="grid">
                 <!---------------------------------------------- product ------------------------------------------->
-<c:forEach var="prodVO" items="${list}" varStatus="counter" >
+<c:forEach var="prodVO" items="${list}" varStatus="counter" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                 <li class="col-xs-6 col-md-4 product m-product" data-groups='["mens"]'>
                     <div class="img-bg-color primary">
                         <h5 class="product-price">${prodVO.prod_price}</h5>
@@ -162,16 +162,16 @@ pageContext.setAttribute("list", list);
                     </div><!-- / img-bg-color -->
                 </li>
 </c:forEach>
+
                 <!----------------------------------------- / product ----------------------------------------->
  
                 <!-- sizer -->
                 <li class="col-xs-6 col-md-4 shuffle_sizer"></li>
                 <!-- / sizer -->
             </ul> <!-- / products -->
-            <div class="text-center more-button space-top-30">
-                <a href="#x" class="btn btn-default-filled"><i class="lnr lnr-sync"></i><span>LOAD MORE</span></a>
-            </div>
+           
         </div><!-- / container -->
+      <div style="margin:20px 0 0 870px; font-size:20px;" > <%@ include file="page2.file" %></div> 
     </section>
     <!-- / shop section -->
     <!-- / content -->
