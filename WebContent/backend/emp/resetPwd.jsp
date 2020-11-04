@@ -19,7 +19,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 	
-		<title>我是標題</title>
+		<title>重置密碼</title>
 		<style>
 			#preview img {
 				width: 300px;

@@ -663,14 +663,14 @@ public class Reg_infServlet extends HttpServlet {
 				/***************************2.開始修改資料*****************************************/
 				Reg_infService reg_infSvc = new Reg_infService();
 				reg_infVO = reg_infSvc.cancelReg_inf(ri_status,ri_qty,ri_id);
-			    reg_infSvc.check_mt_numReg_inf();
+			    
 
 
 				Boolean ifCheckOutSucess = MoneyTool.checkOut_back(mem_id, 38, ri_id, amount);// 扣款請傳入負數
 				
                 
 				if (ifCheckOutSucess) {
-					
+					reg_infSvc.check_mt_numReg_inf();
 				String url = "/backend/reg_inf/listAllReg_inf_mt_no.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 結帳成功後轉交回原頁面會員頁面
 					successView.forward(req, res);

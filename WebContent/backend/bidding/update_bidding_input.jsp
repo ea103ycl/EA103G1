@@ -57,7 +57,7 @@
 					<h1 class="h3 mb-2 text-gray-800">限時競標管理</h1>
 					<p class="mb-4">競標管理訂單明細</p>
 					<a
-						href="<%=request.getContextPath()%>/backend/bidding//select_page.jsp">回首頁</a>/
+						href="<%=request.getContextPath()%>/backend/bidding/select_page.jsp">回首頁</a>/
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">

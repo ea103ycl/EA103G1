@@ -100,7 +100,7 @@
 	<c:if test="${not empty errorMsgs}">
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
+				<li style="color:deeppink; font-size:30px; margin:0 0 0 450px;">${message}</li>
 			</c:forEach>
 		</ul>
 	</c:if>
@@ -173,7 +173,7 @@
 <!--------------------------------------- footer --------------------------------------->
 <%@include file="/frontend/bar/frontBarFooter.jsp"%>
 <!--------------------------------------- /footer --------------------------------------->
-     <script src="<%=request.getContextPath() %>/frontend/template/jquery/jquery.min.js" ></script>
+     <script src="<%=request.getContextPath() %>/frontend/template/js/jquery/jquery.min.js"></script>
 	<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.easing.min.js"></script><!-- return to top id -->
 	<script src="<%=request.getContextPath()%>/frontend/template/tonyTools/sweetAlert/sweetalert.min.js"></script>
 

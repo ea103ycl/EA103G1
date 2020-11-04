@@ -368,7 +368,7 @@
         function updateBid() {
             $.ajax({
                 method: "post",
-                url: +"/biddingPage/BdPageServlet",
+                url: contextPath +"/biddingPage/BdPageServlet",
                 data: { action: "topBidders", bdNo: bdNo },
                 success: function(dataReturn) {
 

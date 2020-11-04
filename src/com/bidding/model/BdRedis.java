@@ -47,7 +47,7 @@ public class BdRedis {
 		Jedis jedis = new Jedis("localhost", 6379);
 		jedis.auth("123456");
 
-		if (jedis.exists(eventNo)) {
+		if (jedis.exists("result:"+eventNo)) {
 			jedis.close();
 			return;
 		}

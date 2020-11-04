@@ -26,7 +26,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 	
-		<title>我是標題</title>
+		<title>素材新增</title>
 		<style>
 			#preview img {
 				width: 300px;
@@ -142,16 +142,16 @@
 </div>
 
 <div style = "margin-left:135px">
-<button class="btn btn-primary" type="button" id="click2">Clean</button> 
+<button class="btn btn-secondary" type="button" id="click2">Clean</button> 
 &nbsp
-<button class="btn btn-primary" type="button" id="click1">Click Me</button> 
+<button class="btn btn-secondary" type="button" id="click1">Click Me</button> 
 </div>
 
 <div class="mt-2" style = "margin-left:88px">
 <!-- 	 <div class="container"> -->
 <!-- 	  <div class="row"> -->
 <!-- 	    <div class="col text-center"> -->
-<button  class="btn btn-secondary"  type="submit" name="action" value="insertMatype">                                 
+<button  class="btn btn-primary"  type="submit" name="action" value="insertMatype">                                 
 <span class="text">單獨新增素材種類</span>                             
 </button>
 &nbsp

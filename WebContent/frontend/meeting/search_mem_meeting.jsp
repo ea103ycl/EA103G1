@@ -23,100 +23,35 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript">
-
-
-function checkoutAmount()
-{
-/*計算總價格*/
-
-
-var mt_num=document.getElementById("mt_num").value;
-
-var ri_fee=document.getElementById("ri_fee").value;
-
-document.getElementById("amount").value=mt_num*ri_fee;
-}
-</script>
-
-<meta charset="BIG5">
-<style>
-table {
-	width: 800px;
+<!-- top bar -->
+	<%@include file="/frontend/bar/frontBarTop.jsp"%>
+	<title>頁面名稱</title>
 	
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-    text-align: center;
-
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-    height:100px;
-    font-size:20px;
-  }
-  h4 {
-  padding: 5px;
-    text-align: center;
-  }
-  body {
-    color: #666666;
-    background: #fefefe;
-    font-family: "Rubik", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.05em;
-}
-table#table-1 {
-	background-color: #C4E1E1;
-    border: 2px #ECF5FF;
-    text-align: center;
-   
-  }
-  table#table-1 h4 {
-    color: #613030;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  h4 {
-    color: blue;
-    display: inline;
-  }
-  h3 {
-  color: blue;
-    display: inline;
-  }
-</style>
+	<style>
+		.roger-mt{
+			margin-bottom:30px;
+		}
+	</style>
+</head>
 
 
 <title>「我舉辦的」見面會 - search_mem_meeting.jsp</title>
 </head>
 <body onload="checkoutAmount();">
-<!-- header -->
 
-	<header>
-
-		<%@include file="/frontend/bar/frontBarTop.jsp"%>
-
-		    <!-- header-banner -->
-    <div id="header-banner">
-        <div class="banner-content single-page text-center">
-            <div class="banner-border">
-                <div class="banner-info" id="banner-info">
-                    <h1>Meeting</h1>
-                </div><!-- / banner-info -->
-            </div><!-- / banner-border -->
-        </div><!-- / banner-content -->
-    </div>
-    <!-- / header-banner -->
-	</header>
-	<!-- / header -->
+<section class="space-top-30">
+	<div id="page-content" class="container">
+	
+	    <div class="row">
+	     <!-------------------------------------------------------------------------------- 自定義內容START------------------------- -->
+	        <div class="roger-mt">
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/addMeeting.jsp'" class="btn btn-primary-filled">舉辦見面會</button>
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/search_mem_meeting.jsp'" class="btn btn-primary-filled">我舉辦的見面會</button>
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/reg_inf/listAllReg_inf.jsp'" class="btn btn-primary-filled">我報名的見面會</button>
+	        </div>
+	        
+	        <%-- 表格內容START --%>
+			<%@ include file="page1.file" %> 
 
 <table id="table-1">
 	<tr><td>
@@ -146,7 +81,6 @@ table#table-1 {
         <th>刪除</th>
         <th>申請分潤</th>
 	</tr>
-	<%@ include file="page1.file" %> 
 	<c:forEach var="meetingVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 	
 	<tr>
@@ -197,13 +131,13 @@ table#table-1 {
     </c:when>
     <c:when test="${mt_start_time gt now_time}">
          <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/meeting/meeting.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
+			     <input class="btn btn-primary btn-pill" type="submit" value="修改">
 			     <input type="hidden" name="mt_no"  value="${meetingVO.mt_no}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
     </c:when>
     <c:otherwise>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/meeting/meeting.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
+			     <input class="btn btn-primary btn-pill" type="submit" value="修改">
 			     <input type="hidden" name="mt_no"  value="${meetingVO.mt_no}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			
@@ -224,14 +158,14 @@ table#table-1 {
     </c:when>
     <c:when test="${mt_start_time gt now_time}">
          <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/meeting/meeting.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
+			     <input class="btn btn-primary btn-pill" type="submit" value="刪除">
 			     <input type="hidden" name="mt_no"  value="${meetingVO.mt_no}">
 			     <input type="hidden" name="mt_status"  value="2">	     
 			     <input type="hidden" name="action"	value="cancel_meeting"></FORM>
     </c:when>
     <c:otherwise>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/meeting/meeting.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
+			     <input class="btn btn-primary btn-pill" type="submit" value="刪除">
 			     <input type="hidden" name="mt_no"  value="${meetingVO.mt_no}">
 			     <input type="hidden" name="mt_status"  value="2">
 			     <input type="hidden" name="action"	value="cancel_meeting"></FORM>
@@ -251,7 +185,7 @@ table#table-1 {
     </c:when>
     <c:when test="${now_time gt mt_time}">
         <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/meeting/meeting.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="申請">
+			     <input class="btn btn-primary btn-pill" type="submit" value="申請">
 			     <input type="hidden" name="mt_no"  value="${meetingVO.mt_no}">
 			     <input type="hidden" name="mt_num" id="mt_num"  value="${meetingVO.mt_num}">	
 			     <input type="hidden" name="ri_fee" id="ri_fee"  value="${meetingVO.ri_fee}">	
@@ -275,14 +209,32 @@ table#table-1 {
 </c:forEach>
 </table>
 
-<!-- footer -->
+<%-- 表格內容END --%>
+		<div class="row">
+		    <div class="roger-mt">
+	    </div>
+		<%@ include file="page2.file" %> 
+		<!-------------------------------------------------------------------------------- 自定義內容END------------------------- -->
+	    </div><!-- / row -->
+	</div> <!-- end container -->
+	</section>
 
+	<!-- footer -->
 	<%@include file="/frontend/bar/frontBarFooter.jsp"%>
 
-	<!-- / footer -->
+<script>
+function checkoutAmount()
+{
+/*計算總價格*/
+var mt_num=document.getElementById("mt_num").value;
 
-<%@ include file="page2.file" %>
-<table id="table-1">
-<td></td>
+var ri_fee=document.getElementById("ri_fee").value;
+
+document.getElementById("amount").value=mt_num*ri_fee;
+}
+</script>
+
+
+
 </body>
 </html>

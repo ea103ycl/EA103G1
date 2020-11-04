@@ -292,7 +292,7 @@
 				<c:otherwise>
 					<div class="gridWrapper">
 						<div class="grid" id="grid">
-							<c:forEach var="pVO" items="${pSvc.getMostLiked(1,7)}">
+							<c:forEach var="pVO" items="${pSvc.getMostLiked(1,15)}">
 								<div class="grid-item">
 									<img draggable='true' ondragstart="drag(event);"
 										id='${pVO.ptr_no}'
@@ -301,7 +301,7 @@
 							</c:forEach>
 						</div>
 					</div>
-					<div id="lastDiv"></div>
+					
 				</c:otherwise>
 			</c:choose>
 
@@ -311,6 +311,7 @@
 			<!-- ================================= -->
 			</div>
 		</section>
+		<div id="lastDiv"></div>
 	</main>
 	<!-- End #main -->
 	<a href="#" class="back-to-top"><img
