@@ -8,6 +8,8 @@
 <%@ page import="com.mem.model.*"%>
 <%@ page import="com.preorder.model.*"%>
 <%@ page import="com.preorderdetail.model.*"%>
+<%@ page import="com.event_p.model.*"%>
+<%@ page import="com.event.model.*"%>
 <%/*----------顯示錢包----------*/
   WelRecordVO welRecordVO = (WelRecordVO) request.getAttribute("welRecordVO");
   MemVO memVO = (MemVO) session.getAttribute("memVO");
@@ -24,6 +26,13 @@
     List<WelRecordVO> set = welRecordSvc.getWelRecordByMemID(memVO.getMem_id());
     pageContext.setAttribute("set",set);
 
+    /*----------顯示第一名作品----------*/
+
+    EventService eventSvc=new EventService();
+	Event_PService eventpSvc = new Event_PService();
+    List<Event_PVO> list01 = eventpSvc.findAllByEventNoRankDescWithoutReport(eventSvc.findLastEndEvent());
+    pageContext.setAttribute("list01",list01);
+    
 %>
 <% /*----------阻擋重複提交(F5)----------*/
 	Random ran = new Random();
@@ -156,7 +165,7 @@
     <div id="header-banner">
         <div class="banner-content single-page text-center">
             <div class="banner-border">
-            <img class="img01" src="<%=request.getContextPath()%>/frontend/preproduct/css/index_parts/css_imgs/no1.jpg">
+            <img class="img01" src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${list01[0].event_p_no}">
                 <div class="banner-info">
 	                <div class="count_contentBx">
 		                <div class="count_conutdown">
@@ -165,7 +174,7 @@
 		                    <button type="button" class="btn btn-lg btn-primary" role="button"><div id="count_hour">0</div><span>Hours</span></button>
 		                    <button type="button" class="btn btn-lg btn-primary" role="button"><div id="count_minute">0</div><span>Mins</span></button>
 		                    <button type="button" class="btn btn-lg btn-primary" role="button"><div id="count_second">0</div><span>Secs</span></button>
-		                    <div id="disappear">${list_for_countdown[5].getPo_end()}</div>
+		                    <div id="disappear">${list_for_countdown[0].getPo_end()}</div>
 		                </div>
 	                </div>
                 </div><!-- / banner-info -->

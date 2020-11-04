@@ -41,7 +41,7 @@ public class PreProductDAO implements PreProductDAO_interface{
 	private static final String GET_ManoIMG_ByMano_STMT = "SELECT MA_PHOTO FROM MATERIAL_DATA WHERE MA_NO = ? ";
 	//利用名次找作品(尚未使用)
 	private static final String GET_Eventno_ByPreproduct_STMT = "SELECT * FROM EVENT_P WHERE VOTE_RANK = ? AND EVENT_NO = (SELECT MAX(EVENT_NO) FROM EVENT WHERE EVENT_STAT = 3)";
-	private static final String GET_ALL = "SELECT * FROM PRE_PRODUCT";
+	private static final String GET_ALL = "SELECT * FROM PRE_PRODUCT ORDER BY po_end DESC,PO_PROD_NO ASC";
 	
 	@Override
 	public void insert(PreProductVO preproductVO) {

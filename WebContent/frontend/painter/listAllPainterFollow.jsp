@@ -52,7 +52,7 @@
 <head>
 
 	
-<title>${sMemSvc.findByPrimaryKey(sid).getM_accno()}的個人作品</title>
+<title>${sMemSvc.findByPrimaryKey(sid).getM_accno()}關注圈</title>
 
 <style>
 .modal-header {

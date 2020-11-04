@@ -15,6 +15,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.mem.model.MemVO;
 import com.painter_tag_map.model.PainterTagMapService;
 import com.painter_tag_map.model.PainterTagMapVO;
 
@@ -54,7 +55,7 @@ public class PainterDAO implements PainterDAO_interface {
 	private static final String DELETE_STMT = "UPDATE painter SET PTR_STAT = ? WHERE ptr_no =? ";
 	private static final String GET_PIC_BY_PTR_NO_STMT = "SELECT pic FROM painter WHERE ptr_no = ? ";
 	private static final String GET_ONE_PAINTER_STMT = "SELECT * FROM PAINTER WHERE PTR_NO = ?";
-	
+	private static final String GET_MEMBERS_BY_ACCT_STMT = "SELECT * FROM MEMBERS WHERE M_ACCNO LIKE LOWER('%?%')";
 	
 	// 取得某位會員發表過+未刪除的作品
 	private static final String GET_SOMEONE_ALL_STMT = "SELECT P.PTR_NO, P.MEM_ID, P.PTR_NM, P.INTRO, P.PRIV_STAT, P.PTR_STAT, P.LIKE_CNT, P.COL_CNT, P.CREATE_DT FROM PAINTER P "
@@ -586,6 +587,54 @@ public class PainterDAO implements PainterDAO_interface {
 		}
 
 		return painterVO;
+	}
+	
+	public List<String> getMembersByMAccno(String acct) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> list = new ArrayList<String>();
+		
+		try {
+			con = ds.getConnection();
+
+			pstmt = con.prepareStatement(GET_MEMBERS_BY_ACCT_STMT);
+			pstmt.setString(1, acct);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				String m_acct = rs.getString("m_accno");
+				list.add(m_acct);
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException("database error" + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 	
 	//==Tim===============================================================

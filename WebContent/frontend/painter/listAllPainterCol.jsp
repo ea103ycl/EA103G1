@@ -212,7 +212,8 @@
 												
 												<span class="post-icons ycl-post-icons  pull-right">
 													<button class="ycl-act-btn-msg">
-													 	<a href="<%=request.getContextPath()%>/frontend/shop/forPrinter.jsp?ptr_no=${painterVO.ptr_no}"><i class="lnr lnr-cart"></i></a>
+															<a href="<%=request.getContextPath()%>/frontend/shop/shopping?action=Ptr_Search&ptr_no=${painterVO.ptr_no}"><i class="lnr lnr-cart"></i></a>
+															<%--<a href="<%=request.getContextPath()%>/frontend/shop/forPrinter.jsp?ptr_no=${painterVO.ptr_no}"><i class="lnr lnr-cart"></i></a> --%>
 													</button>											
 												</span>
 												
