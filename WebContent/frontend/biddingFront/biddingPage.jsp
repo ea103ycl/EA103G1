@@ -127,7 +127,11 @@ img {
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
 	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
 	<c:set var="topBidder" value="${bdr.getHighestBidder(bdNo)}" />
-
+	
+	<input id="epVO" type="hidden" value="${epSvc.findTopByEventNoWithoutReport(bdNo)}">
+	<input id="bVO" type="hidden" value="${bdSvc.getOne(sqlBdNo)}">
+	<input id="topBidder" type="hidden" value="${bdr.getHighestBidder(bdNo)}">
+	
 
 
 	<!-- preloader -->
@@ -418,6 +422,7 @@ img {
 																		</div>
 																	</div>
 																	<!-- / shipping-info -->
+
 
 																	<div id="my-orders" class="account-info-content">
 																		<h4>

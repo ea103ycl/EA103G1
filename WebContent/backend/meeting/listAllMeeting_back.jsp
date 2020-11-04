@@ -122,7 +122,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		    <td class="align-middle">${meetingVO.mt_num}</td> 
 		
 <td class="align-middle">
-         <form action="<%=request.getContextPath()%>/frontend/reg_inf/reg_inf.do" " method="get"><!-- action值填你的api url -->
+         <form action="<%=request.getContextPath()%>/frontend/reg_inf/reg_inf.do" " method="post"><!-- action值填你的api url -->
 		 <input type="hidden" name="mt_no" value="${meetingVO.mt_no}" />
 		 <input type="submit" value="查詢" />
 		 <input type="hidden" name="action" value="getReg_inf_mt_no">

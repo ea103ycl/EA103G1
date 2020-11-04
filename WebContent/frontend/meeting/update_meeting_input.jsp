@@ -6,6 +6,7 @@
 	MeetingVO meetingVO = (MeetingVO) request.getAttribute("meetingVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
 
+<!DOCTYPE html>
 <html>
 <head>
 <!-- top bar -->

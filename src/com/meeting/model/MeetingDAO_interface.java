@@ -15,6 +15,7 @@ public interface MeetingDAO_interface {
           public List<MeetingVO> getMt_Meeting(String mt_no);
 
           public List<MeetingVO> getCancel_Meeting();
+          public List<MeetingVO> FuzzySearch(String mt_id);
 
 
 }

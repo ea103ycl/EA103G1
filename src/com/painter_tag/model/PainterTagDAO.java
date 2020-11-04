@@ -41,7 +41,7 @@ public class PainterTagDAO implements PainterTagDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO painter_tag (tag_no,tag_desc) VALUES (PAINTER_TAG_SEQ.nextval,?)";
 	private static final String SEARCHBYTAG_STMT = "SELECT tag_no,tag_desc FROM painter_tag WHERE lower(tag_desc) LIKE ?";
 	private static final String GET_TAG_DESC_STMT = "SELECT tag_no,tag_desc FROM painter_tag WHERE tag_no = ?";
-	private static final String GET_PIC_BY_TAG_DESC_STMT="SELECT PTR_NO FROM PAINTER_TAG_MAP WHERE TAG_NO=(SELECT tag_no FROM painter_tag WHERE tag_desc = ?)";
+	private static final String GET_PIC_BY_TAG_DESC_STMT="SELECT PTR_NO FROM PAINTER_TAG_MAP WHERE TAG_NO=(SELECT tag_no FROM painter_tag WHERE tag_desc like ?)";
 
 //	private static final String GET_PIC_BY_TAG_DESC_STMT="SELECT PTR_NO FROM PAINTER_TAG_MAP WHERE TAG_NO=(SELECT tag_no FROM painter_tag WHERE lower(tag_desc) LIKE ?)";
 
@@ -224,7 +224,7 @@ public class PainterTagDAO implements PainterTagDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_PIC_BY_TAG_DESC_STMT);
-			pstmt.setString(1, tag );
+			pstmt.setString(1,tag);
 			rs = pstmt.executeQuery();
 			list=new ArrayList<Integer>();
 			
@@ -345,11 +345,10 @@ public class PainterTagDAO implements PainterTagDAO_interface {
 				painterTagVO.setTag_no(rs.getInt("tag_no"));
 				painterTagVO.setTag_desc(rs.getString("tag_desc"));
 
-			
-
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RuntimeException("A database error occur");
 		} finally {
 			if (rs != null) {

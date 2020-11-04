@@ -3,6 +3,7 @@ package com.meeting.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.prod.model.ProdVO;
 import com.reg_inf.model.Reg_infVO;
 
 public class MeetingService {
@@ -98,5 +99,8 @@ public class MeetingService {
 
 		return dao.getCancel_Meeting();
 		
+	}
+	public List<MeetingVO> FuzzySearch(String mt_id) {
+		return dao.FuzzySearch(mt_id);
 	}
 }
