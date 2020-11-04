@@ -557,6 +557,10 @@
                 border-radius: 25px;
                 position: relative;
             }
+
+            #searchBlock-icon {
+                display: none;
+            }
         }
 
         @media screen and (min-width: 576px) and (max-width: 767px) {
@@ -624,6 +628,10 @@
             #img01 {
                 border-radius: 25px;
                 position: relative;
+            }
+
+            #searchBlock-icon {
+                display: none;
             }
         }
 

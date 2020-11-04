@@ -41,8 +41,9 @@ public class PainterTagDAO implements PainterTagDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO painter_tag (tag_no,tag_desc) VALUES (PAINTER_TAG_SEQ.nextval,?)";
 	private static final String SEARCHBYTAG_STMT = "SELECT tag_no,tag_desc FROM painter_tag WHERE lower(tag_desc) LIKE ?";
 	private static final String GET_TAG_DESC_STMT = "SELECT tag_no,tag_desc FROM painter_tag WHERE tag_no = ?";
-	private static final String GET_PIC_BY_TAG_DESC_STMT="SELECT PTR_NO FROM PAINTER_TAG_MAP WHERE TAG_NO=(SELECT tag_no FROM painter_tag WHERE lower(tag_desc) LIKE ?)";
+	private static final String GET_PIC_BY_TAG_DESC_STMT="SELECT PTR_NO FROM PAINTER_TAG_MAP WHERE TAG_NO=(SELECT tag_no FROM painter_tag WHERE tag_desc = ?)";
 
+//	private static final String GET_PIC_BY_TAG_DESC_STMT="SELECT PTR_NO FROM PAINTER_TAG_MAP WHERE TAG_NO=(SELECT tag_no FROM painter_tag WHERE lower(tag_desc) LIKE ?)";
 
 	
 	//==YCL=========================================================
@@ -229,6 +230,8 @@ public class PainterTagDAO implements PainterTagDAO_interface {
 			
 			while (rs.next()) {
 				list.add(rs.getInt("ptr_no"));
+				
+				
 			}
 
 	

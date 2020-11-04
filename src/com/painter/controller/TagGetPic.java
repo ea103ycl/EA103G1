@@ -47,14 +47,23 @@ public class TagGetPic extends HttpServlet {
 
 			String tag_desc = req.getParameter("searchBar1");
 			PainterTagService ptSvc = new PainterTagService();
-			List<Integer> list = ptSvc.getPicbyTag(tag_desc);
+			List<PainterTagVO> ptVOList = ptSvc.fuzzySearch(tag_desc);
+			List<Integer> list = null;
 
-			if (list.isEmpty()) {
+			if (ptVOList.isEmpty()) {
 				String errorMsgs = new String("No Data,Please confirm your search : " + tag_desc + " ?");
 				req.setAttribute("errorMsgs", errorMsgs);
-			} else {
-				req.setAttribute("ptrnoList", list);
+				RequestDispatcher view = req.getRequestDispatcher("/frontend/front_index.jsp");
+				view.forward(req, res);
+				return;
 			}
+
+			for (PainterTagVO ptVO : ptVOList) {
+				String fuzzyTag = ptVO.getTag_desc();
+				list = ptSvc.getPicbyTag(fuzzyTag);
+			}
+			
+			req.setAttribute("ptrnoList", list);
 
 			RequestDispatcher view = req.getRequestDispatcher("/frontend/front_index.jsp");
 			view.forward(req, res);
@@ -74,8 +83,8 @@ public class TagGetPic extends HttpServlet {
 			List<PainterVO> list = pSvc.getMostLiked(rankBegin, rankBegin + 5);
 
 			for (PainterVO pVO : list) {
-				out.print("<div class=\"grid-item\">" + "<img src="+req.getContextPath()+"/painter/ShowImage?ptr_no=" + pVO.getPtr_no()
-						+ "\"/>" + "</div>");
+				out.print("<div class=\"grid-item\">" + "<img src=" + req.getContextPath()
+						+ "/painter/ShowImage?ptr_no=" + pVO.getPtr_no() + "\"/>" + "</div>");
 			}
 		}
 
@@ -100,20 +109,20 @@ public class TagGetPic extends HttpServlet {
 			}
 			out.println(jsonOb);
 		}
-		
+
 		if ("picGetTag".equals(action)) {
 			Integer ptrno = Integer.valueOf(req.getParameter("ptrno"));
-			PainterTagMapService ptmSvc= new PainterTagMapService();
+			PainterTagMapService ptmSvc = new PainterTagMapService();
 			PainterTagService ptSvc = new PainterTagService();
 			List<PainterTagMapVO> list = ptmSvc.getAllByPtrNo(ptrno);
 			JSONObject jsonOb = new JSONObject();
-			
+
 			int i = 0;
-			for(PainterTagMapVO ptmVO : list) {
+			for (PainterTagMapVO ptmVO : list) {
 				if (i < 12) {
 					i++;
-					Integer tagno=ptmVO.getTag_no();
-					String result=ptSvc.getPainterTagDesc(tagno);
+					Integer tagno = ptmVO.getTag_no();
+					String result = ptSvc.getPainterTagDesc(tagno);
 					try {
 						jsonOb.put("bubble" + i, result);
 					} catch (JSONException e) {
@@ -163,9 +172,8 @@ public class TagGetPic extends HttpServlet {
 				String memName = memVO.getM_name();
 
 				out.print("<div>" + "<div class='msgImg'><img src='" + req.getContextPath()
-						+ "/ReadMemPic?action=getPic&memId=" + memId + "'> " + memName + "</div>" 
-						+"<div class='msgComm'>"+ pmsgVO.getMsg()+"</div>"
-						+ "</div>");
+						+ "/ReadMemPic?action=getPic&memId=" + memId + "'> " + memName + "</div>"
+						+ "<div class='msgComm'>" + pmsgVO.getMsg() + "</div>" + "</div>");
 			}
 			// ==========!getComment==============
 		}
@@ -176,7 +184,7 @@ public class TagGetPic extends HttpServlet {
 			HttpSession session = req.getSession();
 			PainterMsgService pmsgSvc = new PainterMsgService();
 			PainterMsgVO pmsgVO = new PainterMsgVO();
-			MemVO memVO=(MemVO) session.getAttribute("memVO");
+			MemVO memVO = (MemVO) session.getAttribute("memVO");
 
 			if (comment.trim().isEmpty()) {
 				System.out.println("(TagGetPic)writeComment: comment is empty String");
@@ -186,9 +194,9 @@ public class TagGetPic extends HttpServlet {
 				pmsgVO.setMem_id(memVO.getMem_id());
 				pmsgVO.setMsg(comment);
 				pmsgVO.setPtr_no(ptrno);
-				
+
 				pmsgSvc.insert(pmsgVO);
-				
+
 				out.print("insertComplete");
 			} catch (Exception e) {
 				e.printStackTrace();
