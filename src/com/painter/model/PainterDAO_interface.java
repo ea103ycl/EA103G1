@@ -2,6 +2,8 @@ package com.painter.model;
 
 import java.util.List;
 
+import com.mem.model.MemVO;
+
 public interface PainterDAO_interface {
 
 	//==YCL=======================================
@@ -13,6 +15,8 @@ public interface PainterDAO_interface {
 	public List<PainterVO> getSomeoneFollowAll(String login_mem_id);
 	public byte[] getPicByPtrNo(Integer ptr_no);
 	public PainterVO getOnePainter(Integer ptr_no);
+	
+	public List<String> getMembersByMAccno(String acct);
 	
 	
 	//==Tim=======================================

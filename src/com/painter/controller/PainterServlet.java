@@ -260,6 +260,11 @@ public class PainterServlet extends HttpServlet {
 			}
 		}
 
+		
+		if ("searchMem".contentEquals(action)) {
+			String acct = (String)req.getParameter("memSearch");
+		}
+		
 	}
 	
 	//判斷輸入的tag是否超過100byte(配合painter_tag.tag_desc的欄位大小)
