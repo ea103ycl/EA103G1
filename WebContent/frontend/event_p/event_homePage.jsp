@@ -176,6 +176,7 @@ background-color:#fff;
                 <!-- media-alignment -->
                             <div class="media-body">
                                 <h4 class="media-heading">我有點子</h4>
+                                <small>如果你有點子可以在這裡投稿，就有機會抽選為下次的競賽主題</small>
                                 <p>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"  >
 					 我有點子
@@ -219,9 +220,16 @@ background-color:#fff;
                         </a>
                 </div>
                 <!-- media-alignment -->
+                <% 
+                	String[] event_statStr={"活動尚未開始","徵稿中","投票中","活動結束"};
+                	pageContext.setAttribute("event_statStr", event_statStr);
+                %>
                 <div class="media-body">
-                    <h4 class="media-heading">得票最高的作品編號:${event_p_top.event_p_no}</h4>
-					 活動名稱:${eventVOs[status.index].event_name}
+                	<h3>活動名稱:${eventVOs[status.index].event_name} (${event_statStr[eventVOs[status.index].event_stat]})</h3>
+                	
+                	<c:if test="${eventVOs[status.index].event_stat==3}">
+                		<h6 class="media-heading" >得票最高的作品編號:${event_p_top.event_p_no}</h6>
+                	</c:if>
                     <p>
 <!--                     	本次活動五張圖event_pVOs(五張圖的event_pVO5s) -->
 <%--                     	<%=i %> --%>
@@ -267,7 +275,7 @@ background-color:#fff;
 <!-- / scroll to top -->
 <%@include file="/frontend/bar/frontBarFooter.jsp" %>
 
-    <script src="<%=request.getContextPath() %>/frontend/template/jquery/jquery.min.js" ></script>
+    <script src="<%=request.getContextPath() %>/frontend/template/js/jquery.min.js" ></script>
     
 <!-- mark by YCL 重複引入導致modal跑不出來     -->
 <%-- 	<script src="<%=request.getContextPath() %>/frontend/template/js/bootstrap.min.js" ></script> --%>
@@ -277,19 +285,24 @@ background-color:#fff;
 	<script src="<%=request.getContextPath()%>/frontend/template/neoTools/sweetAlert/sweetalert.min.js"></script>
 	<script>
 	$("#eventHashTagSubmit").click(function(){
-		$.ajax({
-			url:"<%=request.getContextPath()%>/Event_TagServlet",
-			type:"post",
-			data:{
-				action:"insert",
-				event_tag_name:$("#tagName").val()
-				},
-			success:function(data){
-				console.log("OK");
-				$("#tagName").val("") //clear text
-				swal("Nice!", "點子送出完成", "success");
-			}
-		})
+		console.log($("#tagName").val()==="");
+		if($("#tagName").val().trim()===""){
+			swal("請輸入文字");
+		}else{
+			$.ajax({
+				url:"<%=request.getContextPath()%>/Event_TagServlet",
+				type:"post",
+				data:{
+					action:"insert",
+					event_tag_name:$("#tagName").val()
+					},
+				success:function(data){
+					console.log("OK");
+					$("#tagName").val("") //clear text
+					swal("Nice!", "點子送出完成", "success");
+				}
+			});
+		}
 
 	})
 	

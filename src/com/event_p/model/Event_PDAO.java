@@ -28,12 +28,18 @@ public class Event_PDAO implements Event_PDAO_interface {
 	private static final String FINDALLMEM = "SELECT DISTINCT MEM_ID FROM EVENT_P";
 	private static final String FINDALLEVENTNO = "SELECT DISTINCT EVENT_NO FROM EVENT ORDER BY EVENT_NO DESC";//用在HOME PAGE的最新到最舊顯示
 	private static final String VOTEPIC = "UPDATE EVENT_P SET EVENT_VOTE_NUM=EVENT_VOTE_NUM+1 WHERE EVENT_P_NO=?";
-	private static final String FINDTOPBYEVENTNOWITHOUTREPORT = "select * from\r\n" + 
-			"(SELECT * FROM EVENT_P  WHERE EVENT_NO=?  order by event_vote_num desc) A \r\n" + 
+	private static final String FINDTOPBYEVENTNOWITHOUTREPORT = "select *from event_p \r\n" + 
+			"where event_vote_num=\r\n" + 
+			"(\r\n" + 
+			"select max(event_vote_num) from\r\n" + 
+			"(SELECT * FROM EVENT_P  \r\n" + 
+			"WHERE EVENT_NO=? \r\n" + 
+			"order by event_vote_num desc) A \r\n" + 
 			"left join\r\n" + 
 			"(select *from event_p_rep where event_p_rep.rep_stat=2) B\r\n" + 
 			"on A.event_p_no=B.event_p_no\r\n" + 
-			"where rownum<=1 and B.event_p_no is null";
+			"where  B.event_p_no is null \r\n" + 
+			") ";
 	private static final String FINDALLBYEVENTNO = "SELECT* FROM EVENT_P WHERE EVENT_NO=?";
 	private static final String FINDALLBYEVENTNORANKDESCWITHOUTREPORT="SELECT*FROM EVENT_P A\r\n" + 
 			"left join\r\n" + 

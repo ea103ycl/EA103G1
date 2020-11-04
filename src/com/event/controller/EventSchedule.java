@@ -47,8 +47,8 @@ class EventTimer extends TimerTask{
 	public void run() {
 		System.out.println("start run schedule");
 		EventService svc = new EventService();
-//		List<EventVO> eventVOs = svc.findAllEvent();
-		List<EventVO> eventVOs=svc.findWithoutEnd();//已結束不會再判斷
+		List<EventVO> eventVOs = svc.findAllEvent();
+//		List<EventVO> eventVOs=svc.findWithoutEnd();//已結束不會再判斷
 		Iterator iter = eventVOs.iterator();
 		// 轉換現在時間成Timestamp
 		//test 

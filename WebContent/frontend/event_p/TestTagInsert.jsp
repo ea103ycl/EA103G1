@@ -61,7 +61,7 @@
              <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Hashtag 名稱</label>
                 <div class="col-sm-3">
-                    <input required id="tagName" type="text" class="form-control " name="event_tag_name" value=<%=(event_tagVO==null)?"":event_tagVO.getEvent_tag_name().toString() %> >
+                    <input  id="tagName" type="text" class="form-control " name="event_tag_name"  required="required"/>
                 </div>
             </div>
             <c:if test="${not empty errMsgs }">
