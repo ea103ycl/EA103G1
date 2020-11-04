@@ -80,6 +80,46 @@ tr, td, th {
 
 
 					<div class="accordion" id="accordionExample">
+					
+							<div class="card">
+						<div class="card-header" id="headingOne">
+							<h2 class="mb-0">
+								<button class="btn btn-link" type="button"
+									data-toggle="collapse" data-target="#collapseOne1"
+									aria-expanded="true" aria-controls="collapseOne"
+									id="simpleSearch">
+									<i class="zmdi zmdi-search"></i>&ensp;簡易查詢(單一會員帳號、名稱或編號)
+								</button>
+							</h2>
+						</div>
+
+						<div id="collapseOne1" class="collapse"
+							aria-labelledby="headingOne" data-parent="#accordionExample">
+							<div class="card-body">
+								<!-- -------------------------簡易查詢卡片內容開始------------------------ -->
+
+								<form>
+									<div class="row">
+										<div class="col col-md-8 offset-md-2 ">
+											<input type="text" class="form-control" id="accMemIdOrWelId"
+												placeholder="請輸入會員編號或交易流水號">
+
+										</div>
+										<div class="col col-md-2">
+											<button class="btn btn-primary" type="button"
+												id="getOneById_Acc">搜尋</button>
+										</div>
+									</div>
+
+									<div class="row"></div>
+									<input type="hidden" name="action" value="getOneByIdNameAccout">
+								</form>
+
+								<!-- -------------------------簡易查詢卡片內容結束------------------------ -->
+							</div>
+						</div>
+					</div>
+					
 						<div class="card">
 							<div class="card-header" id="headingThree">
 								<h2 class="mb-0">
@@ -95,51 +135,7 @@ tr, td, th {
 								aria-labelledby="headingThree" data-parent="#accordionExample">
 							</div>
 						</div>
-						<div class="card">
-							<div class="card-header" id="headingOne">
-								<h2 class="mb-0">
-									<button class="btn btn-link" type="button"
-										data-toggle="collapse" data-target="#collapseOne1"
-										aria-expanded="true" aria-controls="collapseOne"
-										id="simpleSearch">
-										<i class="zmdi zmdi-search"></i>&ensp;簡易查詢(單一會員編號、或交易流水號)
-									</button>
-								</h2>
-
-								<div class="input-group mb-3"></div>
-
-								<div id="collapseOne1" class="collapse"
-									aria-labelledby="headingOne" data-parent="#accordionExample">
-									<div class="card-body">
-										<!-- -------------------------簡易查詢卡片內容開始------------------------ -->
-
-										<form>
-											<div class="row">
-												<div class="col col-md-8 offset-md-2 ">
-													<input type="text" class="form-control"
-														id="accMemIdOrWelId" placeholder="請輸入會員編號或交易流水號">
-
-												</div>
-												<div class="col col-md-2">
-													<button class="btn btn-primary" type="button"
-														id="getOneById_Acc">搜尋</button>
-												</div>
-											</div>
-											<div class="row"></div>
-											<input type="hidden" name="action"
-												value="getOneByIdNameAccout">
-										</form>
-
-										<!-- -------------------------簡易查詢卡片內容結束------------------------ -->
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
-
-
-
-
 
 					<!-- -----------------------查詢結果開始-------------------------- -->
 					<div class="chart-container" id="chart" style="display: none;">
@@ -269,26 +265,10 @@ tr, td, th {
 						</div>
 					</div>
 
-
-
-
-
-
 					<div class="container-fluid" id=result>
-
-
-
-
-
-
-
-
 
 						<!-- -----------------------查詢結果結束-------------------------- -->
 
-
-
-						<!--===== 自定義內容end ================================================== -->
 					</div>
 					<!--END OF container-fluid-->
 
@@ -445,7 +425,9 @@ tr, td, th {
 	});
 
 	//全部交易紀錄查詢
-	$("#getAllRecords").click(function(){
+	
+	function getAll()
+	{
 		 $("#result").empty();
 		 $("#resultHeader").css("visibility","visible");
 		 $("#queryResult").css("visibility","visible"); 
@@ -470,8 +452,7 @@ tr, td, th {
 					var str = getStr(recordVO);
 					
 		            $("#result").html(str);
-		            
-		            
+		            		            
 		            arrayChart = sumTool(recordVO);
 		            
 		            arrayCard = sumToolForCard(recordVO);
@@ -488,16 +469,12 @@ tr, td, th {
 				    	    type: 'doughnut',
 				    	    data: 
 
-				    	    {
-				    	    	
-				    	    	
+				    	    {			    	    	
 				    		    datasets: [{
 				    		        data: arrayChart ,
 			    		    backgroundColor: ['#6666E2', '#00A600', '#D174A0', '#B2385D', '#F29C1B']
 				    	
-				    		    }],
-
-				    		  
+				    		    }],			    		  
 				    		    labels: [
 				    		        '會員儲值',
 				    		        '會員提領',
@@ -505,8 +482,6 @@ tr, td, th {
 				    		        '平台撥款-分潤/折扣金',
 				    		        '平台退款-訂單'
 				    		    ]
-
-				    	       
 
 				    		}
 				    	    	
@@ -532,20 +507,30 @@ tr, td, th {
 				    		        '平台撥款-分潤/折扣金',
 				    		        '平台退款-訂單',    		     
 				    		    ]
-     
-
-				    		}
-				    	    	
+				    		}    	
 				    	});
-
 				}
 			});
 		
-
+	}
 	
+	$(document).ready(function(){
+		getAll();
+	});
+	
+	
+	$("#getAllRecords").click(function(){
+	
+
+		getAll();
 
 	
 	});
+	
+	
+	
+	
+	
 	
 	//篩選交易來源
 	$("#tnsSrcSelect").change(function(){

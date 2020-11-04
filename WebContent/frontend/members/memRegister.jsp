@@ -17,29 +17,40 @@
 <!-- STYLE CSS -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/frontend/members/registerCss/styleRegister.css">
+
 </head>
 
 <body>
 	<div class="wrapper" style="background-color: #ccc">
 
 		<div class="inner" style="border-radius: 7px;">
-			<div class="image-holder" style="display: block; margin: auto">
-				<img
-					src="<%=request.getContextPath()%>/frontend/template/images/testlogo.PNG">
+			<div id ="logoImageDiv" class="image-holder" style="display: block; margin:50px 30px 30px 50px ">
+
+				<img id ="logoImage" src="<%=request.getContextPath()%>/frontend/members/images/logoFinal1.png" >
 				<%-- 錯誤表列 --%>
 				<div id="usridCorrect" style="color: green; text-align: center"></div>
 				<div id="usridWrong" style="color: red; text-align: center"></div>
 				<c:if test="${not empty errorMsgs}">
 					<div
-						style="text-align: left; color: red; width: 50%; margin: 0px auto;">
+						style="text-align: left; color: red; width: 80%; margin: 0px auto;">
 						<h4>
 							<i class="zmdi zmdi-alert-circle-o zmdi-hc-2x"
 								style="color: red; display: inline-block; margin: auto 0px;"></i>
-							請修正以下錯誤:
+							請修正以下錯誤:<br><br>
 						</h4>
-						<c:forEach var="message" items="${errorMsgs}">
+					<table>
+					<tr><td width="50%">
+						<c:forEach var="message" items="${errorMsgs}" begin="1" end="4">
                             ${message}<br>
 						</c:forEach>
+						</td>
+						<td width="50%">
+						<c:forEach var="message" items="${errorMsgs}" begin="5" end="10">
+                            ${message}<br>
+						</c:forEach>
+							</td>
+						</tr>
+					</table>
 					</div>
 				</c:if>
 			</div>
