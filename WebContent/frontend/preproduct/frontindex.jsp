@@ -194,11 +194,11 @@ header #header-banner{
 	    <div class="col-12">
 			<%@include file="/backend/preproduct/pages/page3.file" %>
 	    <div class="mdb-lightbox no-margin">
-			<c:forEach var="eventpVO" items="${list01}" begin="<%=pageIndexx%>" end="<%=pageIndexx+rowsPerPagee-2%>">
+			<c:forEach var="eventpVO" items="${list01}" begin="<%=pageIndexx%>" end="<%=pageIndexx+rowsPerPagee-1%>">
 		      <figure class="col-md-4">
 		      <p>編號${eventpVO.event_p_no+1}  第${eventpVO.vote_rank+1}名</p>
 		        <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg" data-size="1600x1067"><div class="divcss5 "> 
-		          <img alt="picture" src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${eventpVO.event_p_no+1}"
+		          <img alt="picture" src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${eventpVO.event_p_no}"
 		            class="img-fluid">
 		        </div></a>
 		      </figure>
