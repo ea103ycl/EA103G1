@@ -75,16 +75,17 @@ public class TagGetPic extends HttpServlet {
 			String rank = req.getParameter("rank");
 			PainterService pSvc = new PainterService();
 			Integer totalPic = pSvc.getPicCount();
+			System.out.println("rank: "+rank);
 			Integer rankBegin = Integer.valueOf(rank);
 			if (rankBegin > totalPic) {
 				return;
 //				out.print("<div class=\"grid-item\"><h1>¸ê®Æ¤£¨¬</h1></div>");
 			}
-			List<PainterVO> list = pSvc.getMostLiked(rankBegin, rankBegin + 5);
+			List<PainterVO> list = pSvc.getMostLiked(rankBegin, rankBegin + 15);
 
 			for (PainterVO pVO : list) {
-				out.print("<div class=\"grid-item\">" + "<img src=" + req.getContextPath()
-						+ "/painter/ShowImage?ptr_no=" + pVO.getPtr_no() + "\"/>" + "</div>");
+				out.print("<div class='grid-item'>" + "<img src=' " + req.getContextPath()
+						+ "/painter/getOrigPtr.do?ptr_no=" + pVO.getPtr_no() + "'/>" + "</div>");
 			}
 		}
 
