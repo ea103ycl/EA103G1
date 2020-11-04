@@ -47,7 +47,7 @@ public class ShoppingServlet extends HttpServlet {
 					fuzzy_list = prodSvc.FuzzySearch(prod_name);
 					
 					if (fuzzy_list.size()==0) {
-						errorMsgs.add("查無相關商品");
+						errorMsgs.add("查無相關商品!!");
 						session.setAttribute("fuzzy_list",fuzzy_list);
 					}
 					
@@ -92,7 +92,7 @@ public class ShoppingServlet extends HttpServlet {
 					ma_list = prodSvc.MaSearch(ma_no);
 					
 					if (ma_list.size()==0) {
-						errorMsgs.add("查無相關商品");
+						errorMsgs.add("查無相關商品!!");
 						session.setAttribute("ma_list",ma_list);
 					}
 					
@@ -139,7 +139,7 @@ public class ShoppingServlet extends HttpServlet {
 					ptr_list = prodSvc.PtrSearch(ptr_no);
 					
 					if (ptr_list.size()==0) {
-						errorMsgs.add("查無相關商品");
+						errorMsgs.add("查無相關商品!!");
 						session.setAttribute("ptr_list",ptr_list);
 					}
 					
