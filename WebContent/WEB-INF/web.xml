@@ -490,7 +490,6 @@
 		<url-pattern>/frontend/shop/order/OrderSearch.jsp</url-pattern>
 		<url-pattern>/frontend/biddingFront/biddingIndex.jsp</url-pattern>
 		<url-pattern>/frontend/painter/listAllPainterFollow.jsp</url-pattern>
-		<url-pattern>/frontend/painter/shop/EShop.jsp</url-pattern>
 		<url-pattern>/frontend/event_p/event_homePage.jsp</url-pattern>
 		<url-pattern>/frontend/meeting/listAllMeeting_front.jsp</url-pattern>
 		<url-pattern>/frontend/members/memArea.jsp</url-pattern>
