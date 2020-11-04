@@ -78,13 +78,16 @@
 
 
         function scrollBottom() {
+            console.log('lastDiv height: ' + $('#lastDiv').offset().top);
+            console.log('window.scrollY:' + window.scrollY);
+            if ((window.innerHeight + window.scrollY + 10) >= $('#lastDiv').offset().top) {
 
-            // console.log('window.scrollY:' + window.scrollY);
-            if ((window.innerHeight + window.scrollY) >= $('#lastDiv').offset().top) {
-
-                // console.log('to bottom');
+                console.log('to bottom');
                 loadImg10();
-                loadMasonry();
+                setTimeout(function() {
+                    loadMasonry();
+                }, 500);
+
 
             }
 
@@ -271,10 +274,10 @@
 
         // Get the image and insert it inside the modal - use its "alt" text as a caption
 
-        $('.grid-item').on('click', function(e) {
+        $('.gridWrapper').on('click', function(e) {
             $("#myModal").css('display', 'block');
             $("#img01").attr('src', e.target.src);
-            $("#img01-a").attr('href', contextPath + '/frontend/painter/onePainter.jsp?ptr_no=' + e.target.id);
+            $("#img01-a").attr('href', contextPath + '/frontend/painter/onePainter.jsp?ptr_no=' + e.target.id + '"');
 
             $("#img01").after('<input type="hidden" name="ptrno" value="' + e.target.id + '">');
             let ptrno = e.target.id;

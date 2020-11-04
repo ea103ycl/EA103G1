@@ -192,7 +192,7 @@ img {
 										<!-- Modal -->
 										<div class="modal fade" id="myModal" role="dialog">
 											<div class="modal-dialog"
-												style="width: auto; height: auto; margin: auto">
+												style="width: 100%; height: 100%; margin: auto">
 												<!-- Modal content-->
 												<div class="modal-content">
 													<div class="modal-header">
@@ -325,7 +325,7 @@ img {
 										<!-- Modal -->
 										<div class="modal fade" id="myModal" role="dialog">
 											<div class="modal-dialog"
-												style="width: auto; height: auto; margin: auto">
+												style="width: 100%; height: 100%; margin: auto">
 												<!-- Modal content-->
 												<div class="modal-content">
 													<div class="modal-header">

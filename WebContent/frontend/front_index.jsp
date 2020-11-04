@@ -138,8 +138,7 @@
 									href="<%=request.getContextPath()%>/frontend/biddingFront/biddingIndex.jsp"><span>競標</span></a>
 							</div>
 							<div class="RH-inner">
-								<a
-									href="<%=request.getContextPath()%>/frontend/biddingFront/biddingPage.jsp"><span>見面會</span></a>
+								<a href="<%=request.getContextPath()%>/frontend/meeting/listAllMeeting_front.jsp"><span>見面會</span></a>
 							</div>
 						</div>
 					</div>
@@ -311,6 +310,7 @@
 			<!-- ================================= -->
 			</div>
 		</section>
+		<div  style="height:200px;"></div>
 		<div id="lastDiv"></div>
 	</main>
 	<!-- End #main -->

@@ -62,7 +62,7 @@ public class TagGetPic extends HttpServlet {
 				String fuzzyTag = ptVO.getTag_desc();
 				list = ptSvc.getPicbyTag(fuzzyTag);
 			}
-			
+
 			req.setAttribute("ptrnoList", list);
 
 			RequestDispatcher view = req.getRequestDispatcher("/frontend/front_index.jsp");
@@ -78,13 +78,15 @@ public class TagGetPic extends HttpServlet {
 			Integer rankBegin = Integer.valueOf(rank);
 			if (rankBegin > totalPic) {
 				return;
-//				out.print("<div class=\"grid-item\"><h1>¸ê®Æ¤£¨¬</h1></div>");
 			}
 			List<PainterVO> list = pSvc.getMostLiked(rankBegin, rankBegin + 15);
 
 			for (PainterVO pVO : list) {
-				out.print("<div class='grid-item'>" + "<img src=' " + req.getContextPath()
-						+ "/painter/getOrigPtr.do?ptr_no=" + pVO.getPtr_no() + "'/>" + "</div>");
+				out.print(
+						"<div class='grid-item'>" + "<img draggable='true' ondragstart='drag(event);' id='"+pVO.getPtr_no()+"'"
+								+ "src='"+req.getContextPath()+"/painter/getOrigPtr.do?ptr_no="+pVO.getPtr_no()+"'/>"
+								+ "</div>");
+
 			}
 		}
 
