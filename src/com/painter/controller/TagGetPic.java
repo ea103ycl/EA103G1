@@ -72,14 +72,14 @@ public class TagGetPic extends HttpServlet {
 
 		if ("getMostLiked".equals(action)) {
 
-			String rank = req.getParameter("rank");
 			PainterService pSvc = new PainterService();
 			Integer totalPic = pSvc.getPicCount();
+			String rank = req.getParameter("rank");
 			Integer rankBegin = Integer.valueOf(rank);
 			if (rankBegin > totalPic) {
 				return;
 			}
-			List<PainterVO> list = pSvc.getMostLiked(rankBegin, rankBegin + 15);
+			List<PainterVO> list = pSvc.getMostLiked(rankBegin+1, rankBegin + 15);
 
 			for (PainterVO pVO : list) {
 				out.print(
