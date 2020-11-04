@@ -83,13 +83,16 @@
                     </div>
                     
                     <div style = "margin-left:25px">
+                    
+     				<button class="btn btn-primary"  type="submit" name="action" value="login">  
+					<span class="text">Login Account</span>                             
+					</button>                                  
+                    &nbsp
   					<button  class="btn btn-secondary"  type="submit" name="action" value="forget">                                 
 					<span class="text">Forgot Password?</span>                             
 					</button>                  
-                          &nbsp
-					<button class="btn btn-primary"  type="submit" name="action" value="login">  
-					<span class="text">Login Account</span>                             
-					</button>                             
+                          
+                            
 
 					</div>
                                                                          
