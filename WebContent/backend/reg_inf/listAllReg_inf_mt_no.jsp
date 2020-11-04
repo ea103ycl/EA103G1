@@ -8,6 +8,7 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 <%
     String mt_no = (String) request.getParameter("mt_no"); 
+
     Reg_infService reg_infSvc = new Reg_infService();
     List<Reg_infVO> list = reg_infSvc.getReg_inf_mt_no(mt_no);
     pageContext.setAttribute("list",list);   
@@ -124,6 +125,8 @@
 		</td>
 		</tr>
 	</c:forEach>
+				 
+	
 </table>
 <div style="text-align:center;">
 <%@ include file="page2.file" %>

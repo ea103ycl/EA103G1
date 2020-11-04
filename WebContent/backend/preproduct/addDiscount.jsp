@@ -1,11 +1,26 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
 <%@ page import="com.preproduct.model.*"%>
+<%@ page import="com.event.model.*"%>
 <%@ page import="com.event_p.model.*"%>
 <%@ page import="com.discount.model.*"%>
 
 <%
 DiscountSettingVO discountsettingVO = (DiscountSettingVO) request.getAttribute("preproductVO");
+%>
+<%
+// 	EventService eventSvc=new EventService();
+// 	List<EventVO> list_event = eventSvc.findAllEvent();
+// 	pageContext.setAttribute("list_event",list_event);
+
+// 	Event_PService eventpSvc = new Event_PService();
+//     List<Event_PVO> list01 = eventpSvc.findAllByEventNoRankDescWithoutReport(eventSvc.findLastEndEvent());
+//     pageContext.setAttribute("list01",list01);
+%>
+<%
+// Event_PVO eventpVO = (Event_PVO) request.getAttribute("eventpVO");
+EventVO eventVO = (EventVO) request.getAttribute("eventVO");
 %>
 
 <!DOCTYPE html>
@@ -130,18 +145,16 @@ label{
         
         <form class="uf-form-area" method="post" action="discount.do" name="form1">
             <table>     
-                <label>選擇活動編號</label>
-                <jsp:useBean id="eventPSvc" scope="page" class="com.event_p.model.Event_PService" />
-                <select name="event_no">
-                	<option selected="selected" disabled="disabled"  style='display: none' >--請選擇活動--</option>
-                    <c:forEach var="eventpVO" items="${eventPSvc.all}">
-                        <option value="${eventpVO.event_no}">${eventpVO.event_no}
-                    </c:forEach>
-                </select>
+                <label>當前活動為：</label>
+                <jsp:useBean id="eventSvc" scope="page" class="com.event.model.EventService" />
+
+	                        <h4><%=eventSvc.findByPrimaryKey(eventSvc.findLastEndEvent()).getEvent_name()%></h4>
+							<input type="hidden" name="event_no" value="<%=eventSvc.findByPrimaryKey(eventSvc.findLastEndEvent()).getEvent_no()%>">
+                
  
                 <br>
                 <i class="fa fa-money"></i>
-                <input type="text" placeholder="請輸入達標人數" name="reach_number" value="<%= (discountsettingVO==null) ? "":discountsettingVO.getReach_number()%>">
+                <input type="text" placeholder="請輸入達標數量" name="reach_number" value="<%= (discountsettingVO==null) ? "":discountsettingVO.getReach_number()%>">
                 <i class="fa fa-pencil-square"></i>
                 <input type="text" placeholder="請輸入折扣百分數" name="reach_discount" value="<%= (discountsettingVO==null) ? "":discountsettingVO.getReach_discount()%>">
                 <input type="hidden" name="action" value="insertdiscount">

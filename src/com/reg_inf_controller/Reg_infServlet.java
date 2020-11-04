@@ -150,6 +150,7 @@ public class Reg_infServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("reg_infVO", reg_infVO); // 資料庫取出的empVO物件,存入req
+//				HttpSession session = request.getSession("reg_infVO", reg_infVO);
 				String url = "/backend/reg_inf/listAllReg_inf_mt_no.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);

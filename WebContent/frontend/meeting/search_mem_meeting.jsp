@@ -45,20 +45,15 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    <div class="row">
 	     <!-------------------------------------------------------------------------------- ﹚竡ず甧START------------------------- -->
 	        <div class="roger-mt">
+	        	<button type="button"  onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/listAllMeeting_front.jsp'" class="btn btn-primary-filled">ǎ穦-</button>	        	        	        
 		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/addMeeting.jsp'" class="btn btn-primary-filled">羭快ǎ穦</button>
-		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/search_mem_meeting.jsp'" class="btn btn-primary-filled">и羭快ǎ穦</button>
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/search_mem_meeting.jsp'" class="btn btn-lg btn-primary">и羭快ǎ穦</button>
 		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/reg_inf/listAllReg_inf.jsp'" class="btn btn-primary-filled">и厨ǎ穦</button>
 	        </div>
 	        
 	        <%-- ず甧START --%>
 			<%@ include file="page1.file" %> 
 
-<table id="table-1">
-	<tr><td>
-		 <h3>и羭快ǎ穦 - search_mem_meeting.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/frontend/meeting/listAllMeeting_front.jsp"></a></h4>
-	</td></tr>
-</table>
 <%-- 岿粇 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">叫タ岿粇:</font>
@@ -114,7 +109,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             <td><fmt:formatDate value="${meetingVO.mt_time}" pattern="yyyy-MM-dd"/></td> 
 		    <td>${meetingVO.mt_place}</td>	   
 		    <td>${meetingVO.mt_id}</td>
-		    <td><fmt:formatDate value="${meetingVO.mt_start_time}" pattern="yyyy-MM-dd"/>~<fmt:formatDate value="${meetingVO.mt_end_time}" pattern="yyyy-MM-dd"/></td>		 
+		    <td><fmt:formatDate value="${meetingVO.mt_start_time}" pattern="yyyy-MM-dd"/>~<br><fmt:formatDate value="${meetingVO.mt_end_time}" pattern="yyyy-MM-dd"/></td>		 
 			<td>${meetingVO.mt_num}/${meetingVO.max_num}</td>
 			<td>
 		

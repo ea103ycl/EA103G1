@@ -94,20 +94,12 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
 <c:choose> 
-  <c:when test="${mt_status == 2}">
-           <font color=red> 活動已取消</font>
+   <c:when test="${meetingVO.mt_num ==0}">
+             退費完畢
     </c:when>
-    <c:when test="${now_time gt mt_time}">
-             活動已結束
-    </c:when>
-   <c:when test="${now_time gt mt_end_time}">
-         報名截止
-    </c:when>
-    <c:when test="${mt_start_time gt now_time}">
-              即將開放
-    </c:when>
+
     <c:otherwise>
-          開放報名
+          <font color=red>活動已取消，待退費</font>
     </c:otherwise>
 </c:choose>   
 </td>	

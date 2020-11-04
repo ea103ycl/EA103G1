@@ -4,27 +4,25 @@
 <%@ page import="com.mem.model.*"%>
 <%@ page import="com.wel_record.model.*"%>
 <%@ page import="java.util.*"%>
-
 <%
 	MeetingVO meetingVO = (MeetingVO) request.getAttribute("meetingVO");
 %>
-<%= meetingVO==null %>
+
+<%-- <%= meetingVO==null %> --%>
 
 <%
 	WelRecordVO welRecordVO = (WelRecordVO) request.getAttribute("welRecordVO");
-
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
-
 %>
-
 <!DOCTYPE html>
 <html>
-<!-- page title -->
-<title>羭快ǎ穦 - addAllMeeting.jsp</title>
 <head>
-<!-- top bar -->
+
+	<!-- top bar -->
 	<%@include file="/frontend/bar/frontBarTop.jsp"%>
-	<title>嘿</title>
+	
+	<!-- page title -->
+	<title>羭快ǎ穦</title>
 	
 	<style>
 		.roger-mt{
@@ -42,18 +40,13 @@
 	    <div class="row">
 	     <!-------------------------------------------------------------------------------- ﹚竡ず甧START------------------------- -->
 	        <div class="roger-mt">
-		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/addMeeting.jsp'" class="btn btn-primary-filled">羭快ǎ穦</button>
+	        	<button type="button"  onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/listAllMeeting_front.jsp'" class="btn btn-primary-filled">ǎ穦-</button>	        	        	        
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/addMeeting.jsp'" class="btn btn-lg btn-primary">羭快ǎ穦</button>
 		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/search_mem_meeting.jsp'" class="btn btn-primary-filled">и羭快ǎ穦</button>
 		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/reg_inf/listAllReg_inf.jsp'" class="btn btn-primary-filled">и厨ǎ穦</button>
 	        </div>
 	        
 	        <%-- ず甧START --%>
-<table id="table-1">
-	<tr><td>
-		 <h3>羭快ǎ穦 - addMeeting.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/frontend/meeting/listAllMeeting_front.jsp"></a></h4>
-	</td></tr>
-</table>
 
 <h3>戈穝糤:</h3>
 
@@ -113,7 +106,7 @@
 	
 	<tr>
 		<td>笆虏ざ:</td>
-		<td><textarea name="mt_detail"  size="30"
+		<td><textarea name="mt_detail" rows="5" cols="20"
 			 value="<%= (meetingVO==null)? "" : meetingVO.getMt_detail()%>" /></textarea></td>
 	</tr>
 	
@@ -158,7 +151,7 @@
 
 	<!-- footer -->
 	<%@include file="/frontend/bar/frontBarFooter.jsp"%>
-</body>
+
 
 <!-- ========================================= datetimepicker ぇ闽砞﹚========================================== -->
 
@@ -213,5 +206,5 @@ $(function(){
 });
 </script>
 
-
+</body>
 </html>
