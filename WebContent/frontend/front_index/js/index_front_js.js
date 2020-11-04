@@ -83,7 +83,6 @@
             if ((window.innerHeight + window.scrollY) >= $('#lastDiv').offset().top) {
 
                 // console.log('to bottom');
-                // loadImg();
                 loadImg10();
                 loadMasonry();
 
@@ -91,7 +90,6 @@
 
             // $(window).scroll(function() {
             //     if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-            //         // loadImg();
             //         loadImg10();
             //         loadMasonry();
             //     }
@@ -99,15 +97,6 @@
         }
 
         // scroll down reload function=========================
-        function loadImg() {
-            if ($('#lastDiv')) {
-                var grid = document.getElementById("grid");
-                for (var i = 1; i < 12; i++) {
-                    var div = '<div class="grid-item"><img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=' + random() + '></div>';
-                    grid.append(div);
-                }
-            }
-        }
 
         // ====================================================
 

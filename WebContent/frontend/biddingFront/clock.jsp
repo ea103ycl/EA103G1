@@ -140,10 +140,10 @@
 						}, 500)
             }
             if (clock === false) {
-              console.log('clocrei');
+              console.log('(Bdclock)clock closed=true)');
               location.reload();
           }else{
-            console.log('clock fai');
+            console.log('(Bdclock)clock closed=true)');
         }
 
     }());
