@@ -364,8 +364,9 @@
 
 	<!-- footer -->
 	<%@include file="/frontend/bar/frontBarFooter.jsp"%>
-
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+<!-- 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+	<script src="<%=request.getContextPath()%>/frontend/template/YCL/sweetalert.min.js"></script>
 	
 	<script>
 	
