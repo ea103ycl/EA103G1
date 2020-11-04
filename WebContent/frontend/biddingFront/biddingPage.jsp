@@ -127,12 +127,6 @@ img {
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
 	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
 	<c:set var="topBidder" value="${bdr.getHighestBidder(bdNo)}" />
-	
-	<input id="epVO" type="hidden" value="${epSvc.findTopByEventNoWithoutReport(bdNo).event_p_no}">
-	<input id="bVO" type="hidden" value="${bdSvc.getOne(sqlBdNo).bdNo}">
-	<input id="topBidder" type="hidden" value="${bdr.getHighestBidder(bdNo)}">
-	
-
 
 	<!-- preloader -->
 	<div id="preloader">
