@@ -21,6 +21,14 @@
 	</resource-ref>
 
 
+	<!--== session-timeout =========================================== -->
+
+<session-config>
+<session-timeout>
+60
+</session-timeout>
+</session-config>
+
 	<!--== Caroline =========================================== -->
 
 	<servlet>
@@ -467,7 +475,7 @@
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
 
-	<!-- ==filter by Ricky=========================================== -->
+	<!-- ==frontend filter=========================================== -->
 	<filter>
 		<filter-name>memLoginFilter</filter-name>
 		<filter-class>com.mem.controller.MemLoginFilter</filter-class>
@@ -480,6 +488,14 @@
 		<url-pattern>/frontend/preproduct/order_Success_List.jsp</url-pattern>
 		<url-pattern>/frontend/shop/Checkout.jsp</url-pattern>
 		<url-pattern>/frontend/shop/order/OrderSearch.jsp</url-pattern>
+		<url-pattern>/frontend/biddingFront/biddingIndex.jsp</url-pattern>
+		<url-pattern>/frontend/painter/listAllPainterFollow.jsp</url-pattern>
+		<url-pattern>/frontend/painter/shop/EShop.jsp</url-pattern>
+		<url-pattern>/frontend/event_p/event_homePage.jsp</url-pattern>
+		<url-pattern>/frontend/meeting/listAllMeeting_front.jsp</url-pattern>
+		<url-pattern>/frontend/members/memArea.jsp</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 

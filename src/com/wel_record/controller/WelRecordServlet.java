@@ -112,7 +112,7 @@ public class WelRecordServlet extends HttpServlet {
 				}
 
 			} catch (Exception e) {
-				errorMsgsForMoney.add("無法取得資料:" + e.getMessage());
+				errorMsgsForMoney.add("請確認輸入格式是否正確！");
 				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
 				failureView.forward(req, res);
 			}
