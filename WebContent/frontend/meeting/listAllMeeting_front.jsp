@@ -28,87 +28,31 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 <html>
 <head>
-
-<!-- page title -->
-<title>┮Τ戈 - listAllMeeting_front.jsp</title>
-
-<style>
-  table#table-1 {
-	background-color: #C4E1E1;
-    border: 2px #ECF5FF;
-    text-align: center;
-    
-  }
-  table#table-1 h4 {
-    color: #613030;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  h4 {
-    color: blue;
-    display: inline;
-  }
-  h3 {
-  color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-    text-align: center;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-       height:100px;
-    font-size:20px;
-  }
-  h4 {
-  padding: 5px;
-    text-align: center;
-  }
-  body {
-    color: #666666;
-    background: #fefefe;
-    font-family: "Rubik", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.05em;
-}
-</style>
-
+<!-- top bar -->
+	<%@include file="/frontend/bar/frontBarTop.jsp"%>
+    <title>┮Τ戈 - listAllMeeting_front.jsp</title>	
+	<style>
+		.roger-mt{
+			margin-bottom:30px;
+		}
+	</style>
 </head>
+
 <body>
-
-	<!-- header -->
-
-	<header>
-
-		<%@include file="/frontend/bar/frontBarTop.jsp"%>
-
-		    <!-- header-banner -->
-    <div id="header-banner">
-        <div class="banner-content single-page text-center">
-            <div class="banner-border">
-                <div class="banner-info" id="banner-info">
-                    <h1>Meeting</h1>
-                </div><!-- / banner-info -->
-            </div><!-- / banner-border -->
-        </div><!-- / banner-content -->
-    </div>
-    <!-- / header-banner -->
-	</header>
-	<!-- / header -->
+	<section class="space-top-30">
+	<div id="page-content" class="container">
+	
+	<div class="row">
+	     <!-------------------------------------------------------------------------------- ﹚竡ず甧START------------------------- -->
+	        <div class="roger-mt">
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/addMeeting.jsp'" class="btn btn-primary-filled">羭快ǎ穦</button>
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/search_mem_meeting.jsp'" class="btn btn-primary-filled">и羭快ǎ穦</button>
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/reg_inf/listAllReg_inf.jsp'" class="btn btn-primary-filled">и厨ǎ穦</button>
+	        </div>
+	       	
+			<%-- ず甧START --%>
+			<%@ include file="page1.file" %> 
+			
 <table id="table-1">
 	<tr><td>
 		 <h3>┮Τǎ穦戈 - listAllMeeting.jsp</h3>
@@ -137,12 +81,10 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         <th>琩高</th>
         
 	</tr>
-	<%@ include file="page1.file" %> 
 	<c:forEach var="meetingVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
-		
-		 
+				 
 <td>	    
 <%-- 代刚丁 --%>
 <fmt:formatDate value="<%=current %>" pattern="yyyy-MM-dd" var="now_time" />
@@ -180,28 +122,28 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 <td>
            <form action="<%=request.getContextPath()%>/frontend/meeting/meeting.do" " method="get"><!-- action恶api url -->
-		  <input type="hidden" name="mt_no" value="${meetingVO.mt_no}" />
-		<input type="submit" value="琩高" />
-		<input type="hidden" name="action" value="getOne_For_Display">
+		  	<input type="hidden" name="mt_no" value="${meetingVO.mt_no}" />
+			<input type="submit" value="琩高" class="btn btn-primary btn-pill">
+			<input type="hidden" name="action" value="getOne_For_Display">
 		  </form>
 		    </td>		    
 		</tr>
 	</c:forEach>
 </table>
-<table id="table-1">
-	<tr><td>
-		 <h4>
-<a href='<%=request.getContextPath()%>/frontend/meeting/addMeeting.jsp'>羭快</a> ǎ穦
+<%-- ず甧END --%>
 
-  <a href='<%=request.getContextPath()%>/frontend/meeting/search_mem_meeting.jsp'>и羭快</a> ǎ穦
+	<div class="row">
+	    <div class="roger-mt">
+	</div>
+		<%@ include file="page2.file" %> 
+	        
+<!-------------------------------------------------------------------------------- ﹚竡ず甧END------------------------- -->
 
- <a href='<%=request.getContextPath()%>/frontend/reg_inf/listAllReg_inf.jsp'>и厨</a> ǎ穦
-</h4>
-	</td></tr>
-</table>
+    </div><!-- / row -->
+	</div> <!-- end container -->
+	</section>
 
-<!-- footer -->
-
+	<!-- footer -->
 	<%@include file="/frontend/bar/frontBarFooter.jsp"%>
 
 	<!-- / footer -->
