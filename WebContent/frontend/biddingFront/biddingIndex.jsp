@@ -68,6 +68,7 @@
 	</c:if>
 	
 	<c:set var="bdNo" value="${event_no}" />
+	<c:set var="epVO" value="${epSvc.findTopByEventNoWithoutReport(event_no)}"/>
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
 	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
 	<c:set var="topBidder" value="${bdr.getHighestBidder(bdNo)}" />
@@ -106,7 +107,7 @@
 					<div class="col-sm-7 ">
 						<img
 							onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (1).jpg'"
-							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}">
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epVO.event_p_no}">
 					</div>
 					<div class="col-sm-5 text-center space-top-2x" style="">
 						<span><h2>Up-running Event!</h2>
