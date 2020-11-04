@@ -10,7 +10,7 @@
     pageContext.setAttribute("list01",list01);
 %>
 <%
-Event_PVO eventpVO = (Event_PVO) request.getAttribute("eventpVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+	Event_PVO eventpVO = (Event_PVO) request.getAttribute("eventpVO");
 %>
 
 
@@ -92,28 +92,22 @@ Event_PVO eventpVO = (Event_PVO) request.getAttribute("eventpVO"); //EmpServlet.
 
 <body id="rbbody">
 
-
 <p>活動編號：${list01[0].event_no}</p>
-
-
 
 <br>
 <div class="row">  
 	<%@include file="/backend/preproduct/pages/page3.file" %>
     <c:forEach var="eventpVO" items="${list01}" begin="<%=pageIndexx%>" end="<%=pageIndexx+rowsPerPagee-1%>">
-    
         <div class="rb_container col-3">
             <div class="rb_card">
                 <div class="rb_imgBx">
                     <img src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${eventpVO.event_p_no}">
                 </div>
                 <div class="rb_content">
-                    <h3>${eventpVO.event_p_name}</h2>
+                    <h3>${eventpVO.event_p_name}</h3>
                     <p>第${eventpVO.vote_rank}名</p>
                     <p>得票數：${eventpVO.event_vote_num}票</p>
-                    
-                    
-                    
+                
                 </div>
             </div>
         </div>

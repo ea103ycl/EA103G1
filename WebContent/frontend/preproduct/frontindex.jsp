@@ -130,11 +130,14 @@ header #header-banner{
 		position:absolute;
 		opacity: 1;
 		z-index: -100;
-		top: -170%;
+		top: -150%;
 		left: -95%;
 		width: 270px;
 		max-width: 270px;
 		height: 200px;
+}
+.product:hover img {
+    opacity: 0.9;
 }
 
 	</style>
@@ -157,7 +160,8 @@ header #header-banner{
     <div id="header-banner">
         <div class="banner-content single-page text-center">
             <div class="banner-border">
-            	<img src="<%=request.getContextPath()%>/frontend/preproduct/css/index_parts/css_imgs/no1.jpg">
+            <a href="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${list01[0].event_p_no}" data-size="1600x1067">
+            	<img src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${list01[0].event_p_no}"></a>
                 <div class="banner-info">
                     <h1>本期預購活動倒數</h1>
                     <div class="count_contentBx">
@@ -194,10 +198,10 @@ header #header-banner{
 	    <div class="col-12">
 			<%@include file="/backend/preproduct/pages/page3.file" %>
 	    <div class="mdb-lightbox no-margin">
-			<c:forEach var="eventpVO" items="${list01}" begin="<%=pageIndexx%>" end="<%=pageIndexx+rowsPerPagee-1%>">
+			<c:forEach var="eventpVO" items="${list01}" begin="<%=pageIndexx+1%>" end="<%=pageIndexx+rowsPerPagee-1%>">
 		      <figure class="col-md-4">
-		      <p>編號${eventpVO.event_p_no+1}  第${eventpVO.vote_rank+1}名</p>
-		        <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg" data-size="1600x1067"><div class="divcss5 "> 
+		      <p>編號${eventpVO.event_p_no}  第${eventpVO.vote_rank}名</p>
+		        <a href="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${eventpVO.event_p_no}" data-size="1600x1067"><div class="divcss5 "> 
 		          <img alt="picture" src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${eventpVO.event_p_no}"
 		            class="img-fluid">
 		        </div></a>
@@ -213,20 +217,7 @@ header #header-banner{
 				<!-- shop section -->
 			<section id="shop" class="space-top-30">
 		    <div class="container">
-		        <p class="shop-results space-left">Showing <strong>${list.size()}</strong> items. 
-		            <span class="pull-right space-right">
-		                <select class="selectpicker">
-		                    <optgroup label="Sort By:">
-		                        <option>Default</option>
-		                        <option>Popularity</option>
-		                        <option>Newness</option>
-		                        <option>Rating</option>
-		                        <option>Price Low to High</option>
-		                        <option>Price High to Low</option>
-		                    </optgroup>
-		                </select>
-		            </span>
-		        </p>
+		        <p class="shop-results space-left">Showing <strong>${list.size()}</strong> items.</p>
 		        <ul class="row shop list-unstyled" id="grid">
 		        <c:forEach var="preproductVO" items="${list}">
 		            <!-- product -->
@@ -237,15 +228,15 @@ header #header-banner{
 		                    <h5 class="product-price"><input type="hidden" name="po_price" value="${preproductVO.po_price}">$ ${preproductVO.po_price}</h5>
 		                    <a href="#" class="product-link"></a>
 		                    <!-- / product-link -->
-		                    <img class="img01"; src="<%=request.getContextPath()%>/backend/preproduct/tools/materialP_show.jsp?MA_NO=${preproductVO.ma_no}">
+		                    <img class="img01"; src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${preproductVO.event_p_no}">
 		                    <!-- / product-image -->
 		
 		                    <!-- product-hover-tools -->
 		                    <div class="product-hover-tools">
 			                    <div class="boxxx">
-			                    	<img class="productshow " alt="picture" src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${preproductVO.event_p_no}">
+			                    	<img class="productshow " alt="picture" src="<%=request.getContextPath()%>/backend/preproduct/tools/materialP_show.jsp?MA_NO=${preproductVO.ma_no}">
 		                        </div>
-		                        <a href="#" class="view-btn" data-toggle="tooltip" title="View Product">
+		                        <a  href="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${preproductVO.event_p_no}" data-size="1600x1067" class="view-btn" data-toggle="tooltip" title="View Product">
 		                            <i class="lnr lnr-eye"></i>
 		                        </a>
 		                        <a href="javascript:" class="view-btn" onclick="document.getElementById('shoppingForm${preproductVO.event_p_no}').submit();">
@@ -267,7 +258,7 @@ header #header-banner{
 		            <input type="hidden" name="action" value="ADD">
 		                </form>
 		            </li>
-		            
+
 		            </c:forEach>
 		            <!-- / product -->
 		
@@ -277,9 +268,7 @@ header #header-banner{
 		
 		        </ul> <!-- / products -->
 		
-		        <div class="text-center more-button space-top-30">
-		            <a href="#x" class="btn btn-default-filled"><i class="lnr lnr-sync"></i><span>LOAD MORE</span></a>
-		        </div>
+		        
 		
 		    </div><!-- / container -->
 		

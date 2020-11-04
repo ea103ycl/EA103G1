@@ -175,10 +175,10 @@
                                     <div class="collapse" id="collapseExample">
                                         <div class="mt-3">
                                         
-	                                        <input type="text" name="po_name"  class="form-control font-weight-bold" placeholder="收件名字" value="">
-	                                        <input type="text" name="po_phone"  class="form-control font-weight-bold" placeholder="連絡電話" value="">
-	                                        <input type="text" name="po_zip"  class="form-control font-weight-bold" placeholder="郵遞區號" value="">
-	                                        <input type="text" name="po_addr"  class="form-control font-weight-bold" placeholder="寄送地址" value="">
+	                                        <input type="text" name="po_name"  class="form-control font-weight-bold" placeholder="收件名字" value="${memVO.m_name}">
+	                                        <input type="text" name="po_phone"  class="form-control font-weight-bold" placeholder="連絡電話" value="${memVO.m_phone}">
+	                                        <input type="text" name="po_zip"  class="form-control font-weight-bold" placeholder="郵遞區號" value="${memVO.m_zip}">
+	                                        <input type="text" name="po_addr"  class="form-control font-weight-bold" placeholder="寄送地址" value="${memVO.m_city}${memVO.m_addr}">
                                             <input type="text" name="note"  class="form-control font-weight-bold" placeholder="請填寫備註" value="">
                                             <br>
                                             <input type="hidden" class="btn btn-primary" value="確認付款" class="button">
@@ -195,7 +195,7 @@
                         <!-- 備註結束 -->
                         <div class="mt-3 shadow p-3 bg-white">
                             <div class="pt-4">
-                                <h5 class="mb-4">你個小碧池</h5>
+                                <h5 class="mb-4"></h5>
                                 <%
 									for (int index = 0; index < buylist.size(); index++) {
 								%>

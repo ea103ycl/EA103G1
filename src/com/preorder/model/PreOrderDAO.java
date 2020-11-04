@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import com.preorder.model.PreOrderVO;
 import com.preorderdetail.model.PreOrderDetailDAO;
 import com.preorderdetail.model.PreOrderDetailVO;
+import com.wel_record.model.WelRecordJNDIDAO;
 
 public class PreOrderDAO implements PreOrderDAO_interface{
 	private static  DataSource ds=null;
@@ -419,7 +420,11 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 			// 2●設定於 pstm.executeUpdate()之後
 			con.commit();
 			con.setAutoCommit(true);
-			/*把凱洛琳的update方法塞到這邊試試看*/
+			
+			WelRecordJNDIDAO dao_for_update = new WelRecordJNDIDAO();
+			dao_for_update.updateOrderId(next_po_no, preorderVO.getMem_id());
+			
+			
 			System.out.println("list.size()-B="+list.size());
 			System.out.println("新增主訂單編號" + next_po_no + "時,共有預購明細" + list.size()
 								+ "個同時被新增");

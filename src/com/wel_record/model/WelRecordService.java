@@ -58,5 +58,6 @@ public class WelRecordService {
 		return dao.getAll();
 
 	}
+	
 
 }
