@@ -14,7 +14,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 	
-		<title>我是標題</title>
+		<title>新增員工</title>
 		<style>
 			#preview img {
 				width: 300px;

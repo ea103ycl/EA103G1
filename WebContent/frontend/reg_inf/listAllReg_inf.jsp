@@ -27,77 +27,31 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 <html>
 <head>
+<!-- top bar -->
+	<%@include file="/frontend/bar/frontBarTop.jsp"%>
 <title>「我報名的」見面會-listAllReg_inf.jsp</title>
-
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-    text-align: center;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-  h4 {
-  padding: 5px;
-    text-align: center;
-  }
-  body {
-    color: #666666;
-    background: #fefefe;
-    font-family: "Rubik", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.05em;
-}
-table#table-1 {
-	background-color: #C4E1E1;
-    border: 2px #ECF5FF;
-    text-align: center;
-    
-  }
-  table#table-1 h4 {
-    color: #613030;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  h4 {
-    color: blue;
-    display: inline;
-  }
-  h3 {
-  color: blue;
-    display: inline;
-</style>
-
+	
+	<style>
+		.roger-mt{
+			margin-bottom:30px;
+		}
+	</style>
 </head>
-<body bgcolor='white'>
-<!-- header -->
-
-	<header>
-
-		<%@include file="/frontend/bar/frontBarTop.jsp"%>
-
-		    <!-- header-banner -->
-    <div id="header-banner">
-        <div class="banner-content single-page text-center">
-            <div class="banner-border">
-                <div class="banner-info" id="banner-info">
-                    <h1>Meeting</h1>
-                </div><!-- / banner-info -->
-            </div><!-- / banner-border -->
-        </div><!-- / banner-content -->
-    </div>
-    <!-- / header-banner -->
-
+<body>
+<section class="space-top-30">
+	<div id="page-content" class="container">
+	
+	<div class="row">
+	     <!-------------------------------------------------------------------------------- 自定義內容START------------------------- -->
+	        <div class="roger-mt">
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/addMeeting.jsp'" class="btn btn-primary-filled">舉辦見面會</button>
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/search_mem_meeting.jsp'" class="btn btn-primary-filled">我舉辦的見面會</button>
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/reg_inf/listAllReg_inf.jsp'" class="btn btn-primary-filled">我報名的見面會</button>
+	        </div>
+	       	
+			<%-- 表格內容START --%>
+			<%@ include file="page1.file" %> 
+			
 <table id="table-1">
 	<tr><td>
 		 <h3>「我報名的」見面會-listAllReg_inf.jsp</h3>
@@ -127,8 +81,6 @@ table#table-1 {
 		<th>修改</th>	
 		<th>取消</th>	
 	</tr>
-		
-	<%@ include file="page1.file" %> 
 	
 	<c:forEach var="reg_infVO" items="${list}"   begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
@@ -182,7 +134,7 @@ table#table-1 {
     <c:otherwise>
         <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/frontend/reg_inf/reg_inf.do" style="margin-bottom: 0px;">
 	 	 <input type="hidden" name="ri_id"  value="${reg_infVO.ri_id}">
-	 <input type="submit" value="修改">
+	 <input class="btn btn-primary btn-pill" type="submit" value="修改">
 	<input type="hidden" name="action"	value="getOne_For_Update">
 	
 	</FORM>
@@ -208,7 +160,7 @@ table#table-1 {
     <c:otherwise>
         <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/frontend/reg_inf/reg_inf.do" style="margin-bottom: 0px;">
 	 	 <input type="hidden" name="ri_id"  value="${reg_infVO.ri_id}">
-	             <input type="submit" value="取消"> 
+	             <input class="btn btn-primary btn-pill" type="submit" value="取消"> 
 	             <input type="hidden" name="action"	value="getOne_For_Display">
 	</FORM>
     </c:otherwise>
@@ -218,12 +170,22 @@ table#table-1 {
 	</c:forEach>
 
 </table>
-<%@ include file="page2.file" %>
-<!-- footer -->
+<%-- 表格內容END --%>
+
+	<div class="row">
+	    <div class="roger-mt">
+	</div>
+		<%@ include file="page2.file" %> 
+	        
+<!-------------------------------------------------------------------------------- 自定義內容END------------------------- -->
+
+    </div><!-- / row -->
+	</div> <!-- end container -->
+	</section>
+
+	<!-- footer -->
 	<%@include file="/frontend/bar/frontBarFooter.jsp"%>
+
 	<!-- / footer -->
-	<table id="table-1">
-<td></td>
-</table>
 </body>
 </html>

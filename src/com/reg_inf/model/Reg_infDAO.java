@@ -37,7 +37,7 @@ public class Reg_infDAO implements Reg_infDAO_interface {
 			"UPDATE reg_inf set mt_no = ?,mem_id = ?,ri_qty = ?,ri_note = ? where ri_id = ?";
 
 		private static final String GET_MEM_STMT = 
-				"SELECT ri_id,mt_no,mem_id,ri_qty,ri_status,ri_note FROM reg_inf where mem_id = ? order by ri_qty desc";
+				"SELECT ri_id,mt_no,mem_id,ri_qty,ri_status,ri_note FROM reg_inf where mem_id = ? order by ri_id desc";
 	
 		private static final String CANCEL_STMT = 
 				"UPDATE reg_inf set ri_status = ?,ri_qty = ?  where ri_id = ?";
