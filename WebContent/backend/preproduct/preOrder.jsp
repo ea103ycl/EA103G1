@@ -10,13 +10,12 @@
     List<PreOrderVO> list = preorderSvc.getAll();
     pageContext.setAttribute("list",list);
     
-    
+    PreOrderDetailService detailSvc = new PreOrderDetailService();
+    List<PreOrderDetailVO> list01 = detailSvc.getAll();
+    pageContext.setAttribute("list01",list01);
 %>
 <%
 	PreOrderVO preorderVO = (PreOrderVO) request.getAttribute("preorderVO"); 
-
-	
-
 %>
 
 <!DOCTYPE html>
@@ -42,15 +41,11 @@
 					<!--=====自定義內容start ================================================== -->
 				  	<!-- Page Heading -->
 			          <h1 class="h3 mb-2 text-gray-800">預購商品訂單總表</h1>
-			          <p class="mb-4">這裡存放著關係公司命脈的重要客戶訂單，不要亂搞，不然公司會倒! <a target="_blank" href="https://datatables.net">這超連結要幹嘛我真的不知道</a>.</p>
 					  <div>
 				          <c:if test="${not empty errorMsgs}">
-							  <font style="color:red">請修正以下錯誤:</font>
-							  <ul>
-								  <c:forEach var="message" items="${errorMsgs}">
-									  <li style="color:red">${message}</li>
-								  </c:forEach>
-							  </ul>
+							<script type="text/javascript">
+								alert("請修正以下錯誤:${errorMsgs}");
+							</script>
 						  </c:if>
 			          </div>
 			          <!-- DataTales Example -->
@@ -93,16 +88,13 @@
 											<button type="button" id="${preorderVO.po_no}" class="btn btn-primary float-right ${preorderVO.po_no}" data-toggle="modal" data-target="#exampleModalCenter${preorderVO.po_no}">
 											 查看
 											</button>
-									
 											<!-- Modal -->
-
 											<div class="modal fade" id="exampleModalCenter${preorderVO.po_no}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 											  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 											    <div class="modal-content">
 											      <div class="modal-header">
 											        <h5 class="modal-title" id="exampleModalLongTitle">訂單明細</h5>
 											        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											        
 											          <span aria-hidden="true">&times;</span>
 											        </button>
 											      </div>
@@ -132,6 +124,7 @@
 									                		<c:if test="${preorderVO.po_status == 2}">出貨中</c:if>
 									                		<c:if test="${preorderVO.po_status == 3}">已到貨</c:if>
 									                		<c:if test="${preorderVO.po_status == 4}">已結案</c:if>
+									                		<c:if test="${preorderVO.po_status == 5}">結案(已折讓)</c:if>
 									                		<hr>
 									                		訂單總金額：${preorderVO.po_total} 元
 									                		<hr>
@@ -141,10 +134,14 @@
 									                  <h6 class="m-0 font-weight-bold text-primary">選購明細</h6>
 									                </div>
 									                <div class="card-body">
-															<c:forEach var="preorderdetailVO" items="${list1}">
-																${preorderVO.po_no}
-																${preorderdetailVO.po_qty}
-																${preorderdetailVO.po_price}
+															<c:forEach var="preorderdetailVO" items="${list01}">
+																<c:if test="${preorderVO.po_no == preorderdetailVO.po_no}">
+																	商品編號: ${preorderdetailVO.po_prod_no}<br>
+																	購買數量: ${preorderdetailVO.po_qty}件<br>
+																	商品單價: $${preorderdetailVO.po_price}<br>
+																	商品小計: $${preorderdetailVO.po_price*preorderdetailVO.po_qty}
+																	<hr>
+																</c:if>
 															</c:forEach>
 									                </div>
 									              </div>
@@ -159,20 +156,33 @@
 					                    <td>${preorderVO.mem_id}</td>
 					                    <td><fmt:formatDate value="${preorderVO.po_time}" pattern="yyyy/MM/dd"/></td>
 					                    <td>${preorderVO.po_name}</td>
-					                    <td>${preorderVO.po_status}</td>
+					                    <td>
+					                    	<c:if test="${preorderVO.po_status == 1}">處理中</c:if>
+									        <c:if test="${preorderVO.po_status == 2}">出貨中</c:if>
+					                		<c:if test="${preorderVO.po_status == 3}">已到貨</c:if>
+					                		<c:if test="${preorderVO.po_status == 4}">已結案</c:if>
+					                		<c:if test="${preorderVO.po_status == 5}">結案(已折讓)</c:if>
+					                    </td>
 					                    <td>${preorderVO.po_total}</td>
 					                    <td>
 						                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/preproduct/preorder.do" style="margin-bottom: 0px;"> 
 												<label>選擇狀態</label>
-												<select name="po_status">
+												<select name="po_status" onchange="submit();" >
+													<option>
+														<c:if test="${preorderVO.po_status == 1}">處理中</c:if>
+												        <c:if test="${preorderVO.po_status == 2}">出貨中</c:if>
+								                		<c:if test="${preorderVO.po_status == 3}">已到貨</c:if>
+								                		<c:if test="${preorderVO.po_status == 4}">已結案</c:if>
+								                		<c:if test="${preorderVO.po_status == 5}">結案(已折讓)</c:if>
+													</option>
 													<option value="1">處理中</option>
 													<option value="2">出貨中</option>
 													<option value="3">已到貨</option>
 													<option value="4">已結案</option>
+													<option value="5">結案(已折讓)</option>
 												</select>
 												<input type="hidden" name="po_no"  value="${preorderVO.po_no}">
 												<input type="hidden" name="action" value="update_status">
-												<input type="submit" value="Submit">
 											</FORM>
 					                    </td>
 				                    </tr>

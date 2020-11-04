@@ -105,7 +105,8 @@ public class MemLoginHandler extends HttpServlet
 										HttpSession session = req.getSession();
 										session.setAttribute("memVO", memVO);
 
-//										System.out.println("長度:" + memVO.getM_photo().length);
+										// 創建session監聽器，將使用者名稱存放至上線列表onLineList
+										session.setAttribute("onlineUser", new LoginSessionvBindingListener(usrid));
 
 										String location = (String) session.getAttribute("location");// 取出session是否有存來源網頁
 										if (location != null)
@@ -127,12 +128,11 @@ public class MemLoginHandler extends HttpServlet
 
 							} else
 							{
-								out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
-								out.println("<BODY>你的帳號 , 密碼無效!<BR>");
-								out.println("請按此重新登入 <A HREF=" + req.getContextPath()
-										+ "/frontend/members/memLoginHandler.do>重新登入</A>");
-								out.println("</BODY></HTML>");
-								System.out.println("UsridCorrect? " + false);
+								errorMsgs.add("帳號密碼錯誤或查無此使用者");
+								RequestDispatcher failureView = req
+										.getRequestDispatcher("/frontend/members/memLogin.jsp");
+								failureView.forward(req, res);
+								return;
 							}
 
 						/*************************** 其他可能的錯誤處理 **********************************/
@@ -149,7 +149,7 @@ public class MemLoginHandler extends HttpServlet
 		if ("logout".equals(action))
 			{
 				HttpSession session = req.getSession();
-				session.removeAttribute("memVO");
+				session.invalidate();
 
 				res.sendRedirect(req.getContextPath() + "/frontend/front_index.jsp");
 				return;
@@ -361,18 +361,6 @@ public class MemLoginHandler extends HttpServlet
 								out.print(false);
 								return;
 							}
-
-//					}
-//
-//					// 如有錯誤轉交回原畫面
-//					if (!errorMsgs.isEmpty()) {
-//						out.print();
-//						RequestDispatcher failureView = req.getRequestDispatcher("/frontend/members/memArea.jsp");
-//						System.out.println(errorMsgs);
-//						failureView.forward(req, res);
-//						System.out.println("有錯誤訊息轉交回原畫面");
-//						return;
-//					}
 
 						/*************************** 其他可能的錯誤處理 **********************************/
 					} catch (Exception e)

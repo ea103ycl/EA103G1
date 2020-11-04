@@ -3,7 +3,8 @@ package ecpay.example;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 
-public class EcpayAllInOne {
+public class EcpayAllInOne
+{
 	public static AllInOne all;
 
 //	public static void main(String[] args) {
@@ -12,18 +13,21 @@ public class EcpayAllInOne {
 //
 //	}
 
-	private static void initial(String paymentConfPath) {
+	private static void initial(String paymentConfPath)
+	{
 		all = new AllInOne("", paymentConfPath);
 	}
 
-	public static String getForm(int amount, String paymentConfPath, String url) {
+	public static String getForm(int amount, String paymentConfPath, String url)
+	{
 
 		initial(paymentConfPath);
 
 		return genAioCheckOutALL(amount, url);
 	}
 
-	public static String genAioCheckOutALL(int amount, String url) {
+	public static String genAioCheckOutALL(int amount, String url)
+	{
 		AioCheckOutALL obj = new AioCheckOutALL();
 
 		int random = (int) (Math.random() * 100000000);
@@ -33,7 +37,7 @@ public class EcpayAllInOne {
 		obj.setMerchantTradeDate("2017/01/01 08:05:23");
 		obj.setTotalAmount(amountstr);
 		obj.setTradeDesc("test Description");
-		obj.setItemName("ArtsBlock-會員儲值");
+		obj.setItemName("ArtsBlock-Deposit");
 		obj.setReturnURL("http://211.23.128.214:5000");
 		obj.setOrderResultURL(url);
 		obj.setNeedExtraPaidInfo("N");

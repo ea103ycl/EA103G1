@@ -16,6 +16,12 @@ List<EvalVO> list_eval = evalSvc.getAllByProd_no(prodVO.getProd_no());
 pageContext.setAttribute("list_eval", list_eval);
 %>
 
+<%	
+ProdService prodSvc3 = new ProdService();
+List<ProdVO> list3 = prodSvc3.getRelatedProd(prodVO.getPtr_no());
+pageContext.setAttribute("list3", list3);
+%>
+
 
 <%//Session
 MemVO memVO = new MemVO();
@@ -154,7 +160,7 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
                     <c:if test="${list_eval.size()==0}">
                                         <font size="5px" color="deeppink">還沒有人評價此商品唷^^"</font>
                       </c:if>
-                       <c:forEach var="evalVO" items="${list_eval}" >
+   <c:forEach var="evalVO" items="${list_eval}" >
                        
                       
 
@@ -198,7 +204,7 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
                                 </div>
                           
                                 
-                                </c:forEach>
+ </c:forEach>
                           <!-------------------------------------------------------- / review-content -------------------------------------------------------------->
                                
                                 
@@ -292,51 +298,55 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
  <div>                  
 <form  action="<%=request.getContextPath()%>/frontend/shop/shopping" method="POST" enctype="multipart/form-data"> 
  <jsp:useBean id="prodSvc2" scope="page" class="com.prod.model.ProdService"  />
-<b>看看其他素材:</b>
-<select  name="ma_no" style="width:100px;font-size:15px; "onchange="submit();" >
+
+<div>
+<b style="display: inline-block;">看看其他素材:</b>
+
+<select  name="ma_no" style="width:100px;font-size:15px; "onchange="submit();"  style="display: inline-block;">
 <option value="">選擇素材</option>  
    <c:forEach var="prodVO2" items="${prodSvc2.allma}"> 
    <option value="${prodVO2.ma_no}"> ${prodVO2.ma_name}</option>
    </c:forEach>
    </select>
+  	
+   <c:if test="${not empty errorMsgs}">
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: deeppink">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>   
+ </div>
         <input type="hidden" name="prod_no" value="${prodVO.prod_no}">
         <input type="hidden" name="ptr_no" value="${prodVO.ptr_no}">
         <input type="hidden" name="action" value="Other_Ma_Search">
 </form>	
 </div>                  
-                    
-<form name="shoppingForm" action="<%=request.getContextPath()%>/frontend/shop/cart" method="POST" enctype="multipart/form-data">                  
+<!-- -------------------------------------------------------商品詳情------------------------------------------------                     -->
+<%-- <form name="shoppingForm" action="<%=request.getContextPath()%>/frontend/shop/cart" method="POST" enctype="multipart/form-data">                   --%>
         
         <div class="buy-product">
         <div class="options">
         <b>選擇要買的數量:</b>
-        <input name="prod_qty" type="number" step="1" min="0"  value="1" title="Qty" class="input-text qty text" size="1">    
+        <input name="prod_qty" type="number"   step="1" min="0"  value="1" title="Qty" id="prod_qty" class="input-text qty text" size="1" >    
          </div>
 		 <!-- / options -->
 		
 		   <div class="space-25">&nbsp;</div>
-		
-<!-- 		   <a href="shopping-cart.html" class="btn btn-primary-filled btn-rounded"><i class="lnr lnr-cart"></i><span> Add to Cart</span></a> -->
-<!-- 		   <a href="checkout.html" class="btn btn-success-filled btn-rounded"><i class="lnr lnr-heart"></i><span> Buy Now</span></a> -->
+		        
                         
-                        
-                        
-      <input type="hidden" name="prod_no" value="${prodVO.prod_no}">
-      <input type="hidden" name="prod_name" value="${prodVO.prod_name}">
-      <input type="hidden" name="prod_price" value="${prodVO.prod_price}">
-      <input type="hidden" name="action" value="ADD">	
-       <button type="submit" name="Submit" value="放入購物車" class="btn btn-primary-filled btn-rounded"><i class="lnr lnr-cart"></i><span> 加入購物車</span>>
+     <input type="hidden" name="prod_no" value="${prodVO.prod_no}"       id="prod_no">
+      <input type="hidden" name="prod_name" value="${prodVO.prod_name}"   id="prod_name">
+      <input type="hidden" name="prod_price" value="${prodVO.prod_price}" id="prod_price">
+      
+       <button type="button" name="Submit" value="放入購物車"   id="addcart" class="btn btn-primary-filled btn-rounded">
+       <i class="lnr lnr-cart"></i><span>加入購物車</span></button>
         </div>
-       </form>
+<!--        </form> -->
        
+<!-- -------------------------------------------------------商品詳情------------------------------------------------                     -->
 
-    <c:if test="${not empty errorMsgs}">
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>              
+              
  </div>
 <!-------------------------------------- / 加入購物車 --------------------------------->
                 </div><!-- product-details -->
@@ -345,18 +355,14 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
             <!-- / product sidebar area -->
 
         </div><!-- / row -->
-<!-------------------------------------- / 相關作品????? --------------------------------->
+<!-------------------------------------- / 相關商品--------------------------------->
         <div id="related-products">
             <h4 class="space-top-30 space-bottom-30 space-left">你可能也感興趣的商品</h4>
             <ul class="row shop list-unstyled" id="grid">
                 
-<!----------------------------------------------- Related-product ------------------------------------------>
-<%	
-ProdService prodSvc3 = new ProdService();
-List<ProdVO> list3 = prodSvc3.getRelatedProd(prodVO.getPtr_no());
-pageContext.setAttribute("list_RelatedProd", list3);
-%>
-                <c:forEach var="prodVO3" items="${list_RelatedProd}" >
+<!----------------------------------------------- Related-product --------------------------------------------------->
+
+                <c:forEach var="prodVO3" items="${list3}" varStatus="counter" >
                 <li class="col-xs-6 col-md-4 product m-product" data-groups='["mens"]'>
                     <div class="img-bg-color primary">
                         <h5 class="product-price">${prodVO3.prod_price}</h5>
@@ -380,16 +386,16 @@ pageContext.setAttribute("list_RelatedProd", list3);
 
 
 
-<form name="shoppingForm" action="<%=request.getContextPath()%>/frontend/shop/cart" method="POST" enctype="multipart/form-data">
-       <input type="hidden" name="prod_no" value="${prodVO3.prod_no}">
-      <input type="hidden" name="prod_name" value="${prodVO3.prod_name}">
-      <input type="hidden" name="prod_price" value="${prodVO3.prod_price}">
-       <input type="hidden" name="prod_qty" value= 1 >
-      <input type="hidden" name="action" value="ADD">	
-        <button type="submit" name="Submit" value="放入購物車"   class="cart-btn" data-toggle="tooltip" title="Add to Cart">
-        <i class="lnr lnr-cart"></i>
-        </button>   
-</form>
+<%-- <form name="shoppingForm" action="<%=request.getContextPath()%>/frontend/shop/cart" method="POST" enctype="multipart/form-data"> --%>
+      <input type="hidden" name="prod_no" value="${prodVO3.prod_no}"       id="prod_no${counter.count}">
+      <input type="hidden" name="prod_name" value="${prodVO3.prod_name}"   id="prod_name${counter.count}">
+      <input type="hidden" name="prod_price" value="${prodVO3.prod_price}" id="prod_price${counter.count}">
+      <input type="hidden" name="prod_qty" value= 1                       id="prod_qty${counter.count}" >
+<!--  <input type="hidden" name="action" value="ADD">	 -->
+      <button type="button" name="Submit" value="放入購物車"  id="addcart_related${counter.count}" class="cart-btn" data-toggle="tooltip" title="Add to Cart">
+      <i class="lnr lnr-cart"></i>
+       </button>   
+<!-- </form> -->
  </div>
                                                                    
                             
@@ -424,24 +430,79 @@ pageContext.setAttribute("list_RelatedProd", list3);
 <%@include file="/frontend/bar/frontBarFooter.jsp"%>
 <!--------------------------------------- /footer --------------------------------------->
 
-<!-- javascript -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+  
+    <script src="<%=request.getContextPath() %>/frontend/template/jquery/jquery.min.js" ></script>
+	<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.easing.min.js"></script><!-- return to top id -->
+	<script src="<%=request.getContextPath()%>/frontend/template/tonyTools/sweetAlert/sweetalert.min.js"></script>
 
-<!-- sticky nav -->
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/scrolling-nav-sticky.js"></script>
-<!-- / sticky nav -->
+ <script>
+$(document).ready(function(){
+	 console.log("OK1");
+ 
+  $("#addcart").click(function(){
+    let prod_no = $("#prod_no").val();
+    let prod_name = $("#prod_name").val();
+    let prod_price = $("#prod_price").val();
+    let prod_qty = $("#prod_qty").val();
+    console.log(prod_no);
+    console.log(prod_name);
+    console.log(prod_price);
+    console.log(prod_qty);
+   $.ajax({
+    type:"POST",
+    url:"<%=request.getContextPath()%>/frontend/shop/cart",
+    data:{
+    	prod_no : prod_no,
+    	prod_name : prod_name,
+    	prod_price : prod_price,
+    	prod_qty : prod_qty,
+        action:"ADD",
+    }, 
+    success:function(data){
+        $('#cartCnt1').text(data);	
+         $('#cart-badge').text(data);
+     swal(prod_name + "     購買數量:"+ prod_qty,"加入購物車", "success");
+    }
+   })
+  })
+});
+ 
+</script>
 
-<!-- hide nav -->
-<script src="js/hide-nav.js"></script>
-<!-- / hide nav -->
 
-<!-- preloader -->
-<script src="js/preloader.js"></script>
-<!-- / preloader -->
-
-<!-- / javascript -->
-</body>
-
-</html>
+<script>
+$(document).ready(function(){
+	
+ for(let i = 1 ; i <= <%=list3.size()%> ; i++){
+  $("#addcart_related" + i).click(function(){
+	  console.log("OK2");
+	  
+	  let prod_no = $("#prod_no" + i ).val();
+	  let prod_name = $("#prod_name" + i ).val();
+	  let prod_price = $("#prod_price" + i ).val();
+	  let prod_qty = $("#prod_qty" + i ).val();
+    console.log(prod_no);
+    console.log(prod_name);
+    console.log(prod_price);
+    console.log(prod_qty);
+   $.ajax({
+    type:"POST",
+    url:"<%=request.getContextPath()%>/frontend/shop/cart",
+    data:{
+    	prod_no : prod_no,
+    	prod_name : prod_name,
+    	prod_price : prod_price,
+    	prod_qty : prod_qty,
+        action:"ADD",
+    }, 
+    success:function(data){
+        $('#cartCnt1').text(data);	
+         $('#cart-badge').text(data);
+         swal(prod_name, "加入購物車", "success");
+    }
+   })
+  })
+ }
+});
+ 
+</script>

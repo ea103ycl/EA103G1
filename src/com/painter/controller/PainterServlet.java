@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -99,7 +100,7 @@ public class PainterServlet extends HttpServlet {
 		// ======================================================================
 		if ("insert".contentEquals(action)) {
 
-			List<String> errorMsgs = new LinkedList<String>();
+			HashMap<Integer, String> errorMsgs = new HashMap<Integer, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
@@ -116,12 +117,17 @@ public class PainterServlet extends HttpServlet {
 				Part filePart = req.getPart("imgPath");
 
 				if (ptr_nm == null || (ptr_nm.trim()).length() == 0) {
-					errorMsgs.add("請輸入作品名稱");
+					errorMsgs.put(1, "請輸入作品名稱");
 				}
 
+				boolean isTagDescTooLong = checkTagLength(tag_desc);
+				if(!isTagDescTooLong) {
+					errorMsgs.put(2, "tag過長，每個tag最多只能100個英文字或33個中文字");
+				}
+				
 				boolean isUploadFile = YclTools.isUploadFile(filePart);
 				if (!isUploadFile) {
-					errorMsgs.add("請上傳作品圖片");
+					errorMsgs.put(3, "請上傳作品圖片");
 				}
 
 				byte[] fileByteArray = YclTools.transPartToByteArray(filePart);
@@ -138,7 +144,8 @@ public class PainterServlet extends HttpServlet {
 				painterVO.setCol_cnt(0);
 
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("painterVO", painterVO);
+					req.setAttribute("painterInsertVO", painterVO);
+					req.setAttribute("painterInsertTag_desc", tag_desc);
 					RequestDispatcher failureView = req.getRequestDispatcher("/frontend/painter/listAllPainter.jsp");
 					failureView.forward(req, res);
 					return;
@@ -156,7 +163,7 @@ public class PainterServlet extends HttpServlet {
 				return;
 
 			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
+				errorMsgs.put(3,"無法取得資料:" + e.getMessage());
 				System.out.println("錯誤訊息:" + e.fillInStackTrace().getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/painter/listAllPainter.jsp");
 				failureView.forward(req, res);
@@ -254,5 +261,30 @@ public class PainterServlet extends HttpServlet {
 		}
 
 	}
+	
+	//判斷輸入的tag是否超過100byte(配合painter_tag.tag_desc的欄位大小)
+	private boolean checkTagLength(String tag_desc){
+		
+		String[] tag_desc_array = tag_desc.split("#");
+		
+		for(String str : tag_desc_array) {
+			
+			//純英文的情況
+			if(str.length() == str.getBytes().length && str.length() > 100 ) {
+				System.out.println("[PainterServlet]tag長度過長：" + str.getBytes().length + "bytes，tag:"+ str);
+				return false;
+			}
+			
+			//中英文混雜的情況
+			if(str.length() != str.getBytes().length && str.length() >33) {
+				return false;
+			}
+			
+		}
+		
+		return true;
+		
+	}
+	
 
 }

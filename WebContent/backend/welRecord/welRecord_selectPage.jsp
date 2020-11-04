@@ -295,10 +295,11 @@ tr, td, th {
 				</div>
 				<!--END OF content-->
 
-				<%@include file="/backend/bar/footer.jsp"%>
+			
 
 			</div>
 			<!--END OF content-wrapper -->
+				<%@include file="/backend/bar/footer.jsp"%>
 		</div>
 		<!--END OF wrapper -->
 	</div>

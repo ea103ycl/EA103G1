@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class WelRecordJDBCDAO implements WelRecordDAO_interface
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO wel_record VALUES(tns_seq.NEXTVAL,?,?,?,?,CURRENT_TIMESTAMP)";
+	private static final String INSERT_ALL = "INSERT INTO wel_record VALUES(tns_seq.NEXTVAL,?,?,?,?,?)";
 	private static final String GET_ONE_STMT = "SELECT tns_id, mem_id,tns_src,order_id,tns_amount,tns_time FROM wel_record WHERE tns_id = ?";
 	private static final String GET_WELRECORDS_BY_MEMID = "SELECT tns_id, mem_id,tns_src,order_id,tns_amount,tns_time FROM wel_record WHERE mem_id = ? ORDER BY tns_id DESC";
 	private static final String GET_ALL_STMT = "SELECT tns_id, mem_id,tns_src,order_id,tns_amount,tns_time FROM wel_record ORDER BY tns_id";
@@ -81,6 +83,68 @@ public class WelRecordJDBCDAO implements WelRecordDAO_interface
 							}
 					}
 				throw new RuntimeException("A database error occured. " + e.getMessage());
+
+			} finally
+			{
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+			}
+
+	}
+
+	@Override
+	public void insert4FakeData(WelRecordVO welRecordVO)
+	{
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try
+			{
+
+				Class.forName(driver);
+
+				con = DriverManager.getConnection(url, userid, passwd);
+
+				con.setAutoCommit(false);
+
+				pstmt = con.prepareStatement(INSERT_ALL);
+
+				pstmt.setString(1, welRecordVO.getMem_id());
+				pstmt.setInt(2, welRecordVO.getTns_src());
+				pstmt.setString(3, welRecordVO.getOrder_id());
+				pstmt.setInt(4, welRecordVO.getTns_amount());
+				pstmt.setTimestamp(5, Timestamp.valueOf(welRecordVO.getTns_time()));
+
+				pstmt.executeUpdate();
+
+			} catch (ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
 
 			} finally
 			{

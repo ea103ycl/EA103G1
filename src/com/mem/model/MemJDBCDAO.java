@@ -47,6 +47,9 @@ public class MemJDBCDAO implements MemDAO_interface
 	private static final String GET_ALL_STMT = "SELECT mem_id,lv,m_accno,m_psw,m_name,m_gender,m_bday,m_phone,m_mobile,m_zip,m_city,m_addr,m_email,m_word,"
 			+ "m_photo,m_source,m_joindate,m_active,m_public,m_bancount,balance FROM MEMBERS ORDER BY MEM_ID";
 
+	private static final String GET_ALL_DESC = "SELECT mem_id,lv,m_accno,m_psw,m_name,m_gender,m_bday,m_phone,m_mobile,m_zip,m_city,m_addr,m_email,m_word,"
+			+ "m_photo,m_source,m_joindate,m_active,m_public,m_bancount,balance FROM MEMBERS ORDER BY MEM_ID DESC";
+
 	private static final String GET_PHOTO = "SELECT m_photo FROM MEMBERS WHERE mem_id = ?";
 
 	// 新增會員
@@ -844,6 +847,109 @@ public class MemJDBCDAO implements MemDAO_interface
 		return list;
 	}
 
+	// 查詢全部(新到舊)
+	@Override
+	public List<MemVO> getAllDESC()
+	{
+
+		List<MemVO> list = new ArrayList<MemVO>();
+		MemVO memVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try
+			{
+
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_ALL_DESC);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) // rs往下移一筆, 若有值則回傳ture
+					{
+						memVO = new MemVO();
+						memVO.setMem_id(rs.getString("mem_id"));
+						memVO.setLv(rs.getInt("lv"));
+						memVO.setM_accno(rs.getString("m_accno"));
+
+						memVO.setM_psw(rs.getString("m_psw"));
+						memVO.setM_name(rs.getString("m_name"));
+						memVO.setM_gender(rs.getString("m_gender"));
+
+						memVO.setM_bday(rs.getDate("m_bday"));
+						memVO.setM_phone(rs.getString("m_phone"));
+						memVO.setM_mobile(rs.getString("m_mobile"));
+						memVO.setM_zip(rs.getInt("m_zip"));
+						memVO.setM_city(rs.getString("m_city"));
+
+						memVO.setM_addr(rs.getString("m_addr"));
+						memVO.setM_email(rs.getString("m_email"));
+						memVO.setM_word(rs.getString("m_word"));
+						memVO.setM_photo(rs.getBytes("m_photo"));
+						memVO.setM_source(rs.getInt("m_source"));
+						memVO.setM_joindate(DateTool.timestamp2StringMin(rs.getTimestamp("m_joindate")));
+
+						memVO.setM_active(rs.getInt("m_active"));
+						memVO.setM_public(rs.getInt("m_public"));
+						memVO.setM_bancount(rs.getInt("m_bancount"));
+						memVO.setBalance(rs.getInt("balance"));
+
+						list.add(memVO);
+
+					}
+
+			} catch (ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally
+			{
+				if (rs != null)
+					{
+						try
+							{
+								rs.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (pstmt != null)
+					{
+						try
+							{
+								pstmt.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+				if (con != null)
+					{
+						try
+							{
+								con.close();
+							} catch (SQLException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+
+			}
+
+		return list;
+	}
+
 	@Override
 	public Set<String> getAllUsrId()
 	{
@@ -1063,32 +1169,32 @@ public class MemJDBCDAO implements MemDAO_interface
 
 		MemJDBCDAO memDao = new MemJDBCDAO();
 //		新增
-		MemVO memVO1 = new MemVO();
-
-		memVO1.setLv(3);
-		memVO1.setM_accno("test");
-		memVO1.setM_psw("111");
-		memVO1.setM_name("王大明");
-		memVO1.setM_gender("M");
-
-		memVO1.setM_bday(java.sql.Date.valueOf("1991-08-26"));
-		memVO1.setM_phone("0211991191");
-		memVO1.setM_mobile("0919005421");
-		memVO1.setM_zip(242);
-		memVO1.setM_city("新北市新莊區");
-
-		memVO1.setM_addr("中正路653號");
-		memVO1.setM_email("aaaa@yahoo.com");
-		memVO1.setM_word(null);
-		memVO1.setM_photo(null);
-		memVO1.setM_source(2);
-
-		memVO1.setM_active(2);
-		memVO1.setM_public(1);
-		memVO1.setM_bancount(0);
-		memVO1.setBalance(0);
+//		MemVO memVO1 = new MemVO();
 //
-		memDao.insert(memVO1);
+//		memVO1.setLv(3);
+//		memVO1.setM_accno("test");
+//		memVO1.setM_psw("111");
+//		memVO1.setM_name("王大明");
+//		memVO1.setM_gender("M");
+//
+//		memVO1.setM_bday(java.sql.Date.valueOf("1991-08-26"));
+//		memVO1.setM_phone("0211991191");
+//		memVO1.setM_mobile("0919005421");
+//		memVO1.setM_zip(242);
+//		memVO1.setM_city("新北市新莊區");
+//
+//		memVO1.setM_addr("中正路653號");
+//		memVO1.setM_email("aaaa@yahoo.com");
+//		memVO1.setM_word(null);
+//		memVO1.setM_photo(null);
+//		memVO1.setM_source(2);
+//
+//		memVO1.setM_active(2);
+//		memVO1.setM_public(1);
+//		memVO1.setM_bancount(0);
+//		memVO1.setBalance(0);
+////
+//		memDao.insert(memVO1);
 
 //修改密碼		
 //		memDao.updatePsw("M000002", "0000000");
@@ -1123,32 +1229,32 @@ public class MemJDBCDAO implements MemDAO_interface
 		// 查詢by會員帳號
 //		String accno = "caroline80";
 
-		String email = "peter123@gmail.com";
-		MemVO mem = new MemVO();
-		mem = memDao.findByAccnoEmail(email);
-
-		System.out.println("----------findbyPK-----------");
-		System.out.println("會員編號:" + mem.getMem_id() + ", LV:" + mem.getLv());
-		System.out.println(mem.getM_accno());
-		System.out.println(mem.getM_psw());
-		System.out.println(mem.getM_name());
-		System.out.println(mem.getM_gender());
-		System.out.println(mem.getM_bday());
-		System.out.println(mem.getM_phone());
-		System.out.println(mem.getM_mobile());
-		System.out.println(mem.getM_zip());
-		System.out.println(mem.getM_city());
-		System.out.println(mem.getM_addr());
-		System.out.println(mem.getM_email());
-		System.out.println(mem.getM_word());
-		System.out.println(mem.getM_photo());
-		System.out.println(mem.getM_source());
-		System.out.println(mem.getM_joindate());
-		System.out.println(mem.getM_active());
-		System.out.println(mem.getM_public());
-		System.out.println(mem.getM_bancount());
-		System.out.println(mem.getBalance());
-		System.out.println("---------------------");
+//		String email = "peter123@gmail.com";
+//		MemVO mem = new MemVO();
+//		mem = memDao.findByAccnoEmail(email);
+//
+//		System.out.println("----------findbyPK-----------");
+//		System.out.println("會員編號:" + mem.getMem_id() + ", LV:" + mem.getLv());
+//		System.out.println(mem.getM_accno());
+//		System.out.println(mem.getM_psw());
+//		System.out.println(mem.getM_name());
+//		System.out.println(mem.getM_gender());
+//		System.out.println(mem.getM_bday());
+//		System.out.println(mem.getM_phone());
+//		System.out.println(mem.getM_mobile());
+//		System.out.println(mem.getM_zip());
+//		System.out.println(mem.getM_city());
+//		System.out.println(mem.getM_addr());
+//		System.out.println(mem.getM_email());
+//		System.out.println(mem.getM_word());
+//		System.out.println(mem.getM_photo());
+//		System.out.println(mem.getM_source());
+//		System.out.println(mem.getM_joindate());
+//		System.out.println(mem.getM_active());
+//		System.out.println(mem.getM_public());
+//		System.out.println(mem.getM_bancount());
+//		System.out.println(mem.getBalance());
+//		System.out.println("---------------------");
 
 		// 查詢byPK
 //		String pk = "M000002";
@@ -1236,6 +1342,36 @@ public class MemJDBCDAO implements MemDAO_interface
 //			System.out.println("---------------------");
 //
 //		}
+
+		// 查詢全部(排序DESC新到舊)
+		List<MemVO> list = memDao.getAllDESC();
+		for (MemVO amem : list)
+			{
+				System.out.println("會員編號:" + amem.getMem_id() + ", LV:" + amem.getLv());
+				System.out.println(amem.getM_accno());
+				System.out.println(amem.getM_psw());
+				System.out.println(amem.getM_name());
+				System.out.println(amem.getM_gender());
+				System.out.println(amem.getM_bday());
+				System.out.println(amem.getM_phone());
+				System.out.println(amem.getM_mobile());
+				System.out.println(amem.getM_zip());
+				System.out.println(amem.getM_city());
+				System.out.println(amem.getM_addr());
+				System.out.println(amem.getM_email());
+				System.out.println(amem.getM_word());
+				System.out.println(amem.getM_photo());
+				System.out.println(amem.getM_source());
+				System.out.println(amem.getM_joindate());
+				System.out.println(amem.getM_active());
+				System.out.println(amem.getM_public());
+				System.out.println(amem.getM_bancount());
+				System.out.println(amem.getBalance());
+				System.out.println("---------------------");
+			}
+		//
+//				}
+
 		// 查詢全部會員帳號
 //		Set<String> set = memDao.getAllUsrId();
 //
@@ -1256,9 +1392,9 @@ public class MemJDBCDAO implements MemDAO_interface
 //		}
 
 		// 取得會員照片
-
-		byte[] photo = memDao.getPhoto("M000001");
-		System.out.println(photo.length);
+//
+//		byte[] photo = memDao.getPhoto("M000001");
+//		System.out.println(photo.length);
 
 	}
 

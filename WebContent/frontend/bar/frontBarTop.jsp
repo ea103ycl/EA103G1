@@ -133,7 +133,7 @@
 					<div class="secondary-nav" style="display:inline-block;">
 						<!-- 購物車 -->
 		            	<li class="dropdown ycl-topBar-second">
-		                    <a href="#" class="shopping-cart space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart"></i><span class="cart-badge">${tBarCartTotal}</span></a>
+		                    <a href="#" class="shopping-cart space-right dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart"></i><span class="cart-badge" id="cart-badge">${tBarCartTotal}</span></a>
 		                    <ul class="dropdown-menu animated zoomIn fast">
 		                        <li><a href="<%=request.getContextPath()%>/frontend/shop/Cart.jsp"><span>一般商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt1">${tBarCart1Cnt}</span></a></li>
 		                        <li><a href="<%=request.getContextPath()%>/frontend/preproduct/shoppingCart.jsp"><span>預購商品</span><span class="text-primary ycl-topBar-cartCntText" id="cartCnt2">${tBarCart2Cnt}</span></a></li>

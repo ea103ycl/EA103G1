@@ -77,18 +77,17 @@
             <p class="shop-results space-left">
 
 <FORM METHOD="post" action="<%=request.getContextPath()%>/frontend/shop/shopping"  enctype="multipart/form-data"  > 
-        <b><font color="deeppink">關鍵字查詢:</font></b>
+        <b><font color="#c39d6d">關鍵字查詢:</font></b>
         <input type="text" name="prod_name">
         <input type="hidden" name="action" value="Fuzzy_Search">
-        <input type="submit" value="送出">  
+        <input type="submit" value="送出" class="btn btn-primary-filled btn-rounded">  
 </FORM>	
 
-
-
+ 
 
 <FORM METHOD="post" action="<%=request.getContextPath()%>/frontend/shop/shopping"  enctype="multipart/form-data"  >
 <jsp:useBean id="prodSvc2" scope="page" class="com.prod.model.ProdService"  />
-<b><font color="deeppink">選擇素材:</font></b>
+<b><font color="#c39d6d">選擇素材:</font></b>
 <select  name="ma_no" style="width:100px;font-size:15px; "onchange="submit();" >
 <option value="">選擇素材</option>   
    <c:forEach var="prodVO2" items="${prodSvc2.allma}">
@@ -96,7 +95,7 @@
    </c:forEach>
   </select>
    <input type="hidden" name="action" value="Ma_Search">     
-</FORM>	
+</FORM>		
 
 
 	<c:if test="${not empty errorMsgs}">
@@ -111,7 +110,7 @@
 
 <ul class="row shop list-unstyled" id="grid">
                 <!---------------------------------------------- product ------------------------------------------->
-<c:forEach var="prodVO" items="${list}" >
+<c:forEach var="prodVO" items="${list}" varStatus="counter" >
                 <li class="col-xs-6 col-md-4 product m-product" data-groups='["mens"]'>
                     <div class="img-bg-color primary">
                         <h5 class="product-price">${prodVO.prod_price}</h5>
@@ -135,16 +134,17 @@
 
 
 
-<form name="shoppingForm" action="<%=request.getContextPath()%>/frontend/shop/cart" method="POST" enctype="multipart/form-data">
-       <input type="hidden" name="prod_no" value="${prodVO.prod_no}">
-      <input type="hidden" name="prod_name" value="${prodVO.prod_name}">
-      <input type="hidden" name="prod_price" value="${prodVO.prod_price}">
-       <input type="hidden" name="prod_qty" value= 1 >
-      <input type="hidden" name="action" value="ADD">	
-        <button type="submit" name="Submit" value="放入購物車"   class="cart-btn" data-toggle="tooltip" title="Add to Cart">
-        <i class="lnr lnr-cart"></i>
-        </button>   
-</form>
+<%-- <form name="shoppingForm" action="<%=request.getContextPath()%>/frontend/shop/cart" method="POST" enctype="multipart/form-data"> --%>
+      <input type="hidden" name="prod_no" value="${prodVO.prod_no}"       id="prod_no${counter.count}">
+      <input type="hidden" name="prod_name" value="${prodVO.prod_name}"   id="prod_name${counter.count}">
+      <input type="hidden" name="prod_price" value="${prodVO.prod_price}" id="prod_price${counter.count}">
+      <input type="hidden" name="prod_qty" value= 1                       id="prod_qty${counter.count}" >
+<!--  <input type="hidden" name="action" value="ADD">	 -->
+      <button type="button" name="Submit" value="放入購物車"  id="addcart${counter.count}" class="cart-btn" data-toggle="tooltip" title="Add to Cart">
+      <i class="lnr lnr-cart"></i>
+       </button>   
+<!-- </form> -->
+
  </div>
                                                                    
                             
@@ -177,28 +177,49 @@
 <%@include file="/frontend/bar/frontBarFooter.jsp"%>
 <!--------------------------------------- /footer --------------------------------------->
 
-    <!-- javascript -->
-    <script src="js/jquery.min.js"></script>
-    <!-- sticky nav -->
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/scrolling-nav-sticky.js"></script>
-    <!-- / sticky nav -->
-    <!-- hide nav -->
-    <script src="js/hide-nav.js"></script>
-    <!-- / hide nav -->
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
-    <!-- shuffle grid-resizer -->
-    <script src="js/jquery.shuffle.min.js"></script>
-    <script src="js/custom.js"></script>
-    <!-- / shuffle grid-resizer -->
-    <!-- preloader -->
-    <script src="js/preloader.js"></script>
-    <!-- / preloader -->
-    <!-- / javascript -->
+   <script src="<%=request.getContextPath() %>/frontend/template/jquery/jquery.min.js" ></script>
+	<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.easing.min.js"></script><!-- return to top id -->
+	<script src="<%=request.getContextPath()%>/frontend/template/tonyTools/sweetAlert/sweetalert.min.js"></script>
+
+ <script>
+$(document).ready(function(){
+	 console.log(123);
+ for(let i = 1 ; i <= <%=list.size()%> ; i++){
+  $("#addcart" + i).click(function(){
+    var prod_no = $("#prod_no" + i ).val();
+    var prod_name = $("#prod_name" + i ).val();
+    var prod_price = $("#prod_price" + i ).val();
+    var prod_qty = $("#prod_qty" + i ).val();
+    console.log(prod_no);
+    console.log(prod_name);
+    console.log(prod_price);
+    console.log(prod_qty);
+   $.ajax({
+    type:"POST",
+    url:"<%=request.getContextPath()%>/frontend/shop/cart",
+    data:{
+    	prod_no : prod_no,
+    	prod_name : prod_name,
+    	prod_price : prod_price,
+    	prod_qty : prod_qty,
+        action:"ADD",
+    }, 
+    success:function(data){
+        $('#cartCnt1').text(data);	
+         $('#cart-badge').text(data);
+         swal(prod_name, "加入購物車", "success");
+    }
+   })
+  })
+ }
+});
+ 
+</script>
+
+
+    
+    
+    
 </body>
 
 </html>

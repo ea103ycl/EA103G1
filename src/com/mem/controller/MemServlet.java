@@ -169,7 +169,7 @@ public class MemServlet extends HttpServlet
 										errorMsgs.add("與第一次輸入密碼不相符,請重新輸入");
 									} else if (!confirmpsw.trim().matches(confirmpswReg))
 									{
-										errorMsgs.add("密碼只能是英文字母、數字 , 且長度必需在6到10之間");
+										errorMsgs.add("密碼只能是英文字母、數字 , 且長度必需在6到20之間");
 									}
 								System.out.println("通過確認密碼驗證");
 							}

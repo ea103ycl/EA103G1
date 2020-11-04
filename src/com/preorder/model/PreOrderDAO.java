@@ -33,7 +33,7 @@ public class PreOrderDAO implements PreOrderDAO_interface{
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO PRE_ORDER (po_no,mem_id,po_time,po_zip,po_name,po_phone,po_addr,po_status,po_total,po_note) "
-			+ "VALUES (PRE_ORDER_SEQ.NEXTVAL, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?)";
+			+ "VALUES ('P'||to_char(sysdate,'yyyymmdd')||'-'||LPAD(to_char(PRE_ORDER_SEQ.NEXTVAL), 5, '0'), ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
 			"SELECT po_no,mem_id,po_time,po_zip,po_name,po_phone,po_addr,po_status,po_total,po_note "
 			+ "FROM PRE_ORDER order by po_no";

@@ -364,7 +364,7 @@
 		<servlet-name>FollowServlet</servlet-name>
 		<url-pattern>/follow/follow.do</url-pattern>
 	</servlet-mapping>
-
+	
 
 	<servlet>
 		<servlet-name>GetShrinkPtr</servlet-name>
@@ -385,8 +385,10 @@
 		<url-pattern>/painter/getOrigPtr.do</url-pattern>
 	</servlet-mapping>
 	
+
+
 	<!--== ROGER=========================================== -->
-	<servlet>
+<servlet>
 		<servlet-name>MeetingServlet</servlet-name>
 		<servlet-class>com.meeting.controller.MeetingServlet</servlet-class>
 	</servlet>
@@ -441,17 +443,20 @@
 		<url-pattern>/backend/bidding/select_page.jsp</url-pattern>
 		<url-pattern>/backend/preproduct/addDiscount.jsp</url-pattern>
 		<url-pattern>/backend/preproduct/addPreProduct_ByMano.jsp</url-pattern>
-		<url-pattern>/backend/preproduct/addPreProduct.jsp</url-pattern>
-		<url-pattern>/backend/preproduct/PonoByReachDiscount.jsp</url-pattern>
-		<url-pattern>/backend/preproduct/preOrderDetail.jsp</url-pattern>
+		<url-pattern>/backend/preproduct/addPreProduct.jsp</url-pattern>		
+		<url-pattern>/backend/preproduct/backendindex.jsp</url-pattern>
+		<url-pattern>/backend/preproduct/PonoByReachDiscount.jsp</url-pattern>	
+		<url-pattern>/backend/preproduct/quantityOfSale.jsp</url-pattern>
 		<url-pattern>/backend/prod/listAllProd.jsp</url-pattern>
 		<url-pattern>/backend/prod/addProd.jsp</url-pattern>
 		<url-pattern>/backend/material/addMat.jsp</url-pattern>	
 		<url-pattern>/backend/material/listAllMat.jsp</url-pattern>	
 		<url-pattern>/backend/material/listAllMatype.jsp</url-pattern>	
 		<url-pattern>/backend/material/listMat_ByCompositeQuery.jsp</url-pattern>
-		<url-pattern>/backend/material/selectMat.jsp</url-pattern>					
+		<url-pattern>/backend/material/selectMat.jsp</url-pattern>		
+		<url-pattern>/backend/meeting/listAllMeeting_back.jsp</url-pattern>						
 		<url-pattern>/backend/preproduct/preOrder.jsp</url-pattern>
+		<url-pattern>/backend/preproduct/preOrderDetail.jsp</url-pattern>	
 		<url-pattern>/backend/prod/listAllOrder.jsp</url-pattern>
 		<url-pattern>/backend/emp/addEmp.jsp</url-pattern>
 		<url-pattern>/backend/emp/listAllEmp.jsp</url-pattern>
@@ -473,6 +478,8 @@
 		<url-pattern>/frontend/members/select_page_frontend.jsp</url-pattern>
 		<url-pattern>/frontend/preproduct/shoppingCart.jsp</url-pattern>
 		<url-pattern>/frontend/preproduct/order_Success_List.jsp</url-pattern>
+		<url-pattern>/frontend/shop/Checkout.jsp</url-pattern>
+		<url-pattern>/frontend/shop/order/OrderSearch.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 

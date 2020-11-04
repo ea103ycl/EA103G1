@@ -94,7 +94,7 @@
 						<div>
 							<c:set var="sLv" value="${sMemSvc.findByPrimaryKey(sid).lv}"/>
 							<c:set var="lvVO" value="${lvSvc.findByPrimaryKey(sLv)}"/>
-							<span class="text-primary ycl-acct-text">${sMemSvc.findByPrimaryKey(sid).getM_accno()}</span><img id="lvPic" class="ycl-lv_icon" src="<%=request.getContextPath()%>/lv/lv.do?action=showPic&lv=${sLv}"  data-toggle="tooltip" data-placement="right" title="${lvVO.lv_nm}，粉絲人數達${lvVO.f_cnt}人">
+							<span class="text-primary ycl-acct-text">${sMemSvc.findByPrimaryKey(sid).getM_accno()}</span><img id="lvPic" class="ycl-lv_icon" src="<%=request.getContextPath()%>/lv/lv.do?action=showPic&lv=${sLv}"  data-toggle="tooltip" data-placement="right" title="${lvVO.lv_nm}">
 							<br>
 							<button class="ycl-act-btn-follow" data-target="#followModal" id="followCntBtn" onclick="$('#followModal').modal('show')">已關注：<span id="cnt-follow">${followSvc.getFollowCnt(pageScope.sid)}</span>人</button> ／
 							<button class="ycl-act-btn-fans" data-target="#fansModal" id="fansCntBtn" onclick="$('#fansModal').modal('show')">粉絲數：<span id="cnt-fans">${followSvc.getFansCnt(pageScope.sid)}</span>人</button>
@@ -169,7 +169,7 @@
 									<div class="post-block ycl-post-block">
 										<!-- 作品圖片 -->				
 										<a href="<%=request.getContextPath()%>/frontend/painter/onePainter.jsp?ptr_no=${painterVO.ptr_no}&sid=${sid}&src=3&spg=<%=whichPage%>">
-											<img src="<%=request.getContextPath()%>/painter/getShrinkPtr.do?px=400&ptr_no=${painterVO.ptr_no}">
+											<img src="<%=request.getContextPath()%>/painter/getShrinkPtr.do?px=500&ptr_no=${painterVO.ptr_no}">
 										</a>
 										
 										
@@ -260,61 +260,7 @@
 
 
 			<!-- Modal 新增 -->
-			<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel">
-			  <div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="uploadModalLabel">上傳作品</h4>
-			      </div>
-			      <div class="modal-body">
-			      
-			        <form method="post" action="<%=request.getContextPath()%>/painter/painter.do" enctype="multipart/form-data">
-			        	
-	                    <div class="form-group">
-	                        <label>作品能見度</label>
-	                        <select class="form-control" id="priv_stat" name="priv_stat">
-	                        	<option value="1">公開</option>
-	                        	<option value="3">僅限粉絲</option>
-	                        	<option value="2">僅限個人</option>
-	                        </select>    
-	                    </div>
-	                    
-			        	<div class="form-group">
-	                        <label>作品名稱</label>
-	                        <input type="text" class="form-control" id="ptr_nm" name="ptr_nm" placeholder="請輸入作品名稱" required="required" data-error="*請輸入作品名稱" maxlength="33">
-	                    </div>
-
-	                    
-	                    <div class="form-group">
-	                        <label>作品說明</label>
-	                        <textarea class="form-control" id="intro" name="intro" rows="5" placeholder="請輸入作品說明"></textarea>
-	                    </div>
-						
-			        	<div class="form-group">
-	                        <label>HashTag</label>
-	                        <input class="form-control" id="tag_desc" name="tag_desc" placeholder="請輸入作品tag(需以#分開)" maxlength="33">  
-	                    </div>
-	                    
-	                    <div class="form-group">
-	                        <label>選擇作品圖片</label>
-	                        <input type="file" id="imgPath" name="imgPath" onchange="readURL(this);"  required="required" data-error="*請輸入作品名稱">
-	                        <img class="img-fluid w-25 h-25" id="imgUpload">	
-                    	</div>
-                    	
-	                     <div class="modal-footer">
-				        	<button type="submit" class="btn btn-primary btn-rounded" data-dismiss="modal">取消</button>
-				        	<button type="submit" class="btn btn-primary-filled btn-rounded" name="action" value="insert">上傳</button>
-				      	 </div>
-
-			        </form>			      
-			      </div>
-
-			    </div>
-			  </div>
-			</div>
-			<!-- Modal 新增 END -->
-			
+			<%@include file="/frontend/painter/uploadModal.file"%>
 			<%@include file="/frontend/painter/followModal.file"%>
 
             <!-- =================================== -->
@@ -360,6 +306,10 @@
 	    $('.modal').on('hidden.bs.modal', function () {
 	         $('#uploadModal .modal-body').find('textarea, input').val('');
 	         $('#uploadModal .modal-body').find('img').attr('src', '');
+	         $('#errMsgList').css('display', 'none');
+	         $('#ptrNmMsg').css('display', 'none');
+	         $('#imgPathMsg').css('display', 'none');
+	         $('#ptrTagDescMsg').css('display', 'none');
 	    });
 	});
 	
@@ -431,6 +381,56 @@
 		
 	});
 	
+	
+	function autogrow(textarea){
+		var adjustedHeight=textarea.clientHeight;
+		    adjustedHeight=Math.max(textarea.scrollHeight,adjustedHeight);
+		    if (adjustedHeight>textarea.clientHeight){
+		        textarea.style.height=adjustedHeight+'px';
+		    }
+		}
+
+		
+	window.onload=function (){
+		var isNoErr = ${ empty errorMsgs };
+		console.log('新增作品時是否沒問題?', isNoErr);
+		if(!isNoErr){
+			$('#uploadModal').modal('show');
+		}
+	}
+		
+    $("#submitBtn").click(function(){
+    	let check = true;
+    	let ptr_nm = ($("#ptr_nm").val()).trim();
+    	let tag_desc = ($("#tag_desc").val()).trim();
+    	
+    	//先將已修改的內容去除提示文字
+        if( ptr_nm != null && ptr_nm.length > 1 ){
+        	$('#ptrNmMsg').css('display', 'none');
+        }
+
+        if($("#imgPath").val().trim() != ""){
+        	$('#imgPathMsg').css('display', 'none');
+        }
+        
+        //再做錯誤處理
+    	if(ptr_nm == null || ptr_nm.length == 0 ){
+    		$('#ptrNmMsg').css('display', 'inline-block');
+    		$('#ptr_nm').focus(); //跳回輸入框內
+        	check = false;
+        }
+
+        if($("#imgPath").val().trim() == ""){
+        	$('#imgPathMsg').css('display', 'inline-block');
+        	check = false;
+        }
+        
+        if( !check ){
+        	event.preventDefault();
+        }
+        	
+    })
+    
 	<%@include file="/frontend/painter/followScript.file"%>
 	
 		

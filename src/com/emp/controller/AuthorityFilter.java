@@ -1,12 +1,10 @@
 package com.emp.controller;
 
 import java.io.*;
-import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import com.emp.model.Available_Func_Service;
-import com.emp.model.Available_Func_VO;
+
 
 public class AuthorityFilter implements Filter {
 
@@ -51,8 +49,9 @@ public class AuthorityFilter implements Filter {
 		String f1 = req.getContextPath() + "/backend/preproduct/addDiscount.jsp";	
 		String f2 = req.getContextPath() + "/backend/preproduct/addPreProduct_ByMano.jsp";	
 		String f3 = req.getContextPath() + "/backend/preproduct/addPreProduct.jsp";	
-		String f4 = req.getContextPath() + "/backend/preproduct/PonoByReachDiscount.jsp";	
-		String f5 = req.getContextPath() + "/backend/preproduct/preOrderDetail.jsp";
+		String f4 = req.getContextPath() + "/backend/preproduct/backendindex.jsp";	
+		String f5 = req.getContextPath() + "/backend/preproduct/PonoByReachDiscount.jsp";	
+		String f6 = req.getContextPath() + "/backend/preproduct/quantityOfSale.jsp";		
 		String g1 = req.getContextPath() + "/backend/prod/listAllProd.jsp";
 		String g2 = req.getContextPath() + "/backend/prod/addProd.jsp";			
 		String h1 = req.getContextPath() + "/backend/material/addMat.jsp";
@@ -60,11 +59,10 @@ public class AuthorityFilter implements Filter {
 		String h3 = req.getContextPath() + "/backend/material/listAllMatype.jsp";
 		String h4 = req.getContextPath() + "/backend/material/listMat_ByCompositeQuery.jsp";
 		String h5 = req.getContextPath() + "/backend/material/selectMat.jsp";
-		String i;
+		String i  = req.getContextPath() + "/backend/meeting/listAllMeeting_back.jsp";
 		String j1 = req.getContextPath() + "/backend/preproduct/preOrder.jsp";	
-		String j2 = req.getContextPath() + "/backend/prod/listAllOrder.jsp";
-		String j3;
-		String j4;	
+		String j2 = req.getContextPath() + "/backend/preproduct/preOrderDetail.jsp";
+		String j3 = req.getContextPath() + "/backend/prod/listAllOrder.jsp";
 		String k1 = req.getContextPath() + "/backend/emp/addEmp.jsp";
 		String k2 = req.getContextPath() + "/backend/emp/listAllEmp.jsp";		
 	
@@ -97,7 +95,7 @@ public class AuthorityFilter implements Filter {
 				location.equals(e2))) {
 			chain.doFilter(request, response);
 		} else if (funcList.contains("F") && (location.equals(f1)||location.equals(f2)||location.equals(f3)||
-				location.equals(f4)||location.equals(f5))) {
+				location.equals(f4)||location.equals(f5)||location.equals(f6))) {
 			chain.doFilter(request, response);
 		} else if (funcList.contains("G") && (location.equals(g1)||
 				location.equals(g2))) {
@@ -105,7 +103,9 @@ public class AuthorityFilter implements Filter {
 		} else if (funcList.contains("H") && (location.equals(h1)||location.equals(h2)||location.equals(h3)||
 				location.equals(h4)||location.equals(h5))) {
 			chain.doFilter(request, response);
-		} else if (funcList.contains("J") && (location.equals(j1) || location.equals(j2))) {
+		} else if (funcList.contains("I") && location.equals(i)) {
+			chain.doFilter(request, response);
+		} else if (funcList.contains("J") && (location.equals(j1) || location.equals(j2) || location.equals(j3))) {
 			chain.doFilter(request, response);
 		} else if(funcList.contains("K") && (location.equals(k1)||
 			location.equals(k2))){

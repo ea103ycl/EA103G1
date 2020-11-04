@@ -20,4 +20,6 @@ public interface WelRecordDAO_interface
 
 	public List<WelRecordVO> getAll();
 
+	public void insert4FakeData(WelRecordVO welRecordVO);
+
 }

@@ -63,8 +63,6 @@
 <html>
 <head>
 
-<link href="<%=request.getContextPath()%>/frontend/template/YCL/YCL.css" rel="stylesheet">
-	
 <title>${sMemSvc.findByPrimaryKey(sid).getM_accno()}的收藏</title>
 
 <!-- top bar -->
@@ -91,7 +89,7 @@
 						<div>
 							<c:set var="sLv" value="${sMemSvc.findByPrimaryKey(sid).lv}"/>
 							<c:set var="lvVO" value="${lvSvc.findByPrimaryKey(sLv)}"/>
-							<span class="text-primary ycl-acct-text">${sMemSvc.findByPrimaryKey(sid).getM_accno()}</span><img id="lvPic" class="ycl-lv_icon" src="<%=request.getContextPath()%>/lv/lv.do?action=showPic&lv=${sLv}"  data-toggle="tooltip" data-placement="right" title="${lvVO.lv_nm}，粉絲人數達${lvVO.f_cnt}人">
+							<span class="text-primary ycl-acct-text">${sMemSvc.findByPrimaryKey(sid).getM_accno()}</span><img id="lvPic" class="ycl-lv_icon" src="<%=request.getContextPath()%>/lv/lv.do?action=showPic&lv=${sLv}"  data-toggle="tooltip" data-placement="right" title="${lvVO.lv_nm}">
 							<br>
 							
 							<button class="ycl-act-btn-follow" data-target="#followModal" id="followCntBtn" onclick="$('#followModal').modal('show')">已關注：<span id="cnt-follow">${followSvc.getFollowCnt(pageScope.sid)}</span>人</button> ／
@@ -156,7 +154,7 @@
 
 										<!-- 作品圖片 -->				
 										<a class="testPainter" href="<%=request.getContextPath()%>/frontend/painter/onePainter.jsp?ptr_no=${painterVO.ptr_no}&sid=${sid}&src=2&spg=<%=whichPageCol%>&sid=${sid}">
-											<img src="<%=request.getContextPath()%>/painter/getShrinkPtr.do?px=400&ptr_no=${painterVO.ptr_no}">
+											<img src="<%=request.getContextPath()%>/painter/getShrinkPtr.do?px=500&ptr_no=${painterVO.ptr_no}">
 										</a>
 
 										<div class="ycl-painter-content">
@@ -214,7 +212,7 @@
 												
 												<span class="post-icons ycl-post-icons  pull-right">
 													<button class="ycl-act-btn-msg">
-													 	<i class="lnr lnr-cart"></i>
+													 	<a href="<%=request.getContextPath()%>/frontend/shop/forPrinter.jsp?ptr_no=${painterVO.ptr_no}"><i class="lnr lnr-cart"></i></a>
 													</button>											
 												</span>
 												
