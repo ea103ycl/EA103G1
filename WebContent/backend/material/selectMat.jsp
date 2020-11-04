@@ -26,7 +26,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 	
-		<title>我是標題</title>
+		<title>素材查詢</title>
 	</head>
 
 	<body id="page-top">
@@ -116,7 +116,7 @@
 
 
 <div class="mt-2" style = "margin-left:40px" >
-<button  class="btn btn-secondary"  type="submit" name="action" value="listAllMatype">                                
+<button  class="btn btn-primary"  type="submit" name="action" value="listAllMatype">                                
 <span class="text">素材類別列表</span>                             
 </button>
 &nbsp  

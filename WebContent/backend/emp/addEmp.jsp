@@ -25,7 +25,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 	
-		<title>我是標題</title>
+		<title>員工新增</title>
 		<style>
 			#preview img {
 				width: 300px;
@@ -137,7 +137,7 @@
 <!-- 	    <div class="col text-center"> -->
 	      <button class="btn btn-primary" type="button" onclick="selAll();">全選</button>  
 	      <button class="btn btn-primary" type="button" onclick="unselAll();">全取消</button>  
-		  <button class="btn btn-primary" type="button" id="click">Click Me</button>        
+		  <button class="btn btn-secondary" type="button" id="click">Click Me</button>        
 	      <button class="btn btn-primary" type="submit" name="action" value="insert">送出新增</button> 
 
 <!-- 	    </div> -->

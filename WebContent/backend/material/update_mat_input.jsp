@@ -19,7 +19,7 @@ Material_Data_VO material_Data_VO = (Material_Data_VO) request.getAttribute("mat
 		<meta name="description" content="">
 		<meta name="author" content="">
 	
-		<title>我是標題</title>
+		<title>素材修改</title>
 	</head>
 
 	<body id="page-top">
