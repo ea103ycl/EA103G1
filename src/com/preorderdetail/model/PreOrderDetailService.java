@@ -28,6 +28,10 @@ public class PreOrderDetailService {
 	public List<PreOrderDetailVO> getAll_OrderQty(){
 		return dao.getAll_OrderQty();
 	}
+	
+	public void deletePreOrderDetail(String po_prod_no) {
+		dao.deleteBypo_prod_no(po_prod_no);
+	}
 //	public List<PreOrderVO> getAllMemReachDiscount(String po_prod_no){
 //		System.out.println("預購訂單Service - 進入getAll_OrderQty()方法");
 //		List<PreOrderDetailVO> preDVOs=dao.

@@ -5,20 +5,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class MemService
-{
+public class MemService {
 
 	private MemDAO_interface dao;
 
-	public MemService()
-	{
+	public MemService() {
 		dao = new MemJNDIDAO();
 	}
 
 	public MemVO addMem(Integer lv, String m_accno, String m_psw, String m_name, String m_gender, Date m_bday,
 			String m_phone, String m_mobile, Integer m_zip, String m_city, String m_addr, String m_email, String m_word,
-			byte[] m_photo, Integer m_source, Integer m_active, Integer m_public, Integer m_bancount, Integer balance)
-	{
+			byte[] m_photo, Integer m_source, Integer m_active, Integer m_public, Integer m_bancount, Integer balance) {
 
 		MemVO memVO = new MemVO();
 
@@ -51,23 +48,20 @@ public class MemService
 
 	}
 
-	public void addPhoto(String mem_id, byte[] photo)
-	{
+	public void addPhoto(String mem_id, byte[] photo) {
 
 		dao.insertPhoto(mem_id, photo);
 
 	}
 
-	public void updatePsw(String mem_id, String m_psw)
-	{
+	public void updatePsw(String mem_id, String m_psw) {
 
 		dao.updatePsw(mem_id, m_psw);
 
 	}
 
 	public MemVO updateByUser(String m_name, String m_gender, Date m_bday, String m_phone, String m_mobile,
-			Integer m_zip, String m_city, String m_addr, String m_email, String mem_id)
-	{
+			Integer m_zip, String m_city, String m_addr, String m_email, String mem_id) {
 
 		MemVO memVO = new MemVO();
 
@@ -89,8 +83,7 @@ public class MemService
 		return memVO;
 	}
 
-	public MemVO updateByStaff(Integer m_active, Integer m_public, Integer m_bancount, String mem_id)
-	{
+	public MemVO updateByStaff(Integer m_active, Integer m_public, Integer m_bancount, String mem_id) {
 
 		MemVO memVO = new MemVO();
 
@@ -104,50 +97,49 @@ public class MemService
 
 	}
 
-	public MemVO findByAccnoEmail(String input)
-	{
+	public MemVO findByAccnoEmail(String input) {
 
 		return dao.findByAccnoEmail(input);
 
 	}
 
-	public MemVO findByPrimaryKey(String mem_id)
-	{
+	public MemVO findByPrimaryKey(String mem_id) {
 
 		return dao.findByPrimaryKey(mem_id);
 
 	}
 
-	public List<MemVO> findByPKNameAcc(String str)
-	{
+	public List<MemVO> findByPKNameAcc(String str) {
 
 		return dao.findByPKNameAcc(str);
 
 	}
 
-	public Set<String> getAllUsrId()
-	{
+	public Set<String> getAllUsrId() {
 
 		return dao.getAllUsrId();
 
 	}
 
-	public Map<String, String> getAllAccounts()
-	{
+	public Map<String, String> getAllAccounts() {
 
 		return dao.getAllAccounts();
 
 	}
 
-	public List<MemVO> getAll()
-	{
+	public List<MemVO> getAll() {
 
 		return dao.getAll();
 
 	}
 
-	public byte[] getPhoto(String mem_id)
-	{
+	public List<MemVO> getAllDESC() {
+
+		return dao.getAllDESC();
+
+	}
+
+	public byte[] getPhoto(String mem_id) {
 
 		return dao.getPhoto(mem_id);
 	}

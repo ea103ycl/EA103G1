@@ -368,7 +368,7 @@
         function updateBid() {
             $.ajax({
                 method: "post",
-                url: +"/biddingPage/BdPageServlet",
+                url: contextPath +"/biddingPage/BdPageServlet",
                 data: { action: "topBidders", bdNo: bdNo },
                 success: function(dataReturn) {
 
@@ -494,7 +494,7 @@
                     balance +
                     '</span>');
                 $('.cart-total-footer').append('<div style="margin-top:5%;">' +
-                    '<a href="<%=request.getContextPath()%>/frontend/members/memArea.jsp#accountArea" class="btn btn-default-filled btn-rounded">' +
+                    '<a href="'+contextPath+'/frontend/members/memArea.jsp#accountArea" class="btn btn-default-filled btn-rounded">' +
                     '<span>快速儲值 </span></a></div>');
 
             } else {

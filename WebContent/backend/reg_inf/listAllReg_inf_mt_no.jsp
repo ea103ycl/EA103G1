@@ -8,6 +8,7 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 <%
     String mt_no = (String) request.getParameter("mt_no"); 
+
     Reg_infService reg_infSvc = new Reg_infService();
     List<Reg_infVO> list = reg_infSvc.getReg_inf_mt_no(mt_no);
     pageContext.setAttribute("list",list);   
@@ -23,98 +24,51 @@
 
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  <meta name="description" content="">
+	  <meta name="author" content="">
 <title>報名表清單 -listAllReg_inf_mt_no.jsp</title>
+<!-- favicon -->
+		<link rel="icon" href="<%=request.getContextPath()%>/backend/template/img/favicon.png">
 
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-    text-align: center;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-  h4 {
-  padding: 5px;
-    text-align: center;
-  }
-  body {
-    color: #666666;
-    background: #fefefe;
-    font-family: "Rubik", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.05em;
-}
-table#table-1 {
-	background-color: #C4E1E1;
-    border: 2px #ECF5FF;
-    text-align: center;
-    
-  }
-  table#table-1 h4 {
-    color: #613030;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  h4 {
-    color: blue;
-    display: inline;
-  }
-  h3 {
-  color: blue;
-    display: inline;
-  }
-</style>
 
 </head>
-<body onload="checkoutAmount();" bgcolor='white'>
-<!-- header -->
+<body onload="checkoutAmount();" id="page-top">
+<div id="wrapper">
+	
+			<%@include file="/backend/bar/backBarSide.jsp"%>
+	
+			<div id="content-wrapper" class="d-flex flex-column">		
+	
+				<div id="content">
+	
+					<!-- Topbar -->
+					<%@include file="/backend/bar/backBarTop.jsp"%>
+	
+					<div class="container-fluid">				
+					<!--=====自定義內容start ================================================== -->
+						
+						<%-- 頁面標題 --%>
+						<h1 class="h3 mb-2 text-gray-800">取消的見面會</h1>
+							  <h4><a href="<%=request.getContextPath()%>/backend/meeting/listAllMeeting_back.jsp">回首頁</a></h4>
+						
+                        <%-- 錯誤表列 --%>
+						<c:if test="${not empty errorMsgs}">
+							<font style="color: red">請修正以下錯誤:</font>
+							<ul>
+								<c:forEach var="message" items="${errorMsgs}">
+									<li style="color: red">${message}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
+<div class="table table-hover">
+<table class="table table-bordered text-center"
+       id="dataTableNoSearchChange" width="100%" cellspacing="0">
+       <thead>
+	<tr class="bg-gray-400">
 
-	<header>
-
-		<%@include file="/frontend/bar/frontBarTop.jsp"%>
-
-		    <!-- header-banner -->
-    <div id="header-banner">
-        <div class="banner-content single-page text-center">
-            <div class="banner-border">
-                <div class="banner-info" id="banner-info">
-                    <h1>Meeting</h1>
-                </div><!-- / banner-info -->
-            </div><!-- / banner-border -->
-        </div><!-- / banner-content -->
-    </div>
-    <!-- / header-banner -->
-	</header>
-	<!-- / header -->
-
-<table id="table-1">
-	<tr><td>
-		 <h3>報名表清單 -listAllReg_inf_mt_no.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/backend/meeting/listAllMeeting_back.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-<table>
 	<tr>
 		<th>狀態</th>
 		<th>報名表ID</th>
@@ -123,12 +77,14 @@ table#table-1 {
 		<th>費用</th>
 		<th>退費</th>		
 	</tr>
-		
+	</thead>
+	
+	<tbody>
 	<%@ include file="page1.file" %> 
 	<c:forEach var="reg_infVO" items="${list}"   begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
 		<tr>
-		    <td>	    
+		<td class="align-middle">	    
 <c:set var="ri_status" scope="session" value="${reg_infVO.ri_status}"/>
 <c:choose>
     <c:when test="${ri_status == 1}">
@@ -152,7 +108,7 @@ table#table-1 {
 			<td>${meetingSvc.getOneMeeting(reg_infVO.mt_no).ri_fee}</td>
 			
 			
-	<td>
+	<td class="align-middle">
 	<c:if test="${reg_infVO.ri_status == 1}">
 	 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/reg_inf/reg_inf.do" style="margin-bottom: 0px;">
 			     
@@ -169,11 +125,21 @@ table#table-1 {
 		</td>
 		</tr>
 	</c:forEach>
+				 
+	
 </table>
+<div style="text-align:center;">
 <%@ include file="page2.file" %>
-	<table id="table-1">
-<td></td>
-</table>
+                          </div>
+					</div>								
+				</div>
+			</div>
+	<!--===== 自定義內容end ================================================== -->
+		</div> <!--END OF container-fluid-->
+	</div>	
+			
+		<%@include file="/backend/bar/footer.jsp"%>
+</div>
 </body>
 <script>
 

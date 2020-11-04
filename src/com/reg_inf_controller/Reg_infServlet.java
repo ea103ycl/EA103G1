@@ -150,6 +150,7 @@ public class Reg_infServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("reg_infVO", reg_infVO); // 資料庫取出的empVO物件,存入req
+//				HttpSession session = request.getSession("reg_infVO", reg_infVO);
 				String url = "/backend/reg_inf/listAllReg_inf_mt_no.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
@@ -663,14 +664,14 @@ public class Reg_infServlet extends HttpServlet {
 				/***************************2.開始修改資料*****************************************/
 				Reg_infService reg_infSvc = new Reg_infService();
 				reg_infVO = reg_infSvc.cancelReg_inf(ri_status,ri_qty,ri_id);
-			    reg_infSvc.check_mt_numReg_inf();
+			    
 
 
 				Boolean ifCheckOutSucess = MoneyTool.checkOut_back(mem_id, 38, ri_id, amount);// 扣款請傳入負數
 				
                 
 				if (ifCheckOutSucess) {
-					
+					reg_infSvc.check_mt_numReg_inf();
 				String url = "/backend/reg_inf/listAllReg_inf_mt_no.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 結帳成功後轉交回原頁面會員頁面
 					successView.forward(req, res);

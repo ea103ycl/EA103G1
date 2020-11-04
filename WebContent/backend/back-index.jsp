@@ -23,9 +23,9 @@
     pageContext.setAttribute("list_preorder",list_preorder);
     
 //     等宏智的OrderDAO -> ds = ("java:comp/env/jdbc/G1") 改為EA103G1 
-//     OrderService orderSvc = new OrderService();
-//     List<OrderVO> list_order = orderSvc.getAll();
-//     pageContext.setAttribute("list_order", list_order);
+    OrderService orderSvc = new OrderService();
+    List<OrderVO> list_order = orderSvc.getAll();
+    pageContext.setAttribute("list_order", list_order);
     
   //-------------競標-------------
     BiddingService biddingSvc = new BiddingService();
@@ -41,12 +41,10 @@
 	
   //--------------引入會員------------------
 	MemService memSvc = new MemService();
-	List<MemVO> list_mem = memSvc.getAll();
+	List<MemVO> list_mem = memSvc.getAllDESC();
 	pageContext.setAttribute("list_mem",list_mem);
 	
-	
 %>
-
 <%
 	PreProductVO preproductVO = (PreProductVO) request.getAttribute("preproductVO");
 	DiscountSettingVO discountsettingVO = (DiscountSettingVO) request.getAttribute("discountsettingVO");
@@ -88,8 +86,8 @@
 		    .swiper-slide {
 		      background-position: center;
 		      background-size: cover;
-		      width: 300px;
-		      height: 300px;
+		      width: 220px;
+		      height: 220px;
 			  background: #000;
 		    }
 		    .swiper-slide img{
@@ -115,8 +113,8 @@
 		    .mem_slide {
 		      background-position: center;
 		      background-size: cover;
-		      width: 250px;
-		      min-height: 350px;
+		      width: 200px;
+		      min-height: 230px;
 			  background: #fff;
 			  margin:0 10px;
 		    }
@@ -127,9 +125,10 @@
 		    .mem_card{
 		      position:relative;
 		      width: 100%;
+		      height:100%;
 		      margin:0 auto;
 		      background: #333;
-		      padding: 60px 40px;
+		      padding: 50px 30px;
 		      text-align: center;
 		      overflow: hidden;
 		    }
@@ -250,16 +249,16 @@
 								<% pageContext.setAttribute("count_preorder",count_preorder); %>
 	                          </c:if>
                           </c:forEach>
-<%--                  等宏智的OrderDAO -> ds = ("java:comp/env/jdbc/G1") 改為EA103G1 --%>
-<%--                           <c:forEach var="orderVO" items="${list_order}"> --%>
-<%-- 	                          <c:if test="${orderVO.or_status >= 3}"> --%>
-<%-- 	                          	<%count_order += 1; %> --%>
-<%-- 								<% pageContext.setAttribute("count_order",count_order); %> --%>
-<%-- 	                          </c:if> --%>
-<%--                           </c:forEach> --%>
 
-                          <%=pageContext.getAttribute("count_preorder")%> / 
-<%--                           <%=pageContext.getAttribute("count_order")%> --%>
+                          <c:forEach var="orderVO" items="${list_order}">
+	                          <c:if test="${orderVO.or_status == 1}">
+	                          	<%count_order += 1; %>
+								<% pageContext.setAttribute("count_order",count_order); %>
+	                          </c:if>
+                          </c:forEach>
+
+                          <%=pageContext.getAttribute("count_preorder")%>件 / 
+                          <%=pageContext.getAttribute("count_order")%>件
                           
                           </div>
                         </div>
@@ -318,12 +317,12 @@
 											<div class="mem_card">
 												<div class="mem_layer"></div>
 												<div class="mem_content">
-													<p>${memVO.m_city}<br>${memVO.mem_id}</p>
+													<p>${memVO.m_city}<br>${memVO.m_name}</p>
 													<div class="mem_imgBx">
 														<img id="mem_img" src="<%=request.getContextPath()%>/backend/tools/memP_show.jsp?MEM_ID=${memVO.mem_id}">
 													</div>
 													<div class="details">
-														<h2>${memVO.m_name}<br><a href="#">這邊放會員主頁</a></h2>
+														<br><br>
 													</div>
 												</div>
 											</div>

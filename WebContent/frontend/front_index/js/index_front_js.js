@@ -80,37 +80,28 @@
         function scrollBottom() {
 
             // console.log('window.scrollY:' + window.scrollY);
-            // if ((window.innerHeight + window.scrollY) > document.body.offsetHeight) {
+            if ((window.innerHeight + window.scrollY) >= $('#lastDiv').offset().top) {
 
-            //     console.log('to bottom');
-            //     // loadImg();
-            //     // loadImg10();
-            //     loadMasonry();
+                // console.log('to bottom');
+                loadImg10();
+                loadMasonry();
 
-            // }
+            }
 
-            $(window).scroll(function() {
-                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                    // loadImg();
-                    loadImg10();
-                    loadMasonry();
-                }
-            });
+            // $(window).scroll(function() {
+            //     if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            //         loadImg10();
+            //         loadMasonry();
+            //     }
+            // });
         }
 
         // scroll down reload function=========================
-        function loadImg() {
-            if ($('#lastDiv')) {
-                var grid = document.getElementById("grid");
-                for (var i = 1; i < 12; i++) {
-                    var div = '<div class="grid-item"><img src="<%=request.getContextPath()%>/painter/painter.do?action=showPic&ptr_no=' + random() + '></div>';
-                    grid.append(div);
-                }
-            }
-        }
 
         // ====================================================
-        var rank = 5;
+
+
+        var rank = 15;
 
         function loadImg10() {
 
@@ -120,8 +111,12 @@
                 method: "post",
                 data: { action: "getMostLiked", rank: rank },
                 success: function(data) {
+                    if (data === "end") {
+                        console.log('end');
+                        return;
+                    }
                     $(".grid").append(data);
-                    rank += 5;
+                    rank += 15;
                 },
                 error: function() {
                     console.log('(index_front_js)LoadImg100 error');
@@ -279,6 +274,8 @@
         $('.grid-item').on('click', function(e) {
             $("#myModal").css('display', 'block');
             $("#img01").attr('src', e.target.src);
+            $("#img01-a").attr('href', contextPath + '/frontend/painter/onePainter.jsp?ptr_no=' + e.target.id);
+
             $("#img01").after('<input type="hidden" name="ptrno" value="' + e.target.id + '">');
             let ptrno = e.target.id;
 

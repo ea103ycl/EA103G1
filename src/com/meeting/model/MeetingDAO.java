@@ -8,6 +8,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.prod.model.ProdVO;
+
 
 public class MeetingDAO implements MeetingDAO_interface {
 
@@ -26,7 +28,7 @@ public class MeetingDAO implements MeetingDAO_interface {
 			"INSERT INTO meeting (mt_no,mem_id,mt_status,max_num,min_num,mt_place,ri_fee,mt_detail,mt_start_time,mt_end_time,mt_time,mt_id,mt_num,mt_pic) VALUES ('MT'||LPAD(meeting_seq.nextval, 5, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		private static final String GET_ALL_STMT = 
-				"SELECT mt_no,mem_id,mt_status,max_num,min_num,mt_place,ri_fee,mt_detail,mt_start_time,mt_end_time,mt_time,mt_id,mt_num,mt_pic FROM meeting order by mt_no desc";
+				"SELECT mt_no,mem_id,mt_status,max_num,min_num,mt_place,ri_fee,mt_detail,mt_start_time,mt_end_time,mt_time,mt_id,mt_num,mt_pic FROM meeting WHERE MT_STATUS = 0 order by mt_no desc";
 		
 		private static final String GET_ONE_STMT = 
 			"SELECT mt_no,mem_id,mt_status,max_num,min_num,mt_place,ri_fee,mt_detail,mt_start_time,mt_end_time,mt_time,mt_id,mt_num,mt_pic FROM meeting where mt_no = ?";
@@ -45,6 +47,9 @@ public class MeetingDAO implements MeetingDAO_interface {
 	
 		private static final String CANCEL_MEETING_SEARCH = "SELECT * FROM meeting WHERE MT_STATUS = 2 ORDER BY MT_NUM desc";
 
+		private static final String GET_FUZZY_QUERY = "SELECT * FROM MEETING WHERE mt_id LIKE ? AND MT_STATUS = 0";
+
+		
 	
 	
 	@Override
@@ -561,9 +566,74 @@ public void cancel(MeetingVO meetingVO) {
 	
 
 }
+	
+	//¼Ò½k¬d¸ß
+			@Override
+			public List<MeetingVO> FuzzySearch(String mt_id) {
+				
+				List<MeetingVO> list = new ArrayList<MeetingVO>();
+				MeetingVO meetingVO = null;
+
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+
+				try {
+					con = ds.getConnection();
+					pstmt = con.prepareStatement(GET_FUZZY_QUERY);
+					pstmt.setString(1, "%"+mt_id+"%");
+					rs = pstmt.executeQuery();
+					
+					while (rs.next()) {
+						meetingVO = new MeetingVO();
+						meetingVO.setMt_no(rs.getString("mt_no"));
+						meetingVO.setMem_id(rs.getString("mem_id"));
+						meetingVO.setMt_status(rs.getInt("mt_status"));
+						meetingVO.setMax_num(rs.getInt("max_num"));
+						meetingVO.setMin_num(rs.getInt("min_num"));
+						meetingVO.setMt_place(rs.getString("mt_place"));
+						meetingVO.setRi_fee(rs.getInt("ri_fee"));
+						meetingVO.setMt_detail(rs.getString("mt_detail"));
+						meetingVO.setMt_start_time(rs.getTimestamp("mt_start_time"));
+						meetingVO.setMt_end_time(rs.getTimestamp("mt_end_time"));
+						meetingVO.setMt_time(rs.getTimestamp("mt_time"));
+						meetingVO.setMt_id(rs.getString("mt_id"));
+						meetingVO.setMt_num(rs.getInt("mt_num"));	
+						meetingVO.setMt_pic(rs.getBytes("mt_pic"));	
+						
+						list.add(meetingVO); // Store the row in the list
+					
+					}
+					// Handle any SQL errors
+				} catch (SQLException se) {
+					throw new RuntimeException("A database error occured. " + se.getMessage());
+					// Clean up JDBC resources
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (pstmt != null) {
+						try {
+							pstmt.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (con != null) {
+						try {
+							con.close();
+						} catch (Exception e) {
+							e.printStackTrace(System.err);
+						}
+					}
+				}
+				return list;
+			}
 }
-
-
 
 
 

@@ -24,63 +24,14 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 <html>
 <head>
-<title>見面會_後台 - listAllMeeting_back.jsp</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport"
 			content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-<style>
- table {
-	width: 1550px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-    text-align: center;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-  h4 {
-  padding: 5px;
-    text-align: center;
-  }
-  body {
-    color: #666666;
-    background: #fefefe;
-    font-family: "Rubik", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.05em;
-}
-table#table-1 {
-	background-color: #C4E1E1;
-    border: 2px #ECF5FF;
-    text-align: center;
-    
-  }
-  table#table-1 h4 {
-    color: #613030;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  h4 {
-    color: blue;
-    display: inline;
-  }
-  h3 {
-  color: blue;
-    display: inline;
-</style>
-
-
-
+		<title>見面會_後台 - listAllMeeting_back.jsp</title>
+		<!-- favicon -->
+		<link rel="icon" href="<%=request.getContextPath()%>/backend/template/img/favicon.png">
 </head>
 <body id="page-top">
 	
@@ -98,12 +49,8 @@ table#table-1 {
 					<div class="container-fluid">				
 						<!--=====自定義內容start ================================================== -->
 			
-<table id="table-1">
-	<tr><td>
-		 <h3>見面會_後台 - listAllMeeting_back.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/backend/meeting/listAllMeeting_back.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
+<%-- 頁面標題 --%>
+		 <h1 class="h3 mb-2 text-gray-800">見面會_後台</h1>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -116,29 +63,29 @@ table#table-1 {
 	</ul>
 </c:if>
 
-<table>
-	<tr>
+<div class="table table-hover">
+<table class="table table-bordered text-center"
+       id="dataTableNoSearchChange" width="100%" cellspacing="0">
+	<thead>
+	<tr class="bg-gray-400">
 	    
-	     <th>狀態</th>
+	    <th>狀態</th>
 	    <th>活動名稱</th>
 	    <th>舉辦人ID</th>
 	    <th>日期</th>
-		
 		<th>報名期間</th>
-       
-       <th>人數</th>
-       <th>查詢</th>
-      
+        <th>人數</th>
+        <th>查詢</th>
 	</tr>
+	</thead>
+	
+	<tbody>
 	<%@ include file="page1.file" %> 
-	<div style="text-align:right;font-size:26px; font-color:red;"><a href='<%=request.getContextPath()%>/backend/meeting/cancel_meeting_search.jsp'>「取消的」</a> 見面會</div>
+  <h4 align="right">  <a href='<%=request.getContextPath()%>/backend/meeting/cancel_meeting_search.jsp'>「取消的」</a> 見面會</h4>
 	
 	<c:forEach var="meetingVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
-		<tr>
-		
-		  
-		<td>	    
+		<tr>	  
+		<td class="align-middle">	    
 <%-- 以下測試時間 --%>
 <fmt:formatDate value="<%=current %>" pattern="yyyy-MM-dd" var="now_time" />
 <fmt:formatDate value="${meetingVO.mt_start_time}" pattern="yyyy-MM-dd" var="mt_start_time" />
@@ -165,17 +112,17 @@ table#table-1 {
     </c:otherwise>
 </c:choose>   
 </td>		
-<td>${meetingVO.mt_id}</td> 
-		    <td>${meetingVO.mem_id}</td>	    
+            <td class="align-middle">${meetingVO.mt_id}</td> 
+		    <td class="align-middle">${meetingVO.mem_id}</td>	    
 	    		         
-		    <td><fmt:formatDate value="${meetingVO.mt_time}" pattern="yyyy-MM-dd" /></td> 
+		    <td class="align-middle"><fmt:formatDate value="${meetingVO.mt_time}" pattern="yyyy-MM-dd" /></td> 
 		     
-		    <td><fmt:formatDate value="${meetingVO.mt_start_time}" pattern="yyyy-MM-dd" /> ~ <fmt:formatDate value="${meetingVO.mt_end_time}" pattern="yyyy-MM-dd" /></td>		 
+		    <td class="align-middle"><fmt:formatDate value="${meetingVO.mt_start_time}" pattern="yyyy-MM-dd" /> ~ <fmt:formatDate value="${meetingVO.mt_end_time}" pattern="yyyy-MM-dd" /></td>		 
 
-		    <td>${meetingVO.mt_num}</td> 
+		    <td class="align-middle">${meetingVO.mt_num}</td> 
 		
-<td>
-         <form action="<%=request.getContextPath()%>/frontend/reg_inf/reg_inf.do" " method="get"><!-- action值填你的api url -->
+<td class="align-middle">
+         <form action="<%=request.getContextPath()%>/frontend/reg_inf/reg_inf.do" " method="post"><!-- action值填你的api url -->
 		 <input type="hidden" name="mt_no" value="${meetingVO.mt_no}" />
 		 <input type="submit" value="查詢" />
 		 <input type="hidden" name="action" value="getReg_inf_mt_no">
@@ -184,9 +131,12 @@ table#table-1 {
 		</tr>
 	</c:forEach>
 </table>
-
+<div style="text-align:center;">
 <%@ include file="page2.file" %>
-<%@include file="/backend/bar/footer.jsp"%>
+                          </div>
+					</div>								
+				</div>
+			</div>
 
 <!--===== 自定義內容end ================================================== -->
 					</div> <!--END OF container-fluid-->
@@ -196,7 +146,6 @@ table#table-1 {
 				<%@include file="/backend/bar/footer.jsp"%>
 				
 			</div><!--END OF content-wrapper -->
-		</div><!--END OF wrapper -->
 
 
 

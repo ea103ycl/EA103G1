@@ -158,6 +158,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="<%=request.getContextPath()%>/backend/bidding/vendor/jquery/jquery.min.js"></script>

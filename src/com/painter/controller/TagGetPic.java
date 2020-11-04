@@ -80,11 +80,11 @@ public class TagGetPic extends HttpServlet {
 				return;
 //				out.print("<div class=\"grid-item\"><h1>¸ê®Æ¤£¨¬</h1></div>");
 			}
-			List<PainterVO> list = pSvc.getMostLiked(rankBegin, rankBegin + 5);
+			List<PainterVO> list = pSvc.getMostLiked(rankBegin, rankBegin + 15);
 
 			for (PainterVO pVO : list) {
-				out.print("<div class=\"grid-item\">" + "<img src=" + req.getContextPath()
-						+ "/painter/ShowImage?ptr_no=" + pVO.getPtr_no() + "\"/>" + "</div>");
+				out.print("<div class='grid-item'>" + "<img src=' " + req.getContextPath()
+						+ "/painter/getOrigPtr.do?ptr_no=" + pVO.getPtr_no() + "'/>" + "</div>");
 			}
 		}
 

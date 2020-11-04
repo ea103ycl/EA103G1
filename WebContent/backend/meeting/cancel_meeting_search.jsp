@@ -25,102 +25,66 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 <html>
 <head>
-<title>取消的見面會 -cancel_meeting_search.jsp</title>
-
-<style>
-  table {
-	width: 1550px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-    text-align: center;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-  h4 {
-  padding: 5px;
-    text-align: center;
-  }
-  body {
-    color: #666666;
-    background: #fefefe;
-    font-family: "Rubik", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.05em;
-}
-table#table-1 {
-	background-color: #C4E1E1;
-    border: 2px #ECF5FF;
-    text-align: center;
-    
-  }
-  table#table-1 h4 {
-    color: #613030;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  h4 {
-    color: blue;
-    display: inline;
-  }
-  h3 {
-  color: blue;
-    display: inline;
-</style>
-
-
-
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  <meta name="description" content="">
+	  <meta name="author" content="">
+	  <title>取消的見面會 -cancel_meeting_search.jsp</title>
+		<!-- favicon -->
+		<link rel="icon" href="<%=request.getContextPath()%>/backend/template/img/favicon.png">
 </head>
-<body bgcolor='white'>
-
-
-<table id="table-1">
-	<tr><td>
-		 <h3>取消的見面會 -cancel_meeting_search.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/backend/meeting/listAllMeeting_back.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
+<body id="page-top">
 	
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+		<div id="wrapper">
+	
+			<%@include file="/backend/bar/backBarSide.jsp"%>
+	
+			<div id="content-wrapper" class="d-flex flex-column">		
+	
+				<div id="content">
+	
+					<!-- Topbar -->
+					<%@include file="/backend/bar/backBarTop.jsp"%>
+	
+					<div class="container-fluid">				
+					<!--=====自定義內容start ================================================== -->
+						
+						<%-- 頁面標題 --%>
+						<h1 class="h3 mb-2 text-gray-800">取消的見面會</h1>
+							  <h4><a href="<%=request.getContextPath()%>/backend/meeting/listAllMeeting_back.jsp">回首頁</a></h4>
+						
+                        <%-- 錯誤表列 --%>
+						<c:if test="${not empty errorMsgs}">
+							<font style="color: red">請修正以下錯誤:</font>
+							<ul>
+								<c:forEach var="message" items="${errorMsgs}">
+									<li style="color: red">${message}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
 
-<table>
-	<tr>
+<div class="table table-hover">
+<table class="table table-bordered text-center"
+       id="dataTableNoSearchChange" width="100%" cellspacing="0">
+	<thead>
+	<tr class="bg-gray-400">
 	    
-	     <th>狀態</th>
+	    <th>狀態</th>
 	    <th>活動名稱</th>
 	    <th>舉辦人ID</th>
 	    <th>日期</th>
-		
 		<th>報名期間</th>
-       
        <th>待退費人數</th>
        <th>查詢</th>
-      
 	</tr>
+	</thead>
+	
+	<tbody>
 	<%@ include file="page1.file" %> 
-	<c:forEach var="meetingVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
-		<tr>
-		
-		  
-		<td>	    
+	<c:forEach var="meetingVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">		
+		<tr> 
+		<td class="align-middle">	    
 <%-- 以下測試時間 --%>
 <fmt:formatDate value="<%=current %>" pattern="yyyy-MM-dd" var="now_time" />
 <fmt:formatDate value="${meetingVO.mt_start_time}" pattern="yyyy-MM-dd" var="mt_start_time" />
@@ -130,50 +94,48 @@ table#table-1 {
 
 
 <c:choose> 
-  <c:when test="${mt_status == 2}">
-           <font color=red> 活動已取消</font>
+   <c:when test="${meetingVO.mt_num ==0}">
+             退費完畢
     </c:when>
-    <c:when test="${now_time gt mt_time}">
-             活動已結束
-    </c:when>
-   <c:when test="${now_time gt mt_end_time}">
-         報名截止
-    </c:when>
-    <c:when test="${mt_start_time gt now_time}">
-              即將開放
-    </c:when>
+
     <c:otherwise>
-          開放報名
+          <font color=red>活動已取消，待退費</font>
     </c:otherwise>
 </c:choose>   
-</td>		
+</td>	
+	
 <td>${meetingVO.mt_id}</td> 
 		    <td>${meetingVO.mem_id}</td>	    
 	    		         
-		    <td><fmt:formatDate value="${meetingVO.mt_time}" pattern="yyyy-MM-dd" /></td> 
+		    <td class="align-middle"><fmt:formatDate value="${meetingVO.mt_time}" pattern="yyyy-MM-dd" /></td> 
 		     
-		    <td><fmt:formatDate value="${meetingVO.mt_start_time}" pattern="yyyy-MM-dd" /> ~ <fmt:formatDate value="${meetingVO.mt_end_time}" pattern="yyyy-MM-dd" /></td>		 
+		    <td class="align-middle"><fmt:formatDate value="${meetingVO.mt_start_time}" pattern="yyyy-MM-dd" /> ~ <fmt:formatDate value="${meetingVO.mt_end_time}" pattern="yyyy-MM-dd" /></td>		 
 
-		    <td>${meetingVO.mt_num}</td> 
+		   <td class="align-middle">${meetingVO.mt_num}</td> 
 		
-<td>
-         <form action="<%=request.getContextPath()%>/frontend/reg_inf/reg_inf.do" " method="get"><!-- action值填你的api url -->
-		 <input type="hidden" name="mt_no" value="${meetingVO.mt_no}" />
-		 <input type="submit" value="查詢" />
-		 <input type="hidden" name="action" value="getReg_inf_mt_no">
-		  </form>
-		 </td>
+           <td class="align-middle">
+             <form action="<%=request.getContextPath()%>/frontend/reg_inf/reg_inf.do" " method="get"><!-- action值填你的api url -->
+		     <input type="hidden" name="mt_no" value="${meetingVO.mt_no}" />
+		     <input type="submit" value="查詢" />
+		     <input type="hidden" name="action" value="getReg_inf_mt_no">
+		     </form>
+		  </td>
 		</tr>
-	</c:forEach>
+	   </c:forEach>
+    </tbody>
 </table>
 
-
-
-
-  
-
-
+<div style="text-align:center;">
 <%@ include file="page2.file" %>
-
+                         </div>
+					</div>								
+				</div>
+			</div>
+	       <!--===== 自定義內容end ================================================== -->
+		</div> <!--END OF container-fluid-->
+	</div>	
+			
+		<%@include file="/backend/bar/footer.jsp"%>
+</div>
 </body>
 </html>

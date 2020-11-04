@@ -4,109 +4,49 @@
 <%@ page import="com.mem.model.*"%>
 <%@ page import="com.wel_record.model.*"%>
 <%@ page import="java.util.*"%>
-
 <%
 	MeetingVO meetingVO = (MeetingVO) request.getAttribute("meetingVO");
 %>
-<%= meetingVO==null %>
+
+<%-- <%= meetingVO==null %> --%>
 
 <%
 	WelRecordVO welRecordVO = (WelRecordVO) request.getAttribute("welRecordVO");
-
 	MemVO memVO = (MemVO) session.getAttribute("memVO");
-
 %>
-
 <!DOCTYPE html>
 <html>
-<!-- page title -->
-<title>羭快ǎ穦 - addAllMeeting.jsp</title>
 <head>
-<meta charset="UTF-8">
-<style>
-  table#table-1 {
-	background-color: #C4E1E1;
-    border: 2px #ECF5FF;
-    text-align: center;
-    
-  }
-  table#table-1 h4 {
-    color: #613030;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  h4 {
-    color: blue;
-    display: inline;
-  }
-  h3 {
-  color: blue;
-    display: inline;
-  }
-</style>
 
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-    text-align: center;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-  h4 {
-  padding: 5px;
-    text-align: center;
-  }
-  body {
-    color: #666666;
-    background: #fefefe;
-    font-family: "Rubik", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.05em;
-}
-
-</style>
-
-
+	<!-- top bar -->
+	<%@include file="/frontend/bar/frontBarTop.jsp"%>
+	
+	<!-- page title -->
+	<title>羭快ǎ穦</title>
+	
+	<style>
+		.roger-mt{
+			margin-bottom:30px;
+		}
+	</style>
 </head>
 
 
 <body>
-<!-- header -->
 
-	<header>
-
-		<%@include file="/frontend/bar/frontBarTop.jsp"%>
-
-		    <!-- header-banner -->
-    <div id="header-banner">
-        <div class="banner-content single-page text-center">
-            <div class="banner-border">
-                <div class="banner-info" id="banner-info">
-                    <h1>AddMeeting</h1>
-                </div><!-- / banner-info -->
-            </div><!-- / banner-border -->
-        </div><!-- / banner-content -->
-    </div>
-    <!-- / header-banner -->
-	</header>
-	<!-- / header -->
-<table id="table-1">
-	<tr><td>
-		 <h3>羭快ǎ穦 - addMeeting.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/frontend/meeting/listAllMeeting_front.jsp"></a></h4>
-	</td></tr>
-</table>
+	<section class="space-top-30">
+	<div id="page-content" class="container">
+	
+	    <div class="row">
+	     <!-------------------------------------------------------------------------------- ﹚竡ず甧START------------------------- -->
+	        <div class="roger-mt">
+	        	<button type="button"  onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/listAllMeeting_front.jsp'" class="btn btn-primary-filled">ǎ穦-</button>	        	        	        
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/addMeeting.jsp'" class="btn btn-lg btn-primary">羭快ǎ穦</button>
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/meeting/search_mem_meeting.jsp'" class="btn btn-primary-filled">и羭快ǎ穦</button>
+		        <button type="button" onclick="location.href='<%=request.getContextPath()%>/frontend/reg_inf/listAllReg_inf.jsp'" class="btn btn-primary-filled">и厨ǎ穦</button>
+	        </div>
+	        
+	        <%-- ず甧START --%>
 
 <h3>戈穝糤:</h3>
 
@@ -142,13 +82,13 @@
 
 	<tr>
 		<td>计:</td>
-		<td><input type="TEXT" name="max_num" size="3"
+		<td><input type="TEXT" name="max_num" size="3" oninput = "value=value.replace(/[^\d]/g,'')"
 			 value="<%= (meetingVO==null)? "" : meetingVO.getMax_num()%>" /></td>
 	</tr>
 
 	<tr>
 		<td>计:</td>
-		<td><input type="TEXT" name="min_num" size="3"
+		<td><input type="TEXT" name="min_num" size="3" oninput = "value=value.replace(/[^\d]/g,'')"
 			 value="<%= (meetingVO==null)? "" : meetingVO.getMin_num()%>" /></td>
 	</tr>
 	
@@ -160,13 +100,13 @@
 	
 	<tr>
 		<td>厨禣:</td>
-		<td><input type="TEXT" name="ri_fee" size="3"
+		<td><input type="TEXT" name="ri_fee" size="3" oninput = "value=value.replace(/[^\d]/g,'')"
 			 value="<%= (meetingVO==null)? "" : meetingVO.getRi_fee()%>" />じ</td>
 	</tr>
 	
 	<tr>
 		<td>笆虏ざ:</td>
-		<td><textarea name="mt_detail"  size="30"
+		<td><textarea name="mt_detail" rows="5" cols="20"
 			 value="<%= (meetingVO==null)? "" : meetingVO.getMt_detail()%>" /></textarea></td>
 	</tr>
 	
@@ -201,14 +141,17 @@
 </table>
 
 <input type="hidden" name="action" value="insert">
-<div style="text-align:center;"><input type="submit" value="癳穝糤"></div></FORM>
+<div style="text-align:center;"><input class="btn btn-primary-filled btn-pill" type="submit" value="癳穝糤"></div></FORM>
 
-<!-- footer -->
+<%-- ず甧END --%>
+		<!-------------------------------------------------------------------------------- ﹚竡ず甧END------------------------- -->
+	    </div><!-- / row -->
+	</div> <!-- end container -->
+	</section>
 
+	<!-- footer -->
 	<%@include file="/frontend/bar/frontBarFooter.jsp"%>
 
-	<!-- / footer -->
-</body>
 
 <!-- ========================================= datetimepicker ぇ闽砞﹚========================================== -->
 
@@ -263,5 +206,5 @@ $(function(){
 });
 </script>
 
-
+</body>
 </html>

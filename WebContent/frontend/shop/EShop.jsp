@@ -182,16 +182,12 @@ pageContext.setAttribute("list", list);
 <%@include file="/frontend/bar/frontBarFooter.jsp"%>
 <!--------------------------------------- /footer --------------------------------------->
    
-    <script src="<%=request.getContextPath() %>/frontend/template/jquery/jquery.min.js" ></script>
+    <script src="<%=request.getContextPath() %>/frontend/template/js/jquery/jquery.min.js"></script>
 	<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.easing.min.js"></script><!-- return to top id -->
 	<script src="<%=request.getContextPath()%>/frontend/template/tonyTools/sweetAlert/sweetalert.min.js"></script>
 
  <script>
-$(document).ready(function(){
-	
-	 
-	 
-	 
+$(document).ready(function(){ 
  for(let i = 1 ; i <= <%=list.size()%> ; i++){
   $("#addcart" + i).click(function(){
     var prod_no = $("#prod_no" + i ).val();

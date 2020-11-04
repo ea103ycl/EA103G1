@@ -8,6 +8,8 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
 import com.meeting.model.MeetingVO;
+import com.prod.model.ProdService;
+import com.prod.model.ProdVO;
 
 import tools.MoneyTool;
 
@@ -628,6 +630,55 @@ public class MeetingServlet extends HttpServlet {
 				}
 				
                }
+               /***************************以下為搜尋功能*****************************************/
+             //模糊查詢
+   			if ("Fuzzy_Search".equals(action)) { // 來自select_page.jsp的請求
+   				
+   		    	List<String> errorMsgs = new LinkedList<String>();
+   				req.setAttribute("errorMsgs", errorMsgs);
+   				
+   				HttpSession session = req.getSession();
+
+   				try {
+   					/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+   					String mt_id = req.getParameter("mt_id");
+   					/***************************2.開始查詢資料*****************************************/
+   					MeetingService meetingSvc = new MeetingService();
+   					List<MeetingVO> fuzzy_list = new ArrayList<MeetingVO>();
+   					fuzzy_list = meetingSvc.FuzzySearch(mt_id);
+   					
+   					if (fuzzy_list.size()==0) {
+   						errorMsgs.add("查無相關見面會");
+   						session.setAttribute("fuzzy_list",fuzzy_list);
+   					}
+   					
+   					if (!errorMsgs.isEmpty()) {
+   						RequestDispatcher failureView = req
+   								.getRequestDispatcher("/frontend/meeting/meeting_fuzzy_search.jsp");
+   						failureView.forward(req, res);
+   						return;//程式中斷
+   					}
+   					
+   					/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+   					session.setAttribute("fuzzy_list", fuzzy_list); 
+   					RequestDispatcher successView = req.getRequestDispatcher("/frontend/meeting/meeting_fuzzy_search.jsp"); 
+   					successView.forward(req, res);
+
+   					/***************************其他可能的錯誤處理*************************************/
+   				} catch (Exception e) {
+   					errorMsgs.add("查詢失敗!!:" + e.getMessage());
+   					RequestDispatcher failureView = req
+   							.getRequestDispatcher("/frontend/meeting/meeting_fuzzy_search.jsp");
+   					failureView.forward(req, res);
+   			
+   				}
+   			}
+               
+               
+               
+               
+               
+               
           }
 	}
 	

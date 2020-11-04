@@ -18,7 +18,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 	
-		<title>我是標題</title>
+		<title>員工修改</title>
 	</head>
 
 	<body id="page-top">
@@ -178,7 +178,7 @@
 <input type="hidden" name="emp_no" value="<%=emp_Account_VO.getEmpNo()%>">
 <button class="btn btn-primary" type="button" onclick="selAll();">全選</button>  
 <button class="btn btn-primary" type="button" onclick="unselAll();">全取消</button>  
-<button class="btn btn-primary" type="button" id="click">Click Me</button>  
+<button class="btn btn-secondary" type="button" id="click">Click Me</button>  
 <button class="btn btn-primary" type="submit">送出修改</button>
 
 <!-- </div> -->

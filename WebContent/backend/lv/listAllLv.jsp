@@ -109,10 +109,13 @@
 														        onclick="location.href='<%=request.getContextPath()%>/lv/lv.do?action=getOneForUpdate&lv=${lvVO.lv}'">
 															<span class="text">修改</span>
 														</button>
-														<button class="btn btn-primary btn-icon-split mt-1 ml-3 "
-														onclick="location.href='<%=request.getContextPath()%>/lv/lv.do?action=delete&lv=${lvVO.lv}'">
-															<span class="text">刪除</span>
-														</button>
+														
+														<c:if test="${lvVO.lv!=1}">
+															<button class="btn btn-primary btn-icon-split mt-1 ml-3 deleteLvBtn " value="${lvVO.lv}">
+																<span class="text">刪除</span>
+															</button>
+														</c:if>
+														
 													</td>
 												</tr>
 											</c:forEach>
@@ -136,8 +139,28 @@
 			</div><!--END OF content-wrapper -->
 		</div><!--END OF wrapper -->
 	
+		<!-- 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+		<script src="<%=request.getContextPath()%>/backend/template/YCL/sweetalert.min.js"></script>
+		
 		<script>
-		<!--JavaScript內容-->
+			$('.deleteLvBtn').click(function() {
+				let lvID = $(this).val();
+				alert(lvID);
+				swal({
+					  title: "刪除里程碑",
+					  text: "確定要刪除里程碑嗎？",
+					  icon: "warning",
+					  buttons: ["取消", "確定"],
+					  dangerMode: true,
+					})
+					.then((willDelete) => {
+					  if (willDelete) {
+						  location.href='<%=request.getContextPath()%>/lv/lv.do?action=delete&lv=' + lvID;
+					  } else {
+					   null;
+					  }
+					});
+			});
 		</script>
 						
 	</body>
