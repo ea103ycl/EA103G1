@@ -62,20 +62,16 @@
 		class="com.painter_tag_map.model.PainterTagMapService" />
 	<jsp:useBean id="ptmsgSvc" scope="page"
 		class="com.painter_msg.model.PainterMsgService" />
-	
-	<input type="hidden" value="<%=request.getContextPath()%>" id="contextPath">
-<!-- 	<span>大源 點擊會員頭貼 進入會員葉面超連結 <a href=""><span> -->
-<!-- 	<span> 雙擊圖片 like+1 再次雙擊 like-1<span> -->
 
+	<input type="hidden" value="<%=request.getContextPath()%>"
+		id="contextPath">
 
 	<!-- ======= Mobile nav toggle button ======= -->
 	<button type="button" class="mobile-nav-toggle d-xl-none">
 		<i class="icofont-navigation-menu"></i>
 	</button>
 	<!-- ======= Header ======= -->
-	<header id="header">
-		
-	</header>
+	<header id="header"> </header>
 	<!-- End Header -->
 	<main id="main">
 		<!-- ======= Breadcrumbs ======= -->
@@ -150,7 +146,8 @@
 					<!-- ====searchBlcok================== -->
 					<div id="searchBlock" ondrop="drop(event)"
 						ondragover="allowDrop(event)">
-						<h2 id="searchBlock-icon" style="display:none; color: #ad8b60; margin: 0 0 0 -3px;">ArtsBlock</h2>
+						<h2 id="searchBlock-icon"
+							style="display: none; color: #ad8b60; margin: 0 0 0 -3px;">ArtsBlock</h2>
 						<div id="searchBlockMid">
 							<form id="searchForm1" method="post"
 								action="<%=request.getContextPath()%>/painter/TagGetPic"
@@ -218,9 +215,11 @@
 					<div class="myContainer container">
 						<div class="row" id="modal-content">
 							<div class="modal-left col-md-8" style="padding: 0">
-								<img class="modal-content" id="img01"
+								<a id="img01-a" href=""> <img class="modal-content" id="img01"
 									style="border: 0; border-radius: 25px 0 0 25px">
+								</a>
 							</div>
+
 							<div class=" modal-right col-md-4">
 
 								<c:choose>
@@ -295,7 +294,8 @@
 						<div class="grid" id="grid">
 							<c:forEach var="pVO" items="${pSvc.getMostLiked(1,7)}">
 								<div class="grid-item">
-									<img draggable='true' ondragstart="drag(event);" id='${pVO.ptr_no}'
+									<img draggable='true' ondragstart="drag(event);"
+										id='${pVO.ptr_no}'
 										src="<%=request.getContextPath()%>/painter/getOrigPtr.do?ptr_no=${pVO.ptr_no}">
 								</div>
 							</c:forEach>
@@ -338,8 +338,8 @@
 		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/typed.js/typed.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/frontend/front_index/assets/vendor/aos/aos.js"></script>
-<!-- 	<script -->
-<%-- 		src="<%=request.getContextPath()%>/frontend/front_index/js/masonry.js"></script> --%>
+	<!-- 	<script -->
+	<%-- 		src="<%=request.getContextPath()%>/frontend/front_index/js/masonry.js"></script> --%>
 
 	<!-- Template Main JS File -->
 	<script
