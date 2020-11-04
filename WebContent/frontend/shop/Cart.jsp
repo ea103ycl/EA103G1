@@ -197,8 +197,8 @@ for (int index = 0; index < buylist.size(); index++) {
             </div><!-- / cart-total -->
 
             <div class="col-sm-6 cart-checkout">
-                <a href="EShop.jsp" class="btn btn-default-filled btn-rounded"><i class="lnr lnr-cart"></i> <span>再逛逛</span></a>
-                <a href="Checkout.jsp" class="btn btn-primary-filled btn-rounded"><i class="lnr lnr-exit"></i> <span>結帳去</span></a>
+                <a href="EShop.jsp" class="btn btn-primary-filled btn-rounded"><i class="lnr lnr-cart"></i> <span>再逛逛</span></a>
+                <a href="Checkout.jsp" class="btn btn-primary-filled btn-rounded" style="margin:0 0 0 20px;"><i class="lnr lnr-exit"></i> <span>結帳去</span></a>
             </div><!-- / cart-checkout -->
 
 
