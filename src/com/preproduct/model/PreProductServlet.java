@@ -12,6 +12,7 @@ import javax.servlet.http.*;
 
 import com.discount.model.DiscountSettingService;
 import com.discount.model.DiscountSettingVO;
+import com.preorderdetail.model.PreOrderDetailService;
 import com.preproduct.model.PreProductVO;
 import com.preproduct.model.PreProductService;
 
@@ -448,16 +449,21 @@ public class PreProductServlet extends HttpServlet{
 				/***************************1.接收請求參數***************************************/
 				String po_prod_no = new String(req.getParameter("po_prod_no"));
 				System.out.println("取得po_prod_no = "+po_prod_no);
-
-				if(!(req.getParameterValues("dis_no").equals(null))) {
-					String dis_no [] = req.getParameterValues("dis_no");
-					System.out.println("取得dis_no[] = "+dis_no[0] + dis_no[1]);
-					
-					DiscountSettingService discountsettingSvc = new DiscountSettingService();
-					for(int i=0;i<dis_no.length;i++) {
-						discountsettingSvc.deleteDiscountSetting(dis_no[i]);
-					}
-				}
+//				System.out.println(req.getParameter("dis_no"));
+//				System.out.println(req.getParameter("po_prod_detail"));
+				
+				
+//				if((req.getParameter("dis_no")!=null)) {
+//					String dis_no = req.getParameter("dis_no");
+//					System.out.println("取得dis_no = "+dis_no);
+//					DiscountSettingService discountsettingSvc = new DiscountSettingService();
+//					discountsettingSvc.deleteDiscountSetting(dis_no);
+//				}
+//				if((req.getParameter("po_prod_detail")!=null)) {
+//
+//					PreOrderDetailService preorderdetailSvc = new PreOrderDetailService();
+//					preorderdetailSvc.deletePreOrderDetail(po_prod_no);
+//				}
 				
 				
 				/***************************2.開始刪除資料***************************************/

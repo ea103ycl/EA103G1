@@ -75,7 +75,7 @@ public class DiscountSettingServlet extends HttpServlet{
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				System.out.println("新增完成,準備轉交url");
-				String url = "/backend/preproduct/preproduct.jsp";
+				String url = "/backend/preproduct/backendindex.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);	
 				

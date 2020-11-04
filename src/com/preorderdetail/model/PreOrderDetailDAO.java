@@ -37,6 +37,8 @@ public class PreOrderDetailDAO implements PreOrderDetailDAO_interface{
 			"SELECT po_no,po_prod_no,po_qty,po_price FROM PRE_ORDER_DETAIL where po_no = ?";
 		private static final String DELETE = 
 			"DELETE FROM PRE_ORDER_DETAIL where po_no = ?";
+		private static final String DELETE_By_PoProdNo = 
+			"DELETE FROM PRE_ORDER_DETAIL where po_prod_no = ?";
 		private static final String UPDATE = 
 			"UPDATE PRE_ORDER_DETAIL set po_prod_no=?, po_qty=?, po_price=? where po_no = ?";
 		private static final String GET_DetailByPo_no_STMT = 
@@ -435,6 +437,43 @@ public class PreOrderDetailDAO implements PreOrderDetailDAO_interface{
 			
 			
 			return list;
+		}
+		@Override
+		public void deleteBypo_prod_no(String po_prod_no) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(DELETE_By_PoProdNo);
+
+				pstmt.setString(1, po_prod_no);
+
+				pstmt.executeUpdate();
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			
 		}
 
 		
