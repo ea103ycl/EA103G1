@@ -30,6 +30,9 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 		if ("event_no".equals(sctae.getName())) {
 			String event_no = (String) sctae.getValue();
 			System.out.println("(EventEndCheckListener) get event_no:" + event_no);
+			if(event_no==null) {
+				return;
+			}
 			BdRedis bdr = new BdRedis();
 			bdr.registerBdNo(event_no);
 			
@@ -38,6 +41,8 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 			ctx.setAttribute("latestBd1", list.get(0));
 			ctx.setAttribute("latestBd2", list.get(1));
 			ctx.setAttribute("latestBd3", list.get(2));
+			
+		
 		}
 	}
 
@@ -46,6 +51,10 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 		if ("event_no".equals(sctae.getName())) {
 			String event_no = (String) sctae.getValue();
 			System.out.println("(EventEndCheckListener) get event_no:" + event_no);
+			
+			if(event_no==null) {
+				return;
+			}
 			BdRedis bdr = new BdRedis();
 			bdr.registerBdNo(event_no);
 			
@@ -55,11 +64,10 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 				return;
 			}
 			ctx.setAttribute("latestBd1", list.get(0));
-			System.out.println(list.get(0));
 			ctx.setAttribute("latestBd2", list.get(1));
-			System.out.println(list.get(1));
 			ctx.setAttribute("latestBd3", list.get(2));
-			System.out.println(list.get(2));
+			
+		
 		}
 	}
 
