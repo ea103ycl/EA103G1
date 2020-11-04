@@ -237,7 +237,6 @@ public class BdPageServlet extends HttpServlet {
 				try {
 
 					bdNo = req.getParameter("bdNo");
-					System.out.println("bdNo"+bdNo);
 					MemService memSvc = new MemService();
 
 					// ================getting Top bidders============
