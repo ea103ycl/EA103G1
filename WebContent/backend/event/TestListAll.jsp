@@ -6,6 +6,7 @@
 <%@ page import="com.event.model.*"%>
 <!-- 取得list -->
 <%
+	HttpSession sess=request.getSession();
 	EventDAO dao = new EventDAO();
 	List<EventVO> eventVOs = dao.findAllEvent();
 	pageContext.setAttribute("eventVOs", eventVOs);
@@ -66,6 +67,7 @@ table.table {
 					<h4>資料查詢:</h4>
 					<ul>
 						<li><a href="TestListAll.jsp">List All</a></li>
+						
 						<li>
 
 							<form action="<%=request.getContextPath() %>/backend/event/EventServlet" method="post">
