@@ -65,6 +65,10 @@
 
 	<input type="hidden" value="<%=request.getContextPath()%>"
 		id="contextPath">
+	<c:if test="${not empty ptrnoList}">
+		<input type="hidden" id="ptrnoList" value="hasPtrnoList">
+	</c:if>
+		
 
 	<!-- ======= Mobile nav toggle button ======= -->
 	<button type="button" class="mobile-nav-toggle d-xl-none">
