@@ -120,7 +120,16 @@
 	            				</a>
 	            				
 	            				<!-- 發布日期 -->
-	            				<fmt:formatDate value="${painterVO.create_dt}" pattern="yyyy/MM/dd HH:mm"/></p>
+	            				<fmt:formatDate value="${painterVO.create_dt}" pattern="yyyy/MM/dd HH:mm"/>
+	            				
+	            				<!-- 隱私權圖示 -->
+	            				<c:choose>
+	            				    <c:when test="${painterVO.priv_stat==1}"><span class="ycl-priv-stat-icon" title="公開">‧ <i class="fa fa-globe"></i></span></c:when>
+	            				    <c:when test="${painterVO.priv_stat==2}"><span class="ycl-priv-stat-icon" title="個人">‧ <i class="lnr lnr-lock"></i></c:when>
+	            				    <c:when test="${painterVO.priv_stat==3}"><span class="ycl-priv-stat-icon" title="粉絲">‧ <i class="lnr lnr-users"></i></c:when>
+	            				</c:choose>
+	            				
+	            			</p>
 						    	
 						    	<!-- 作品說明 -->
 						    	<div class="ycl-painter-desc">
@@ -206,7 +215,7 @@
 		                            
 		                                <a href="<%=request.getContextPath()%>/frontend/painter/listAllPainter.jsp?sid=${painterMsgVO.mem_id}">
 											<%--<img class="media-object" alt="" src="<%=request.getContextPath()%>/members/headphotoHandler.do?action=getPic&mem_id=${painterMsgVO.mem_id}"> --%>
-		                                    <img class="media-object ycl-creator-pic" alt="" src="<%=request.getContextPath()%>/painter/painter.do?action=showCreatorPhoto&sid=${painterMsgVO.mem_id}">
+		                                    <img class="media-object" alt="" src="<%=request.getContextPath()%>/painter/painter.do?action=showCreatorPhoto&sid=${painterMsgVO.mem_id}">
 		                                </a>
 		                            </div>
 		                            
@@ -303,6 +312,15 @@
 			        <h4 class="modal-title" id="updateModalLabel">修改作品</h4>
 			      </div>
 			      <div class="modal-body">
+
+                    <c:if test="${not empty errorMsgsForUpdate}">
+						<font style="color: red">請修正以下錯誤:</font>
+						<ul>
+							<c:forEach var="message" items="${errorMsgsForUpdate}">
+								<li style="color: red">${message}</li>
+							</c:forEach>
+						</ul>
+					</c:if>
 			      
 			        <form method="post" action="<%=request.getContextPath()%>/painter/painter.do" enctype="multipart/form-data">
 
@@ -321,7 +339,7 @@
 	                    </div>
 	                    
 			        	<div class="form-group">
-	                        <label>作品名稱</label>
+	                        <label>作品名稱</label><span class="btn btn-xs btn-danger-filled btn-rounded" id="ptrNmMsg" style="display:none;"><i class="fa fa-times"></i><span>請輸入作品名稱</span></span></label>
 	                        <input type="text" class="form-control" id="ptr_nm" name="ptr_nm" placeholder="請輸入作品名稱" required="required" data-error="*請輸入作品名稱" 
 	                        	   value="${painterVO.ptr_nm}" maxlength="33">
 	                    </div>
@@ -333,8 +351,8 @@
 	                    </div>
 						
 			        	<div class="form-group">
-	                        <label>HashTag</label>
-	                        <input class="form-control" id="tag_desc" name="tag_desc" placeholder="請輸入作品tag" value="${tagString}" maxlength="33">  
+	                        <label>HashTag</label><span class="btn btn-xs btn-danger-filled btn-rounded errMsg" id="ptrTagDescMsg" style="display:none;"><i class="fa fa-times"></i><span>tag過長，每個tag最多只能100個英文字或33個中文字</span></span>
+	                        <input class="form-control" id="tag_desc" name="tag_desc" placeholder="請輸入作品tag(需以#分開)" value="${tagString}">  
 	                    </div>
 	                    
 	                    <div class="form-group">
@@ -348,8 +366,9 @@
                     	<input style="display:none" name="sid" value="${sid}">
                     	
 	                     <div class="modal-footer">
+	                        <span class="btn btn-xs btn-danger btn-rounded" id="submitErrMsg" style="display:none;"><i class="fa fa-times"></i><span>請修正錯誤</span></span>
 				        	<button type="submit" class="btn btn-primary btn-rounded" data-dismiss="modal">取消</button>
-				        	<button type="submit" class="btn btn-primary-filled btn-rounded" name="action" value="update">修改</button>
+				        	<button type="submit" class="btn btn-primary-filled btn-rounded" id="updatePtrBtn" name="action" value="update">修改</button>
 				      	 </div>
 
 			        </form>			      
@@ -524,6 +543,36 @@
 				event.preventDefault();
 			}
 		});
+		
+		window.onload=function (){
+			var isNoErr = ${ empty errorMsgsForUpdate };
+			console.log('修改作品時是否沒問題?', isNoErr);
+			if(!isNoErr){
+				$('#updateModal').modal('show');
+			}
+		}
+		
+	    $("#updatePtrBtn").click(function(){
+	    	let check = true;
+	    	let ptr_nm = ($("#ptr_nm").val()).trim();
+	    	
+	    	//先將已修改的內容去除提示文字
+	        if( ptr_nm != null && ptr_nm.length > 1 ){
+	        	$('#ptrNmMsg').css('display', 'none');
+	        }
+	        
+	        //再做錯誤處理
+	    	if(ptr_nm == null || ptr_nm.length == 0 ){
+	    		$('#ptrNmMsg').css('display', 'inline-block');
+	    		$('#ptr_nm').focus(); //跳回輸入框內
+	        	check = false;
+	        }
+
+	        if( !check ){
+	        	event.preventDefault();
+	        }
+	        	
+	    })
 		
 	</script>
 	

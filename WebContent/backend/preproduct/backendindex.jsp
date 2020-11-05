@@ -164,7 +164,7 @@
 														<input type="submit" value="刪除">
 														<c:forEach var="preorderdetailVO" items="${preorderdetailSvc.getAll()}">
 															<c:if test="${preproductVO.po_prod_no==preorderdetailVO.po_prod_no}">
-												                <input type="text" name="po_prod_detail"  value="${preproductVO.po_prod_no}">
+												                <input type="hidden" name="po_prod_detail"  value="${preproductVO.po_prod_no}">
 											                </c:if>
 										                </c:forEach>
 														<input type="hidden" name="po_prod_no"  value="${preproductVO.po_prod_no}">

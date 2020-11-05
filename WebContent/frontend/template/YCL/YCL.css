@@ -225,6 +225,14 @@ textarea{
 	max-width:500px !important;
 }
 
-pre {border: 0; background-color: transparent;}
+.ycl-priv-stat-icon{
+	color:gray;
+	font-size:10px;
+}
+
+pre {border: 0; 
+background-color: transparent;
+white-space: pre-wrap;
+word-wrap: break-word;}
 
 </style>

@@ -276,7 +276,8 @@ $('.grid').on('click', function(e) {
 
 		$("#myModal").css('display', 'block');
 		$("#img01").attr('src', e.target.src);
-		$("#img01-a").attr('href', contextPath + '/frontend/painter/onePainter.jsp?ptr_no=' + e.target.id + '"');
+//		$("#img01-a").attr('href', contextPath + '/frontend/painter/onePainter.jsp?ptr_no=' + e.target.id + '"');
+		$("#img01-a").attr('href', contextPath + '/frontend/painter/onePainter.jsp?ptr_no=' + e.target.id);
 
 		$("#img01").after('<input type="hidden" name="ptrno" value="' + e.target.id + '">');
 		let ptrno = e.target.id;

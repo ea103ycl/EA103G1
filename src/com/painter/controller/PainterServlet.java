@@ -196,7 +196,7 @@ public class PainterServlet extends HttpServlet {
 		if ("update".contentEquals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("errorMsgsForUpdate", errorMsgs);
 			Integer ptr_no = Integer.valueOf(req.getParameter("ptr_no")); // 作品編號
 			String src = (String) req.getParameter("src");
 			String sid = (String) req.getParameter("sid");
@@ -210,6 +210,11 @@ public class PainterServlet extends HttpServlet {
 
 				if (ptr_nm == null || (ptr_nm.trim()).length() == 0) {
 					errorMsgs.add("請輸入作品名稱");
+				}
+
+				boolean isTagDescTooLong = checkTagLength(tag_desc);
+				if(!isTagDescTooLong) {
+					errorMsgs.add("tag過長，每個tag最多只能100個英文字或33個中文字");
 				}
 
 				Part filePart = req.getPart("imgPath");
