@@ -56,13 +56,13 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 				return;
 			}
 			BdRedis bdr = new BdRedis();
-			System.out.println("#1");
+//			System.out.println("#1");
 			bdr.registerBdNo(event_no);
-			System.out.println("#2");
+//			System.out.println("#2");
 			ServletContext ctx = sctae.getServletContext();
-			System.out.println("#3");
+//			System.out.println("#3");
 			List<String> list = getLatestBdNo(event_no, 3);
-			System.out.println("#4");
+//			System.out.println("#4");
 			if (list.size() < 3) {
 			}
 			ctx.setAttribute("latestBd1", list.get(0));
@@ -83,17 +83,9 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 			Integer i = (Integer.valueOf(bdNo.substring(1)) - j);
 
 			String latest1 = "000000" + String.valueOf(i);
-			if (bdSvc.getOne("B" + latest1) != null) {
 				latest1 = "E" + latest1.substring(latest1.length() - 6);
 				System.out.println("(EventEndCheckListener)Epno:" + latest1);
 				latest.add(latest1);
-			} else {
-				latestNum++;
-				if(latestNum>6) {
-					break;
-				}
-				System.out.println("latestNum:"+latestNum);
-			}
 		}
 		return latest;
 	}

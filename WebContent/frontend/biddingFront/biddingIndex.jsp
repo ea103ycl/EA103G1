@@ -68,8 +68,9 @@
 	</c:if>
 	
 	<c:set var="bdNo" value="${event_no}" />
-	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
-	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
+	<c:set var="epVO" value="${epSvc.findTopByEventNoWithoutReport(bdNo)}" />
+	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />${sqlBdNo}
+	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />${bVO.bdNo}
 	<c:set var="topBidder" value="${bdr.getHighestBidder(bdNo)}" />
 	<input type="hidden" value="<%=request.getContextPath()%>" name="contextPath" id="contextPath">
 	<form id="enterBidPage" style="display: hidden"
@@ -106,7 +107,7 @@
 					<div class="col-sm-7 ">
 						<img
 							onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (1).jpg'"
-							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}">
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epVO.event_p_no}">
 					</div>
 					<div class="col-sm-5 text-center space-top-2x" style="">
 						<span><h2>Up-running Event!</h2>
@@ -125,7 +126,7 @@
 						Event</h2>
 					<div class="row">
 						<!-- team-block -->
-
+${latestBd1}
 						<div class="col-sm-4 biddingPage" id="latestBd1">
 							<span style="display: none;">${latestBd1}</span>
 							<c:set var="latestEpVO1"
@@ -151,15 +152,15 @@
 						<!-- / team-block -->
 
 						<!-- team-block -->
-
+${latestBd2}
 						<div class="col-sm-4 biddingPage" id="latestBd2">
 							<span style="display: none;">${latestBd2}</span>
-							<c:set var="latestEpVO1"
+							<c:set var="latestEpVO2"
 								value="${epSvc.findTopByEventNoWithoutReport(latestBd2)}" />
 							<div class="team block text-center" style="cursor: pointer;">
 								<img
 									onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (3).jpg'"
-									src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd2).event_p_no}">
+									src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${latestEpVO2.event_p_no}">
 								<div class="team-info-box">
 									<h6>${memSvc.findByPrimaryKey(latestEpVO2.mem_id)}</h6>
 									<p class="team-role">${latestEpVO2.event_p_name}</p>
@@ -177,15 +178,15 @@
 						<!-- / team-block -->
 
 						<!-- team-block -->
-
+<h1>${latestBd3}</h1>
 						<div class="col-sm-4 biddingPage" id="latestBd3">
 							<span style="display: none;">${latestBd3}</span>
-							<c:set var="latestEpVO1"
+							<c:set var="latestEpVO3"
 								value="${epSvc.findTopByEventNoWithoutReport(latestBd3)}" />
 							<div class="team block text-center" style="cursor: pointer;">
 								<img
 									onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (4).jpg'"
-									src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd3).event_p_no}">
+									src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${latestEpVO3.event_p_no}">
 								<div class="team-info-box">
 									<h6>${memSvc.findByPrimaryKey(latestEpVO3.mem_id)}</h6>
 									<p class="team-role">${latestEpVO3.event_p_name}</p>
