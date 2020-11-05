@@ -52,6 +52,8 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 			System.out.println("(EventEndCheckListener) get event_no:" + event_no);
 			try {
 			if (event_no == null) {
+				System.out.println("event_no is null");
+				return;
 			}
 			BdRedis bdr = new BdRedis();
 			System.out.println("#1");
@@ -72,20 +74,25 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 		}
 	}
 
-	public List<String> getLatestBdNo(String event_no, Integer lastestNum) {
+	public List<String> getLatestBdNo(String event_no, Integer latestNum) {
 		BiddingService bdSvc = new BiddingService();
 		String bdNo = event_no;
+		System.out.println("bdNo"+bdNo);
 		List<String> latest = new ArrayList<String>();
-		for (int j = 1; j <= lastestNum; j++) {
+		for (int j = 1; j <= latestNum; j++) {
 			Integer i = (Integer.valueOf(bdNo.substring(1)) - j);
 
 			String latest1 = "000000" + String.valueOf(i);
-			if (bdSvc.getOne("b" + latest1) != null) {
+			if (bdSvc.getOne("B" + latest1) != null) {
 				latest1 = "E" + latest1.substring(latest1.length() - 6);
 				System.out.println("(EventEndCheckListener)Epno:" + latest1);
 				latest.add(latest1);
 			} else {
-				lastestNum++;
+				latestNum++;
+				if(latestNum>6) {
+					break;
+				}
+				System.out.println("latestNum:"+latestNum);
 			}
 		}
 		return latest;

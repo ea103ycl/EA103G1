@@ -71,7 +71,6 @@
                 $('html, body').animate({
                     // scrollTop: $("#errorMsgs").offset().top,
                     scrollTop: 650,
-
                 }, 800, 'swing');
             }
         }
@@ -341,3 +340,7 @@
                 }
             });
         })
+
+$('#searchBlock-icon').on('click',function(){
+		location.reload();
+});
