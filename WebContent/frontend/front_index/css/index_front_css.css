@@ -550,11 +550,15 @@
             #BigWhiteDot {
                 width: 100%;
             }
+            .modal-right {
+                padding: 0;
+            }
             .comment-container {
-                border-radius: 0 0 25px 25px;
+                border-radius: 0 0 25px 25px !important;
+                position: relative !important;
             }
             #img01 {
-                border-radius: 25px;
+                border-radius: 25px 25px 0 0 !important;
                 position: relative;
             }
 
@@ -622,11 +626,15 @@
                 width: 100%;
                 margin: 0;
             }
+            .modal-right {
+                padding: 0;
+            }
             .comment-container {
-                border-radius: 0 0 25px 25px;
+                border-radius: 0 0 25px 25px !important;
+                position: relative !important;
             }
             #img01 {
-                border-radius: 25px;
+                border-radius: 25px 25px 0 0 !important;
                 position: relative;
             }
 
@@ -848,7 +856,6 @@
             padding-top: 0;
             background: white;
             border-radius: 0 25px 25px 0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         /*         .comment-avatar {
@@ -859,7 +866,7 @@
         .comment-textarea {
             height: 45px;
             outline: 0;
-            width: 85%;
+            width: 80%;
             padding: 0% 5%;
             font-family: inherit;
             background: #F7FAFC;
