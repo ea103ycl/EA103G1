@@ -343,13 +343,7 @@ public class EventServlet extends HttpServlet {
 			//狀態為3活動結束時，更新排名
 			if (event_stat.equals(new Integer(3))) {
 				Event_PDAO dao = new Event_PDAO();
-				List<String> event_nos = dao.findAllEventNo();
-				Iterator<String> iterEventNO = event_nos.iterator();
-				System.out.println("event_nos size: "+event_nos.size());
-				System.out.println("start rank sort");				
-				while (iterEventNO.hasNext()) {
-					String eventNo = iterEventNO.next();
-					List<Event_PVO> event_pVOs = dao.bigRankSort(eventNo, 20);
+					List<Event_PVO> event_pVOs = dao.bigRankSort(event_no, 20);
 					System.out.println("event_pVOs size : "+event_pVOs.size());
 					Iterator<Event_PVO> iterRank = event_pVOs.iterator();
 					System.out.println("start update rank");
@@ -357,17 +351,13 @@ public class EventServlet extends HttpServlet {
 						Event_PVO event_pVO = iterRank.next();
 						dao.bigRankUpdate(event_pVO.getVote_rank(), event_pVO.getEvent_p_no());
 					}
-				}
-//				select *from event where event_stat=3 and rownum=1 order by event_no desc
-//				select event_no from event where event_stat=3 and rownum=1 order by event_no desc
-				String event_no_last=svc.findLastEndEvent();
-				getServletContext().setAttribute("event_no", event_no_last);
 			}
-
-			
 			
 			svc.update(event_no, event_name, event_start, event_end, event_ul_start, event_ul_end, event_vote_start, event_vote_end, event_stat);
-			//回傳turnback
+			if (event_stat.equals(new Integer(3))) {
+				String event_no_last = event_no_last = svc.findLastEndEvent();
+				getServletContext().setAttribute("event_no", event_no_last);
+			}
 			req.setAttribute("eventVO", eventVO);
 			System.out.println(req.getParameter("requestURL"));
 //			String path="/backend/event/TestListAll.jsp";
