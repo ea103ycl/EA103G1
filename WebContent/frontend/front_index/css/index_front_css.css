@@ -784,7 +784,7 @@
             animation-duration: 0.6s;
         }
 
-        @ keyframes zoom {
+        @keyframes zoom {
             from {
                 transform: scale(0.3);
                 opacity: 0.9;
@@ -794,7 +794,6 @@
                 transform: scale(1);
                 opacity: 1;
             }
-
         }
 
         /* The Close Button */
