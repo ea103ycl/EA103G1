@@ -60,23 +60,17 @@
 		class="com.bidding.model.BdRedis" />
 	<jsp:useBean id="bdSvc" scope="page"
 		class="com.bidding.model.BiddingService" />
-	<jsp:useBean id="epSvc" scope="page"
-		class="com.event_p.model.Event_PService" />
-
-	<c:if test="${empty event_no}">
-		<c:set var="event_no" value="E000001" scope="application" />
-	</c:if>
-	
+	<jsp:useBean id="epSvc" scope="page" class="com.event_p.model.Event_PService"/>	
+		
 	<c:set var="bdNo" value="${event_no}" />
-	<c:set var="epVO" value="${epSvc.findTopByEventNoWithoutReport(event_no)}"/>
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />
 	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />
 	<c:set var="topBidder" value="${bdr.getHighestBidder(bdNo)}" />
-	<input type="hidden" value="<%=request.getContextPath()%>" name="contextPath" id="contextPath">
+
 	<form id="enterBidPage" style="display: hidden"
 		action="<%=request.getContextPath()%>/biddingPage/BdPageServlet">
-		<input type="text" id="bdNo" name="bdNo" required><br> <input
-			type="hidden" name="action" value="setBidInfo">
+		<input type="text" id="bdNo" name="bdNo" required><br> <input type="hidden"
+			name="action" value="setBidInfo">
 	</form>
 
 	<!-- preloader -->
@@ -85,7 +79,7 @@
 	</div>
 	<!-- / preloader -->
 
-	<%@include file="/frontend/bar/frontBarTop.jsp"%>
+<%@include file="/frontend/bar/frontBarTop.jsp"%>
 
 	<div id="top"></div>
 
@@ -94,20 +88,18 @@
 		<div class="space-50">&nbsp;</div>
 		<div class="space-50">&nbsp;</div>
 
-
+	
 
 		<!-- content -->
 
 		<div id="page-content" class="container">
 			<div class="section-w-image space-top-2x">
-				<div class="row biddingPage"
-					style="background-color: #f8f8f8; cursor: pointer">
-					<h1 style="display: none;">${event_no}</h1>
-					<span style="display: none;">${event_no}</span>
+				<div class="row biddingPage" style="background-color: #f8f8f8;">
+					<h1>${event_no}</h1>
+					<span>${event_no}</span>
 					<div class="col-sm-7 ">
 						<img
-							onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (1).jpg'"
-							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epVO.event_p_no}">
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}">
 					</div>
 					<div class="col-sm-5 text-center space-top-2x" style="">
 						<span><h2>Up-running Event!</h2>
@@ -127,17 +119,14 @@
 					<div class="row">
 						<!-- team-block -->
 
-						<div class="col-sm-4 biddingPage" id="latestBd1">
-							<span style="display: none;">${latestBd1}</span>
-							<c:set var="latestEpVO1"
-								value="${epSvc.findTopByEventNoWithoutReport(latestBd1)}" />
-							<div class="team block text-center" style="cursor: pointer;">
+						<div class="col-sm-4 biddingPage" id="latestBd1" >
+							<span>${latestBd1}</span>
+							<div class="team block text-center">
 								<img
-									onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (2).jpg'"
-									src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${latestEpVO1.event_p_no}">
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd1).event_p_no}">
 								<div class="team-info-box">
-									<h6>${memSvc.findByPrimaryKey(latestEpVO1.mem_id)}</h6>
-									<p class="team-role">${latestEpVO1.event_p_name}</p>
+									<h6>JOHN DOE</h6>
+									<p class="team-role">CEO</p>
 									<p class="social text-center">
 										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
 											class="fa fa-twitter"></i></a> <a href="#"><i
@@ -154,16 +143,13 @@
 						<!-- team-block -->
 
 						<div class="col-sm-4 biddingPage" id="latestBd2">
-							<span style="display: none;">${latestBd2}</span>
-							<c:set var="latestEpVO1"
-								value="${epSvc.findTopByEventNoWithoutReport(latestBd2)}" />
-							<div class="team block text-center" style="cursor: pointer;">
+						<span>${latestBd2}</span>
+							<div class="team block text-center">
 								<img
-									onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (3).jpg'"
-									src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd2).event_p_no}">
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd2).event_p_no}">
 								<div class="team-info-box">
-									<h6>${memSvc.findByPrimaryKey(latestEpVO2.mem_id)}</h6>
-									<p class="team-role">${latestEpVO2.event_p_name}</p>
+									<h6>JASMINE DOE</h6>
+									<p class="team-role">Shop Manager</p>
 									<p class="social text-center">
 										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
 											class="fa fa-twitter"></i></a> <a href="#"><i
@@ -179,17 +165,14 @@
 
 						<!-- team-block -->
 
-						<div class="col-sm-4 biddingPage" id="latestBd3">
-							<span style="display: none;">${latestBd3}</span>
-							<c:set var="latestEpVO1"
-								value="${epSvc.findTopByEventNoWithoutReport(latestBd3)}" />
-							<div class="team block text-center" style="cursor: pointer;">
+						<div class="col-sm-4 biddingPage" id="latestBd3" >
+							<span>${latestBd3}</span>
+							<div class="team block text-center">
 								<img
-									onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (4).jpg'"
-									src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd3).event_p_no}">
+							src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epSvc.findTopByEventNoWithoutReport(latestBd3).event_p_no}">
 								<div class="team-info-box">
-									<h6>${memSvc.findByPrimaryKey(latestEpVO3.mem_id)}</h6>
-									<p class="team-role">${latestEpVO3.event_p_name}</p>
+									<h6>JAMES DOE</h6>
+									<p class="team-role">Webshop Admin</p>
 									<p class="social text-center">
 										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
 											class="fa fa-twitter"></i></a> <a href="#"><i
@@ -349,7 +332,7 @@
 			<!-- / footer-info -->
 		</footer>
 		<!-- / footer -->
-		<%@include file="/frontend/bar/frontBarFooter.jsp"%>
+	<%@include file="/frontend/bar/frontBarFooter.jsp"%>
 		<!-- javascript -->
 		<script
 			src="<%=request.getContextPath()%>/frontend/template/js/jquery.min.js"></script>
@@ -378,8 +361,8 @@
 
 <script>
 	$('.biddingPage').on("click", function(e) {
-		var bdNo = $(this).children('span').html();
-		if (bdNo.length === 0) {
+		var bdNo=$(this).children('span').html();
+		if(bdNo.length===0){
 			return;
 		}
 		$('#enterBidPage').children('#bdNo').val(bdNo);
