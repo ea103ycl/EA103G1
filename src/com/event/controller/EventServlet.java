@@ -361,7 +361,7 @@ public class EventServlet extends HttpServlet {
 //				select *from event where event_stat=3 and rownum=1 order by event_no desc
 //				select event_no from event where event_stat=3 and rownum=1 order by event_no desc
 				String event_no_last=svc.findLastEndEvent();
-				getServletContext().setAttribute("event_no", event_no);
+				getServletContext().setAttribute("event_no", event_no_last);
 			}
 
 			
