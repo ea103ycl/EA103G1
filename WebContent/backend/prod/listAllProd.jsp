@@ -20,8 +20,8 @@
 	<body id="page-top">
 	
 		<div id="wrapper">
-	
-			<%@include file="/backend/bar/backBarSide.jsp"%>
+		
+	<%@include file="/backend/bar/backBarSide.jsp"%>
 	
 			<div id="content-wrapper" class="d-flex flex-column">		
 	
@@ -36,7 +36,7 @@
 						<%-- 頁面標題 --%>
 						<div>
 							<h1 class="h3 mb-2 text-gray-800" style="display: inline-block;">商品管理</h1>
-							<input style="margin: 0 0 0 1100px; color:deeppink; display: inline-block;" type="button" value="我要新增商品" onclick="location.href='<%=request.getContextPath()%>/backend/prod/addProd.jsp'">
+							
 						</div>
 						<%-- 錯誤表列 --%>
 						<c:if test="${not empty errorMsgs}">

@@ -165,6 +165,7 @@ public class ProdServlet extends HttpServlet {
 				Integer prod_status = null;
 				try {
 					prod_status = new Integer(req.getParameter("prod_status").trim());
+					System.out.println(prod_status);
 				} catch (Exception e) {
 					errorMsgs.add("請選商品狀態!!");
 				}

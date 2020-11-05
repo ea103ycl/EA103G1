@@ -281,9 +281,9 @@
                                                           
                          
                           <div class="input-div">
-	                        <select name="prod_status" id="sexlist" value="<%=prodVO.getProd_status()%>" style="width: 450px;height: 30px;">
-	                        	<option value="0">下架</option>
-	                            <option value="1">上架</option>
+	                        <select  name="prod_status" id="sexlist"  style="width: 450px;height: 30px;">
+	                   <option value="0" ${(prodVO.prod_status==0)?'selected':'' }>下架</option>
+	                   <option value="1" ${(prodVO.prod_status==1)?'selected':'' }>上架</option>
 	                        </select>
                         </div>
                         

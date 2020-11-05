@@ -66,7 +66,8 @@ pageContext.setAttribute("list", list);
                     <tfoot>                   
                     </tfoot>
                     <tbody>
-                        <c:forEach var="orderVO" items="${list}">
+                    <div style="margin:5px 0 0 0;"><%@ include file="page1.file" %></div>
+                        <c:forEach var="orderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<tr>
 				    <td>${orderVO.or_no}</td>
 					<td>${orderVO.mem_id}</td>
@@ -78,7 +79,7 @@ pageContext.setAttribute("list", list);
 					<td>${orderVO.or_note}</td>
 					<td><fmt:formatDate value="${orderVO.or_time}" pattern="yyyy-MM-dd HH:mm" /></td>
 					<td> 
-					<c:if test="${orderVO.or_status==1}">處理中</c:if> 
+					<c:if test="${orderVO.or_status==1}"><font style="color:red;">待出貨</font></c:if> 
 					<c:if test="${orderVO.or_status==2}">運送中</c:if> 
 					<c:if test="${orderVO.or_status==3}">已到貨</c:if> 
 					<c:if test="${orderVO.or_status==4}">訂單完成</c:if>
@@ -87,7 +88,7 @@ pageContext.setAttribute("list", list);
 					<td>
 					<c:if test="${orderVO.or_status==1}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;" onclick="javascript:alert('出貨囉!!')">
-							<input  style="color:deeppink"   type="submit" value="出貨">
+							<input  class="btn btn-primary"   type="submit" value="出貨">
 							<input type="hidden" name="or_status" value="${orderVO.or_status}">
 							<input type="hidden" name="or_no" value="${orderVO.or_no}">
 							<input type="hidden" name="action" value="Change_Order_Status">
@@ -98,6 +99,7 @@ pageContext.setAttribute("list", list);
 					
 				</tr>
 			</c:forEach>
+			<%@ include file="page2.file" %>
                     </tbody>
                 </table>
             </div>

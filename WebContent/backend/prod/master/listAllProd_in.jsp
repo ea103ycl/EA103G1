@@ -60,8 +60,9 @@
                     <tfoot>                   
                     </tfoot>
                     <tbody>
+<div style="margin:5px 0 0 0;"><%@ include file="page1.file" %></div>
 <jsp:useBean id="prodSvc2" scope="page" class="com.prod.model.ProdService" />
-                        <c:forEach var="prodVO" items="${list}">
+                        <c:forEach var="prodVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                         
 				<tr>
 				<td>
@@ -81,7 +82,7 @@
 					<td>
 						<FORM METHOD="post"  action="<%=request.getContextPath()%>/backend/prod/prod.do"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="修改"> 
+							<input type="submit" value="修改" class="btn btn-primary"> 
 							<input type="hidden" name="prod_no" value="${prodVO.prod_no}"> 
 							<input type="hidden" name="action" value="getOne_For_Update">
 						</FORM>
@@ -91,7 +92,7 @@
 					<c:if test="${prodVO.prod_status==0}">
 						<FORM METHOD="post"  action="<%=request.getContextPath()%>/backend/prod/prod.do"  onclick="javascript:alert('商品上架!!')"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="上架/下架"> 
+							<input type="submit" value="上架/下架" class="btn btn-primary"> 
 							<input type="hidden" name="prod_no" value="${prodVO.prod_no}">
 							 <input type="hidden" name="prod_status" value="${prodVO.prod_status}">
 							<input type="hidden" name="action" value="getOne_For_Status"> 
@@ -101,7 +102,7 @@
 						<c:if test="${prodVO.prod_status==1}">
 						<FORM METHOD="post"  action="<%=request.getContextPath()%>/backend/prod/prod.do"  onclick="javascript:alert('商品下架!!')"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="上架/下架"> 
+							<input type="submit" value="上架/下架" class="btn btn-primary"> 
 							<input type="hidden" name="prod_no" value="${prodVO.prod_no}">
 							 <input type="hidden" name="prod_status" value="${prodVO.prod_status}">
 							<input type="hidden" name="action" value="getOne_For_Status"> 
@@ -112,6 +113,10 @@
 					</td>
 				</tr>
 			</c:forEach>
+			<div style="margin:20px 0 0 0; font-size:18px;    display:inline-block;" > 
+			<%@ include file="page2.file" %>
+			<input class="btn btn-primary" style="margin: 0 0 10px 1250px;  display:inline-block; color:yellow;" type="button" value="我要新增商品" onclick="location.href='<%=request.getContextPath()%>/backend/prod/addProd.jsp'">
+			</div> 
                     </tbody>
                 </table>
             </div>
