@@ -46,12 +46,12 @@ public class Event_PViewServlet extends HttpServlet {
 //			is.close();
 //			System.out.println("img.length(null): "+img.length);
 //		}else {
-//			Event_PDAO dao=new Event_PDAO();//dao呼叫findByPrimaryKey
-//			Event_PVO event_pVO=dao.findByPrimaryKey(new Integer(event_p_no));
-//			
-//			img=event_pVO.getEvent_p_img(); //取得byte[]	
-////			System.out.println("event_p_no: "+event_p_no);
-////			System.out.println("img.length: "+img.length);
+			Event_PDAO dao=new Event_PDAO();//dao呼叫findByPrimaryKey
+			Event_PVO event_pVO=dao.findByPrimaryKey(new Integer(event_p_no));
+			
+			img=event_pVO.getEvent_p_img(); //取得byte[]	
+//			System.out.println("event_p_no: "+event_p_no);
+//			System.out.println("img.length: "+img.length);
 //		}
 //		read
 //		img.length(null): 8192

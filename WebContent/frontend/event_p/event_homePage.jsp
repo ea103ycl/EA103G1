@@ -241,7 +241,7 @@ background-color:#fff;
                     	<div class="row">
 	                    		<c:forEach var="event_pVO5" items="${event_pVO5s}">
 	                    			<div class="col-sm-2">
-	                    				<img src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${event_pVO5.event_p_no}" style="width:80px;height:80px">
+	                    				<img onerror="this.src='<%=request.getContextPath()%>/frontend/template/images/logo2.png'" src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${event_pVO5.event_p_no}" style="width:80px;height:80px">
 	                    			</div>	
 	                    		</c:forEach>
                     	</div>
