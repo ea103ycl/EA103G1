@@ -341,6 +341,8 @@
             });
         })
 
-$('#searchBlock-icon').on('click',function(){
-		location.reload();
-});
+        $('#searchBlock-icon').on('click', function() {
+            window.scrollTo(0);
+            location.reload();
+
+        });
