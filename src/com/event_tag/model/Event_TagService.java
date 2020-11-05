@@ -51,7 +51,7 @@ public class Event_TagService {
 	public List<Event_TagVO> randTag(){
 		return dao.randomTag();
 	}
-	public Event_TagVO findAllByTagName(String event_tag_name) {
+	public List<Event_TagVO> findAllByTagName(String event_tag_name) {
 		return dao.findAllByTagName(event_tag_name);
 	}
 }

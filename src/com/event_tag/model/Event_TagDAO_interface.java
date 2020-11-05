@@ -10,5 +10,5 @@ public interface Event_TagDAO_interface {
 	public List<String> findAllMem();
 	public List<String> findAllEventNo();
 	public List<Event_TagVO> randomTag();
-	public Event_TagVO findAllByTagName(String event_tag_name);//use event_tag_name return event_tagVO
+	public List<Event_TagVO> findAllByTagName(String event_tag_name);//use event_tag_name return event_tagVO
 }

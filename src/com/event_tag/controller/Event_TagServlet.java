@@ -110,7 +110,7 @@ public class Event_TagServlet extends HttpServlet {
 					
 				}	
 			}
-			req.getSession().setAttribute("str", str);
+			req.setAttribute("str", str);
 			out.write(str);
 		}
 	}

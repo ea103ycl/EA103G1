@@ -414,7 +414,7 @@ System.out.println("imgBytes is null?"+(((byte[])sess.getAttribute("imgBytes"))=
 			}
 			System.out.println("voteNum :"+voteNum);
 			//同一個活動只能投3個不同作品
-			if(voteNum<4&&!checkDup) {
+			if(voteNum<3&&!checkDup) {
 				Event_PService svc=new Event_PService();
 				svc.votePic(new Integer(event_p_no),mem_id);
 				System.out.println("success vote by ajax!");
@@ -433,7 +433,7 @@ System.out.println("imgBytes is null?"+(((byte[])sess.getAttribute("imgBytes"))=
 				PrintWriter out=res.getWriter();
 				res.setCharacterEncoding("UTF-8");
 				String strErr="";
-				if(voteNum==4) {
+				if(voteNum==3) {
 					System.out.println(voteNum);
 					strErr+="1";//達到投票數上限(最多投3次)
 					

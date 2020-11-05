@@ -34,8 +34,10 @@
 		event_pVOs=pSvc.findAllNoReport(event_no);//從A主題跳到B主題的作品刷新或檢舉數目更動
 	}else if(sess.getAttribute("event_pVOs")!=null){
 		event_pVOs=(List<Event_PVO>)sess.getAttribute("event_pVOs");//
-	}else if(eventVO.getEvent_stat()==3){
+	}
+	if(eventVO.getEvent_stat()==3){
 		event_pVOs=pSvc.findAllByEventNoRankDescWithoutReport(event_no);
+		sess.setAttribute("event_pVOs", event_pVOs);
 		getServletContext().setAttribute("event_no", eventSvc.findLastEndEvent());
 		
 	}
@@ -52,11 +54,11 @@
 	
 	
 	HttpSession ses=request.getSession();	
-	if(ses.getAttribute("memVO")==null){
-		ses.setAttribute("mem_id","M000003");//可以寫不同編號測試
-	}else{
-		ses.setAttribute("mem_id", ((MemVO)ses.getAttribute("memVO")).getMem_id());
-	}	
+// 	if(ses.getAttribute("memVO")==null){
+// 		ses.setAttribute("mem_id","M000003");//可以寫不同編號測試
+// 	}else{
+// 		ses.setAttribute("mem_id", ((MemVO)ses.getAttribute("memVO")).getMem_id());
+// 	}	
 	Event_PService eventPSVC=new Event_PService();
 	boolean checkMemPic=eventPSVC.checkUploadByMemid((String)ses.getAttribute("mem_id"),eventVO.getEvent_no());
 	pageContext.setAttribute("checkMemPic", checkMemPic);//確認會員是否投過搞
@@ -280,9 +282,9 @@
             <!-- post-block -->
             <div class="col-sm-4">
                 <div class="post-block">
-                    <a href="single-post.html">
+<!--                     <a href="single-post.html"> -->
                     	<img src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${event_pVO.event_p_no}" width="300px" height="300px" fill="#55595c">
-                    </a>
+<!--                     </a> -->
                     <div class="small-post-text">
          				<div class="row">
 <!-- 							<div class="col-lg-6 "id="report-button"> -->
@@ -299,7 +301,7 @@
 						<div class="row">
 							
 							<ul class="list-group">
-								<li class="list-group-item">排名:${event_pVO.vote_rank }</li>
+								<li class="list-group-item" <%=eventVO.getEvent_stat()!=3?"style=\""+"display:none;"+"\"":""%>>排名:${event_pVO.vote_rank }</li>
 								<li class="list-group-item" id="showVoteNum">票數:${event_pVO.event_vote_num}</li>
 							</ul>
 						</div>

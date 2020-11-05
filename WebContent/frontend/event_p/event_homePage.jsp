@@ -121,7 +121,7 @@ background-color:#fff;
 	  		<c:choose>
 	  			<c:when test="${status.index==0}">
 	  				 <div class="item active">
-	     				 <img src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${event_pVO.event_p_no}" class="d-block " alt="..." id="carouselCard" height="500">
+	     				 <img  onerror="this.src='<%=request.getContextPath()%>/frontend/template/images/logo2.png'" src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${event_pVO.event_p_no}" class="d-block " alt="..." id="carouselCard" height="500">
 	   				 </div>
 	  			</c:when>
 	  			<c:otherwise>
