@@ -64,7 +64,7 @@
 
             if ($("#getPicResult").length !== 0) {
                 $('html, body').animate({
-                    scrollTop: $("#getPicResult").offset().top-80,
+                    scrollTop: $("#getPicResult").offset().top - 400,
                 }, 1000, 'swing');
             } else if ($("#errorMsgs").length !== 0) {
                 console.log($("#errorMsgs").offset().top);
