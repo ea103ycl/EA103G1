@@ -126,7 +126,6 @@
 						Event</h2>
 					<div class="row">
 						<!-- team-block -->
-${latestBd1}
 						<div class="col-sm-4 biddingPage" id="latestBd1">
 							<span style="display: none;">${latestBd1}</span>
 							<c:set var="latestEpVO1"
@@ -152,7 +151,6 @@ ${latestBd1}
 						<!-- / team-block -->
 
 						<!-- team-block -->
-${latestBd2}
 						<div class="col-sm-4 biddingPage" id="latestBd2">
 							<span style="display: none;">${latestBd2}</span>
 							<c:set var="latestEpVO2"
@@ -178,7 +176,6 @@ ${latestBd2}
 						<!-- / team-block -->
 
 						<!-- team-block -->
-<h1>${latestBd3}</h1>
 						<div class="col-sm-4 biddingPage" id="latestBd3">
 							<span style="display: none;">${latestBd3}</span>
 							<c:set var="latestEpVO3"
