@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.event.model.EventDAO;
 import com.event.model.EventService;
@@ -352,16 +353,17 @@ public class EventServlet extends HttpServlet {
 						dao.bigRankUpdate(event_pVO.getVote_rank(), event_pVO.getEvent_p_no());
 					}
 			}
-			
+			HttpSession sess=req.getSession();
+			req.setAttribute("eventVO", eventVO);
 			svc.update(event_no, event_name, event_start, event_end, event_ul_start, event_ul_end, event_vote_start, event_vote_end, event_stat);
 			if (event_stat.equals(new Integer(3))) {
-				String event_no_last = event_no_last = svc.findLastEndEvent();
-				getServletContext().setAttribute("event_no", event_no_last);
+				String  event_no_last = svc.findLastEndEvent();
+				getServletContext().setAttribute("event_no", event_no_last);//轉到listener ，listener在幫我導回TestListAll
 			}
-			req.setAttribute("eventVO", eventVO);
-			System.out.println(req.getParameter("requestURL"));
+			
+//			System.out.println(req.getParameter("requestURL"));
 //			String path="/backend/event/TestListAll.jsp";
-			RequestDispatcher ok=req.getRequestDispatcher(req.getParameter("requestURL"));
+			RequestDispatcher ok=req.getRequestDispatcher("/backend/event/TestListAll.jsp");
 //			req.getParameter("requestURI")
 			ok.forward(req, res);
 			}catch(Exception e) {
