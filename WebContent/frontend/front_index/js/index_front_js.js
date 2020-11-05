@@ -13,7 +13,7 @@ function init() {
 		timer = setTimeout(function() {
 			scrollFunction();
 			scrollBottom();
-		}, 500);
+		}, 100);
 		searchBarUnfocus();
 	};
 

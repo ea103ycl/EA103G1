@@ -39,6 +39,9 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 			ctx.setAttribute("latestBd2", list.get(1));
 			ctx.setAttribute("latestBd3", list.get(2));
 
+		}else {
+			System.out.println("(EventEndCheckListener) attributeAdded: no such action");
+			return;
 		}
 	}
 
@@ -62,7 +65,10 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 			ctx.setAttribute("latestBd1", list.get(0));
 			ctx.setAttribute("latestBd2", list.get(1));
 			ctx.setAttribute("latestBd3", list.get(2));
-
+			return;
+		}else {
+			System.out.println("(EventEndCheckListener) attributeAdded: no such action");
+			return;
 		}
 	}
 

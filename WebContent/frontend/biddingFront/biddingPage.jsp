@@ -166,7 +166,7 @@ img {
 				<div class="col-sm-8 col-md-9">
 					<div class="blog block post-content-area">
 						<div class="post-info-box">
-							<img onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (2).jpg'"
+							<img onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (1).jpg'"
 								src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}"
 								style="max-height: auto; width: 100%" alt="">
 							<div class="space-50">&nbsp;</div>
