@@ -3,6 +3,7 @@
         var contextPath = $('#contextPath').val();
         var bidOver = true;
 
+
         (function NotgettingBdNo() {
             if (bdNo.trim().length === 0) {
                 window.location.href = $('#biddingIndexUrl').val();
@@ -368,7 +369,7 @@
         function updateBid() {
             $.ajax({
                 method: "post",
-                url: contextPath +"/biddingPage/BdPageServlet",
+                url: contextPath + "/biddingPage/BdPageServlet",
                 data: { action: "topBidders", bdNo: bdNo },
                 success: function(dataReturn) {
 
@@ -494,7 +495,7 @@
                     balance +
                     '</span>');
                 $('.cart-total-footer').append('<div style="margin-top:5%;">' +
-                    '<a href="'+contextPath+'/frontend/members/memArea.jsp#accountArea" class="btn btn-default-filled btn-rounded">' +
+                    '<a href="' + contextPath + '/frontend/members/memArea.jsp#accountArea" class="btn btn-default-filled btn-rounded">' +
                     '<span>快速儲值 </span></a></div>');
 
             } else {
