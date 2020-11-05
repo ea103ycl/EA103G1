@@ -197,144 +197,144 @@
 					<div class="container-fluid">				
 					<!--=====自定義內容start ================================================== -->
 					
-		<div class="row">
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">平台會員數</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800 align-items-center">${list_mem.size()}人</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="far fa-address-card fa-2x text-gray-300 "></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+<!-- 		<div class="row"> -->
+<!--             Earnings (Monthly) Card Example -->
+<!--             <div class="col-xl-3 col-md-6 mb-4"> -->
+<!--               <div class="card border-left-primary shadow h-100 py-2"> -->
+<!--                 <div class="card-body"> -->
+<!--                   <div class="row no-gutters align-items-center"> -->
+<!--                     <div class="col mr-2"> -->
+<!--                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">平台會員數</div> -->
+<%--                       <div class="h5 mb-0 font-weight-bold text-gray-800 align-items-center">${list_mem.size()}人</div> --%>
+<!--                     </div> -->
+<!--                     <div class="col-auto"> -->
+<!--                       <i class="far fa-address-card fa-2x text-gray-300 "></i> -->
+<!--                     </div> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </div> -->
 
-            <!-- Earnings (Annual) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">平台作品數</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">${list_ptr.size()}件</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-palette fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+<!--             Earnings (Annual) Card Example -->
+<!--             <div class="col-xl-3 col-md-6 mb-4"> -->
+<!--               <div class="card border-left-success shadow h-100 py-2"> -->
+<!--                 <div class="card-body"> -->
+<!--                   <div class="row no-gutters align-items-center"> -->
+<!--                     <div class="col mr-2"> -->
+<!--                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">平台作品數</div> -->
+<%--                       <div class="h5 mb-0 font-weight-bold text-gray-800">${list_ptr.size()}件</div> --%>
+<!--                     </div> -->
+<!--                     <div class="col-auto"> -->
+<!--                       <i class="fas fa-palette fa-2x text-gray-300"></i> -->
+<!--                     </div> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </div> -->
 
-            <!-- Tasks Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">待處理訂單(預購/一般)</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                          <% int count_preorder = 0; %><% int count_order = 0; %>
-                          <c:forEach var="preorderVO" items="${list_preorder}">
-	                          <c:if test="${preorderVO.po_status == 1}">
-	                          	<%count_preorder += 1; %>
-								<% pageContext.setAttribute("count_preorder",count_preorder); %>
-	                          </c:if>
-                          </c:forEach>
+<!--             Tasks Card Example -->
+<!--             <div class="col-xl-3 col-md-6 mb-4"> -->
+<!--               <div class="card border-left-info shadow h-100 py-2"> -->
+<!--                 <div class="card-body"> -->
+<!--                   <div class="row no-gutters align-items-center"> -->
+<!--                     <div class="col mr-2"> -->
+<!--                       <div class="text-xs font-weight-bold text-info text-uppercase mb-1">待處理訂單(預購/一般)</div> -->
+<!--                       <div class="row no-gutters align-items-center"> -->
+<!--                         <div class="col-auto"> -->
+<!--                           <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> -->
+<%--                           <% int count_preorder = 0; %><% int count_order = 0; %> --%>
+<%--                           <c:forEach var="preorderVO" items="${list_preorder}"> --%>
+<%-- 	                          <c:if test="${preorderVO.po_status == 1}"> --%>
+<%-- 	                          	<%count_preorder += 1; %> --%>
+<%-- 								<% pageContext.setAttribute("count_preorder",count_preorder); %> --%>
+<%-- 	                          </c:if> --%>
+<%--                           </c:forEach> --%>
 
-                          <c:forEach var="orderVO" items="${list_order}">
-	                          <c:if test="${orderVO.or_status == 1}">
-	                          	<%count_order += 1; %>
-								<% pageContext.setAttribute("count_order",count_order); %>
-	                          </c:if>
-                          </c:forEach>
+<%--                           <c:forEach var="orderVO" items="${list_order}"> --%>
+<%-- 	                          <c:if test="${orderVO.or_status == 1}"> --%>
+<%-- 	                          	<%count_order += 1; %> --%>
+<%-- 								<% pageContext.setAttribute("count_order",count_order); %> --%>
+<%-- 	                          </c:if> --%>
+<%--                           </c:forEach> --%>
 
-                          <%=pageContext.getAttribute("count_preorder")%>件 / 
-                          <%=pageContext.getAttribute("count_order")%>件
+<%--                           <%=pageContext.getAttribute("count_preorder")%>件 /  --%>
+<%--                           <%=pageContext.getAttribute("count_order")%>件 --%>
                           
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-luggage-cart fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+<!--                           </div> -->
+<!--                         </div> -->
+<!--                       </div> -->
+<!--                     </div> -->
+<!--                     <div class="col-auto"> -->
+<!--                       <i class="fas fa-luggage-cart fa-2x text-gray-300"></i> -->
+<!--                     </div> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </div> -->
 
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">當前競標 (最高價)</div>
+<!--             Pending Requests Card Example -->
+<!--             <div class="col-xl-3 col-md-6 mb-4"> -->
+<!--               <div class="card border-left-warning shadow h-100 py-2"> -->
+<!--                 <div class="card-body"> -->
+<!--                   <div class="row no-gutters align-items-center"> -->
+<!--                     <div class="col mr-2"> -->
+<!--                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">當前競標 (最高價)</div> -->
                       
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$ ${list_bidding.get(list_bidding.size()-1).bdPrice}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-gavel fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-			<hr>
-			<span class="d-block p-2 bg-primary text-white">最新作品發表:</span>		
-					<%@include file="/backend/tools/page_forBackendindex.file" %>
-						<div class="3D_body">
-							<div class="swiper-container">
-							    <div class="swiper-wrapper">
-							    <c:forEach var="painterVO" items="${list_ptr}" begin="<%=pageIndexx%>" end="<%=pageIndexx+rowsPerPagee-1%>">
-							      <div class="swiper-slide"><img src="<%=request.getContextPath()%>/backend/tools/painterP_show.jsp?PTR_NO=${painterVO.ptr_no}"></div>
-							    </c:forEach>
-							    </div>
-							    <!-- Add Pagination -->
-							    <div class="swiper-pagination"></div>
-							  </div>
-						</div>
-			<hr>
-			<span class="d-block p-2 bg-dark text-white">新進會員:</span>
-					<%@include file="/backend/tools/page_forBackendindex_mem.file" %>
+<%--                       <div class="h5 mb-0 font-weight-bold text-gray-800">$ ${list_bidding.get(list_bidding.size()-1).bdPrice}</div> --%>
+<!--                     </div> -->
+<!--                     <div class="col-auto"> -->
+<!--                       <i class="fas fa-gavel fa-2x text-gray-300"></i> -->
+<!--                     </div> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--           </div> -->
+<!-- 			<hr> -->
+<!-- 			<span class="d-block p-2 bg-primary text-white">最新作品發表:</span>		 -->
+<%-- 					<%@include file="/backend/tools/page_forBackendindex.file" %> --%>
+<!-- 						<div class="3D_body"> -->
+<!-- 							<div class="swiper-container"> -->
+<!-- 							    <div class="swiper-wrapper"> -->
+<%-- 							    <c:forEach var="painterVO" items="${list_ptr}" begin="<%=pageIndexx%>" end="<%=pageIndexx+rowsPerPagee-1%>"> --%>
+<%-- 							      <div class="swiper-slide"><img src="<%=request.getContextPath()%>/backend/tools/painterP_show.jsp?PTR_NO=${painterVO.ptr_no}"></div> --%>
+<%-- 							    </c:forEach> --%>
+<!-- 							    </div> -->
+<!-- 							    Add Pagination -->
+<!-- 							    <div class="swiper-pagination"></div> -->
+<!-- 							  </div> -->
+<!-- 						</div> -->
+<!-- 			<hr> -->
+<!-- 			<span class="d-block p-2 bg-dark text-white">新進會員:</span> -->
+<%-- 					<%@include file="/backend/tools/page_forBackendindex_mem.file" %> --%>
 					
-						<div class="3D_body1">
-							<div class="mem-swiper-container swiper1">
-								<div class="swiper-wrapper">
-									<c:forEach var="memVO" items="${list_mem}" begin="<%=pageIndexxx%>" end="<%=pageIndexxx+rowsPerPageee-1%>" >
+<!-- 						<div class="3D_body1"> -->
+<!-- 							<div class="mem-swiper-container swiper1"> -->
+<!-- 								<div class="swiper-wrapper"> -->
+<%-- 									<c:forEach var="memVO" items="${list_mem}" begin="<%=pageIndexxx%>" end="<%=pageIndexxx+rowsPerPageee-1%>" > --%>
 									
-										<div class="swiper-slide mem_slide">
-											<div class="mem_card">
-												<div class="mem_layer"></div>
-												<div class="mem_content">
-													<p>${memVO.m_city}<br>${memVO.m_name}</p>
-													<div class="mem_imgBx">
-														<img id="mem_img" src="<%=request.getContextPath()%>/backend/tools/memP_show.jsp?MEM_ID=${memVO.mem_id}">
-													</div>
-													<div class="details">
-														<br><br>
-													</div>
-												</div>
-											</div>
-										</div>
+<!-- 										<div class="swiper-slide mem_slide"> -->
+<!-- 											<div class="mem_card"> -->
+<!-- 												<div class="mem_layer"></div> -->
+<!-- 												<div class="mem_content"> -->
+<%-- 													<p>${memVO.m_city}<br>${memVO.m_name}</p> --%>
+<!-- 													<div class="mem_imgBx"> -->
+<%-- 														<img id="mem_img" src="<%=request.getContextPath()%>/backend/tools/memP_show.jsp?MEM_ID=${memVO.mem_id}"> --%>
+<!-- 													</div> -->
+<!-- 													<div class="details"> -->
+<!-- 														<br><br> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
 									
-									</c:forEach>
+<%-- 									</c:forEach> --%>
 									
-								</div>
-								<!-- Add Pagination -->
-								<div class="swiper-pagination swiper-pagination1"></div>
-							</div>
-						</div>
+<!-- 								</div> -->
+<!-- 								Add Pagination -->
+<!-- 								<div class="swiper-pagination swiper-pagination1"></div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 					
 						
 						
