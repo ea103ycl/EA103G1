@@ -58,11 +58,11 @@
 		
 <%-- 	</c:forEach> --%>
 <%-- </c:if> --%>
-<a href="event_spec.jsp">回到主題競賽</a>
+
 
 
 	<div class="container">
-	<button id="contentInsert">按鈕</button>
+<!-- 	<button id="contentInsert">按鈕</button> -->
 	<form action="Event_pServlet" method="post" enctype="multipart/form-data">
 		
 <!-- 			 <div class="form-group row"> -->
@@ -167,6 +167,10 @@
 			<input type="submit" value="送出" >
 	</form>
 	<img id="demo2">
+	
+	</div>
+	<div>
+	<a href="event_spec.jsp">回到主題競賽</a>
 	</div>
 	<%@include file="/frontend/bar/frontBarFooter.jsp" %>
 </body>

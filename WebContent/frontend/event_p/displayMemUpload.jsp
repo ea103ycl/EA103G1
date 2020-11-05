@@ -97,7 +97,7 @@
                 <label for="inputEmail3" class="col-sm-2 col-form-label col-sm-offset-1">投稿作品狀態</label>
                 <div class="col-sm-3">
                 		<%
-                			String[] pic_statStr={"待審核","通過","不通過"};
+                			String[] pic_statStr={"可投票","已被檢舉"};
                 			pageContext.setAttribute("pic_statStr",pic_statStr);
                 		%>
                 		<input type="text" class="form-control " name="event_p_stat" value="${pic_statStr[event_pVO.event_p_stat-1]}" readonly >

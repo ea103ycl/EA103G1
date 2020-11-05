@@ -44,7 +44,7 @@ public class EventServlet extends HttpServlet {
 //			List<String> errMsgs=new ArrayList<String>();
 			Map<String,String>errMsgs=new HashMap<String,String>();
 			req.setAttribute("errMsgs", errMsgs);
-
+			Event_TagService tagSvc=new Event_TagService();
 			
 			try {
 				//活動名稱不能空白
@@ -52,7 +52,7 @@ public class EventServlet extends HttpServlet {
 //System.out.println(event_name);
 				if(event_name==null||event_name.trim().length()==0||"沒有HashTag可以抽選".equals(event_name)||"null".equals(event_name)) {
 					errMsgs.put("event_name","請先新增或抽選HashTag");
-					event_name="請輸入活動名稱";
+					event_name="";
 				}
 
 				//請輸入活動開始時間
@@ -148,13 +148,7 @@ public class EventServlet extends HttpServlet {
 				eventVO.setEvent_vote_start(event_vote_start);
 				eventVO.setEvent_vote_end(event_vote_end);
 				eventVO.setEvent_stat(event_stat);
-				if(!errMsgs.isEmpty()) {
-					req.setAttribute("eventVO",eventVO);
-					String url="/backend/event/TestInsert.jsp";
-					RequestDispatcher err=req.getRequestDispatcher(url);
-					err.forward(req, res);
-					return;
-				}
+
 
 				
 				
@@ -166,13 +160,27 @@ public class EventServlet extends HttpServlet {
 				
 				String[] Tags=event_name.split(",");//分離HahsTag
 //				System.out.println(Tags[0]+","+Tags[1]+","+Tags[2]);
-				Event_TagService tagSvc=new Event_TagService();
+				
+				
+				if(!errMsgs.isEmpty()) {
+					req.setAttribute("eventVO",eventVO);
+					String url="/backend/event/TestInsert.jsp";
+					RequestDispatcher err=req.getRequestDispatcher(url);
+					err.forward(req, res);
+					return;
+				}
+				
 				for(int i=0;i<Tags.length;i++) {					
-					Event_TagVO tagVO= tagSvc.findAllByTagName(Tags[i]);
+					List<Event_TagVO> tagVOs= tagSvc.findAllByTagName(Tags[i]);
+					Iterator<Event_TagVO> iter=tagVOs.iterator();
+					while(iter.hasNext()) {
+						Event_TagVO tagVO=iter.next();
+						tagSvc.update(tagVO.getMem_id(),event_no, tagVO.getEvent_tag_time(), tagVO.getEvent_tag_name(), tagVO.getEvent_tag_no());
+						System.out.println("tag 活動編號欄位已更新");
+					}
 					//用tag name找出對應hashTag
 					//再用 update更新狀態
-					tagSvc.update(tagVO.getMem_id(),event_no, tagVO.getEvent_tag_time(), tagVO.getEvent_tag_name(), tagVO.getEvent_tag_no());
-					System.out.println("tag 活動編號欄位已更新");
+
 				}
 				String url="/backend/event/TestListAll.jsp";
 				RequestDispatcher ok=req.getRequestDispatcher(url);

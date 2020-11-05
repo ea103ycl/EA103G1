@@ -39,6 +39,7 @@
 	margin-left: 20%;
 	margin-top: -2%;
 }
+
 </style>
 </head>
 <body>
@@ -80,11 +81,15 @@
 
 							<div class="form-group row">
 <!-- 								<label for="inputEmail3" class="col-sm-2 col-form-label">活動名稱</label> -->
-								<div class="col-sm-3" id="event_randTag"  style="display:none;">
-										<input type="hidden" class="form-control" name="event_name"value=<%=request.getSession().getAttribute("str") %>>
-										
-
+								<label for="inputEmail3" class="col-sm-2 col-form-label">活動名稱</label>
+								<div class="col-sm-3" id="event_randTag"  >
+										<input readonly type="text" class="form-control" name="event_name"value=<%=request.getAttribute("str")==null?"":request.getAttribute("str") %>  >
 								</div>
+								<c:if test="${not empty errMsgs['event_name']}">
+									<div style="color:red;">
+									${errMsgs['event_name'] }
+									</div>
+								</c:if>
 							</div>
 
 							<div class="form-group row">
@@ -355,9 +360,9 @@ $("#roll").click(function(){
 				
 				var txt="";
 				var txtEvent="";
-					$("#resTxt").text(e);
-					txt+="<input type=\"text\" class=\"form-control\" name=\"event_tag_name\""+"value="+e+" readonly>"
-					$("#resTxt").html(txt);
+// 					$("#resTxt").text(e);
+// 					txt+="<input type=\"text\" class=\"form-control\" name=\"event_tag_name\""+"value="+e+" readonly >"
+// 					$("#resTxt").html(txt);
 					txtEvent+="<input type=\"text\" class=\"form-control\" name=\"event_name\""+"value="+e+" readonly>"
 					$("#event_randTag").html(txtEvent);
 			}

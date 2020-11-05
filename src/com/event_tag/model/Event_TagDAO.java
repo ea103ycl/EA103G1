@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.naming.Context;
@@ -23,7 +24,7 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 	private static final String FINDALLMEM = "SELECT DISTINCT MEM_ID FROM EVENT_TAG";
 	private static final String FINDALLEVENTNO = "SELECT DISTINCT EVENT_NO FROM EVENT_TAG";//找有被選過主題的hashTag
 	private static final String RANDTAG="SELECT A.*FROM(SELECT*FROM EVENT_TAG ORDER BY DBMS_RANDOM.VALUE)A WHERE ROWNUM<=3";
-	private static final String RANDTAGBYNOEVENTNO="SELECT A.*FROM(SELECT*FROM EVENT_TAG ORDER BY DBMS_RANDOM.VALUE)A WHERE ROWNUM<=3 and event_no is null";//取出尚未被選的Tag
+	private static final String RANDTAGBYNOEVENTNO="SELECT DISTINCT event_tag_name FROM(SELECT*FROM EVENT_TAG ORDER BY DBMS_RANDOM.VALUE)A WHERE  ROWNUM<=3 and event_no is null";//取出尚未被選的Tag
 	private static final String FINDALLBYTAGNAME="select *from event_tag where event_tag_name=?";
 	static {
 		try {
@@ -308,11 +309,7 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Event_TagVO event_tagVO=new Event_TagVO();
-				event_tagVO.setEvent_tag_no(rs.getInt(1));
-				event_tagVO.setMem_id(rs.getString(2));
-				event_tagVO.setEvent_no(rs.getString(3));
-				event_tagVO.setEvent_tag_time(rs.getTimestamp(4));
-				event_tagVO.setEvent_tag_name(rs.getString(5));
+				event_tagVO.setEvent_tag_name(rs.getString(1));
 				
 				event_tagVOs.add(event_tagVO);
 			}
@@ -347,12 +344,13 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 	}
 
 	@Override
-	public Event_TagVO findAllByTagName(String event_tag_name) {
+	public List<Event_TagVO> findAllByTagName(String event_tag_name) {
 		// TODO Auto-generated method stub
 		Connection con=null;
 		Event_TagVO tagVO=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
+		List<Event_TagVO> tagVOs=new LinkedList<Event_TagVO>();
 		try {
 			con=ds.getConnection();
 			pstmt=con.prepareStatement(FINDALLBYTAGNAME);
@@ -365,7 +363,7 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 				tagVO.setEvent_no(rs.getString(3));
 				tagVO.setEvent_tag_time(rs.getTimestamp(4));
 				tagVO.setEvent_tag_name(rs.getString(5));
-				
+				tagVOs.add(tagVO);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -394,7 +392,7 @@ public class Event_TagDAO implements Event_TagDAO_interface {
 			}
 		}
 		
-		return tagVO;
+		return tagVOs;
 	}
 
 }
