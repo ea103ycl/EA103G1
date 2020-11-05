@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -40,6 +41,19 @@ public class BdPageServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 
 		// =====================front page action ===================
+		
+		if("setEventToContextscope".equals(action)) {
+			ServletContext ctx=req.getServletContext();
+			String eventNo=req.getParameter("eventNo");
+			
+			ctx.setAttribute("event_no", eventNo);
+			System.out.println("(BdPageServlet) Bidding start.");
+			RequestDispatcher view = req.getRequestDispatcher("/frontend/biddingFront/biddingIndex.jsp");
+			view.forward(req, res);
+		}
+		
+		
+		
 		if ("checkout".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
