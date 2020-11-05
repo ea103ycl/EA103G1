@@ -201,7 +201,7 @@ public class YclTools {
 			Graphics graphics = scaledBufferedImage.createGraphics();
 			graphics.drawImage(srcBufferedImage, 0, 0, imageWidth, imageHeight, null);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ImageIO.write(scaledBufferedImage, "jpg", baos);
+			ImageIO.write(scaledBufferedImage, "png", baos);
 			return baos.toByteArray();
 		} catch (IOException e) {
 			e.printStackTrace();
