@@ -14,7 +14,7 @@
 
 <%-- 	<c:set var="memVO" value="${memSvc.findByPrimaryKey(M000001)}" scope="session"/> --%>
 	<c:set var="event_no" value="E001003" scope="application"/>
-	<span>memId=${memVO.mem_id}</span><br>
+<%-- 	<span>memId=${memVO.mem_id}</span><br> --%>
 	event_no=${event_no}
 	${latestBd1}
 	${latestBd2}

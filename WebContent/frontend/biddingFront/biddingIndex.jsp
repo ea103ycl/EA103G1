@@ -74,7 +74,7 @@
 	<input type="hidden" value="<%=request.getContextPath()%>" name="contextPath" id="contextPath">
 	<form id="enterBidPage" style="display: hidden"
 		action="<%=request.getContextPath()%>/biddingPage/BdPageServlet">
-		<input type="text" id="bdNo" name="bdNo" required><br> <input
+		<input type="text" id="bdNo" name="bdNo" value="${bdNo}" required><br> <input
 			type="hidden" name="action" value="setBidInfo">
 	</form>
 
