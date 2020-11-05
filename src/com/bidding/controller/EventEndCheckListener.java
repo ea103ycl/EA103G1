@@ -25,23 +25,23 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 	public void attributeAdded(ServletContextAttributeEvent sctae) {
 
 		if ("event_no".equals(sctae.getName())) {
-			String event_no = (String) sctae.getValue();
-			System.out.println("(EventEndCheckListener) get event_no:" + event_no);
-			if (event_no == null) {
-				return;
+
+			try {
+				String event_no = (String) sctae.getValue();
+				System.out.println("(EventEndCheckListener) get event_no:" + event_no);
+				if (event_no == null) {
+				}
+				BdRedis bdr = new BdRedis();
+				bdr.registerBdNo(event_no);
+
+				ServletContext ctx = sctae.getServletContext();
+				List<String> list = getLatestBdNo(event_no, 3);
+				ctx.setAttribute("latestBd1", list.get(0));
+				ctx.setAttribute("latestBd2", list.get(1));
+				ctx.setAttribute("latestBd3", list.get(2));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			BdRedis bdr = new BdRedis();
-			bdr.registerBdNo(event_no);
-
-			ServletContext ctx = sctae.getServletContext();
-			List<String> list = getLatestBdNo(event_no, 3);
-			ctx.setAttribute("latestBd1", list.get(0));
-			ctx.setAttribute("latestBd2", list.get(1));
-			ctx.setAttribute("latestBd3", list.get(2));
-
-		}else {
-			System.out.println("(EventEndCheckListener) attributeAdded: no such action");
-			return;
 		}
 	}
 
@@ -50,25 +50,25 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 		if ("event_no".equals(sctae.getName())) {
 			String event_no = (String) sctae.getValue();
 			System.out.println("(EventEndCheckListener) get event_no:" + event_no);
-
+			try {
 			if (event_no == null) {
-				return;
 			}
 			BdRedis bdr = new BdRedis();
+			System.out.println("#1");
 			bdr.registerBdNo(event_no);
-
+			System.out.println("#2");
 			ServletContext ctx = sctae.getServletContext();
+			System.out.println("#3");
 			List<String> list = getLatestBdNo(event_no, 3);
+			System.out.println("#4");
 			if (list.size() < 3) {
-				return;
 			}
 			ctx.setAttribute("latestBd1", list.get(0));
 			ctx.setAttribute("latestBd2", list.get(1));
 			ctx.setAttribute("latestBd3", list.get(2));
-			return;
-		}else {
-			System.out.println("(EventEndCheckListener) attributeAdded: no such action");
-			return;
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -84,7 +84,7 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 				latest1 = "E" + latest1.substring(latest1.length() - 6);
 				System.out.println("(EventEndCheckListener)Epno:" + latest1);
 				latest.add(latest1);
-			}else {
+			} else {
 				lastestNum++;
 			}
 		}

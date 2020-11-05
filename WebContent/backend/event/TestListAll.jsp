@@ -7,8 +7,8 @@
 <!-- 取得list -->
 <%
 	HttpSession sess=request.getSession();
-	EventDAO dao = new EventDAO();
-	List<EventVO> eventVOs = dao.findAllEvent();
+	EventService eventSvc = new EventService();
+	List<EventVO> eventVOs = eventSvc.findAllEvent();
 	pageContext.setAttribute("eventVOs", eventVOs);
 	EventVO eventVO = null;
 	pageContext.setAttribute("eventVO", eventVO);
@@ -19,6 +19,9 @@
 	statList.add("開始投票");
 	statList.add("活動結束");
 	pageContext.setAttribute("statList", statList);
+%>
+<% 
+	String lastEndEvent=eventSvc.findLastEndEvent();
 %>
 
 <!DOCTYPE html>
@@ -67,6 +70,10 @@ table.table {
 					<h4>資料查詢:</h4>
 					<ul>
 						<li><a href="TestListAll.jsp">List All</a></li>
+						<li><%=lastEndEvent%> </li>
+						<% 
+							application.setAttribute("lastEndEvent", lastEndEvent);
+						%>
 						
 						<li>
 
