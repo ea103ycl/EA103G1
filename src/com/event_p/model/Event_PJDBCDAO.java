@@ -475,7 +475,7 @@ public class Event_PJDBCDAO implements Event_PDAO_interface {
 
 	//==∑Á¿s=========================================================
 	@Override
-	public List<Event_PVO> getAll() {
+	public List<Event_PVO> getAll(String event_no) {
 		// TODO Auto-generated method stub
 		return null;
 	}

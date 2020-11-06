@@ -133,10 +133,11 @@ label{
         <form class="uf-form-area" method="post" action="preproduct.do" name="form1">
             <table>     
                 <label>選擇作品編號</label>
+                <jsp:useBean id="eventSvc" scope="page" class="com.event.model.EventService" />
                 <jsp:useBean id="eventPSvc" scope="page" class="com.event_p.model.Event_PService" />
                 <select name="event_p_no" onchange="setPic()">
                 	<option selected="selected" disabled="disabled"  style='display: none' >--請選擇作品--</option>
-                    <c:forEach var="eventpVO" items="${eventPSvc.getAll()}">
+                    <c:forEach var="eventpVO" items="${eventPSvc.getAll(eventSvc.findLastEndEvent())}">
                         <option value="${eventpVO.event_p_no}">${eventpVO.event_p_name} --- 第${eventpVO.vote_rank}名作品 ---
                     </c:forEach>
                 </select>
