@@ -56,13 +56,9 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 				return;
 			}
 			BdRedis bdr = new BdRedis();
-//			System.out.println("#1");
 			bdr.registerBdNo(event_no);
-//			System.out.println("#2");
 			ServletContext ctx = sctae.getServletContext();
-//			System.out.println("#3");
 			List<String> list = getLatestBdNo(event_no, 3);
-//			System.out.println("#4");
 			if (list.size() < 3) {
 			}
 			ctx.setAttribute("latestBd1", list.get(0));

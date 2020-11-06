@@ -67,7 +67,7 @@
 		<c:set var="event_no" value="E000001" scope="application" />
 	</c:if>
 	
-	<c:set var="bdNo" value="${event_no}" />
+	<c:set var="bdNo" value="${event_no}" scope="application" />
 	<c:set var="epVO" value="${epSvc.findTopByEventNoWithoutReport(bdNo)}" />
 	<c:set var="sqlBdNo" value="${bdr.getSqlBdNo(bdNo)}" />${sqlBdNo}
 	<c:set var="bVO" value="${bdSvc.getOne(sqlBdNo)}" />${bVO.bdNo}
