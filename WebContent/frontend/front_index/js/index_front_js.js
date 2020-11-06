@@ -343,6 +343,6 @@
 
         $('#searchBlock-icon').on('click', function() {
             window.scrollTo(0,0);
-            location.reload();
+            window.location.href=contextPath + "/frontend/front_index.jsp";
 
         });
