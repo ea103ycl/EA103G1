@@ -64,7 +64,7 @@ public class Event_PDAO implements Event_PDAO_interface {
 	private static final String FINDFIVEPICBYEVENTNO="select*from event_p where event_no=? and event_p_stat=1 and rownum<=5";
 
 	//by ·çÀs
-	private static final String GET_ALL_STMT = "SELECT * FROM EVENT_P WHERE EVENT_NO = (SELECT LAST_VALUE (EVENT_NO) OVER (ORDER BY EVENT_NO)  as LastValue FROM EVENT WHERE EVENT_STAT = 3 and rownum<2) and EVENT_P_STAT != 2";
+	private static final String GET_ALL_STMT = "SELECT * FROM EVENT_P WHERE EVENT_NO = ? and vote_rank between 1 and 10 and EVENT_P_STAT != 2 order by vote_rank";
 
 	
 	
@@ -982,7 +982,7 @@ public class Event_PDAO implements Event_PDAO_interface {
 
 	//==·çÀs=========================================================
 	@Override
-	public List<Event_PVO> getAll() {
+	public List<Event_PVO> getAll(String event_no) {
 			
 		List<Event_PVO> list = new ArrayList<Event_PVO>();
 		Event_PVO eventpVO = null;
@@ -993,6 +993,7 @@ public class Event_PDAO implements Event_PDAO_interface {
 		try {
 			con=ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
+			pstmt.setString(1, event_no);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

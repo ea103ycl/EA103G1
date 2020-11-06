@@ -29,5 +29,5 @@ public interface Event_PDAO_interface {
 	public List<Event_PVO> findAllOrderBySelect(String event_no,String colName);
 	
 	//By∑Á¿s
-	public List<Event_PVO> getAll();
+	public List<Event_PVO> getAll(String event_no);
 }

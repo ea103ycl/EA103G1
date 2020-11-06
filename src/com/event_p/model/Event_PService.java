@@ -94,7 +94,7 @@ public class Event_PService {
 	}
 	
 	//==By∑Á¿s=============================================================
-	public List<Event_PVO> getAll(){
-		return dao.getAll();
+	public List<Event_PVO> getAll(String event_no){
+		return dao.getAll(event_no);
 	}
 }
