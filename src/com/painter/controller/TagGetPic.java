@@ -51,7 +51,7 @@ public class TagGetPic extends HttpServlet {
 			List<Integer> list = new ArrayList<Integer>();
 
 			if (ptVOList.isEmpty()) {
-				String errorMsgs = new String("No Data,Please confirm your search : " + tag_desc + " ?");
+				String errorMsgs = new String("No Data, Please confirm your search : " + tag_desc + " ?");
 				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher view = req.getRequestDispatcher("/frontend/front_index.jsp");
 				view.forward(req, res);
