@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebListener;
 
 import com.bidding.model.BdRedis;
 import com.bidding.model.BiddingService;
+import com.event_p.model.Event_PService;
 
 /**
  * Application Lifecycle Listener implementation class EventEndCheckListener
@@ -72,6 +73,7 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 
 	public List<String> getLatestBdNo(String event_no, Integer latestNum) {
 		BiddingService bdSvc = new BiddingService();
+		Event_PService epSvc = new Event_PService();
 		String bdNo = event_no;
 		System.out.println("bdNo"+bdNo);
 		List<String> latest = new ArrayList<String>();
@@ -80,8 +82,16 @@ public class EventEndCheckListener implements ServletContextAttributeListener {
 
 			String latest1 = "000000" + String.valueOf(i);
 				latest1 = "E" + latest1.substring(latest1.length() - 6);
-				System.out.println("(EventEndCheckListener)Epno:" + latest1);
-				latest.add(latest1);
+				// ===============checking=============
+				if(epSvc.findTopByEventNoWithoutReport(latest1)!=null) {
+					latest.add(latest1);
+				}else {
+					latestNum++;
+					if(latestNum>10) {
+						break;
+					}
+				}
+			
 		}
 		return latest;
 	}

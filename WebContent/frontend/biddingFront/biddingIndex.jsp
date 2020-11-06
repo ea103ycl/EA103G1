@@ -135,7 +135,7 @@
 									onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (2).jpg'"
 									src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${latestEpVO1.event_p_no}">
 								<div class="team-info-box">
-									<h6>${memSvc.findByPrimaryKey(latestEpVO1.mem_id)}</h6>
+									<h6>${memSvc.findByPrimaryKey(latestEpVO1.mem_id).m_name}</h6>
 									<p class="team-role">${latestEpVO1.event_p_name}</p>
 									<p class="social text-center">
 										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
@@ -160,7 +160,7 @@
 									onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (3).jpg'"
 									src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${latestEpVO2.event_p_no}">
 								<div class="team-info-box">
-									<h6>${memSvc.findByPrimaryKey(latestEpVO2.mem_id)}</h6>
+									<h6>${memSvc.findByPrimaryKey(latestEpVO2.mem_id).m_name}</h6>
 									<p class="team-role">${latestEpVO2.event_p_name}</p>
 									<p class="social text-center">
 										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
@@ -185,7 +185,7 @@
 									onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/img (4).jpg'"
 									src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${latestEpVO3.event_p_no}">
 								<div class="team-info-box">
-									<h6>${memSvc.findByPrimaryKey(latestEpVO3.mem_id)}</h6>
+									<h6>${memSvc.findByPrimaryKey(latestEpVO3.mem_id).m_name}</h6>
 									<p class="team-role">${latestEpVO3.event_p_name}</p>
 									<p class="social text-center">
 										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
