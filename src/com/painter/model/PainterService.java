@@ -43,6 +43,10 @@ public class PainterService {
 		return dao.getOnePainter(ptr_no);
 	}
 	
+	public List<String> getMembersByMAccno(String acct){
+		return dao.getMembersByMAccno(acct);
+	}
+	
 	//==Tim============================================================
 	public List<PainterVO> getAll() {
 		return dao.getAll();

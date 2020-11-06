@@ -145,7 +145,6 @@
 		<script>
 			$('.deleteLvBtn').click(function() {
 				let lvID = $(this).val();
-				alert(lvID);
 				swal({
 					  title: "刪除里程碑",
 					  text: "確定要刪除里程碑嗎？",
