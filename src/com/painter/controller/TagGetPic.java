@@ -48,7 +48,7 @@ public class TagGetPic extends HttpServlet {
 			String tag_desc = req.getParameter("searchBar1");
 			PainterTagService ptSvc = new PainterTagService();
 			List<PainterTagVO> ptVOList = ptSvc.fuzzySearch(tag_desc);
-			List<Integer> list = null;
+			List<Integer> list = new ArrayList<Integer>();
 
 			if (ptVOList.isEmpty()) {
 				String errorMsgs = new String("No Data,Please confirm your search : " + tag_desc + " ?");
@@ -60,7 +60,8 @@ public class TagGetPic extends HttpServlet {
 
 			for (PainterTagVO ptVO : ptVOList) {
 				String fuzzyTag = ptVO.getTag_desc();
-				list = ptSvc.getPicbyTag(fuzzyTag);
+				List<Integer> tagnoList = ptSvc.getPicbyTag(fuzzyTag);
+				list.addAll(tagnoList);
 			}
 
 			req.setAttribute("ptrnoList", list);
