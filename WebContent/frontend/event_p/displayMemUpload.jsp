@@ -4,15 +4,15 @@
 <%@ page import="com.event.model.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.util.Base64.*" %>
-
+<%@ page import="com.mem.model.*" %>
 
 <%
 	HttpSession ses_displayMem=request.getSession();	
-	if(ses_displayMem.getAttribute("mem_id")==null){
-		ses_displayMem.setAttribute("mem_id","M000003");
-	}	
+// 	if(ses_displayMem.getAttribute("mem_id")==null){
+// 		ses_displayMem.setAttribute("mem_id","M000003");
+// 	}	
 
-	String mem_id=(String)ses_displayMem.getAttribute("mem_id");
+	String mem_id=((MemVO)ses_displayMem.getAttribute("memVO")).getMem_id();
 	Event_PService eventPSvc=new Event_PService();
 	Event_PVO event_pVO=eventPSvc.findUploadByMemid(mem_id,(String)ses_displayMem.getAttribute("event_no"));
 	pageContext.setAttribute("event_pVO",event_pVO);
@@ -64,7 +64,7 @@
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label col-sm-offset-1">會員編號</label>
                 <div class="col-sm-3">
-                	<input type="text" class="form-control" name="mem_id" value="<%=ses_displayMem.getAttribute("mem_id")%>" readonly="readonly">
+                	<input type="text" class="form-control" name="mem_id" value="<%=((MemVO)ses_displayMem.getAttribute("memVO")).getMem_id()%>" readonly="readonly">
                 </div>
             </div>
 

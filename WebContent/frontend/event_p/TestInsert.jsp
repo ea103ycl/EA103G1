@@ -4,7 +4,7 @@
 <%@ page import="com.event.model.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.util.Base64.*" %>
-
+<%@ page import="com.mem.model.*" %>
 <%
   Event_PVO event_pVO = (Event_PVO) request.getAttribute("event_pVO");
   pageContext.setAttribute("event_pVO", event_pVO);  
@@ -16,13 +16,13 @@
   EventVO eventVO=eventSvc.findByPrimaryKey((String)sess.getAttribute("event_no"));
   
 %>
-<c:if test="<%=sess.getAttribute(\"mem_id\")==null %>">
-	<%sess.setAttribute("mem_id","M000003"); %>
-</c:if>
-<c:if test="<%=eventPSvc.checkUploadByMemid((String)sess.getAttribute(\"mem_id\"),(String)sess.getAttribute(\"event_no\")) %>">
-	會員<%=sess.getAttribute("mem_id") %>以投稿過
-	forward到更新資訊頁面
-</c:if>
+<%-- <c:if test="<%=sess.getAttribute(\"mem_id\")==null %>"> --%>
+<%-- 	<%sess.setAttribute("mem_id","M000003"); %> --%>
+<%-- </c:if> --%>
+<%-- <c:if test="<%=eventPSvc.checkUploadByMemid((String)sess.getAttribute(\"mem_id\"),(String)sess.getAttribute(\"event_no\")) %>"> --%>
+<%-- 	會員<%=sess.getAttribute("mem_id") %>以投稿過 --%>
+<!-- 	forward到更新資訊頁面 -->
+<%-- </c:if> --%>
 
 <c:if test="<%=event_pVO!=null %>">
 	<%
@@ -48,7 +48,7 @@
 </head>
 <body>
 <%@include  file="/frontend/bar/frontBarTop.jsp"%>
-<div style="margin-top:80px;"></div>
+<!-- <div style="margin-top:100px;"></div> -->
 <%-- ${event_pVO==null } --%>
 <%-- <c:if test="${not empty errMsgs }"> --%>
 <%-- 	<c:forEach var="err" items="${errMsgs}"> --%>
@@ -61,7 +61,7 @@
 
 
 
-	<div class="container">
+	<div class="container" >
 <!-- 	<button id="contentInsert">按鈕</button> -->
 	<form action="Event_pServlet" method="post" enctype="multipart/form-data">
 		
@@ -83,10 +83,10 @@
                 			
 <!--                 </div> -->
 <!--             </div> -->
-            <div class="form-group row">
+            <div class="form-group row" >
                 <label for="inputEmail3" class="col-sm-2 col-form-label">會員編號</label>
                 <div class="col-sm-3">
-                	<input type="text" class="form-control" name="mem_id" value="<%=sess.getAttribute("mem_id")%>" readonly="readonly">
+                	<input type="text" class="form-control" name="mem_id" value="<%=((MemVO)sess.getAttribute("memVO")).getMem_id()%>" readonly="readonly">
                 </div>
             </div>
 <!--             <div class="form-group row"> -->

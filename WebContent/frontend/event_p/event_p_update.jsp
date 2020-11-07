@@ -4,19 +4,19 @@
 <%@ page import="com.event.model.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.util.Base64.*" %>
-
+<%@ page import="com.mem.model.*" %>
 <%
   HttpSession sess=request.getSession();
   Event_PService eventPSvc=new Event_PService();
   Event_PVO event_pVO=null;
   
   %>
-<c:if test="<%=sess.getAttribute(\"mem_id\")==null %>">
-	<%sess.setAttribute("mem_id","M000003"); %>
-</c:if>  
+<%-- <c:if test="<%=sess.getAttribute(\"mem_id\")==null %>"> --%>
+<%-- 	<%sess.setAttribute("mem_id","M000003"); %> --%>
+<%-- </c:if>   --%>
   <%
   if(request.getAttribute("event_pVO")==null){
-  	event_pVO=eventPSvc.findUploadByMemid((String)sess.getAttribute("mem_id"),(String)sess.getAttribute("event_no"));
+  	event_pVO=eventPSvc.findUploadByMemid(((MemVO)sess.getAttribute("memVO")).getMem_id(),(String)sess.getAttribute("event_no"));
   }else{
 	event_pVO = (Event_PVO) request.getAttribute("event_pVO");  
   }
@@ -72,7 +72,7 @@ ${event_pVO==null }
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">會員編號</label>
                 <div class="col-sm-3">
-                	<input type="text" class="form-control" name="mem_id" value="<%=sess.getAttribute("mem_id")%>" readonly="readonly">
+                	<input type="text" class="form-control" name="mem_id" value="<%=((MemVO)sess.getAttribute("memVO")).getMem_id()%>" readonly="readonly">
                 </div>
             </div>
 
