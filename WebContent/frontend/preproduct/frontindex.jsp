@@ -139,6 +139,9 @@ header #header-banner{
 .product:hover img {
     opacity: 0.9;
 }
+#no1{
+height:400px;
+}
 
 	</style>
 </head>
@@ -161,7 +164,7 @@ header #header-banner{
         <div class="banner-content single-page text-center">
             <div class="banner-border">
             <a href="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${list01[0].event_p_no}" data-size="1600x1067">
-            	<img src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${list01[0].event_p_no}"></a>
+            	<img id="no1" src="<%=request.getContextPath()%>/backend/preproduct/tools/eventP_show.jsp?EVENT_P_NO=${list01[0].event_p_no}"></a>
                 <div class="banner-info">
                     <h1>本期預購活動倒數</h1>
                     <div class="count_contentBx">
