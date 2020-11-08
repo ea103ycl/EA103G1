@@ -69,7 +69,7 @@ public class OrderDAO implements OrderDAO_interface {
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
 				ord_next_no = rs.getString(1);
-				System.out.println("OR_NO = " + ord_next_no);
+//				System.out.println("OR_NO = " + ord_next_no);
 			}
 			
 			DetailDAO detailDAO = new DetailDAO();//訂單明細
@@ -89,20 +89,29 @@ public class OrderDAO implements OrderDAO_interface {
 			Integer after_balance  = (before_blance - or_total);
 			dealDAO.update_balance(con, or_mem_id, after_balance);//會員餘額更新 
 			
-			System.out.println("訂單編號:" + ord_next_no + "   會員編號:"  +or_mem_id +"  消費金額:" + or_total + "  目前錢包餘額:" +before_blance + "  消費後錢包餘額:" + after_balance);
+			System.out.println("訂單編號:" + ord_next_no + "\t購買人編號:"  +or_mem_id +"\t消費金額:" + or_total + "\t目前錢包餘額:" +before_blance + "\t消費後錢包餘額:" + after_balance);
+			
 			ProdDAO prodDAO = new ProdDAO();//分潤
 			for (DetailVO detailVO : detailList) {
 				Integer prod_no = detailVO.getProd_no();//拿作品的會員編號--頭
+				
+				
+				
+				String  prod_name = prodDAO.findByPrimaryKey(prod_no).getProd_name();
+				Integer prod_price = prodDAO.findByPrimaryKey(prod_no).getProd_price();
 				Integer ptr_no = prodDAO.findByPrimaryKey(prod_no).getPtr_no();
-				String earn_money_mem_id = dealDAO.find_Memid_byPtr(ptr_no).getMem_id();//拿作品的會員編號--尾
+				Integer or_qty = detailVO.getOr_qty();
+				
+				
+				String  earn_money_mem_id = dealDAO.find_Memid_byPtr(ptr_no).getMem_id();//拿作品的會員編號--尾
 				Integer profit = (detailVO.getOr_p_price()/10*detailVO.getOr_qty());
 				dealDAO.insert(ord_next_no, con, earn_money_mem_id, 30, profit);//錢包交易(分潤)
 				Integer money_before = dealDAO.findByPrimaryKey(earn_money_mem_id).getBalance();//取會員錢包餘額
 				Integer money_after = (money_before + profit);
 				dealDAO.update_balance(con, earn_money_mem_id,  money_after);//會員餘額更新 +$$
-				
-				System.out.println("購買的商品編號:" +prod_no +"  其作品編號:" + ptr_no +"   其作者會員編號:" +earn_money_mem_id +"  分潤的錢:" + profit+"元" + "  分潤前錢包:" + money_before+"元" + "  分潤後錢包:" + money_after+"元");
-			
+				System.out.println("-----------------------------------------------------------------------------------");
+				System.out.println("購買商品編號:" +prod_no +"\t商品名稱:" +prod_name +"\t價格:" +prod_price +"\t數量:" +or_qty+"\t其作品編號:" + ptr_no +"\t其作者會員編號:" +earn_money_mem_id +"\t分潤到的錢:" + profit+"元(商品價格的1/10)" + "  分潤前錢包:" + money_before+"元" + "  分潤後錢包:" + money_after+"元"); 
+			   
 			}
 			
 			
@@ -111,7 +120,9 @@ public class OrderDAO implements OrderDAO_interface {
 			
 			
 			con.commit();
-			
+			System.out.println();
+			System.out.println();
+			System.out.println();
 			// Handle any driver errors
 		} catch (SQLException se) {
 			try {
