@@ -41,24 +41,10 @@
 		getServletContext().setAttribute("event_no", eventSvc.findLastEndEvent());
 		
 	}
-// 	if(sess.getAttribute("event_pVOs")!=null){
-// 		event_pVOs=(List<Event_PVO>)sess.getAttribute("event_pVOs");
-// 	}else if(eventVO.getEvent_stat()==3){
-// 		event_pVOs=dao.findAllByEventNoRankDescWithoutReport(event_no);
-		
-// 	}else if(isEventNoRefresh){
-// 		event_pVOs=dao.findAllNoReport(event_no);//從A主題跳到B主題的作品刷新
-		
-// 	}
 	pageContext.setAttribute("event_pVOs",event_pVOs);
 	
 	
 
-// 	if(ses.getAttribute("memVO")==null){
-// 		ses.setAttribute("mem_id","M000003");//可以寫不同編號測試
-// 	}else{
-// 		ses.setAttribute("mem_id", ((MemVO)ses.getAttribute("memVO")).getMem_id());
-// 	}	
 	Event_PService eventPSVC=new Event_PService();
 	boolean checkMemPic=eventPSVC.checkUploadByMemid(((MemVO)sess.getAttribute("memVO")).getMem_id(),eventVO.getEvent_no());
 	pageContext.setAttribute("checkMemPic", checkMemPic);//確認會員是否投過搞
@@ -89,14 +75,6 @@
 	
 %>
 
-<%-- <c:if test="${not empty errMsgs}"> --%>
-<!-- 	<font style="color:red">請修正以下錯誤:</font> -->
-<!-- 	<ul> -->
-<%-- 	    <c:forEach var="message" items="${errMsgs}"> --%>
-<%-- 			<li style="color:red">${message}</li> --%>
-<%-- 		</c:forEach> --%>
-<!-- 	</ul> -->
-<%-- </c:if> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -184,14 +162,6 @@
 						${event_statStr[eventVO.event_stat]}
 <%-- 						${eventVO.event_stat } --%>
 					</h2>
-<!-- 					<div id="countDownTimer" style="display: none;"> -->
-<!-- 						 style="display: none; 不會佔據空間並隱藏 -->
-<%-- 						<fmt:parseDate var="dateObject" --%>
-<%-- 							value="${event_statTime[eventVO.event_stat]}" pattern="yyyy-MM-dd" /> --%>
-<%-- 						<fmt:formatDate value="${dateObject}" pattern="yyyy-MM-dd" /> --%>
-<!-- 					</div> -->
-<%-- 					 目前活動狀態的截止時間(之後刪): ${event_statTime[eventVO.event_stat]} --%>
-<!-- 					<div id="displayReamainTime"></div> -->
                     <h3>${eventVO.event_name}</h3>
                 </div>
                 <!-- / banner-info -->
@@ -268,10 +238,6 @@
 					<option value="event_p_dateWithasc">投稿日期舊到新</option>
 					<option value="event_vote_numWithdesc">投票數高到低</option>
 					<option value="event_vote_numWithasc">投票數低到高</option>
-					<!-- 		                        <option>Newness</option> -->
-					<!-- 		                        <option>Rating</option> -->
-					<!-- 		                        <option>Price Low to High</option> -->
-					<!-- 		                        <option>Price High to Low</option> -->
 				</optgroup>
 			</select> <input type="hidden" name="action" value="selectOrderBy">
 			<input type="submit" value="搜尋">
@@ -321,8 +287,6 @@
 										value="${event_pVO.event_p_no}" id="event_p_no"> 
 									<input
 										type="hidden" name="action" value="vote">
-<!-- 									<input  type="submit" class="btn btn-primary "  value="投票" -->
-<%-- 										${eventVO.getEvent_stat()!=2||event_p_nos.contains(event_pVO.event_p_no)?"disabled":"" }> --%>
 									<!-- 把錯誤訊息用alert方式顯示 -->
 									<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 									<input type="hidden" name="whichPage" value="<%=whichPage%>">
@@ -365,13 +329,7 @@
                         <fmt:parseDate value="${event_pVO.event_p_date}" var="dateObject" pattern="yyyy-MM-dd"/>
 						<fmt:formatDate value="${dateObject}"/>                        
                         </p>
-<!--                         <p class="space-bottom">Suspendisse in mattis neque, sed accumsan erat. Maecenas eget metus dui. Vestibulum accumsan massa quam...</p> -->
                         <p class="small-post-footer">
-<!--                             <a href="single-post.html">READ MORE(呈現原圖)</a> -->
-<!--                             <span class="post-icons pull-right"> -->
-<!--                                 <a href="#x"><i class="lnr lnr-thumbs-up"></i></a> -->
-<!--                                 <a href="#x"><i class="lnr lnr-bubble"></i></a> -->
-<!--                             </span> -->
                         </p>
                     </div><!-- / small-post-text -->
                 </div><!-- / post-block -->

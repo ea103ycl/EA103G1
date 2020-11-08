@@ -58,12 +58,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- Bootstrap CSS -->
-<!-- <link rel="stylesheet" type="text/css" -->
-<%-- 	href="<%=request.getContextPath()%>/frontend/template/css/bootstrap.min.css"> --%>
-<!-- <link -->
-<%-- 	href="<%=request.getContextPath()%>/frontend/template/css/carousel.css" --%>
-<!-- 	rel="stylesheet"> -->
 	<link href="<%=request.getContextPath()%>/frontend/template/neoTools/sweetAlert/sweetalert.css">
 <title>event Home Page</title>
 <style>
@@ -145,28 +139,8 @@ background-color:#fff;
 	</div>
 </div>
 <div class="container" >
-              <div class="container text-center ">
-<!-- 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"  > -->
-<!-- 					 我有點子 -->
-<!-- 					</button> -->
-<!-- 					<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> -->
-<!-- 					  <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> -->
-<!-- 					    <div class="modal-content"> -->
-<!-- 					      <div class="modal-header"> -->
-<!-- 					        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
-<!-- 					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-<!-- 					          <span aria-hidden="true">&times;</span> -->
-<!-- 					        </button> -->
-<!-- 					      </div> -->
-<!-- 					      <div class="modal-body"> -->
-<%-- 										<%@include file="TestTagInsert.jsp" %> --%>
-<!-- 					      </div> -->
-<!-- 					      <div class="modal-footer"> -->
-<!-- 					      </div> -->
-<!-- 					    </div> -->
-<!-- 					  </div> -->
-<!-- 					</div> -->
-            </div>
+<!--               <div class="container text-center "> -->
+<!--             </div> -->
 			 <div class="media">
                 <div class="media-left">
                 		<a href="<%=request.getContextPath() %>/frontend/event_p/Event_pServlet?event_no=${event_nos[status.index]}&action=to_event_sepc"> 

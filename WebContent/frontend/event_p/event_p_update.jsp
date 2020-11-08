@@ -11,9 +11,6 @@
   Event_PVO event_pVO=null;
   
   %>
-<%-- <c:if test="<%=sess.getAttribute(\"mem_id\")==null %>"> --%>
-<%-- 	<%sess.setAttribute("mem_id","M000003"); %> --%>
-<%-- </c:if>   --%>
   <%
   if(request.getAttribute("event_pVO")==null){
   	event_pVO=eventPSvc.findUploadByMemid(((MemVO)sess.getAttribute("memVO")).getMem_id(),(String)sess.getAttribute("event_no"));
@@ -46,24 +43,23 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-<%-- 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backend/template/css/bootstrap.min.css"> --%>
 				<link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/frontend/template/css/bootstrap.min.css">
 <title>投稿作品頁面</title>
 </head>
 <body>
 <%@include  file="/frontend/bar/frontBarTop.jsp"%>
-${event_pVO==null }
-<c:if test="${not empty errMsgs }">
-	<c:forEach var="err" items="${errMsgs}">
-		<ul>
-			<li>${err}</li>
-		</ul>		
+<%-- <c:if test="${not empty errMsgs }"> --%>
+<%-- 	<c:forEach var="err" items="${errMsgs}"> --%>
+<!-- 		<ul> -->
+<%-- 			<li>${err}</li> --%>
+<!-- 		</ul>		 -->
 		
-	</c:forEach>
-</c:if>
+<%-- 	</c:forEach> --%>
+<%-- </c:if> --%>
+<div style="margin-top:100px;">
 <a href="<%=request.getContextPath()%>/frontend/event_p/event_spec.jsp">回到主題競賽</a>
-
+</div>
 
 	<div class="container">
 	<form action="Event_pServlet" method="post" enctype="multipart/form-data">
@@ -84,37 +80,13 @@ ${event_pVO==null }
             </div>
              <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品名稱</label>
-<!--                 <div class="col-sm-3"> -->
-<%--                     <input type="text" class="form-control " name="event_p_name" value="<%=eventVO.getEvent_name() %>" readonly="readonly"> --%>
-<!--                 </div> -->
             		<div class="col-sm-3">
                     	<input type="text" class="form-control " name="event_p_name" value="<%=event_pVO.getEvent_p_name()%>">
                 	</div>
             </div>
             
-             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品投票數</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" name="event_vote_num" value="${event_pVO.event_vote_num}" readonly >
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品排行</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" name="vote_rank" value="${event_pVO.vote_rank}" readonly >
-                </div>
-            </div>
-<!--             <div class="form-group row"> -->
-<!--                 <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品狀態</label> -->
-<!--                 <div class="col-sm-3"> -->
-<%--                 <input type="hidden" name="event_p_stat" class="form-control" value="${event_pVO.event_p_stat}" > --%>
-<!--                 	<select class="form-control" name="event_p_stat"> -->
-<%--                 		<option value="1" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==1?"selected":"" %> readonly>待審核</option> --%>
-<%--                 		<option value="2" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==2?"selected":"" %> readonly>通過</option> --%>
-<%--                 		<option value="3" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==3?"selected":"" %> readonly>不通過</option> --%>
-<!--                 	</select> -->
-<!--                 </div> -->
-<!--             </div> -->
+                    <input type="hidden" class="form-control" name="event_vote_num" value="${event_pVO.event_vote_num}" readonly >
+                    <input type="hidden" class="form-control" name="vote_rank" value="${event_pVO.vote_rank}" readonly >
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">上傳圖片(待修)</label>
                 <div class="col-sm-3">

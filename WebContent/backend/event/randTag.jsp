@@ -32,16 +32,6 @@
 		<div class="form-group row">
 <!-- 		<label for="inputEmail3" class="col-sm-2 col-form-label">Hashtag名稱</label> -->
 		</div>
-		<div class="form-group row">
-<!-- 			<label for="inputEmail3" class="col-sm-2 col-form-label">活動名稱</label> -->
-<!-- 			<div class="col-sm-3" id="resTxt"></div> -->
-
-<%-- 			<c:forEach var="event_tagVO" items="${event_tagRandVOs}"> --%>
-<!-- 				<div class="col-sm-3"> -->
-<%-- 					<input type="text" class="form-control " name="event_tag_name"	value="${event_tagVO.event_tag_name}" > --%>
-<!-- 				</div> -->
-<%-- 			</c:forEach> --%>
-		</div>
 		
 		
 		

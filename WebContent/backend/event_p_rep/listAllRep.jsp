@@ -92,12 +92,6 @@ table.table {
 					</h4>
 					<form action="Event_P_RepServlet" method="post">
 <!-- 						選擇要搜尋的競賽名稱:  -->
-<!-- 						<select name="event_no"> -->
-<%-- 							<c:forEach var="eventVO" items="${eventVOs}"> --%>
-<%-- 								<option value="${eventVO.event_no}" --%>
-<%-- 									${eventVO.event_no==event_no?"selected":"" }>${eventVO.event_name} --%>
-<%-- 							</c:forEach> --%>
-<!-- 						</select>  -->
 						<select name="rep_stat">
 							<option value="1" ${currentChoice=="1"?"selected":"" }>待審核</option><!-- repVO.getRep_stat==1?"selected":"" -->
 							<option value="2" ${currentChoice=="2"?"selected":"" }>檢舉通過</option>
@@ -108,15 +102,6 @@ table.table {
 						<input type="submit" value="送出">
 					</form>
 <!-- 					已被檢舉的狀態分類搜尋 -->
-<!-- 					<form action="Event_P_RepServlet" method="post"> -->
-<!-- 						<select name="rep_stat"> -->
-<!-- 							<option value="1" repVO.getRep_stat==1?"selected":"">待審核</option> -->
-<!-- 							<option value="2" >檢舉通過</option> -->
-<!-- 							<option value="3" >檢舉不通過</option> -->
-<!-- 						</select> -->
-<!-- 						<input type="hidden" name="action" value="findAllByRepStat"> -->
-<!-- 						<input type="submit" value="搜尋"> -->
-<!-- 					</form> -->
 
 					<table class="table container tavle-bordered table-hover">
 						<thead class="thead-light">
@@ -163,7 +148,6 @@ table.table {
 										</select> 
 										<input type="hidden" name="event_p_no" value="${event_p_repVO.event_p_no}"> 
 										<input	type="hidden" name="action" value="updateFromlistAllRep">
-<%-- 										<input type="hidden" name="selectedStatRange" value="${event_p_repVO.rep_stat }"> --%>
 										<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 										<input type="hidden" name="whichPage" value="<%=whichPage%>">
 										<input type="submit" value="送出">

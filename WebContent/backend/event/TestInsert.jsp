@@ -62,14 +62,6 @@
 					<h1 class="h3 mb-2 text-gray-800">頁面標題</h1>
 
 					<%-- 錯誤表列 --%>
-<%-- 					<c:if test="${not empty errMsgs}"> --%>
-<!-- 						<font style="color: red">請修正以下錯誤:</font> -->
-<!-- 						<ul> -->
-<%-- 							<c:forEach var="message" items="${errMsgs}"> --%>
-<%-- 								<li style="color: red">${message}</li> --%>
-<%-- 							</c:forEach> --%>
-<!-- 						</ul> -->
-<%-- 					</c:if> --%>
 
 					<%-- 資料內容 --%>
 					<a href="<%=request.getContextPath()%>/backend/event/TestListAll.jsp">回主頁</a><br>

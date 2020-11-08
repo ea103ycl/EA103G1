@@ -16,13 +16,7 @@
   EventVO eventVO=eventSvc.findByPrimaryKey((String)sess.getAttribute("event_no"));
   
 %>
-<%-- <c:if test="<%=sess.getAttribute(\"mem_id\")==null %>"> --%>
-<%-- 	<%sess.setAttribute("mem_id","M000003"); %> --%>
-<%-- </c:if> --%>
-<%-- <c:if test="<%=eventPSvc.checkUploadByMemid((String)sess.getAttribute(\"mem_id\"),(String)sess.getAttribute(\"event_no\")) %>"> --%>
-<%-- 	會員<%=sess.getAttribute("mem_id") %>以投稿過 --%>
-<!-- 	forward到更新資訊頁面 -->
-<%-- </c:if> --%>
+
 
 <c:if test="<%=event_pVO!=null %>">
 	<%
@@ -41,71 +35,25 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-<%-- 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backend/template/css/bootstrap.min.css"> --%>
-<!-- 	<link rel="stylesheet" type="text/css" -->
-<%-- 	href="<%=request.getContextPath()%>/frontend/template/css/bootstrap.min.css"> --%>
 <title>投稿作品頁面</title>
 </head>
 <body>
 <%@include  file="/frontend/bar/frontBarTop.jsp"%>
-<!-- <div style="margin-top:100px;"></div> -->
-<%-- ${event_pVO==null } --%>
-<%-- <c:if test="${not empty errMsgs }"> --%>
-<%-- 	<c:forEach var="err" items="${errMsgs}"> --%>
-<!-- 		<ul> -->
-<%-- 			<li>${err}</li> --%>
-<!-- 		</ul>		 -->
-		
-<%-- 	</c:forEach> --%>
-<%-- </c:if> --%>
 
 
-
+	<div style="margin-top:100px;">
+		<a href="event_spec.jsp">回到主題競賽</a>
+	</div>
 	<div class="container" >
 <!-- 	<button id="contentInsert">按鈕</button> -->
 	<form action="Event_pServlet" method="post" enctype="multipart/form-data">
 		
-<!-- 			 <div class="form-group row"> -->
-<!--                 <label for="inputEmail3" class="col-sm-2 col-form-label">會員編號</label> -->
-<!--                 <div class="col-sm-3"> -->
-<!--                 	<select class="form-control" name="mem_id"> -->
-<%--                 		<c:forEach var="memId" items="${memIds}"> --%>
-<%--                 			<c:choose> --%>
-<%-- 	                			<c:when test="${event_pVO.mem_id==memId}"> --%>
-<%-- 	                				<option value="${memId}" selected>${memId}</option> --%>
-<%-- 	                			</c:when> --%>
-<%-- 	                			<c:otherwise>                		 --%>
-<%-- 	                				<option value="${memId}" >${memId}</option> --%>
-<%-- 	                			</c:otherwise> --%>
-<%--                 			</c:choose> --%>
-<%--                 		</c:forEach> --%>
-<!--                 	</select> -->
-                			
-<!--                 </div> -->
-<!--             </div> -->
             <div class="form-group row" >
                 <label for="inputEmail3" class="col-sm-2 col-form-label">會員編號</label>
                 <div class="col-sm-3">
                 	<input type="text" class="form-control" name="mem_id" value="<%=((MemVO)sess.getAttribute("memVO")).getMem_id()%>" readonly="readonly">
                 </div>
             </div>
-<!--             <div class="form-group row"> -->
-<!--                 <label for="inputEmail3" class="col-sm-2 col-form-label">活動編號</label> -->
-<!--                 <div class="col-sm-3"> -->
-<!--                 	<select class="form-control" name="event_no"> -->
-<%--                 		<c:forEach var="event_no" items="${eventNos}"> --%>
-<%--                 			<c:choose> --%>
-<%-- 	                			<c:when test="${event_pVO.event_no==event_no}"> --%>
-<%-- 	                				<option value="${event_no}" selected>${event_no}</option> --%>
-<%-- 	                			</c:when> --%>
-<%-- 	                			<c:otherwise>                		 --%>
-<%-- 	                				<option value="${event_no}" >${event_no}</option> --%>
-<%-- 	                			</c:otherwise> --%>
-<%--                 			</c:choose> --%>
-<%--                 		</c:forEach> --%>
-<!--                 	</select> -->
-<!--                 </div> -->
-<!--             </div> -->
 			<div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">活動編號</label>
                 <div class="col-sm-3">
@@ -124,29 +72,9 @@
                 	</c:if>
             </div>
             
-             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品投票數</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" name="event_vote_num" value="0" readonly >
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品排行</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control " name="vote_rank" value="0" readonly >
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">投稿作品狀態</label>
-                <div class="col-sm-3">
-                	<select class="form-control" name="event_p_stat">
-                		<option value="1" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==1?"selected":"" %>>可投票</option>
-                		<option value="2" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==2?"selected":"" %>>已被檢舉</option>
-<%--                 		<option value="3" <%=event_pVO==null?"":event_pVO.getEvent_p_stat()==3?"selected":"" %> >不通過</option> --%>
-                	</select>
-<%--                     <input type="text" class="form-control " name="event_p_stat" value=<%=(event_pVO==null)?"":event_pVO.getEvent_p_stat().toString() %> > --%>
-                </div>
-            </div>
+                    <input type="hidden" class="form-control" name="event_vote_num" value="0" readonly >
+                    <input type="hidden" class="form-control " name="vote_rank" value="0" readonly >
+                	<input type="hidden" name="event_p_stat" value="1">
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">上傳圖片</label>
                 <div class="col-sm-3">
@@ -169,9 +97,7 @@
 	<img id="demo2">
 	
 	</div>
-	<div>
-	<a href="event_spec.jsp">回到主題競賽</a>
-	</div>
+
 	<%@include file="/frontend/bar/frontBarFooter.jsp" %>
 </body>
 
@@ -202,20 +128,5 @@
 		
 		
 	}
-// 	function getObjectURL(file) {  
-// 	     var url = null;  
-// 	     if (window.createObjcectURL != undefined) {  
-// 	         url = window.createOjcectURL(file);  
-// 	     } else if (window.URL != undefined) {  
-// 	         url = window.URL.createObjectURL(file);  
-// 	     } else if (window.webkitURL != undefined) {  
-// 	         url = window.webkitURL.createObjectURL(file);  
-// 	     }  
-// 	     return url;  
-// 	 }
-
-		
-
-// 	window.onload=init;
 </script>
 </html>

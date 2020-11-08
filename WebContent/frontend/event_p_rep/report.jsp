@@ -2,10 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.event_p.model.*" %>
+<%@ page import="com.mem.model.*" %>
 <%
 	String event_p_no=(String)request.getAttribute("event_p_no");//取得投稿作品資訊
 	HttpSession sess=request.getSession();
-	String mem_id=(String)sess.getAttribute("mem_id");
+	String mem_id=((MemVO)sess.getAttribute("memVO")).getMem_id();
 	
 	
 %>
@@ -44,15 +45,9 @@
 			<div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">檢舉人編號</label>
                 <div class="col-sm-3">
-                	<input type="text" class="form-control" name="mem_id" value="<%=(String)sess.getAttribute("mem_id") %>" readonly="readonly">
+                	<input type="text" class="form-control" name="mem_id" value="<%=((MemVO)sess.getAttribute("memVO")).getMem_id()%>" readonly="readonly">
                 </div>
             </div>
-<!--              <div class="form-group row"> -->
-<!--                 <label for="inputEmail3" class="col-sm-2 col-form-label">檢舉時間</label>  由servlet生成 -->
-<!--                 <div class="col-sm-3"> -->
-<%--                     <input type="text" class="form-control " name="event_p_name" value="<%=eventVO.getEvent_name() %>" readonly="readonly"> --%>
-<!--                 </div> -->
-<!--             </div> -->
             
              <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">檢舉原因</label>
