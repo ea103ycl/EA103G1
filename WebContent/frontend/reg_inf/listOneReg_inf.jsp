@@ -90,7 +90,7 @@
 			<input type="hidden" name="totalAmount" id="amount2" >
 	 	 
 	             <input type="hidden" name="action"	value="cancel">
-	              <input type="submit" value="°e¥X"> 
+	              <input type="submit" value="°e¥X" class="btn btn-primary-filled btn-pill"> 
 	</FORM>
 	         </td>
 	</tr>
