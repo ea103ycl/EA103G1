@@ -54,6 +54,10 @@
 	
 <title>${sMemSvc.findByPrimaryKey(sid).getM_accno()}關注圈</title>
 
+<!-- top bar -->
+<%@include file="/frontend/bar/frontBarTop.jsp"%>
+<%@include file="/frontend/template/YCL/YCL.css"%>
+
 <style>
 .modal-header {
     padding:9px 15px;
@@ -67,10 +71,6 @@
      border-top-right-radius: 5px;
  }
 </style>
-
-<!-- top bar -->
-<%@include file="/frontend/bar/frontBarTop.jsp"%>
-<%@include file="/frontend/template/YCL/YCL.css"%>
 
 </head>
 <body>
