@@ -164,7 +164,7 @@ pageContext.setAttribute("order_list", order_list);
 				<td>
 				<c:if test="${orderVO.or_status==2}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;">
-							<input style="color:deeppink"  type="submit" value="我收到貨了"> 
+							<input   type="submit" value="我收到貨了" class="btn btn-primary-filled btn-rounded"> 
 							<input type="hidden" name="or_status" value="${orderVO.or_status}">
 							<input type="hidden" name="or_no" value="${orderVO.or_no}">
 							<input type="hidden" name="action" value="Change_Order_Status_forBuyer">
@@ -173,7 +173,7 @@ pageContext.setAttribute("order_list", order_list);
 				 
 				 <c:if test="${orderVO.or_status==3}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;">
-							<input  style="color:deeppink" type="submit" value="完成訂單"> 
+							<input  class="btn btn-primary-filled btn-rounded" type="submit" value="完成訂單"> 
 							<input type="hidden" name="or_status" value="${orderVO.or_status}">
 							<input type="hidden" name="or_no" value="${orderVO.or_no}">
 							<input type="hidden" name="action" value="Change_Order_Status_forBuyer">
@@ -191,7 +191,7 @@ pageContext.setAttribute("order_list", order_list);
 
 <c:if test="${orderVO.or_status==4 && pageScope.evalSvc.getAllByOr_no(orderVO.or_no).size()==0}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;">
-							<font size="2px" color="deeppink"><input type="submit" value="還沒給評價唷"></font> 
+							<font size="2px" ><input  class="btn btn-primary-filled btn-rounded" type="submit" value="還沒給評價唷"></font> 
 							
 							<input type="hidden" name="or_no" value="${orderVO.or_no}">
 							<input type="hidden" name="action" value="Eval_Prod">

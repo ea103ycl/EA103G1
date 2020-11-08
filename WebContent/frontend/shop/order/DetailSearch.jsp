@@ -83,14 +83,16 @@ pageContext.setAttribute("detail_list", detail_list);
 </style>
 
 <!-- Begin Page Content -->
+
 <div class="container-fluid">
-   
+  
     <div class="card shadow mb-4">
        
         <div class="card-body">
         
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="margin: 160px 0 160px 0;">
+                
                     <thead>
                         <tr>         
             <th>商品照片</th>
@@ -105,6 +107,7 @@ pageContext.setAttribute("detail_list", detail_list);
                     <tfoot>                      
                     </tfoot>
                     <tbody>
+                    
                         <jsp:useBean id="prodSvc" scope="page" class="com.prod.model.ProdService" />
           
                         <c:forEach var="detailVO" items="${detail_list}">
