@@ -26,7 +26,8 @@
 		<div class="inner" style="border-radius: 7px;">
 			<div id ="logoImageDiv" class="image-holder" style="display: block; margin:50px 30px 30px 50px ">
 
-				<img id ="logoImage" src="<%=request.getContextPath()%>/frontend/members/images/logoFinal1.png" >
+				<a href="<%=request.getContextPath()%>/frontend/front_index.jsp" title=""><img id ="logoImage" src="<%=request.getContextPath()%>/frontend/members/images/logoFinal1.png" ></a>
+			
 				<%-- 錯誤表列 --%>
 				<div id="usridCorrect" style="color: green; text-align: center"></div>
 				<div id="usridWrong" style="color: red; text-align: center"></div>
@@ -40,7 +41,7 @@
 						</h4>
 					<table>
 					<tr><td width="50%">
-						<c:forEach var="message" items="${errorMsgs}" begin="1" end="4">
+						<c:forEach var="message" items="${errorMsgs}" begin="0" end="4">
                             ${message}<br>
 						</c:forEach>
 						</td>
@@ -56,31 +57,31 @@
 			</div>
 			<FORM METHOD="post"
 				ACTION="<%=request.getContextPath()%>/frontend/members/mem.do">
-				<h3>Registration Form</h3>
+				<h3 id="smartbtn">Registration Form</h3>
 				<div class="form-group">
 					<input style="width: 180%" type="text" placeholder="姓名"
-						class="form-control" name="name"
-						value="<%=(memVO == null) ? "" : memVO.getM_name()%>"> <input
-						type="radio" name="gender" value="M"
-						<c:if test="${memVO.m_gender=='M'}">checked</c:if>>男 <input
-						type="radio" name="gender" value="F"
+						class="form-control" name="name" 
+						id="name" value="<%=(memVO == null) ? "" : memVO.getM_name()%>"> 
+				    <input type="radio" name="gender" value="M" id="male"
+						<c:if test="${memVO.m_gender=='M'}">checked</c:if>>男
+						 <input type="radio" name="gender" value="F"  id="female"
 						<c:if test="${memVO.m_gender=='F'}">checked</c:if>>女
 					<%--   <input  type="radio" name="gender" value="F" <%=(memVO.getM_gender()=="F") ? "selected":"" %>>女 --%>
 				</div>
 				<div class="form-wrapper">
 					<input type="text" placeholder="手機號碼" class="form-control"
-						name="mobile"
+						name="mobile" id="mobile"
 						value="<%=(memVO == null) ? "" : memVO.getM_mobile()%>" /> <i
 						class="zmdi zmdi-phone"></i>
 				</div>
 				<div class="form-wrapper">
 					<input type="text" placeholder="電子信箱" class="form-control"
-						name="email"
+						name="email" id="email"
 						value="<%=(memVO == null) ? "" : memVO.getM_email()%>"> <i
 						class="zmdi zmdi-email"></i>
 				</div>
 				<div class="form-wrapper">
-					<select name="zip" id="" class="form-control">
+					<select name="zip" id="zip" class="form-control">
 						<option value="" disabled selected>郵遞區號</option>
 					<option value="234 新北市 永和區">234 新北市 永和區</option>
 <option value="235 新北市 中和區">235 新北市 中和區</option>
@@ -144,14 +145,14 @@
 				</div>
 				<div class="form-wrapper">
 					<input type="text" placeholder="地址" class="form-control"
-						name="address"
+						name="address" id="address"
 						value="<%=(memVO == null) ? "" : memVO.getM_addr()%>"> <i
 						class="zmdi zmdi-home"></i>
 				</div>
 				<div class="form-wrapper">
 					<input id="account" style="width: 70%; display: inline-block;"
 						type="text" placeholder="帳號(6-20個英文數字)" class="form-control"
-						name="usrid"
+						name="usrid" 
 						value="<%=(memVO == null) ? "" : memVO.getM_accno()%>">
 
 					<button type="button" id="checkAccount"
@@ -159,15 +160,15 @@
 
 				</div>
 				<div class="form-wrapper">
-					<input type="password" placeholder="密碼(6-20個英文數字)"
+					<input type="password" placeholder="密碼(6-20個英文數字)" id="password1"
 						class="form-control" name="psw"> <i class="zmdi zmdi-lock"></i>
 				</div>
 				<div class="form-wrapper">
-					<input type="password" placeholder="再次確認密碼" class="form-control"
+					<input type="password" placeholder="再次確認密碼" class="form-control"  id="password2"
 						name="confirmpsw"> <i class="zmdi zmdi-lock"></i>
 				</div>
-				<button>
-					<div id="submitbtn">
+				<button id="submitbtn" type="submit">
+					<div id="submitdiv">
 						Submit<i class="zmdi zmdi-arrow-right"></i>
 					</div>
 				</button>
@@ -220,6 +221,27 @@
 			}
 
 		}
+		
+	
+// 	神奇小按鈕
+		$('#smartbtn').click(function(){
+			$('#name').val('吳美美');
+			$('#female').attr('checked',true);
+			$('#mobile').val('0952123123');
+			$('#email').val('caroline20126862@gmail.com');
+			$('#zip option[value=\'320 桃園市 中壢區\']').attr('selected', true);
+			$('#address').val('中央路300號');
+			$('#account').val('peter520');
+			$('#password1').val('000000');
+			$('#password2').val('000000');
+			
+			
+		});
+		
+      $('#submitbtn').click(function(){
+	        $('#submitdiv').text('sending...');
+			$('#submitbtn').prop('disable',true);
+		});
 	</script>
 </body>
 

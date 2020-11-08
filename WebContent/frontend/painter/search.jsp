@@ -33,9 +33,18 @@
 	        <div class="row">
 	            <div class="col-xs-12 col-sm-6">
 	            
-	            	<label>搜尋其他會員：</label><input id="memSearch" placeholder="請輸入會員帳號">
+				<div class="ui-widget">
+				  <label for="tags">Tags: </label>
+				  <input id="tags">
+				</div>
+	            
+	            
+	            	<label>搜尋其他會員：</label>
+	            	<input id="memSearch" name="memSearch" placeholder="請輸入會員帳號">
 	            	<div id="memmemSearchResult" style="display: none;">
 	            
+
+
 	            </div>
 			</div>
 	
@@ -43,7 +52,7 @@
 
 	<!-- footer -->
 	<%@include file="/frontend/bar/frontBarFooter.jsp"%>
-	
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
 	<script>
 	
@@ -56,27 +65,37 @@
 	  }
 	
 	  $(function () {
+		  
 		   $("#memSearch").keyup(function (evt) {
-		    ChangeCoords(); //設定查詢結果要顯示的頁面位置
+			
+			let keyword = $("#memSearch").text;
+			console.log('搜尋會員關鍵字:', keyword, ",", $("#memSearch").val());
+			
+			//設定查詢結果要顯示的頁面位置
+		    ChangeCoords();
+			
+			//解析按下的按鈕
 		    var k = window.event ? evt.keyCode : evt.which;
-		    //不為空、往上、back
+			
+		    //不為空、往上、back時
 		    if ($("#memSearch").val() != "" && k != 38 && k != 40 && k != 13) {
 		     $.ajax({
 		      type: 'Post',
 		      dataType: "json",
-		      url: "IntelligenceSelect.aspx/GetUserNameList", //要call的方法
-		      data: "{'userName':'" + $("#memSearch").val() + "'}",    //參數
+		      url: "<%=request.getContextPath()%>/painter/painter.do?action=searchMem&keyword=e", //要call的方法
+// 		      data: "{'keyword'" + $("#memSearch").val() + "'}",    //參數
 		      contentType: "application/json; charset=utf-8",
 		      error: function (msg) {
 		       alert("資料載入失敗");
 		      },
 		      success: function (data) {
-		       var objData = eval("(" + data.d + ")");
-		       if (objData.length > 0) {
+		       let result = JSON.parse(data);
+		       console.log(result);
+		       if (result.length > 0) {
 		        var layer = "";
 		        layer = "<table id='aa'>";
 		        $.each(objData, function (idx, item) {
-		         layer += "<tr class='line'><td class='std'>" + item.userName + "</td></tr>";
+		         layer += "<tr class='line'><td class='std'>" + item.m_accno + "</td></tr>";
 		        });
 		        layer += "</table>";
 		        
@@ -131,7 +150,28 @@
 		   });
 		  });
 	
-	</script>
+	  
+	  
+	  $( function() {
+		  
+		  $.ajax({
+		      type: 'Post',
+		      dataType: "json",
+		      url: "<%=request.getContextPath()%>/painter/painter.do?action=searchMem&keyword=e", //要call的方法
+		      contentType: "application/json; charset=utf-8",
+		      error: function (msg) {
+		       alert("資料載入失敗");
+		      },
+		      success: function (data) {
+		       let result = JSON.parse(data);
+		  	   var availableTags = data;
+		      }
+		      $("#tags").autocomplete({
+		        source: availableTags
+		      });
+		  } );
+		  </script>
+
 	
 </body>
 </html>

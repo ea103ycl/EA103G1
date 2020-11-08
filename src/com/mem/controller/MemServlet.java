@@ -134,13 +134,19 @@ public class MemServlet extends HttpServlet
 						String usridReg = "^[(a-zA-Z0-9)]{6,20}$";
 						if (usrid == null || usrid.trim().length() == 0)
 							{
-								errorMsgs.add("使用者名稱請勿空白");
+								errorMsgs.add("帳號請勿空白");
 							} else if (!usrid.trim().matches(usridReg))
 							{
-								errorMsgs.add("使用者名稱只能是大小寫英文字母、數字, 且長度必須在6到20之間");
+								errorMsgs.add("帳號只能是大小寫英文字母、數字, 且長度必須在6到20之間");
 							}
 
-						System.out.println("通過使用者名稱驗證");
+						Set<String> usridSet = memSvc.getAllUsrId();
+
+						System.out.println("usrid:" + usrid);
+						if (usridSet.contains(usrid))
+							errorMsgs.add("此帳號已有人使用");
+
+						System.out.println("通過帳號驗證");
 
 						String psw = req.getParameter("psw").trim();
 						String pswReg = "^[(a-zA-Z0-9)]{6,20}$";
@@ -188,6 +194,11 @@ public class MemServlet extends HttpServlet
 						// Send the use back to the form, if there were errors
 						if (!errorMsgs.isEmpty())
 							{
+
+								for (String a : errorMsgs)
+									{
+										System.out.println(a);
+									}
 
 								req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的empVO物件,也存入req
 								RequestDispatcher failureView = req

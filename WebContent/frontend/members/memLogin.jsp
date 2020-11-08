@@ -177,9 +177,9 @@ img {
 							</c:if>
                   </div>
 				<input
-					style="" type="text" placeholder="userID"
+					style="" type="text" placeholder="userID" id="accno"
 					name="usrid" value="<%=(memVO == null) ? "" : memVO.getM_accno()%>" /> 
-					<input type="password" placeholder="password" name="password" value="<%=(memVO == null) ? "" : memVO.getM_psw()%>"/>
+					<input type="password" placeholder="password" name="password" id="psw" value="<%=(memVO == null) ? "" : memVO.getM_psw()%>"/>
 				<table style="width: 100%;">
 					<tr>
 						<td>
@@ -189,13 +189,30 @@ img {
 
 					</tr>
 				</table>
-				<button id="submitbtn" type="submit">登入</button>
-
+				 <button id="smartbtn1" type="button" style="margin:0 ;outline: 0;width:100%;height:100%; color: transparent; background-color: transparent; border-color: transparent; cursor: default;"></button>
+				<button id="submitbtn" type="submit" style="margin:0 ">登入</button>
+               <button id="smartbtn2" type="button" style="margin:0 ;outline: 0;width:100%;height:100%; color: transparent; background-color: transparent; border-color: transparent; cursor: default;"></button>
 			</div>
 		</div>
 		
 		<input type="hidden" name="action" value="login">
 	</FORM>
 </body>
+<script src="<%=request.getContextPath()%>/frontend/members/jqueryJs/jquery.min.js"></script>
+<script>
+
+$('#smartbtn1').click(function(){
+	$('#accno').val('peter123');
+	$('#psw').val('000000');});
+	
+$('#smartbtn2').click(function(){
+	$('#accno').val('peter520');
+	$('#psw').val('000000');
+});
+
+
+
+</script>
+
 
 </html>

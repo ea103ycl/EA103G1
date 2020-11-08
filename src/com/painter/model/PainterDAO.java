@@ -55,7 +55,7 @@ public class PainterDAO implements PainterDAO_interface {
 	private static final String DELETE_STMT = "UPDATE painter SET PTR_STAT = ? WHERE ptr_no =? ";
 	private static final String GET_PIC_BY_PTR_NO_STMT = "SELECT pic FROM painter WHERE ptr_no = ? ";
 	private static final String GET_ONE_PAINTER_STMT = "SELECT * FROM PAINTER WHERE PTR_NO = ?";
-	private static final String GET_MEMBERS_BY_ACCT_STMT = "SELECT * FROM MEMBERS WHERE M_ACCNO LIKE LOWER('%?%')";
+	private static final String GET_MEMBERS_BY_ACCT_STMT = "SELECT M_ACCNO FROM MEMBERS WHERE M_ACCNO LIKE ? ";
 	
 	// 取得某位會員發表過+未刪除的作品
 	private static final String GET_SOMEONE_ALL_STMT = "SELECT P.PTR_NO, P.MEM_ID, P.PTR_NM, P.INTRO, P.PRIV_STAT, P.PTR_STAT, P.LIKE_CNT, P.COL_CNT, P.CREATE_DT FROM PAINTER P "
@@ -600,14 +600,14 @@ public class PainterDAO implements PainterDAO_interface {
 			con = ds.getConnection();
 
 			pstmt = con.prepareStatement(GET_MEMBERS_BY_ACCT_STMT);
-			pstmt.setString(1, acct);
+			pstmt.setString(1, "%" + acct + "%");
 			rs = pstmt.executeQuery();
-
+			
 			while (rs.next()) {
-				String m_acct = rs.getString("m_accno");
+				String m_acct = rs.getString(1);
+				System.out.println(m_acct);
 				list.add(m_acct);
 			}
-
 		} catch (SQLException e) {
 			throw new RuntimeException("database error" + e.getMessage());
 		} finally {

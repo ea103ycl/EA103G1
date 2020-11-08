@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.lv.model.LvService;
 import com.lv.model.LvVO;
 import com.mem.model.MemVO;
@@ -29,6 +33,10 @@ import com.painter_tag_map.model.PainterTagMapVO;
 
 import tools.HeadphotoTool;
 import tools.YclTools;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class PainterServlet extends HttpServlet {
@@ -267,7 +275,33 @@ public class PainterServlet extends HttpServlet {
 
 		
 		if ("searchMem".contentEquals(action)) {
-			String acct = (String)req.getParameter("memSearch");
+			String acct = (String)req.getParameter("keyword");
+			System.out.println("接收到的會員關鍵字：" + acct);
+		    JSONArray jsonArray = new JSONArray(); //object集合
+		    JSONObject jsonObject = null; //每筆object
+		    
+		    PainterService painterSvc = new PainterService();
+		    List<String> list = painterSvc.getMembersByMAccno(acct);
+		    
+			try {
+				for(String result :list) {
+					jsonObject = new JSONObject();
+					jsonObject.put("m_accno", result);					
+					jsonArray.put(jsonObject);
+				}									
+				System.out.println("[PainterServlet]會員帳號 to JSON: " + jsonArray.toString());
+				res.setCharacterEncoding("UTF-8"); //需跟前端網頁相同編碼
+				res.setContentType("application/json");
+				PrintWriter out = res.getWriter();
+				out.write(jsonArray.toString());
+				out.flush();
+				out.close();
+				
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+				System.out.println("[PainterServlet]錯誤訊息:" + e1.fillInStackTrace().getMessage());
+			}
+		    
 		}
 		
 	}

@@ -53,20 +53,20 @@
 	pageContext.setAttribute("event_pVOs",event_pVOs);
 	
 	
-	HttpSession ses=request.getSession();	
+
 // 	if(ses.getAttribute("memVO")==null){
 // 		ses.setAttribute("mem_id","M000003");//可以寫不同編號測試
 // 	}else{
 // 		ses.setAttribute("mem_id", ((MemVO)ses.getAttribute("memVO")).getMem_id());
 // 	}	
 	Event_PService eventPSVC=new Event_PService();
-	boolean checkMemPic=eventPSVC.checkUploadByMemid((String)ses.getAttribute("mem_id"),eventVO.getEvent_no());
+	boolean checkMemPic=eventPSVC.checkUploadByMemid(((MemVO)sess.getAttribute("memVO")).getMem_id(),eventVO.getEvent_no());
 	pageContext.setAttribute("checkMemPic", checkMemPic);//確認會員是否投過搞
 	
 	//判斷是否檢舉過
 	
 // 	Event_P_RepVO event_p_repVO=repSvc.findByMemId((String)ses.getAttribute("mem_id"));
-	Event_P_RepVO event_p_repVO=repSvc.findReportByMemAndEventNo((String)ses.getAttribute("mem_id"), event_no);//取得會員這次活動是否有檢舉過	
+	Event_P_RepVO event_p_repVO=repSvc.findReportByMemAndEventNo(((MemVO)sess.getAttribute("memVO")).getMem_id(), event_no);//取得會員這次活動是否有檢舉過	
 
 	Timestamp[] event_statTime={eventVO.getEvent_start(),eventVO.getEvent_ul_end(),eventVO.getEvent_vote_end(),eventVO.getEvent_end()};//活動尚未開始，開始徵稿，投票，活動結束
 	pageContext.setAttribute("event_statTime",event_statTime);//use in countDownTimer
@@ -76,7 +76,7 @@
 	
 	//取得會員已投過的作品
 	Vote_DService voteSvc=new Vote_DService();
-	List<Vote_DVO> voteVOs=voteSvc.findAllByMem((String)sess.getAttribute("mem_id"));
+	List<Vote_DVO> voteVOs=voteSvc.findAllByMem(((MemVO)sess.getAttribute("memVO")).getMem_id());
 	List<Integer> event_p_nos=new ArrayList<Integer>();
 	Iterator iter=voteVOs.iterator();
 	while(iter.hasNext()){
@@ -162,7 +162,9 @@
     <div class="spinner spinner-round"></div>
 </div>
 <%@include  file="/frontend/bar/frontBarTop.jsp"%>
-
+<form>
+	<input type="hidden" id="mem_id" value="<%=((MemVO)sess.getAttribute("memVO")).getMem_id()%>">
+</form>
 
 
 
@@ -291,7 +293,7 @@
 								<form action="Event_P_RepServlet" method="post">
 									<input type="hidden" name="event_no"
 										value="<%=(String)sess.getAttribute("event_no")%>">
-									<input type="hidden" name="mem_id"value="${sessionScope.mem_id }">
+									<input type="hidden" name="mem_id"value="${sessionScope.memVO.getMem_id()}">
 									<input type="hidden" name="event_p_no" value="${event_pVO.event_p_no}"> 
 									<input type="hidden" name="action" value="report"> 
 										<input	type="submit" class="btn btn-default"  value="檢舉"	<%=eventVO.getEvent_stat()!=2||event_p_repVO!=null?"disabled":""%>> <!--  -->
@@ -313,7 +315,7 @@
 									<input type="hidden" name="event_no"
 										value="${eventVO.event_no}"> 
 									<input type="hidden"
-										name="mem_id" value="${sessionScope.mem_id }">
+										name="mem_id" value="${sessionScope.memVO.getMem_id() }">
 									<%-- event_no 和mem_id 用於確認投了幾次  --%>
 									<input type="hidden" name="event_p_no"
 										value="${event_pVO.event_p_no}" id="event_p_no"> 
@@ -344,7 +346,7 @@
 								<form action="Event_pServlet" method="post">
 									<input type="hidden" name="event_no" value="${eventVO.event_no}">
 									<input type="hidden" name="mem_id"
-										value="${sessionScope.mem_id }"> 
+										value="${sessionScope.memVO.getMem_id() }"> 
 										<input type="hidden" name="event_p_no" value="${event_pVO.event_p_no}"> 
 										<input	type="hidden" name="action" value="deleteVote">
 <%-- 										<input	type="submit" class="btn btn-default " value="取消投票" <%=eventVO.getEvent_stat()!=2?"disabled":""%>> --%>
@@ -390,7 +392,7 @@
 
 <%-- <script src="<%=request.getContextPath()%>/frontend/template/jquery/jquery-3.5.1.js"></script> --%>
 <%-- <script src="<%=request.getContextPath()%>/frontend/template/js/bootstrap.min.js"></script> --%>
-<%--     <script src="<%=request.getContextPath() %>/frontend/template/js/jquery.min.js" ></script> --%>
+    <script src="<%=request.getContextPath() %>/frontend/template/js/jquery.min.js" ></script>
 
 <!-- mark by YCL 重複引入導致modal跑不出來     -->
 <%-- 	<script src="<%=request.getContextPath() %>/frontend/template/js/bootstrap.min.js" ></script> --%>
@@ -449,7 +451,7 @@
 				type:"post",
 				data:{
 					action:"vote_from_ajax",
-					mem_id:"${sessionScope.mem_id }",
+					mem_id:"${sessionScope.memVO.getMem_id()}",
 					event_no:"${eventVO.event_no}",
 					event_p_no:event_p_no
 				},
@@ -483,7 +485,7 @@
 				type:"post",
 				data:{
 					action:"delete_vote_ByAjax",
-					mem_id:"${sessionScope.mem_id}",
+					mem_id:"${sessionScope.memVO.getMem_id()}",
 					event_p_no:event_p_no					
 				},
 				success:function(e){

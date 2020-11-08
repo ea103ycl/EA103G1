@@ -52,7 +52,8 @@
 <head>
 
 	
-<title>${sMemSvc.findByPrimaryKey(sid).getM_accno()}關注圈</title>
+<title>${sMemSvc.findByPrimaryKey(sid).getM_accno()}的關注圈</title>
+
 
 <style>
 .modal-header {

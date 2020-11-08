@@ -515,7 +515,7 @@
 										<div class="form-group">
 											<div class="row" style="text-align: right;">
 												<div class="col col-md-3" style="margin-top: 15px;">
-													<h6>
+													<h6 id="smartbtnArea">
 														<label for="InputPassword1"
 															style="color: #666666; line-height: 20px">目前的密碼</label>
 
@@ -1148,6 +1148,14 @@
 			$("#pwdGroup input").attr("type", "password");
 			$("#eye").html('<i class=\"zmdi zmdi-eye\"></i>顯示密碼');
 		}
+	});
+	
+	
+	$('#smartbtnArea').click(function(){
+		
+		$('#InputPassword1').val('${sessionScope.memVO.m_psw}');
+		$('#InputPassword2').val('888888');
+		$('#InputPassword3').val('888888');
 	});
 </script>
 
