@@ -135,8 +135,8 @@ memVO.setBalance(after_balance);//set到session，組員要求
     <div class="container">
         <div class="row checkout-screen">
             <div class="col-sm-8 checkout-form">
-                <h4 class="space-left">訂單完成!!</h4>
-                <h4 class="space-left">你的訂單編號: ${orderVO.or_no}</h4>
+                
+                <h4 class="space-left" style="color:#c39d6d;">訂單編號: ${orderVO.or_no}</h4>
                 
  
          
