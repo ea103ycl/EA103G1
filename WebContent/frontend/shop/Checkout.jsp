@@ -2,6 +2,7 @@
 <%@ page import="java.util.* , com.order.model.OrderVO ,com.prod.model.ProdVO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.mem.model.*" %>
+<%@page import="com.deal.model.*" %>
 
 <%  //假資料
 // String mem_id = "M000003"; 
@@ -130,7 +131,7 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
     <div class="container">
         <div class="row checkout-screen">
             <div class="col-sm-8 checkout-form">
-                <h4 class="space-left">填寫資料</h4>
+                <h1 style="color:#c39d6d;" >填寫資料</h1>
                 
  
          
@@ -138,18 +139,18 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
                 
                 <div class="row">
                     <div class="col-sm-6">
-                   <input value="${memVO.m_name}"  type="text" class="form-control" name="or_name" placeholder="請輸入收件人姓名" required>
-                    <input value="${memVO.m_zip}" type="text" class="form-control" name="or_zip" placeholder="請輸入郵遞區號">
+                   <font style="color:#c39d6d; font-size:20px;">收件人: </font><input value="${memVO.m_name}"  type="text" class="form-control" name="or_name" placeholder="請輸入收件人姓名" required>
+                     <font style="color:#c39d6d; font-size:20px;">郵遞區號: </font><input value="${memVO.m_zip}" type="text" class="form-control" name="or_zip" placeholder="請輸入郵遞區號">
                         
                     </div>
                     <div class="col-sm-6">
-                        <input value="${memVO.m_phone}" type="text" class="form-control" name="or_phone" placeholder="請輸入收件電話" required>
-                        <input value="${memVO.m_city}${memVO.m_addr}" type="text" class="form-control" name="or_addr" placeholder="*請輸入收件地址" required>
+                         <font style="color:#c39d6d; font-size:20px;">電話: </font><input value="${memVO.m_phone}" type="text" class="form-control" name="or_phone" placeholder="請輸入收件電話" required>
+                         <font style="color:#c39d6d; font-size:20px;">地址: </font><input value="${memVO.m_city}${memVO.m_addr}" type="text" class="form-control" name="or_addr" placeholder="*請輸入收件地址" required>
                     </div>
                 </div><!-- / row -->
 
                   <div class="checkout-form-footer space-left space-right">
-                    <textarea class="form-control" name="or_note" placeholder="備註的話" ></textarea>
+                     <font style="color:#c39d6d; font-size:20px;">備註: </font><textarea class="form-control" name="or_note" placeholder="備註的話" ></textarea>
                     
          <%-- 錯誤表列 --%>
         <div  style="text-align:center">
@@ -207,14 +208,23 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
 <!--                     </div> -->
 <!--                 </div>/ row -->
             </div>
-    
-      
-  
+
+<%    
+DealService dealSvc = new DealService();
+Integer mem_balance = dealSvc.getOneDeal(memVO.getMem_id()).getBalance();//從DB取餘額出來check
+%>   
     
             
 
             <div class="col-sm-4 checkout-total">
-                <h4>此次消費總金額: <h3 style="color:deeppink;">NT$ <%=or_total%></h3></h4>    
+                <h4 style="color:#c39d6d;">此次消費總金額: <h3 style="color:deeppink;">NT$ <%=or_total%></h3></h4> 
+                <h4 style="color:#c39d6d; display:inline-block;  ">你目前錢包金額: <h3 style="color:purple;">NT$ <%=mem_balance%></h3></h4>
+                <%if (or_total > mem_balance){%> 
+                 <h4 style="color:#c39d6d;  display:inline-block;  ">你的錢不夠唷，你還差: <h3 style="color:red;">NT$ <%=or_total-mem_balance%></h3></h4> 
+                	<a href="<%=request.getContextPath()%>/frontend/members/memArea.jsp#accountArea" class="btn btn-primary-filled btn-rounded"><i class="lnr lnr-store"></i><span>儲值去</span></a>
+                <%} %>
+                
+                  
                 <div class="cart-total-footer">
                     <a href="Cart.jsp" class="btn btn-default-filled btn-rounded"><i class="lnr lnr-arrow-left"></i><span>返回購物車</span></a>
                     <a href="EShop.jsp" class="btn btn-primary-filled btn-rounded"><i class="lnr lnr-store"></i><span>再逛逛</span></a>
@@ -239,6 +249,8 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
 <!--------------------------------------- footer --------------------------------------->
 <%@include file="/frontend/bar/frontBarFooter.jsp"%>
 <!--------------------------------------- /footer --------------------------------------->
+
+
 
 <!-- javascript -->
 <script src="js/jquery.min.js"></script>

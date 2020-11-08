@@ -43,7 +43,7 @@ public class CartServlet extends HttpServlet {
 				return;
 			}
 			
-			else if (action.equals("ADD")) {
+			 if (action.equals("ADD")){
 			
 				boolean match = false;
 
@@ -77,8 +77,13 @@ public class CartServlet extends HttpServlet {
 				}
 			}
 
-			session.setAttribute("shoppingcart", buylist);	
+			session.setAttribute("shoppingcart", buylist);
+			if(action.equals("ADD")) {
 			res.getWriter().println(buylist.size());
+			}
+			
+			
+			
 //			String url = "/frontend/shop/EShop.jsp";
 //			RequestDispatcher rd = req.getRequestDispatcher(url);
 //			rd.forward(req, res);

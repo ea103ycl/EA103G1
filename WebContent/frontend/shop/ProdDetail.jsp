@@ -66,6 +66,68 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
 
 </head>
 
+
+<style>
+
+
+
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 11px 0;
+  background: #c39d6d;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+#decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+#increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input#prod_qty {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+</style>
+
+
+
 <body>
 
 <!-- preloader -->
@@ -229,20 +291,20 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
             <!-- product sidebar area -->
             <div class="col-sm-6 col-md-5 product-sidebar">
                 <div class="product-sidebar-details">
-                    <h4>${prodVO.prod_name}</h4>
+                    <h3>${prodVO.prod_name}</h3>
                     
                     <div class="product-info">
                         <div class="info">
-                            <p><i class="lnr lnr-tag"></i><span>$ ${prodVO.prod_price}</span></p>
+                            <p><i class="lnr lnr-tag"></i><span style="font-size:20px;">$ ${prodVO.prod_price}</span></p>
                         </div>
                         
                         
                         <div class="info">
                             <p><i class="lnr lnr-star"></i>
-                            <span>商品評價
+                           
                             
                             <%  if (list_eval.size()==0){ %>
-                            <font size="1px" color="deeppink">還沒有人評價過此商品</font>
+                            <font size="3px" color="deeppink">還沒有人評價過此商品</font>
                              <% } %>
                              
                              
@@ -300,7 +362,7 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
  <jsp:useBean id="prodSvc2" scope="page" class="com.prod.model.ProdService"  />
 
 <div>
-<b style="display: inline-block;">看看其他素材:</b>
+<b style="display: inline-block; font-size:15px;">看看其他素材:</b>
 
 <select  name="ma_no" style="width:100px;font-size:15px; "onchange="submit();"  style="display: inline-block;">
 <option value="">選擇素材</option>  
@@ -326,10 +388,17 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
 <%-- <form name="shoppingForm" action="<%=request.getContextPath()%>/frontend/shop/cart" method="POST" enctype="multipart/form-data">                   --%>
         
         <div class="buy-product">
-        <div class="options">
-        <b>選擇要買的數量:</b>
-        <input name="prod_qty" type="number"   step="1" min="0"  value="1" title="Qty" id="prod_qty" class="input-text qty text" size="1" >    
-         </div>
+<!--         <div class="options"> -->
+        
+<!--      ---------------------------購買數量----------------------------  -->
+  <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value" >-</div>
+ 
+        <input name="prod_qty" type="number"   step="1" min="1"  value="1" title="Qty" id="prod_qty"  size="1" >  
+  <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+<!--      ---------------------------購買數量----------------------------  -->
+        
+          
+<!--          </div> -->
 		 <!-- / options -->
 		
 		   <div class="space-25">&nbsp;</div>
@@ -434,6 +503,25 @@ memVO = (MemVO)request.getSession().getAttribute("memVO");
     <script src="<%=request.getContextPath() %>/frontend/template/js/jquery/jquery.min.js"></script>
 	<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.easing.min.js"></script><!-- return to top id -->
 	<script src="<%=request.getContextPath()%>/frontend/template/tonyTools/sweetAlert/sweetalert.min.js"></script>
+
+<script>
+function increaseValue() {
+  var value = parseInt(document.getElementById('prod_qty').value, 10);
+  value = isNaN(value) ? 0 : value;
+  value++;
+  document.getElementById('prod_qty').value = value;
+}
+
+function decreaseValue() {
+  var value = parseInt(document.getElementById('prod_qty').value, 10);
+  value = isNaN(value) ? 0 : value;
+  value < 1 ? value = 1 : '';
+  value--;
+  document.getElementById('prod_qty').value = value;
+}
+</script>
+
+
 
  <script>
 $(document).ready(function(){

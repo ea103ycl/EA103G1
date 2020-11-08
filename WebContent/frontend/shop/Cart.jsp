@@ -6,11 +6,11 @@
 
 <%
   Integer or_total =0;
-  Integer count=0;
+ 
   Vector<ProdVO> buylist = (Vector<ProdVO>) session.getAttribute("shoppingcart");
                 if (buylist != null && (buylist.size() > 0)) {
 				for (int index = 0; index < buylist.size(); index++) {
-				count = (index+1);
+				
 				                     }
 	                                 }
 %>
@@ -47,6 +47,66 @@
 <![endif]-->
     
 </head>
+
+<style>
+
+
+
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 11px 0;
+  background: #c39d6d;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+#decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+#increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input#prod_qty {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+</style>
+
 
 <body>
 
@@ -91,8 +151,9 @@
         <!-------------------------------------- shopping cart table ------------------------------------>
    
         
-        
+       
 <%
+Integer index=0; 
 if (buylist != null && (buylist.size() > 0)) {
 %> 
     
@@ -111,7 +172,8 @@ if (buylist != null && (buylist.size() > 0)) {
             </thead>
 
 <%
-for (int index = 0; index < buylist.size(); index++) {
+
+for ( index=0; index < buylist.size(); index++) {
 	ProdVO order = buylist.get(index);
     int prod_qty = order.getProd_qty();
 	int prod_price = order.getProd_price();
@@ -131,16 +193,42 @@ for (int index = 0; index < buylist.size(); index++) {
   </button>   
 </form>             
  </td>
-                    <td><%=order.getProd_name()%></a></td>
+                    <td><a  href="<%=request.getContextPath()%>/frontend/shop/shopping?action=getOne_For_Detail&prod_no=<%=order.getProd_no()%>" ><u style="font-size:20px;"><%=order.getProd_name()%></u></a></td>
                     <td><%=order.getProd_price()%></td>
-                    <td class="qty"><%=order.getProd_qty()%></td>
-                    <td><%=order.getProd_price()*order.getProd_qty()%></td>
+                    <td class="qty">
+                    
+                    
+<!--      ---------------------------購買數量----------------------------  -->
+
+
+<input   type="button" class="value-button"           id="increase<%=index%>"  value="-">
+  <span style="font-size:20px; background-color:white; margin:0px auto;" class="value-button"  name="prod_qty"   
+  id="prod_qty<%=index%>"  step="1" min="1"   title="Qty"   size="1" ><%=order.getProd_qty()%></span>
+  <input  type="button" class="value-button"            id="adder<%=index%>"  value="+" >
+   
+  
+  
+   <input type="hidden" name="prod_no" value="<%=order.getProd_no()%>"          id="prod_no<%=index%>">
+      <input type="hidden" name="prod_name" value="<%=order.getProd_name()%>"   id="prod_name<%=index%>">
+      <input type="hidden" name="prod_price" value="<%=order.getProd_price()%>" id="prod_price<%=index%>">
+     
+  
+<!--      ---------------------------購買數量----------------------------  -->
+                    
+                    
+
+                    
+                    
+                    
+                    
+                    </td>
+                    <td id="p_money<%=index%>"><%=order.getProd_price()*order.getProd_qty()%></td>
                     
                     
               <td>
               <form name="deleteForm" action="<%=request.getContextPath()%>/frontend/shop/cart" method="POST">
               <input type="hidden" name="action" value="DELETE">
-              <input type="hidden" name="del" value="<%=index %>">
+              <input type="hidden" name="del" value="<%=index%>">
               <input type="submit" value="X" class="btn btn-danger-filled x-remove">
               </form>
               </td>
@@ -191,8 +279,8 @@ for (int index = 0; index < buylist.size(); index++) {
 
 
             <div class="col-sm-6 cart-total">
-                <h4>此次消費總金額:</h4>
-                <h3 style="color:deeppink;">NT$ <%=or_total%></h3>
+                <h4 style="color:#c39d6d">此次消費總金額:</h4>
+                <h3 style="color:deeppink;" id="or_total">NT$ <%=or_total%></h3>
               
             </div><!-- / cart-total -->
 
@@ -217,24 +305,88 @@ for (int index = 0; index < buylist.size(); index++) {
 <%@include file="/frontend/bar/frontBarFooter.jsp"%>
 <!--------------------------------------- /footer --------------------------------------->
 
-<!-- javascript -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/frontend/template/js/jquery/jquery.min.js"></script> --%>
+<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.easing.min.js"></script><!-- return to top id -->
+<script src="<%=request.getContextPath()%>/frontend/template/tonyTools/sweetAlert/sweetalert.min.js"></script>
 
-<!-- sticky nav -->
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/scrolling-nav-sticky.js"></script>
-<!-- / sticky nav -->
 
-<!-- hide nav -->
-<script src="js/hide-nav.js"></script>
-<!-- / hide nav -->
+<script>
+$(document).ready(function(){ 
+ for(let i = 0 ; i < <%=index%> ; i++){
+  $("#adder" + i).click(function(){
+    var prod_no = $("#prod_no" + i ).val();
+    var prod_name = $("#prod_name" + i ).val();
+    var prod_price = $("#prod_price" + i ).val();
+    var prod_qty = 1;
+    console.log(prod_no);
+    console.log(prod_name);
+    console.log(prod_price);
+    console.log(prod_qty);
+   $.ajax({
+    type:"POST",
+    url:"<%=request.getContextPath()%>/frontend/shop/cart",
+    data:{
+    	prod_no : prod_no,
+    	prod_name : prod_name,
+    	prod_price : prod_price,
+    	prod_qty : prod_qty,
+        action:"ADD",
+    }, 
+    success:function(data){
+    $('#prod_qty' +i).text(data);	
+    $('#or_total').text(data); 
+    $('#p_money' + i).text(data); 
+    
+    }
+   })
+  })
+ }
+});
 
-<!-- preloader -->
-<script src="js/preloader.js"></script>
-<!-- / preloader -->
 
-<!-- / javascript -->
+
+
+$(document).ready(function(){ 
+	 for(let i = 0 ; i < <%=index%> ; i++){
+	  $("#increase" + i).click(function(){
+	    var prod_no = $("#prod_no" + i ).val();
+	    var prod_name = $("#prod_name" + i ).val();
+	    var prod_price = $("#prod_price" + i ).val();
+	    var prod_qty = -1;
+	    console.log(prod_no);
+	    console.log(prod_name);
+	    console.log(prod_price);
+	    console.log(prod_qty);
+	   $.ajax({
+	    type:"POST",
+	    url:"<%=request.getContextPath()%>/frontend/shop/cart",
+	    data:{
+	    	prod_no : prod_no,
+	    	prod_name : prod_name,
+	    	prod_price : prod_price,
+	    	prod_qty : prod_qty,
+	        action:"ADD",
+	    }, 
+	    success:function(data){
+	    $('#prod_qty'+ i).text(data);	
+	    $('#or_total').text(data);
+	    $('#p_money'+ i).text(data); 
+	   
+	    }
+	   })
+	  })
+	 }
+	});
+
+
+ 
+</script>
+
+
+
+
+
+
 </body>
 
 </html>

@@ -112,15 +112,17 @@ pageContext.setAttribute("detail_list", detail_list);
    <td style="text-align:center; vertical-align:middel;">
                                 
    <img style=" height: 150px; width: auto;" src="<%=request.getContextPath()%>/frontend/shop/prod.pic?action=getpic&prod_no=${detailVO.prod_no}"   >
-  <form  action="<%=request.getContextPath()%>/frontend/shop/shopping" method="POST" enctype="multipart/form-data">
-  <input type="hidden" name="prod_no" value="${detailVO.prod_no}">
-  <input type="hidden" name="action" value="getOne_For_Detail">		
-  <input type="submit" name="Submit" value="查看商品"   style=" height: 20px; width:100px; color:deeppink; font-size:10px;">
+<%--   <form  action="<%=request.getContextPath()%>/frontend/shop/shopping" method="POST" enctype="multipart/form-data"> --%>
+<%--   <input type="hidden" name="prod_no" value="${detailVO.prod_no}"> --%>
+<!--   <input type="hidden" name="action" value="getOne_For_Detail">		 -->
+<!--   <input type="submit" name="Submit" value="查看商品"   style=" height: 20px; width:100px; color:deeppink; font-size:10px;"> -->
     
-</form>   
+<!-- </form>    -->
                                 
    </td>                                  
-                                <td><font size="5px" color=""> ${pageScope.prodSvc.getOneProd(detailVO.prod_no).prod_name}</font></td>
+                                <td>
+                                 <a  href="<%=request.getContextPath()%>/frontend/shop/shopping?action=getOne_For_Detail&prod_no=${detailVO.prod_no}" ><u style="font-size:20px;">${pageScope.prodSvc.getOneProd(detailVO.prod_no).prod_name}</u></a>
+                                </td>
                                <td><font size="5px" color="">$ ${detailVO.or_p_price}</font></td>
                                 <td><font size="5px" color="">${detailVO.or_qty}</font></td>
           

@@ -36,4 +36,4 @@
   <b><font color=#4e73df  font size=4px>第<%=whichPage%>/<%=pageNumber%>頁</font></b>
 <%}%>
 
-<b>●共有:<font color=#4e73df  font size=4px><%=rowNumber%></font>件商品</b>
+<b>●共有:<font color=#4e73df  font size=4px><%=rowNumber%></font>筆資料</b>

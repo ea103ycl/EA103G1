@@ -85,6 +85,20 @@ pageContext.setAttribute("list", list);
 					<c:if test="${orderVO.or_status==4}">訂單完成</c:if>
 					</td>
 					
+					
+					<td>
+										
+											<input type="hidden" name="or_no" value="${orderVO.or_no}">
+											<button type="button" class="btn btn-primary btn-sm" onclick='openWindows("${orderVO.or_no}")' >查看訂單詳情</button>
+			<script>											
+			function openWindows(or_no){
+				window.open("<%=request.getContextPath()%>/frontend/shop/order/DetailSearch.jsp?or_no=" + or_no ,"Sample","fullscreen=no,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no, copyhistory=no,width=1000,height=430,left=750,top=150");
+			}
+	     </script>
+										
+					</td>
+					
+					
 					<td>
 					<c:if test="${orderVO.or_status==1}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;" onclick="javascript:alert('出貨囉!!')">

@@ -88,7 +88,8 @@ pageContext.setAttribute("order_list", order_list);
 				
 				
 <form  action="<%=request.getContextPath()%>/frontend/shop/order" method="POST" enctype="multipart/form-data">
-   <select  name="or_status" style="width:130px;font-size:15px; "onchange="submit();" >   
+   <select  name="or_status" style="width:130px;font-size:15px; "onchange="submit();" >
+   
    <option value="">選擇訂單狀態</option>
    <option value="100">查看全部</option> 
    <option value="1">尚未出貨</option> 
@@ -98,19 +99,20 @@ pageContext.setAttribute("order_list", order_list);
    </select>
    <input type="hidden" name="mem_id" value="<%=memVO.getMem_id()%>"> 
    <input type="hidden" name="action" value="Get_Order_By_Status_Buyer"> 
-</form>
+</form> 
 
-		<%------------------- 錯誤表列 --------------------------%>
+<%------------------- 錯誤表列 --------------------------%>
 						<c:if test="${not empty errorMsgs}">
 						<ul>
 						<c:forEach var="message" items="${errorMsgs}">
 						<li style="color: red">${message}</li>
 						</c:forEach>
 						</ul>
-						</c:if>		
-		<%------------------- 錯誤表列 --------------------------%>
-		
-<table class="table table-bordered" id="dataTable" width="100%"  cellspacing="0" style="margin: 20px 0 100px 0;">
+						</c:if>
+<%------------------- 錯誤表列 --------------------------%>				
+				
+				
+	<table class="table table-bordered" id="dataTable" width="100%"  cellspacing="0" style="margin: 20px 0 100px 0;">
 						<thead>
 							<tr>
 								<th>訂單編號</th>
@@ -126,34 +128,43 @@ pageContext.setAttribute("order_list", order_list);
 						<tbody>
 							<c:forEach var="orderVO" items="${order_list}">
 								<tr>
-								     
+								    
 									<td>${orderVO.or_no}</td>
 									<td><fmt:formatDate value="${orderVO.or_time}"
 											pattern="yyyy-MM-dd HH:mm" /></td>
 									<td>$ ${orderVO.or_total}</td>
 									<td>${orderVO.or_note}</td>
-									<td><c:if test="${orderVO.or_status==1}">處理中</c:if> <c:if
-											test="${orderVO.or_status==2}">出貨中</c:if> <c:if
-											test="${orderVO.or_status==3}">我已收貨</c:if> <c:if
-											test="${orderVO.or_status==4}">訂單完成</c:if></td>
+									<td><c:if test="${orderVO.or_status==1}"><font color="deeppink">處理中</font></c:if> <c:if
+											test="${orderVO.or_status==2}"><font color="blue">出貨中</font></c:if> <c:if
+											test="${orderVO.or_status==3}"><font color="deeppink">我已收到貨</font></c:if> <c:if
+											test="${orderVO.or_status==4}"><font color="blue">訂單完成</font></c:if></td>
 											
 									<td>
-										<FORM METHOD="post"
-											action="<%=request.getContextPath()%>/frontend/shop/order"
-											enctype="multipart/form-data">
-											<input type="submit" value="查詢訂單明細"> <input
-												type="hidden" name="or_no" value="${orderVO.or_no}">
-											<input type="hidden" name="action" value="Detail_Search">
-										</FORM>
-									</td>	
-											
+										
+											<input type="hidden" name="or_no" value="${orderVO.or_no}">
+											<button type="button"class="btn btn-primary-filled btn-rounded" onclick='openWindows("${orderVO.or_no}")' >查看訂單詳情</button>
+			<script>											
+			function openWindows(or_no){
+				window.open("<%=request.getContextPath()%>/frontend/shop/order/DetailSearch.jsp?or_no=" + or_no ,"Sample","fullscreen=no,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no, copyhistory=no,width=1000,height=430,left=750,top=150");
+			}
+	     </script>
+										
+									</td>
+									
+									
+									
+							
+									
+									
+									
+	
 											
 											
 											
 				<td>
 				<c:if test="${orderVO.or_status==2}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;">
-							<input type="submit" value="我收到貨了"> 
+							<input style="color:deeppink"  type="submit" value="我收到貨了"> 
 							<input type="hidden" name="or_status" value="${orderVO.or_status}">
 							<input type="hidden" name="or_no" value="${orderVO.or_no}">
 							<input type="hidden" name="action" value="Change_Order_Status_forBuyer">
@@ -162,14 +173,21 @@ pageContext.setAttribute("order_list", order_list);
 				 
 				 <c:if test="${orderVO.or_status==3}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;">
-							<input type="submit" value="完成訂單"> 
+							<input  style="color:deeppink" type="submit" value="完成訂單"> 
 							<input type="hidden" name="or_status" value="${orderVO.or_status}">
 							<input type="hidden" name="or_no" value="${orderVO.or_no}">
 							<input type="hidden" name="action" value="Change_Order_Status_forBuyer">
 				</FORM>
 				 </c:if>
 				 
-				<jsp:useBean id="evalSvc" scope="page" class="com.eval.model.EvalService" />
+				 
+				
+
+			 
+
+
+
+<jsp:useBean id="evalSvc" scope="page" class="com.eval.model.EvalService" />
 
 <c:if test="${orderVO.or_status==4 && pageScope.evalSvc.getAllByOr_no(orderVO.or_no).size()==0}">
 				<FORM METHOD="post"  action="<%=request.getContextPath()%>/frontend/shop/order"	enctype="multipart/form-data" style="margin-bottom: 0px;">
@@ -179,10 +197,14 @@ pageContext.setAttribute("order_list", order_list);
 							<input type="hidden" name="action" value="Eval_Prod">
 				</FORM>
 				 </c:if>
-				 
+
 				
 				 
-				</td>		
+				 
+				</td>	
+				
+				
+					
 											
 											
 									
@@ -211,6 +233,8 @@ pageContext.setAttribute("order_list", order_list);
 	<!--------------------------------------- footer --------------------------------------->
 	<%@include file="/frontend/bar/frontBarFooter.jsp"%>
 	<!--------------------------------------- /footer --------------------------------------->
+	
+	
 </body>
 
 </html>

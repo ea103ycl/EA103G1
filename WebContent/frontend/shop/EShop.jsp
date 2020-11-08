@@ -186,6 +186,14 @@ pageContext.setAttribute("list", list);
 	<script src="<%=request.getContextPath()%>/frontend/template/js/jquery.easing.min.js"></script><!-- return to top id -->
 	<script src="<%=request.getContextPath()%>/frontend/template/tonyTools/sweetAlert/sweetalert.min.js"></script>
 
+
+
+
+
+
+
+
+
  <script>
 $(document).ready(function(){ 
  for(let i = 1 ; i <= <%=list.size()%> ; i++){

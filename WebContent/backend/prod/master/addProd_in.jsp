@@ -135,22 +135,7 @@
             outline: none;
         }
 		
-        #btn-submit {
-			   margin-left: -80px;
-			   margin-top: 20px;
-			   width: 130px;
-			   height: 40px;
-			   text-align: center;
-			   background-color: #c0c0c0;
-			   color: #fffafa;
-			   border: 1px solid grey;
-			   font-size: 20px;
-			   /* margin: 10px auto; */
-			   border-radius: 8px;
-			   box-shadow: 3px 3px 9px black;
-			   font-weight: bold;
-                     }
-                     
+        
         #btn-submit:hover {
             border-top-color: #28597a;
             background: grey;
@@ -189,6 +174,24 @@
             height: 150px;
             width: 100%;
         }
+        
+        #btn-submit {
+			   margin-left: -80px;
+			   margin-top: 20px;
+			   width: 130px;
+			   height: 40px;
+			   text-align: center;
+/* 			   background-color: #c0c0c0; */
+/* 			   color: #fffafa; */
+			   border: 1px solid grey;
+			   font-size: 20px;
+			   /* margin: 10px auto; */
+			   border-radius: 8px;
+			   box-shadow: 3px 3px 9px black;
+			   font-weight: bold;
+                     }
+        
+        
     </style>
     
                   
@@ -215,7 +218,7 @@
         
          
    <form style="margin-top: 0;"method="post" action="<%=request.getContextPath()%>/backend/prod/prod.do"  enctype="multipart/form-data">
-                <legend>新增商品</legend>
+                <legend class="btn btn-primary">新增商品</legend>
                 
             
             
@@ -223,7 +226,7 @@
               
                 <div class="Data-Content">
                     <div class="Data-Title">
-                        <div class="AlignRight">
+                        <div class="AlignRight" >
                         	
                         	<div><label><span>*</span>商品名稱</label></div>
                         	<div><label><span>*</span>商品價格</label></div>
@@ -305,6 +308,7 @@
         
 
 
+                     
 
 
                                                                                                
@@ -314,7 +318,7 @@
 						<div>
 						<p style="font-color:red;">* 為必填欄位，請填妥欄位資訊。</p>
 							<input type="hidden" name="action" value="insert" />
-                        	<button type="submit" class="btn" id="btn-submit">新增商品</button>
+                        	<button type="submit" class="btn btn-primary" id="btn-submit">送出</button>
 						</div> 
 						
 						

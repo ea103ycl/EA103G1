@@ -89,7 +89,7 @@ public class OrderDAO implements OrderDAO_interface {
 			Integer after_balance  = (before_blance - or_total);
 			dealDAO.update_balance(con, or_mem_id, after_balance);//會員餘額更新 
 			
-			
+			System.out.println("訂單編號:" + ord_next_no + "   會員編號:"  +or_mem_id +"  消費金額:" + or_total + "  目前錢包餘額:" +before_blance + "  消費後錢包餘額:" + after_balance);
 			ProdDAO prodDAO = new ProdDAO();//分潤
 			for (DetailVO detailVO : detailList) {
 				Integer prod_no = detailVO.getProd_no();//拿作品的會員編號--頭
@@ -99,8 +99,14 @@ public class OrderDAO implements OrderDAO_interface {
 				dealDAO.insert(ord_next_no, con, earn_money_mem_id, 30, profit);//錢包交易(分潤)
 				Integer money_before = dealDAO.findByPrimaryKey(earn_money_mem_id).getBalance();//取會員錢包餘額
 				Integer money_after = (money_before + profit);
-				dealDAO.update_balance(con, earn_money_mem_id, money_after);//會員餘額更新 +$$
+				dealDAO.update_balance(con, earn_money_mem_id,  money_after);//會員餘額更新 +$$
+				
+				System.out.println("購買的商品編號:" +prod_no +"  其作品編號:" + ptr_no +"   其作者會員編號:" +earn_money_mem_id +"  分潤的錢:" + profit+"元" + "  分潤前錢包:" + money_before+"元" + "  分潤後錢包:" + money_after+"元");
+			
 			}
+			
+			
+			
 			
 			
 			
