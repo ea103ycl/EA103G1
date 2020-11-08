@@ -15,7 +15,7 @@
 	<jsp:useBean id="epSvc" scope="page" class="com.event_p.model.Event_PService" />	
 
 <%-- 	<c:set var="memVO" value="${memSvc.findByPrimaryKey(M000001)}" scope="session"/> --%>
-	<c:set var="event_no" value="E001005" scope="application"/>
+	<c:set var="event_no" value="E001004" scope="application"/>
 <%-- 	<span>memId=${memVO.mem_id}</span><br> --%>
 	<span>event_no=${event_no}</span><br>
 	

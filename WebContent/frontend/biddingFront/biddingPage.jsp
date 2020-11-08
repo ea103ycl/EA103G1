@@ -167,7 +167,7 @@ img {
 					<div class="blog block post-content-area">
 						<div class="post-info-box">
 							<img onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/frontend/front_index/img/coming-soon.jpg'"
-								src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${bVO.bdProdNo}"
+								src="<%=request.getContextPath()%>/Event_PViewServlet?event_p_no=${epVO.event_p_no}"
 								style="max-height: auto; width: 100%" alt="">
 							<div class="space-50">&nbsp;</div>
 							<p class="lead clockLead">Time remaining:</p>
