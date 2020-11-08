@@ -65,9 +65,6 @@
 
 <title>${sMemSvc.findByPrimaryKey(sid).getM_accno()}的收藏</title>
 
-<!-- top bar -->
-<%@include file="/frontend/bar/frontBarTop.jsp"%>
-<%@include file="/frontend/template/YCL/YCL.css"%>
 
 <style>
 .modal-header {
@@ -82,6 +79,10 @@
      border-top-right-radius: 5px;
  }
 </style>
+
+<!-- top bar -->
+<%@include file="/frontend/bar/frontBarTop.jsp"%>
+<%@include file="/frontend/template/YCL/YCL.css"%>
 
 </head>
 <body>
