@@ -135,8 +135,8 @@ memVO.setBalance(after_balance);//set到session，組員要求
     <div class="container">
         <div class="row checkout-screen">
             <div class="col-sm-8 checkout-form">
-                
-                <h4 class="space-left" style="color:#c39d6d;">訂單編號: ${orderVO.or_no}</h4>
+                <h4 class="space-left" style="color:#c39d6d;">訂單成立!!</h4>
+                <h4 class="space-left" style="color:#c39d6d;">你的訂單編號: ${orderVO.or_no}</h4>
                 
  
          
@@ -145,20 +145,20 @@ memVO.setBalance(after_balance);//set到session，組員要求
                 <div class="row">
                     <div class="col-sm-6">
                    
-                   <div type="text" class="form-control" name="or_time">成立時間: <%=Format.format(current) %></div>
-                   <div type="text" class="form-control" name="or_name">收件人姓名: ${orderVO.or_name}</div>
-                   <div type="text" class="form-control" name="or_zip"  >郵遞區號: ${orderVO.or_zip}</div>
+                   <font style="color:#c39d6d; font-size:20px;">訂單成立時間:</font><div type="text" class="form-control" name="or_time"><%=Format.format(current) %></div>
+                   <font style="color:#c39d6d; font-size:20px;">收件人姓名:<div type="text" class="form-control" name="or_name">${orderVO.or_name}</div>
+                   <font style="color:#c39d6d; font-size:20px;">郵遞區號:<div type="text" class="form-control" name="or_zip"  >${orderVO.or_zip}</div>
                         
                     </div>
                     <div class="col-sm-6">
-                        <div  type="text" class="form-control" name="or_mem_id">會員編號: ${orderVO.mem_id}</div>
-                        <div  type="text" class="form-control" name="or_phone">收件人電話: ${orderVO.or_phone}</div>
-                        <div type="text" class="form-control" name="or_addr"  >收件地址: ${orderVO.or_addr}</div>
+                        <font style="color:#c39d6d; font-size:20px;">會員編號:<div  type="text" class="form-control" name="or_mem_id">${orderVO.mem_id}</div>
+                        <font style="color:#c39d6d; font-size:20px;">收件人電話:<div  type="text" class="form-control" name="or_phone">${orderVO.or_phone}</div>
+                        <font style="color:#c39d6d; font-size:20px;">收件地址:<div type="text" class="form-control" name="or_addr"  >${orderVO.or_addr}</div>
                     </div>
                 </div><!-- / row -->
 
                   <div class="checkout-form-footer space-left space-right">
-                    <div class="form-control" name="or_note" >備註: ${orderVO.or_note}</div>
+                   <font style="color:#c39d6d; font-size:20px;">備註:<div class="form-control" name="or_note" >${orderVO.or_note}</div>
                     
         
          
